@@ -3,6 +3,11 @@ var path = require('path');
 var bower_dir = path.join(__dirname, 'bower_components');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 
+var entry = [];
+if (process.env.NODE_ENV !== 'production') {
+    entry.push('webpack/hot/dev-server');
+}
+entry.push('./app/main.js');
 
 var config = {
     addVendor: function(name, path, forseParse) {
@@ -13,7 +18,7 @@ var config = {
     },
     context: __dirname,
     entry: {
-        app: ['webpack/hot/dev-server', './app/main.js']
+        app: entry
     },
     output: {
         publicPath: '/',
