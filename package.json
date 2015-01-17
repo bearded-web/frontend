@@ -1,14 +1,19 @@
 {
   "name": "bearded-web-frontend",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Bearded web frontend application",
   "main": "app/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bearded-web/frontend.git"
+  },
   "scripts": {
     "install": "bower i",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
     "deploy": "rm -rf dist && mkdir dist && cp templates/* dist && NODE_ENV=production webpack -p"
   },
-  "author": "Dmitry Manannikov",
+  "private": true,
+  "author": "Dmitry Manannikov <slonoed@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^0.9.0",
@@ -19,9 +24,7 @@
     "style-loader": "^0.8.2",
     "url-loader": "^0.5.5",
     "webpack": "^1.4.13",
-    "webpack-dev-server": "^1.6.6"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^1.6.6",
     "fluxxor": "^1.5.1",
     "font-awesome": "^4.2.0",
     "font-awesome-webpack": "0.0.2",

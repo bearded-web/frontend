@@ -3,11 +3,7 @@ var path = require('path');
 var bower_dir = path.join(__dirname, 'bower_components');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 
-var entry = [];
-if (process.env.NODE_ENV !== 'production') {
-    entry.push('webpack/hot/dev-server');
-}
-entry.push('./app/main.js');
+var isProduction = process.env.NODE_ENV === 'production';
 
 var config = {
     addVendor: function(name, path, forseParse) {
@@ -18,11 +14,11 @@ var config = {
     },
     context: __dirname,
     entry: {
-        app: entry
+        app: './app/main.js'
     },
     output: {
-        publicPath: '/',
-        path: path.resolve(__dirname, process.env.NODE_ENV === 'production' ? './dist/' : './build'),
+        publicPath: isProduction ? '/' : 'http://localhost:8080/',
+        path: path.resolve(__dirname, isProduction ? './dist/' : './build'),
         filename: 'bundle.js'
     },
     resolve: {
@@ -72,6 +68,7 @@ config.addVendor('bootstrap.css', path.resolve(bower_dir, 'bootstrap/dist/css/bo
 config.addVendor('reflux', path.resolve(bower_dir, 'reflux/dist/reflux.js'));
 config.addVendor('font-awesome-webpack', path.resolve(node_modules_dir, 'font-awesome-webpack'), true);
 config.addVendor('react-bootstrap', path.resolve(node_modules_dir, 'react-bootstrap'), true);
+config.addVendor('swagger-client-generator', path.resolve(node_modules_dir, 'swagger-client-generator'), true);
 config.addVendor('jed', path.resolve(bower_dir, 'jed/jed'));
 config.addVendor('lodash', path.resolve(bower_dir, 'lodash/dist/lodash.js'));
 config.addVendor('fluxxor', path.resolve(bower_dir, 'fluxxor/build/fluxxor.js'));

@@ -4,16 +4,15 @@ var _ = require('lodash');
 var constants = require('app/constants');
 
 module.exports = Fluxxor.createStore({
+    inited: false,
+
     leftPanelVisible: false,
 
-    isLogedIn: true, //TODO change to false
+    isLogedIn: false, //TODO change to false
 
     loginInProcess: false,
     loginError: '',
-    user: {
-        email: 'test@test',
-        role: 'admin'
-    },
+    user: {},
 
     initialize: function() {
         this.bindActions(
@@ -24,16 +23,16 @@ module.exports = Fluxxor.createStore({
 
         useActions(this, constants, [
             'USER_LOGOUT_SUCCESS',
-            'APP_TOGGLE_LEFT_PANEL'
+            'APP_TOGGLE_LEFT_PANEL',
+            'APP_LIFT_SUCCESS'
         ])
     },
-
 
 
     onUserLoginStart: function() {
         this.loginInProcess = true;
 
-        this.emit('change');
+        this._emitChange();
     },
 
     onUserLoginSuccess: function(user) {
@@ -41,14 +40,20 @@ module.exports = Fluxxor.createStore({
         this.isLogedIn = true;
         this.user = user;
 
-        this.emit('change');
+        this._emitChange();
     },
 
     onUserLoginFail: function(reason) {
         this.loginInProcess = false;
         this.loginError = reason;
 
-        this.emit('change');
+        this._emitChange();
+    },
+
+    _onAppLiftSuccess: function() {
+        this.inited = true;
+
+        this._emitChange();
     },
 
     _onUserLogoutSuccess: function() {

@@ -1,25 +1,34 @@
 var _ = require('lodash');
+
+
 var constants = require('app/constants');
+
+var api = require('../lib/api'),
+    auth = api('auth');
+
 
 module.exports = {
     logIn: function(email, password) {
-        this.dispatch(constants.USER_LOGIN_START);
+        var dispatch = this.dispatch.bind(this);
 
-        //TODO запрос на логин юзера
-        setTimeout(function() {
-            this.dispatch(constants.USER_LOGIN_SUCCESS, {
-                email: email,
-                role: 'admin'
-            });
-        }.bind(this), 1000);
+        dispatch(constants.USER_LOGIN_START);
+
+        auth('login', { email: email, password: password })
+
+            .then(() => api('me', 'info'))
+
+            .then((data) => dispatch(constants.USER_LOGIN_SUCCESS, data.user))
+
+            .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')))
+
     },
 
     logOut: function() {
-        this.dispatch(constants.USER_LOGOUT_START);
+        var dispatch = this.dispatch.bind(this);
 
-        //TODO ajax logout user
-        setTimeout(function() {
-            this.dispatch(constants.USER_LOGOUT_SUCCESS);
-        }.bind(this), 300)
+        dispatch(constants.USER_LOGOUT_START);
+
+        auth('logout').then(() => dispatch(constants.USER_LOGOUT_SUCCESS));
+
     }
 };

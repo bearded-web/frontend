@@ -1,5 +1,6 @@
 var constants = {
     APP_TOGGLE_LEFT_PANEL: true,
+    APP_LIFT_SUCCESS: true,
 
     SHOW_TARGET_MODAL: true,
     HIDE_TARGET_MODAL: true,
@@ -26,7 +27,7 @@ var constants = {
 
 
 
-var key = 'f^G&B#F@ffDEADCOW';
+var key = '_' || 'f^G&B#F@ffDEADCOW';
 Object.keys(constants).forEach(function(c) {
     constants[c] = c + key;
 });

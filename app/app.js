@@ -5,6 +5,7 @@ var Router = require('react-router'),
 
 var LeftPanel = require('./components/left-panel'),
     Navbar = require('./components/navbar'),
+    AppLoader = require('./components/app-loader'),
     LeftPanelCover = require('./components/left-panel-cover'),
     AddTargetModal = require('./components/add-target-modal');
 
@@ -26,10 +27,17 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var targetModal,
+        var app = this.state.app,
+            targetModal,
             leftPanelCover;
 
-        if (!this.state.app.isLogedIn) {
+        if (!app.inited) {
+            return (
+                <AppLoader />
+            );
+        }
+
+        if (!app.isLogedIn) {
             return (
                 <LoginOverlay app={this.state.app}/>
             );
@@ -39,13 +47,13 @@ module.exports = React.createClass({
             targetModal = <AddTargetModal targetsStore={this.state.targets} />;
         }
 
-        if (this.state.app.leftPanelVisible) {
+        if (app.leftPanelVisible) {
             leftPanelCover = <LeftPanelCover flux={this.getFlux()}/>
         }
 
         return (
             <div>
-                <LeftPanel show={this.state.app.leftPanelVisible} targets={this.state.targets} user={this.state.app.user}/>
+                <LeftPanel show={app.leftPanelVisible} targets={this.state.targets} user={app.user}/>
                 <div className="page-wrapper gray-bg">
                     <Navbar />
                     <div className="page-wrapper--content container-fluid">

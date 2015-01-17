@@ -1,18 +1,10 @@
 {
-  "name": "webpack-example",
-  "version": "0.0.0",
+  "name": "bearded-web-frontend",
   "authors": [
-    "Dmitry Manannikov <slooed@gmail.com>"
+    "Dmitry Manannikov <slonoed@gmail.com>"
   ],
   "license": "MIT",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
     "react": "~0.12.2",
     "react-router": "~0.11.6",
