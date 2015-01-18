@@ -26,7 +26,7 @@ module.exports = React.createClass({
             );
         }
 
-        title = iget('Target') + ': ' + target.domain;
+        title = iget('Target') + ': ' + target.web.domain;
 
         return (
             <div>

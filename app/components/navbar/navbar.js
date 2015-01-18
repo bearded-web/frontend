@@ -1,13 +1,25 @@
 var {Grid, Input, Row, Col} = Bootstrap;
 
-var LeftPanelToggler = require('../left-panel-toggler');
+var LeftPanelToggler = require('../left-panel-toggler'),
+    AccountControls = require('../account-controls');
 
 var Navbar = React.createClass({
+    mixins: [FluxMixin],
+
+    propTypes: {
+        user: React.PropTypes.shape({
+            email: React.PropTypes.string.isRequired
+        })
+    },
+
+    logOut: function() {
+        this.getFlux().actions.app.logOut();
+    },
 
     render: function() {
         var navStyle = {
-                marginBottom: 0
-            };
+            marginBottom: 0
+        };
 
         return (
             <Grid>
@@ -30,7 +42,7 @@ var Navbar = React.createClass({
 
                             <ul className="nav navbar-top-links navbar-right">
                                 <li>
-                                    <span className="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                                    <span className="m-r-sm text-muted welcome-message">{this.props.user.email}</span>
                                 </li>
                                 <li className="dropdown open">
                                     <a className="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="true">
@@ -88,9 +100,9 @@ var Navbar = React.createClass({
 
 
                                 <li>
-                                    <a href="login.html">
+                                    <a onClick={this.logOut}>
                                         <i className="fa fa-sign-out"></i>
-                                    Log out
+                                        Log out
                                     </a>
                                 </li>
                             </ul>

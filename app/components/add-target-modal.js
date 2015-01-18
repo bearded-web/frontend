@@ -57,8 +57,8 @@ module.exports = React.createClass({
                         <ErrorMessage text={error} />
                     </div>
                     <div className="modal-footer">
-                        <Button disabled={isSending}  onClick={this.props.onRequestHide}>Close</Button>
-                        <Button disabled={isSending} type="submit">{__('Add target')}</Button>
+                        <Button disabled={isSending} onClick={this.props.onRequestHide}>Close</Button>
+                        <Button bsStyle="primary" disabled={isSending} type="submit">{__('Add target')}</Button>
                     </div>
                 </form>
             </Modal>

@@ -1,5 +1,6 @@
-var Row = Bootstrap.Row,
-    Col = Bootstrap.Col;
+var Bootstrap = require('react-bootstrap');
+
+var { Row, Col } = Bootstrap;
 
 var Header = React.createClass({
     propTypes: {

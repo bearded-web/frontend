@@ -2,7 +2,6 @@
 var Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
-    AccountControls = require('../account-controls'),
     AddTargetButton = require('../add-target-button');
 
 
@@ -58,9 +57,6 @@ var LeftPanel = React.createClass({
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="b-left-panel--bottom  text-center">
-                    <AccountControls email={this.props.user.email}/>
                 </div>
             </nav>
         );
