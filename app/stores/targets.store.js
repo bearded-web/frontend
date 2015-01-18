@@ -85,8 +85,6 @@ module.exports = Fluxxor.createStore({
     },
 
     getTarget: function(id) {
-        var target = _.find(this.targets, { id: id });
-
-        return target;
+        return _.find(this.targets, { id: id });
     }
 });

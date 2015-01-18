@@ -35,6 +35,7 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
+window.flux = flux;
 
 var router = require('./router').create(flux);
 

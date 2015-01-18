@@ -43,16 +43,26 @@ var swaggerClientGenerator = require('swagger-client-generator');
 
 var rawapi = swaggerClientGenerator(schema, requestHandler);
 
-var api = function(endpoint, alias, data) {
+var api = function(endpoint, alias, params, data) {
     if (arguments.length === 1) {
         return api.bind(null, endpoint);
     }
+    if (arguments.length === 3) {
+        data = params;
+        params = {};
+    }
+    if (arguments.length === 2) {
+        params = {};
+    }
+
+
+    params.body = data;
 
     return new Promise(function(resolve, reject) {
         var apiName = 'apiV1' + endpoint.charAt(0).toUpperCase() + endpoint.slice(1);
 
         rawapi[apiName][alias](
-            { body: data },
+            params,
             function(err, data) {
                 if (err) {
                     return reject(err);

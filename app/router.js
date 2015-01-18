@@ -13,15 +13,26 @@ module.exports.create = function buildRouter(flux) {
         DefaultRoute = Router.DefaultRoute,
         NotFoundRoute = Router.NotFoundRoute,
         App = require('./components/app.js'),
+        Dashboard = require('./components/dashboard'),
+        Page = require('./components/page'),
         Overview = require('./components/overview'),
         NotFound = require('./components/not-found'),
+        LoginOverlay = require('./components/login-overlay'),
         Target = require('./components/target/');
 
     var routes = (
-        <Route flux={flux} name="app" path="/" handler={App}>
-            <DefaultRoute handler={Overview}/>
 
-            <Route name="target" path="target/:targetId" handler={Target}/>
+        <Route flux={flux} handler={App}>
+            <Route handler={Dashboard}>
+                <Route name="target" path="target/:targetId" handler={Target}/>
+                <DefaultRoute handler={Overview}/>
+            </Route>
+
+            <Route handler={Page}>
+                <Route name="signup" path="/signup/?" handler={LoginOverlay}/>
+                <Route name="login" path="/login/?" handler={LoginOverlay}/>
+            </Route>
+
 
             <NotFoundRoute handler={NotFound}/>
         </Route>

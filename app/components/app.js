@@ -1,23 +1,17 @@
-var Router = require('react-router'),
-    RouteHandler = Router.RouteHandler,
-    LoginOverlay = require('./login-overlay'),
-    Link = Router.Link;
-
-var LeftPanel = require('./left-panel/index'),
-    Navbar = require('./navbar/index'),
+var LoginOverlay = require('./login-overlay'),
+    Router = require('react-router'),
     AppLoader = require('./app-loader/index'),
-    LeftPanelCover = require('./left-panel-cover/index'),
-    AddTargetModal = require('./add-target-modal');
+    Dashboard = require('./dashboard');
 
 var Fluxxor = require('fluxxor');
+var RouteHandler = Router.RouteHandler;
 
-
-module.exports = React.createClass({
+var App = React.createClass({
     mixins: [
         Fluxxor.FluxMixin(React),
-        createStoreWatchMixin('AppStore', 'TargetsStore')
+        createStoreWatchMixin('AppStore', 'TargetsStore'),
+        Router.State
     ],
-
 
     getStateFromFlux: function() {
         return {
@@ -28,8 +22,7 @@ module.exports = React.createClass({
 
     render: function() {
         var app = this.state.app,
-            targetModal,
-            leftPanelCover;
+            signUpRoutActive = false;
 
         if (!app.inited) {
             return (
@@ -37,33 +30,10 @@ module.exports = React.createClass({
             );
         }
 
-        if (!app.isLogedIn) {
-            return (
-                <LoginOverlay app={this.state.app}/>
-            );
-        }
-
-        if (this.state.targets.modalIsVisible) {
-            targetModal = <AddTargetModal targetsStore={this.state.targets} />;
-        }
-
-        if (app.leftPanelVisible) {
-            leftPanelCover = <LeftPanelCover flux={this.getFlux()}/>;
-        }
-
         return (
-            <div>
-                <LeftPanel show={app.leftPanelVisible} targets={this.state.targets} user={app.user}/>
-                <div className="page-wrapper gray-bg">
-                    <Navbar />
-                    <div className="page-wrapper--content container-fluid">
-                        <RouteHandler/>
-                    </div>
-                </div>
-                {leftPanelCover}
-                {targetModal}
-            </div>
+            <RouteHandler />
         );
     }
 });
 
+module.exports = App;
