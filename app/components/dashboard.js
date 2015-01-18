@@ -40,7 +40,9 @@ var Dashboard = React.createClass({
             <div className="c-dashboard">
                 <LeftPanel show={app.leftPanelVisible} targets={targets} user={app.user}/>
                 <div className="page-wrapper gray-bg">
-                    <Navbar user={app.user}/>
+                    <div className="container-fluid">
+                        <Navbar user={app.user}/>
+                    </div>
                     <div className="page-wrapper--content container-fluid">
                         <RouteHandler/>
                     </div>
