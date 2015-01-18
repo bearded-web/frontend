@@ -9,7 +9,7 @@ module.exports = React.createClass({
     ],
 
     removeTarget: function() {
-        this.getFlux().actions.target.removeTarget(this.getTarget().id);
+        this.getFlux().actions.target.removeTarget(this.getTarget());
     },
 
     getTarget: function() {

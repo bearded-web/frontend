@@ -8,7 +8,7 @@ module.exports = React.createClass({
             <li key={target.id}>
                 <Link to="target" params={{ targetId: target.id }} className="b-left-panel--target">
                     <span>
-                        <i className="fa fa-crosshairs"></i>{target.domain}
+                        <i className="fa fa-globe"></i>{target.web.domain}
                     </span>
                     <span className="label label-warning pull-right">
                         <i className="fa fa-exclamation"></i>

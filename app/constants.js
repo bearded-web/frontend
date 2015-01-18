@@ -12,6 +12,10 @@ var constants = {
     REMOVE_TARGET_SUCCESS: true,
     REMOVE_TARGET_FAIL: true,
 
+    TARGETS_FETCH_START: true,
+    TARGETS_FETCH_SUCCESS: true,
+    TARGETS_FETCH_FAIL: true,
+
 
     USER_LOGIN_START: true,
     USER_LOGIN_SUCCESS: true,
@@ -20,6 +24,8 @@ var constants = {
     USER_LOGOUT_START: true,
     USER_LOGOUT_SUCCESS: true,
     USER_LOGOUT_FAIL: true,
+
+    PROJECT_FETCH_SUCCESS: true,
 
 
     ________: false // dont want delete "," after duplicate line

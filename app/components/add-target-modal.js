@@ -1,14 +1,18 @@
-var Modal = require('react-bootstrap').Modal,
-    Input = require('react-bootstrap').Input,
-    Button = require('react-bootstrap').Button;
+var Bootstrap = require('react-bootstrap'),
+    _ = require('lodash'),
+    Fluxxor = require('fluxxor');
 
-var ErrorMessage = require('app/components/error-message');
+var TargetsStore = require('../stores/targets.store');
 
-var _ = require('lodash');
-var Fluxxor = require('fluxxor');
+var { Modal, Input, Button } = Bootstrap,
+    ErrorMessage = require('app/components/error-message');
 
 module.exports = React.createClass({
     mixins: [window.FluxMixin],
+
+    propTypes: {
+        targetsStore: React.PropTypes.instanceOf(TargetsStore).isRequired
+    },
 
     onSubmit: function(e) {
         e.preventDefault();
@@ -16,10 +20,8 @@ module.exports = React.createClass({
         var domain = this.refs.domain.getDOMNode().value,
             targetType = this.refs.targetType.getDOMNode().value;
 
-        this.getFlux().actions.target.addTarget({
-            type: targetType,
-            domain: domain
-        });
+        this.getFlux().actions.target
+            .addTarget(targetType, domain, this.props.targetsStore.project)
     },
 
 

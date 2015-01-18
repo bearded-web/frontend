@@ -77,5 +77,6 @@ config.addVendor('jed', path.resolve(bower_dir, 'jed/jed'));
 config.addVendor('lodash', path.resolve(bower_dir, 'lodash/dist/lodash.js'));
 config.addVendor('fluxxor', path.resolve(bower_dir, 'fluxxor/build/fluxxor.js'));
 config.addVendor('pace', path.resolve(bower_dir, 'pace/pace.js'));
+config.addVendor('reqwest', path.resolve(node_modules_dir, 'reqwest/reqwest'));
 
 module.exports = config;

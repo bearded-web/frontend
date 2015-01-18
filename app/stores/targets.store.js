@@ -1,17 +1,14 @@
-var Fluxxor = require('fluxxor');
-var _ = require('lodash');
-
-var constants = require('app/constants');
+var Fluxxor = require('fluxxor'),
+    _ = require('lodash'),
+    constants = require('app/constants'),
+    useActions = require('../lib/use-actions');
 
 module.exports = Fluxxor.createStore({
-    targets: [
-        {
-            id: 'testtargetid',
-            domain: 'test domain',
-            type: 'web'
-        }
 
-    ],
+    project: null,
+
+    targets: [],
+
     targetAddInProcess: false,
     targetAddError: '',
     targetAddSuccess: false,
@@ -24,20 +21,39 @@ module.exports = Fluxxor.createStore({
             constants.ADD_TARGET_FAIL, this.onTargetAddFail,
             constants.SHOW_TARGET_MODAL, this.onShowTargetModal,
             constants.HIDE_TARGET_MODAL, this.onHideTargetModal,
-            constants.REMOVE_TARGET_SUCCESS, this.onRemoveTargetSuccess
+            constants.REMOVE_TARGET_SUCCESS, this.onRemoveTargetSuccess,
+            constants.TARGETS_FETCH_SUCCESS, this._onTargetsFetch
         );
+
+        useActions(this, constants, [
+            'PROJECT_FETCH_SUCCESS'
+        ]);
+
     },
 
-    emitChange: function() {
+    _emitChange: function() {
         this.emit('change');
     },
+
+    _onProjectFetchSuccess: function(project) {
+        this.project = project;
+
+        this._emitChange();
+    },
+
+    _onTargetsFetch: function(targets) {
+        this.targets = targets;
+
+        this._emitChange();
+    },
+
 
     onTargetAddStart: function() {
         this.targetAddSuccess = false;
         this.targetAddInProcess = true;
         this.targetAddError = '';
 
-        this.emitChange();
+        this._emitChange();
     },
 
     onTargetAdd: function(target) {
@@ -46,7 +62,7 @@ module.exports = Fluxxor.createStore({
         this.targetAddSuccess = true;
         this.modalIsVisible = false;
 
-        this.emitChange();
+        this._emitChange();
     },
 
     onTargetAddFail: function(errorText) {
@@ -54,25 +70,25 @@ module.exports = Fluxxor.createStore({
         this.targetAddError = errorText;
         this.targetAddInProcess = false;
 
-        this.emitChange();
+        this._emitChange();
     },
 
     onShowTargetModal: function() {
         this.modalIsVisible = true;
 
-        this.emitChange();
+        this._emitChange();
     },
 
     onHideTargetModal: function() {
         this.modalIsVisible = false;
 
-        this.emit('change');
+        this._emitChange();
     },
 
     onRemoveTargetSuccess: function(targetId) {
         _.remove(this.targets, { id: targetId });
 
-        this.emitChange();
+        this._emitChange();
     },
 
 

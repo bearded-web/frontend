@@ -1,32 +1,48 @@
 var _ = require('lodash');
-var constants = require('app/constants');
-var router = require('../router');
+
+var constants = require('app/constants'),
+    router = require('../router'),
+    targets = require('../lib/api')('targets'),
+    api = require('../lib/api2');
 
 module.exports = {
-    addTarget: function(target) {
-        this.dispatch(constants.ADD_TARGET, target);
+    fetchTargets: function() {
+        api.targets.fetch()
+            .then(this.dispatch.bind(this, constants.TARGETS_FETCH_SUCCESS))
+    },
 
-        if (!target.domain) {
+    addTarget: function(type, domain, project) {
+        this.dispatch(constants.ADD_TARGET);
+
+        if (!domain) {
             this.dispatch(constants.ADD_TARGET_FAIL, __('Target domain can\'t be empty'));
             return;
         }
-        setTimeout(function() {
-            var newTaret = _.cloneDeep(target);
-            newTaret.id = '123434' + Math.random();
 
-            this.dispatch(constants.ADD_TARGET_SUCCESS, newTaret);
-        }.bind(this), 1000);
+        var target = {
+            type: 'web',
+            project: project.id,
+            web: {
+                domain: domain
+            }
+        };
+
+
+        api.targets.create(target)
+            .then((target) => this.dispatch(constants.ADD_TARGET_SUCCESS, target))
+            .catch((e) => this.dispatch(constants.ADD_TARGET_FAIL, e));
     },
 
-    removeTarget: function(targetId) {
+    removeTarget: function(target) {
         this.dispatch(constants.REMOVE_TARGET_START);
 
-        setTimeout(() => {
-            router.get().transitionTo('app');
-            nextTick(() => {
-                this.dispatch(constants.REMOVE_TARGET_SUCCESS, targetId);
+        api.targets.remove(target)
+            .then(() => {
+                router.get().transitionTo('/');
+                nextTick(() => {
+                    this.dispatch(constants.REMOVE_TARGET_SUCCESS, target.id);
+                });
             });
-        }, 500);
     },
 
     openAddTargetModal: function() {

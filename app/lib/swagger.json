@@ -489,9 +489,9 @@
           "plugin.PluginList": {
             "id": "plugin.PluginList",
             "required": [
+              "previous",
               "count",
               "next",
-              "previous",
               "results"
             ],
             "properties": {
@@ -664,9 +664,9 @@
           "project.ProjectList": {
             "id": "project.ProjectList",
             "required": [
+              "next",
               "previous",
               "count",
-              "next",
               "results"
             ],
             "properties": {
@@ -1180,9 +1180,9 @@
           "user.UserList": {
             "id": "user.UserList",
             "required": [
+              "count",
               "next",
               "previous",
-              "count",
               "results"
             ],
             "properties": {

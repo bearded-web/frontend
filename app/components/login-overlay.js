@@ -12,7 +12,7 @@ var LoginOverlay = React.createClass({
 
         event.preventDefault();
 
-        this.getFlux().actions.user[this.isActive('signup') ? 'signUp' : 'logIn'](email, password);
+        this.getFlux().actions.app[this.isActive('signup') ? 'signUp' : 'logIn'](email, password);
     },
 
 

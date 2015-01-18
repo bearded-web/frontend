@@ -11,7 +11,7 @@ module.exports = React.createClass({
     },
 
     logOut: function() {
-        this.getFlux().actions.user.logOut();
+        this.getFlux().actions.app.logOut();
     },
 
     render: function() {

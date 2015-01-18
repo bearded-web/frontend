@@ -16,7 +16,7 @@ var LeftPanel = React.createClass({
 
     render: function() {
         var targetsStore = this.props.targets,
-            targets = targetsStore.targets;
+            { project, targets } = targetsStore;
 
         var addingStateShow;
 
@@ -42,6 +42,7 @@ var LeftPanel = React.createClass({
                                 Overview
                                 </Link>
                             </p>
+                            <h3 className="b-left-panel--section-name">Project: {project.name}</h3>
                             <h3 className="b-left-panel--section-name">Targets</h3>
                             <ul className="list-unstyled b-left-panel--targets">
                                 {targets.map(function(target) {
