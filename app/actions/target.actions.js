@@ -21,12 +21,12 @@ module.exports = {
     removeTarget: function(targetId) {
         this.dispatch(constants.REMOVE_TARGET_START);
 
-        setTimeout(function() {
+        setTimeout(() => {
             router.get().transitionTo('app');
-            nextTick(function() {
+            nextTick(() => {
                 this.dispatch(constants.REMOVE_TARGET_SUCCESS, targetId);
-            }.bind(this));
-        }.bind(this), 500)
+            });
+        }, 500);
     },
 
     openAddTargetModal: function() {

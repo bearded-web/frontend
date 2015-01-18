@@ -1,13 +1,13 @@
 var Router = require('react-router'),
     RouteHandler = Router.RouteHandler,
-    LoginOverlay = require('./components/login-overlay'),
+    LoginOverlay = require('./login-overlay'),
     Link = Router.Link;
 
-var LeftPanel = require('./components/left-panel'),
-    Navbar = require('./components/navbar'),
-    AppLoader = require('./components/app-loader'),
-    LeftPanelCover = require('./components/left-panel-cover'),
-    AddTargetModal = require('./components/add-target-modal');
+var LeftPanel = require('./left-panel/index'),
+    Navbar = require('./navbar/index'),
+    AppLoader = require('./app-loader/index'),
+    LeftPanelCover = require('./left-panel-cover/index'),
+    AddTargetModal = require('./add-target-modal');
 
 var Fluxxor = require('fluxxor');
 

@@ -21,6 +21,6 @@ module.exports = {
             }.bind(this))
             .catch(function() {
                 this.dispatch(constants.APP_LIFT_SUCCESS);
-            }.bind(this))
+            }.bind(this));
     }
 };

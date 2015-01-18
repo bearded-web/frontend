@@ -34,6 +34,10 @@ var config = {
                 loader: "url-loader?limit=10000&minetype=application/font-woff"
             },
             {
+                test: /\.json$/,
+                loader: 'json-loader'
+            },
+            {
                 test: /\.js$/,
                 loader: 'jsx-loader?harmony',
                 exclude: [

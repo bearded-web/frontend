@@ -1,9 +1,6 @@
-var _ = require('lodash');
-
-
-var constants = require('app/constants');
-
-var api = require('../lib/api'),
+var _ = require('lodash'),
+    constants = require('../constants'),
+    api = require('../lib/api'),
     auth = api('auth');
 
 
@@ -29,6 +26,5 @@ module.exports = {
         dispatch(constants.USER_LOGOUT_START);
 
         auth('logout').then(() => dispatch(constants.USER_LOGOUT_SUCCESS));
-
     }
 };

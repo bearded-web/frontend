@@ -7,8 +7,15 @@
     "type": "git",
     "url": "https://github.com/bearded-web/frontend.git"
   },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "node_modules/fluxxor",
+      "node_modules/fluxxor-jest-utils"
+    ]
+  },
   "scripts": {
     "install": "bower i",
+    "lint": "./node_modules/.bin/jsxhint app/ --harmony",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
     "deploy": "rm -rf dist && mkdir dist && cp templates/* dist && NODE_ENV=production webpack -p"
   },
@@ -17,18 +24,22 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^0.9.0",
+    "fetch-swagger-schema": "^0.1.2",
+    "fluxxor": "^1.5.1",
+    "fluxxor-test-utils": "^0.1.1",
+    "font-awesome": "^4.2.0",
+    "font-awesome-webpack": "0.0.2",
     "jest-cli": "^0.2.1",
+    "json-loader": "^0.5.1",
     "jsx-loader": "^0.12.2",
+    "jsxhint": "^0.9.0",
     "less": "^2.2.0",
     "less-loader": "^2.0.0",
+    "react": "^0.12.2",
+    "react-bootstrap": "^0.13.2",
     "style-loader": "^0.8.2",
     "url-loader": "^0.5.5",
     "webpack": "^1.4.13",
-    "webpack-dev-server": "^1.6.6",
-    "fluxxor": "^1.5.1",
-    "font-awesome": "^4.2.0",
-    "font-awesome-webpack": "0.0.2",
-    "react": "^0.12.2",
-    "react-bootstrap": "^0.13.2"
+    "webpack-dev-server": "^1.6.6"
   }
 }

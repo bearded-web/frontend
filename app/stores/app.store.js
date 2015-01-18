@@ -1,14 +1,14 @@
 var Fluxxor = require('fluxxor');
 var _ = require('lodash');
 
-var constants = require('app/constants');
+var constants = require('../constants');
 
 module.exports = Fluxxor.createStore({
     inited: false,
 
     leftPanelVisible: false,
 
-    isLogedIn: false, //TODO change to false
+    isLogedIn: false,
 
     loginInProcess: false,
     loginError: '',
