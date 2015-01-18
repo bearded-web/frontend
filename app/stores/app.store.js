@@ -25,7 +25,7 @@ module.exports = Fluxxor.createStore({
             'USER_LOGOUT_SUCCESS',
             'APP_TOGGLE_LEFT_PANEL',
             'APP_LIFT_SUCCESS'
-        ])
+        ]);
     },
 
 
@@ -60,7 +60,7 @@ module.exports = Fluxxor.createStore({
         this.user = {};
         this.isLogedIn = false;
 
-        this._emitChange()
+        this._emitChange();
     },
 
     _onAppToggleLeftPanel: function() {
@@ -92,6 +92,6 @@ function useActions(store, constants, actions) {
         store.bindActions(
             constants[action],
             store[methodName]
-        )
+        );
     });
 }

@@ -25,7 +25,7 @@ module.exports = Fluxxor.createStore({
             constants.SHOW_TARGET_MODAL, this.onShowTargetModal,
             constants.HIDE_TARGET_MODAL, this.onHideTargetModal,
             constants.REMOVE_TARGET_SUCCESS, this.onRemoveTargetSuccess
-        )
+        );
     },
 
     emitChange: function() {

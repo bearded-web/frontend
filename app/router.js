@@ -27,8 +27,10 @@ module.exports.create = function buildRouter(flux) {
         </Route>
     );
 
-    return router = Router.create({
+    router = Router.create({
         routes: routes
         //location: Router.HistoryLocation
     });
+
+    return router;
 };

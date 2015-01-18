@@ -1,4 +1,4 @@
-var Router = require('react-router')
+var Router = require('react-router'),
     Header = require('../header');
 
 module.exports = React.createClass({

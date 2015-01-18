@@ -16,7 +16,7 @@ module.exports = {
 
             .then((data) => dispatch(constants.USER_LOGIN_SUCCESS, data.user))
 
-            .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')))
+            .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')));
 
     },
 

@@ -48,7 +48,7 @@ module.exports = React.createClass({
         }
 
         if (app.leftPanelVisible) {
-            leftPanelCover = <LeftPanelCover flux={this.getFlux()}/>
+            leftPanelCover = <LeftPanelCover flux={this.getFlux()}/>;
         }
 
         return (

@@ -29,7 +29,7 @@ function requestHandler(error, request) {
         }
         catch (e) {
             request.options.callback(e);
-            console.log('onloadend error', e)
+            console.log('onloadend error', e);
         }
     };
 
@@ -58,10 +58,10 @@ var api = function(endpoint, alias, data) {
                     return reject(err);
                 }
 
-                resolve(data)
+                resolve(data);
             }
         );
-    })
+    });
 };
 
 module.exports = api;

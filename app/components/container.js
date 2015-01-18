@@ -3,7 +3,7 @@ module.exports = React.createClass({
         var cName = this.props.className + ' container';
 
         if (this.props.fluid) {
-            cName += '-fluid'
+            cName += '-fluid';
         }
 
         return (
