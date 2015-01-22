@@ -1,10 +1,11 @@
-var LoginOverlay = require('./login-overlay'),
+var Fluxxor = require('fluxxor'),
     Router = require('react-router'),
+    RouteHandler = Router.RouteHandler;
+
+var LoginOverlay = require('./login-overlay'),
     AppLoader = require('./app-loader/index'),
     Dashboard = require('./dashboard');
 
-var Fluxxor = require('fluxxor');
-var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
     mixins: [
@@ -22,8 +23,15 @@ var App = React.createClass({
 
     render: function() {
         if (!this.state.app.inited) {
+            console.log('Render apploader')
             return (
                 <AppLoader />
+            );
+        }
+
+        if (!this.state.app.isLogedIn) {
+            return (
+                <LoginOverlay />
             );
         }
 

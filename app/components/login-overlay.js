@@ -7,18 +7,19 @@ var LoginOverlay = React.createClass({
 
 
     onSubmit: function(event) {
-        var email = this.refs.email.getDOMNode().value,
+        var isSignUp = this.getFlux().store('AppStore').loginPageState === 'signup',
+            email = this.refs.email.getDOMNode().value,
             password = this.refs.password.getDOMNode().value;
 
         event.preventDefault();
 
-        this.getFlux().actions.app[this.isActive('signup') ? 'signUp' : 'logIn'](email, password);
+        this.getFlux().actions.app[isSignUp ? 'signUp' : 'logIn'](email, password);
     },
 
 
     render: function() {
         var app = this.getFlux().store('AppStore'),
-            isSignUp = this.isActive('signup'),
+            isSignUp = app.loginPageState === 'signup',
             loginInProcess = app.loginInProcess,
             loginError = app.loginError || '';
 

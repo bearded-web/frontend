@@ -9,6 +9,7 @@ module.exports = Fluxxor.createStore({
     leftPanelVisible: false,
 
     isLogedIn: false,
+    loginPageState: 'login',
 
     loginInProcess: false,
     loginError: '',
@@ -18,7 +19,8 @@ module.exports = Fluxxor.createStore({
         this.bindActions(
             constants.USER_LOGIN_START, this.onUserLoginStart,
             constants.USER_LOGIN_SUCCESS, this.onUserLoginSuccess,
-            constants.USER_LOGIN_FAIL, this.onUserLoginFail
+            constants.USER_LOGIN_FAIL, this.onUserLoginFail,
+            constants.APP_LOGIN_PAGE_STATE, this._onAppLoginPageState
         );
 
         useActions(this, constants, [
@@ -26,6 +28,12 @@ module.exports = Fluxxor.createStore({
             'APP_TOGGLE_LEFT_PANEL',
             'APP_LIFT_SUCCESS'
         ]);
+    },
+
+    _onAppLoginPageState: function(state) {
+        this.loginPageState = state;
+
+        this._emitChange();
     },
 
 

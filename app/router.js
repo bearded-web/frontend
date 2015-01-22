@@ -29,13 +29,6 @@ module.exports.create = function buildRouter(flux) {
 
                 <NotFoundRoute handler={NotFound}/>
             </Route>
-
-            <Route handler={Page}>
-                <Route name="signup" path="/signup/?" handler={LoginOverlay}/>
-                <Route name="login" path="/login/?" handler={LoginOverlay}/>
-            </Route>
-
-
         </Route>
     );
 

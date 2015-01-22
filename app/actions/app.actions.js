@@ -27,15 +27,16 @@ module.exports = {
             }.bind(this))
             .catch(function() {
                 this.dispatch(constants.APP_LIFT_SUCCESS);
+                router.get().transitionTo('login');
             }.bind(this));
     },
 
     showRegister: function() {
-        router.get().transitionTo('signup');
+        this.dispatch(constants.APP_LOGIN_PAGE_STATE, 'signup');
     },
 
     showLogin: function() {
-        router.get().transitionTo('login');
+        this.dispatch(constants.APP_LOGIN_PAGE_STATE, 'login');
     },
 
     logIn: function(email, password) {
@@ -45,8 +46,13 @@ module.exports = {
 
         auth('login', { email: email, password: password })
             .then(() => oldApi('me', 'info'))
-            .then(handleMeData.bind(this))
-            .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')));
+            .then((data) => {
+                this.flux.actions.target.fetchTargets();
+                handleMeData.call(this, data);
+            })
+            .catch((err) => {
+                dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'))
+            });
 
     },
 
@@ -56,7 +62,7 @@ module.exports = {
         dispatch(constants.USER_LOGOUT_START);
 
         auth('logout')
-            .then(() => window.location.reload());
+            .then(() => window.location = '/');
     },
 
     signUp: function(email, password) {
@@ -79,6 +85,4 @@ function handleMeData(data) {
 
     if (data.projects.length)
         this.dispatch(constants.PROJECT_FETCH_SUCCESS, data.projects[0]);
-
-    router.get().transitionTo('/');
 }

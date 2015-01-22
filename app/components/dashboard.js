@@ -12,7 +12,10 @@ var Dashboard = React.createClass({
 
     statics: {
         willTransitionTo: function(transition) {
-            if (!flux.store('AppStore').isLogedIn) {
+            var app = flux.store('AppStore');
+
+            if (!app.isLogedIn && app.inited) {
+                console.log('dashbord transit to ligin');
                 transition.redirect('/login');
             }
         }
