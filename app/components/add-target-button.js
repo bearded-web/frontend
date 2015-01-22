@@ -1,5 +1,6 @@
 var ModalTrigger = require('react-bootstrap/ModalTrigger'),
     Button = require('react-bootstrap/Button'),
+    Fa = require('./fa'),
     AddTargetModal = require('app/components/add-target-modal');
 
 module.exports = React.createClass({
@@ -11,7 +12,10 @@ module.exports = React.createClass({
 
     render: function() {
         return (
-            <Button bsStyle="primary" onClick={this.onClick}>{__('Add target')}</Button>
+            <Button bsStyle="primary" onClick={this.onClick}>
+                <Fa icon="plus" />
+                {__('Add target')}
+            </Button>
         );
     }
 });

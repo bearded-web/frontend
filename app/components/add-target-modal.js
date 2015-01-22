@@ -49,15 +49,24 @@ module.exports = React.createClass({
                                     <span>{__('Enter url which be used to scans and tests.')}</span>
                                     <br/>
                                     <span>{__('Better if it will be root url of your site')}</span>
-                                    <input ref="domain" className="form-control input-sm" type="text" placeholder="http://example.com" />
-
+                                    <input ref="domain" className="form-control input-sm" type="text" autofocus placeholder="http://example.com" />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="radio">
+                                <label>
+                                    <input disabled type='radio'  />
+                                    <span>{ __('Mobile target. Available on request.')}</span>
+                                    <br/>
+                                    <span>{__('If you want to test mobile platforms contact us.')}</span>
                                 </label>
                             </div>
                         </div>
                         <ErrorMessage text={error} />
                     </div>
                     <div className="modal-footer">
-                        <Button disabled={isSending} onClick={this.props.onRequestHide}>Close</Button>
+                        <Button disabled={isSending} onClick={this.onRequestHide}>Close</Button>
                         <Button bsStyle="primary" disabled={isSending} type="submit">{__('Add target')}</Button>
                     </div>
                 </form>

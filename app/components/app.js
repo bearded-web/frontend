@@ -21,10 +21,7 @@ var App = React.createClass({
     },
 
     render: function() {
-        var app = this.state.app,
-            signUpRoutActive = false;
-
-        if (!app.inited) {
+        if (!this.state.app.inited) {
             return (
                 <AppLoader />
             );

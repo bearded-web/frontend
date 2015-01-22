@@ -1,11 +1,14 @@
-
 var Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
-    AddTargetButton = require('../add-target-button');
+    AddTargetButton = require('../add-target-button'),
+    Fa = require('../fa'),
+    cx = React.addons.classSet;
 
 
 var LeftPanel = React.createClass({
+    mixins: [Router.State],
+
     propTypes: {
         targets: React.PropTypes.object.isRequired,
         user: React.PropTypes.object.isRequired,
@@ -25,39 +28,43 @@ var LeftPanel = React.createClass({
             );
         }
 
-        var className = 'b-left-panel sidebar';
+        var className = 'c-left-panel sidebar';
         if (this.props.show) {
-            className += ' b-left-panel--opened';
+            className += ' c-left-panel--opened';
         }
+        var classes = cx({
+            'c-left-panel sidebar': true,
+            'c-left-panel--opened': this.props.show,
+            'navbar-default': true
+        });
 
         return (
-            <nav role="navigation" className={className}>
-                <h1 className="b-left-panel--header">Barbudo</h1>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-xs-12">
-                            <p className="text-center">
-                                <Link to="/">
-                                Overview
-                                </Link>
-                            </p>
-                            <h3 className="b-left-panel--section-name">Project: {project.name}</h3>
-                            <h3 className="b-left-panel--section-name">Targets</h3>
-                            <ul className="list-unstyled b-left-panel--targets">
-                                {targets.map(function(target) {
-                                    return (
-                                        <TargetNavLink  key={target.id} target={target} />
-                                    );
-                                })}
+            <nav role="navigation" className={classes}>
+                <ul className="nav">
+                    <li className="nav-header">
+                        <div className="logo-element">Barbudo</div>
+                    </li>
 
-                                {addingStateShow}
-                            </ul>
-                            <div className="text-center">
-                                <AddTargetButton />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <li className={this.isActive('overview') ? 'active' : ''}>
+                        <Link to="/">
+                            <Fa icon="th-large" />
+                            <span className="nav-label">
+                            Overview
+                            </span>
+                        </Link>
+                    </li>
+
+                    {targets.map(function(target) {
+                        return (
+                            <TargetNavLink  key={target.id} target={target} />
+                        );
+                    })}
+
+                    <li className="c-left-panel--button">
+                        <AddTargetButton />
+                    </li>
+                </ul>
+
             </nav>
         );
     }

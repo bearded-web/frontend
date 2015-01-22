@@ -1,5 +1,6 @@
 var Router = require('react-router'),
-    Header = require('../header');
+    TargetHeader = require('../target-header'),
+    Widget = require('../widget');
 
 module.exports = React.createClass({
     mixins: [
@@ -17,8 +18,7 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var target = this.getTarget(),
-            title;
+        var target = this.getTarget();
 
         if (!target) {
             return (
@@ -26,12 +26,9 @@ module.exports = React.createClass({
             );
         }
 
-        title = iget('Target') + ': ' + target.web.domain;
-
         return (
             <div>
-                <Header title={title} />
-                <a onClick={this.removeTarget}>Delete</a>
+                <TargetHeader title={target.web.domain} removeTarget={this.removeTarget}/>
             </div>
         );
     }

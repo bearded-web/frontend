@@ -25,7 +25,9 @@ module.exports.create = function buildRouter(flux) {
         <Route flux={flux} handler={App}>
             <Route handler={Dashboard}>
                 <Route name="target" path="target/:targetId" handler={Target}/>
-                <DefaultRoute handler={Overview}/>
+                <DefaultRoute name="overview" handler={Overview}/>
+
+                <NotFoundRoute handler={NotFound}/>
             </Route>
 
             <Route handler={Page}>
@@ -34,7 +36,6 @@ module.exports.create = function buildRouter(flux) {
             </Route>
 
 
-            <NotFoundRoute handler={NotFound}/>
         </Route>
     );
 

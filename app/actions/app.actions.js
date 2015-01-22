@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var constants = require('../constants'),
     oldApi = require('../lib/api'),
-    api = require('../lib/api2')
+    api = require('../lib/api2'),
     router = require('../router'),
     users = oldApi('users'),
     auth = oldApi('auth');
@@ -9,7 +9,7 @@ var constants = require('../constants'),
 
 module.exports = {
     toggleLeftPanel: function() {
-        this.dispatch(constants.TARGETS_FETCH_START);
+        this.dispatch(constants.APP_TOGGLE_LEFT_PANEL);
     },
 
     /**

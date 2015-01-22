@@ -4,15 +4,16 @@ var { Row, Col } = Bootstrap;
 
 var Header = React.createClass({
     propTypes: {
-        title: React.PropTypes.string.isRequired
+        children: React.PropTypes.oneOfType([
+            React.PropTypes.element,
+            React.PropTypes.arrayOf(React.PropTypes.element)
+        ])
     },
 
     render: function() {
         return (
             <Row className="border-bottom white-bg page-heading">
-                <Col lg={10}>
-                    <h2>{this.props.title}</h2>
-                </Col>
+                {this.props.children}
             </Row>
         );
     }

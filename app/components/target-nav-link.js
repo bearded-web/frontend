@@ -1,17 +1,23 @@
-var Link = require('react-router').Link;
+var Link = require('react-router').Link,
+    Router = require('react-router'),
+    Fa = require('./fa');
 
 module.exports = React.createClass({
+    mixins: [Router.State],
+
     render: function() {
-        var target = this.props.target;
+        var target = this.props.target,
+            targetId = target.id,
+            isActiveLink = this.isActive('target', { targetId });
+
+
 
         return (
-            <li key={target.id}>
-                <Link to="target" params={{ targetId: target.id }} className="b-left-panel--target">
-                    <span>
-                        <i className="fa fa-globe"></i>{target.web.domain}
-                    </span>
-                    <span className="label label-warning pull-right">
-                        <i className="fa fa-exclamation"></i>
+            <li className={isActiveLink ? 'active' : ''}>
+                <Link to="target" params={{ targetId: targetId }}>
+                    <Fa icon="globe" />
+                    <span className="nav-label">
+                        {target.web.domain}
                     </span>
                 </Link>
             </li>

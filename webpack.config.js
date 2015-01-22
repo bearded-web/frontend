@@ -65,7 +65,7 @@ var config = {
     ]
 };
 
-config.addVendor('react', path.resolve(bower_dir, 'react/react.js'));
+config.addVendor('react', path.resolve(bower_dir, 'react/react-with-addons.js'));
 config.addVendor('react-router', path.resolve(bower_dir, 'react-router/dist/react-router.js'));
 config.addVendor('bootstrap', path.resolve(bower_dir, 'bootstrap/'));
 config.addVendor('bootstrap.css', path.resolve(bower_dir, 'bootstrap/dist/css/bootstrap.css'));

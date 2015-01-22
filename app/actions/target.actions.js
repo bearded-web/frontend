@@ -29,7 +29,10 @@ module.exports = {
 
 
         api.targets.create(target)
-            .then((target) => this.dispatch(constants.ADD_TARGET_SUCCESS, target))
+            .then((target) => {
+                router.get().transitionTo('target', { targetId: target.id });
+                this.dispatch(constants.ADD_TARGET_SUCCESS, target);
+            })
             .catch((e) => this.dispatch(constants.ADD_TARGET_FAIL, e));
     },
 

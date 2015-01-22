@@ -1,9 +1,14 @@
-var Header = require('./header');
+var Header = require('./header'),
+    { Col } = require('react-bootstrap');
 
 var Overview = React.createClass({
     render: function() {
         return (
-            <Header title="Overview" />
+            <Header>
+                <Col>
+                    <h2>Overview</h2>
+                </Col>
+            </Header>
         );
     }
 });
