@@ -99,7 +99,7 @@ var Navbar = React.createClass({
 
 
                             <li>
-                                <a onClick={this.logOut}>
+                                <a className="navbar--logout" onClick={this.logOut}>
                                     <i className="fa fa-sign-out"></i>
                                 Log out
                                 </a>
