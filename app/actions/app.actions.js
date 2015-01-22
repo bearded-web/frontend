@@ -18,17 +18,20 @@ module.exports = {
     initApp: function() {
         // try to fetch data
         oldApi('me', 'info')
-            .then(function(data) {
+            .then((data) => {
                 this.dispatch(constants.APP_LIFT_SUCCESS);
-
-                this.flux.actions.target.fetchTargets();
-
                 handleMeData.call(this, data);
-            }.bind(this))
-            .catch(function() {
+
+                return Promise.all([
+                    this.flux.actions.target.fetchTargets(),
+                    this.flux.actions.plan.fetchPlans()
+                ]);
+            })
+            .catch((e) => {
+                console.log('cant init app', e.stack);
                 this.dispatch(constants.APP_LIFT_SUCCESS);
                 router.get().transitionTo('login');
-            }.bind(this));
+            });
     },
 
     showRegister: function() {

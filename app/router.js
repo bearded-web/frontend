@@ -1,12 +1,13 @@
 require('react');
 
-var router = null;
+var router = null,
+    flux = require('./flux');
 
 module.exports.get = function getRouter() {
     return router;
 };
 
-module.exports.create = function buildRouter(flux) {
+module.exports.create = function buildRouter() {
 
     var Router = require('react-router'),
         Route = Router.Route,

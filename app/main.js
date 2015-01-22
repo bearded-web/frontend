@@ -25,21 +25,11 @@ window.nextTick = function(fn) {
 
 pace.start();
 
-var actions = require('./actions'),
-    stores = require('./stores'),
-    flux = new Fluxxor.Flux(stores, actions);
-
-flux.on("dispatch", function(type, payload) {
-    if (console && console.log) {
-        console.log("[Dispatch]", type, payload);
-    }
-});
-
-window.flux = flux;
-
-var router = require('./router').create(flux);
+var flux = window.flux = require('./flux');
 
 flux.actions.app.initApp();
+
+var router = require('./router').create();
 
 router.run(function(Handler, state) {
     // you might want to push the state of the router to a

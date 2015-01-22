@@ -7,13 +7,41 @@ function makeRequest(options) {
     options.contentType = 'application/json';
     options.type = 'json';
     if (options.data) {
-        options.data = JSON.stringify(data, null, 4)
+        options.data = JSON.stringify(options.data, null, 4)
     }
 
     return reqwest(options);
 }
 
+module.exports.one = function apiAll(endpoint, id) {
+    return makeRequest({
+        url: endpoint + '/' + id,
+        method: 'get'
+    });
+};
+module.exports.all = function apiAll(endpoint) {
+    return makeRequest({
+        url: endpoint,
+        method: 'get'
+    });
+};
+module.exports.create = function apiAll(endpoint, data) {
+    return makeRequest({
+        url: endpoint,
+        method: 'post',
+        data
+    });
+};
+
+
 module.exports.targets = {
+    one: function(targetId) {
+        return makeRequest({
+            url: 'targets/' + targetId,
+            method: 'get'
+        });
+    },
+
     fetch: function() {
         return makeRequest({
             url: 'targets',
@@ -40,3 +68,4 @@ module.exports.targets = {
         });
     }
 };
+

@@ -7,7 +7,8 @@ var constants = require('app/constants'),
 
 module.exports = {
     fetchTargets: function() {
-        api.targets.fetch()
+        return api
+            .targets.fetch()
             .then(this.dispatch.bind(this, constants.TARGETS_FETCH_SUCCESS))
     },
 
@@ -54,5 +55,15 @@ module.exports = {
 
     hideModal: function() {
         this.dispatch(constants.HIDE_TARGET_MODAL);
+    },
+
+    setCurrentTarget: function(targetId) {
+        api.targets.one(targetId)
+            .then((target) => this.dispatch(constants.TARGETS_SET_CURRENT, target))
+            .then(() => this.flux.actions.scan.fetchScans());
+    },
+
+    unsetCurrentTarget: function() {
+        this.dispatch(constants.TARGETS_UNSET_CURRENT);
     }
 };
