@@ -15,7 +15,7 @@ var ScanSession = React.createClass({
             progress = moment().diff(createdAt, 'seconds'),
             tooltip;
 
-        progress = Math.tanh(progress / 10);
+        progress = Math.tanh(progress / 20);
         progress = Math.min(progress * 100 - 3, 100);
         progress = Math.max(progress, 0);
 

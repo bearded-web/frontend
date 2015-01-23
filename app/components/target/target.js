@@ -3,7 +3,7 @@ var Router = require('react-router'),
 
 var { Row, Col } = require('react-bootstrap'),
     TargetHeader = require('../target-header'),
-    Activites = require('../activites'),
+    Feed = require('../feed'),
     Fa = require('../fa'),
     Ibox = require('../ibox'),
     IboxTitle = require('../ibox-title'),
@@ -63,7 +63,6 @@ module.exports = React.createClass({
                     <Col xs={12} md={4}>
                         <TargetStatus />
                         {this.renderStartScanButton()}
-                        {scans.length ? this.renderScans() : ''}
                     </Col>
                     <Col xs={12} md={8}>
                         <Ibox>
@@ -71,7 +70,7 @@ module.exports = React.createClass({
                                 <h5>{iget('Target timeline')}</h5>
                             </IboxTitle>
                             <IboxContent>
-                                <Activites />
+                                <Feed scans={scans}/>
                             </IboxContent>
                         </Ibox>
                     </Col>
@@ -95,33 +94,6 @@ module.exports = React.createClass({
                     </Ibox>
                 </Col>
             </Row>
-        );
-    },
-
-    renderScans: function() {
-        var scans = this.state.scans;
-
-        if (!scans.length) {
-
-        }
-
-        return (
-            <div>
-                {scans.map(function(scan) {
-                    return (
-                        <Row>
-                            <Col xs={12}>
-                                <Ibox>
-                                    <IboxContent>
-                                        <TargetScan scan={scan}/>
-
-                                    </IboxContent>
-                                </Ibox>
-                            </Col>
-                        </Row>
-                    );
-                })}
-            </div>
         );
     }
 });

@@ -32,15 +32,10 @@ var TargetScan = React.createClass({
     },
 
     render: function() {
-        var { scan } = this.props,
-            startedAt = moment(scan.created).calendar();
+        var { scan } = this.props;
 
         return (
             <div className="target-scan">
-                <h3>
-                Started {startedAt}
-                </h3>
-
                 {scan.sessions.map(function(session) {
                     return (
                         <ScanSession key={session.id} session={session} />

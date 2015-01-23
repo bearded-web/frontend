@@ -1,10 +1,19 @@
 var React = require('react');
 
-var Activites = React.createClass({
+var FeedItem = require('../feed-item');
+
+var Feed = React.createClass({
     render: function() {
+        var scans = this.props.scans;
+
         return (
             <div>
                 <div className="feed-activity-list">
+                    {scans.map(function(scan) {
+                        return (
+                            <FeedItem key={'scan-feed' + scan.id} scan={scan}/>
+                        );
+                    })}
 
                     <div className="feed-element">
                         <a href="#" className="pull-left">
@@ -178,4 +187,6 @@ var Activites = React.createClass({
     }
 });
 
-module.exports = Activites;
+module.exports = Feed;
+
+
