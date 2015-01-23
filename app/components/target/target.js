@@ -61,18 +61,7 @@ module.exports = React.createClass({
                 <br/>
                 <Row>
                     <Col xs={12} md={4}>
-                        <Row>
-                            <Col xs={12}>
-                                <Ibox>
-                                    <IboxTitle>
-                                        <h5>{iget('Curernt status')}</h5>
-                                    </IboxTitle>
-                                    <IboxContent>
-                                        <TargetStatus />
-                                    </IboxContent>
-                                </Ibox>
-                            </Col>
-                        </Row>
+                        <TargetStatus />
                         {this.renderStartScanButton()}
                         {scans.length ? this.renderScans() : ''}
                     </Col>
