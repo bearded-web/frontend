@@ -32,5 +32,12 @@ module.exports = {
                 router.get().transitionTo('target', { targetId: targetId });
                 this.dispatch(C.SCANS_DETECT_CREATED, scan);
             });
+    },
+
+    fetchReports: function(scanId) {
+        api.all('scans/' + scanId + '/reports')
+            .then((data) => {
+                this.dispatch(C.REPORTS_FETCH_SUCCESS, data.results);
+            });
     }
 };

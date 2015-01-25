@@ -17,6 +17,8 @@ var constants = {
     REMOVE_TARGET_SUCCESS: true,
     REMOVE_TARGET_FAIL: true,
 
+    REPORTS_FETCH_SUCCESS: true,
+
     SCANS_DETECT_CREATED: true,
     SCANS_FETCH_SUCCESS: true,
 
