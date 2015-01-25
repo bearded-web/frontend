@@ -69,7 +69,7 @@ var Scan = React.createClass({
 
         return (
             <form>
-                <Input type="select" defaultValue={selectedPlan.id} label={iget('Scnal plan')}>
+                <Input type="select" defaultValue={selectedPlan.id} label={iget('Scan plan')}>
                     {this.state.plans.map(function(plan) {
                         return (
                             <option key={plan.id} value={plan.id}>
