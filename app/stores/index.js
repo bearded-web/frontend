@@ -1,5 +1,6 @@
 var Stores = {
     TargetsStore: require('./targets.store'),
+    AgentsStore: require('./agents.store'),
     ScanStore: require('./scan.store'),
     TargetStore: require('./target.store'),
     AppStore: require('./app.store')

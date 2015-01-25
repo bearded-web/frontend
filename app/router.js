@@ -14,6 +14,7 @@ module.exports.create = function buildRouter() {
         DefaultRoute = Router.DefaultRoute,
         NotFoundRoute = Router.NotFoundRoute,
         App = require('./components/app.js'),
+        Agents = require('./components/agents'),
         Dashboard = require('./components/dashboard'),
         Page = require('./components/page'),
         Scan = require('./components/scan'),
@@ -30,6 +31,7 @@ module.exports.create = function buildRouter() {
                 <Route name="target" path="target/:targetId" handler={Target}/>
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
+                <Route name="agents" path="agents" handler={Agents}/>
                 <DefaultRoute name="overview" handler={Overview}/>
 
                 <NotFoundRoute handler={NotFound}/>

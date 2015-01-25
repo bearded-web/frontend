@@ -1,5 +1,6 @@
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
+    merge = require('../lib/merge-collections'),
     C = require('../constants');
 
 module.exports = Fluxxor.createStore({
@@ -58,16 +59,7 @@ module.exports = Fluxxor.createStore({
     },
 
     _onScansFetchSuccess: function(scans) {
-        scans.forEach((scan) => {
-            var storedScan = _.find(this.allScans, { id: scan.id });
-
-            if (storedScan) {
-                _.assign(storedScan, scan);
-            } else {
-                this.allScans.unshift(scan);
-            }
-        });
-
+        merge(this.allScans, scans);
 
         this._emitChange();
     },

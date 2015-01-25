@@ -13,18 +13,21 @@ function makeRequest(options) {
     return reqwest(options);
 }
 
+
 module.exports.one = function apiAll(endpoint, id) {
     return makeRequest({
         url: endpoint + '/' + id,
         method: 'get'
     });
 };
+
 module.exports.all = function apiAll(endpoint) {
     return makeRequest({
         url: endpoint,
         method: 'get'
     });
 };
+
 module.exports.create = function apiAll(endpoint, data) {
     return makeRequest({
         url: endpoint,
@@ -69,3 +72,11 @@ module.exports.targets = {
     }
 };
 
+module.exports.agents = {
+    approve: function(agentId) {
+        return makeRequest({
+            url: 'agents/' + agentId + '/approve',
+            method: 'post'
+        });
+    }
+};

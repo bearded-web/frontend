@@ -27,7 +27,7 @@
     "fetch-swagger-schema": "^0.1.2",
     "fluxxor": "^1.5.1",
     "fluxxor-test-utils": "^0.1.1",
-    "font-awesome": "^4.2.0",
+    "font-awesome": "4.3.0",
     "font-awesome-webpack": "0.0.2",
     "jest-cli": "^0.2.1",
     "json-loader": "^0.5.1",

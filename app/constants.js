@@ -1,4 +1,6 @@
 var constants = {
+    AGENTS_FETCH_SUCCESS: true,
+
     APP_TOGGLE_LEFT_PANEL: true,
     APP_LIFT_SUCCESS: true,
     APP_LOGIN_PAGE_STATE: true,

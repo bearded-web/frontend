@@ -63,6 +63,15 @@ var LeftPanel = React.createClass({
                     <li className="c-left-panel--button">
                         <AddTargetButton />
                     </li>
+
+                    <li className={this.isActive('agents') ? 'active' : ''}>
+                        <Link to="agents">
+                            <Fa icon="cube" />
+                            <span className="nav-label">
+                            Agents
+                            </span>
+                        </Link>
+                    </li>
                 </ul>
 
             </nav>
