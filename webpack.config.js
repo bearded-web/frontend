@@ -31,7 +31,7 @@ var config = {
             { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
             {
                 test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&minetype=application/font-woff"
+                loader: "url-loader?limit=50000&minetype=application/font-woff"
             },
             {
                 test: /\.json$/,
@@ -50,10 +50,9 @@ var config = {
                 loader: 'style-loader!css-loader'
             },
             {
-                test: /\.(woff|png|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=100000'
+                test: /\.(png|jpg|jpeg)$/,
+                loader: 'url-loader?limit=50000'
             },
-
             {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader"
