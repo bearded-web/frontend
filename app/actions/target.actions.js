@@ -1,6 +1,5 @@
-var _ = require('lodash');
-
-var constants = require('app/constants'),
+var _ = require('lodash'),
+    constants = require('app/constants'),
     router = require('../router'),
     targets = require('../lib/api')('targets'),
     api = require('../lib/api2');
@@ -9,7 +8,7 @@ module.exports = {
     fetchTargets: function() {
         return api
             .targets.fetch()
-            .then(this.dispatch.bind(this, constants.TARGETS_FETCH_SUCCESS))
+            .then(this.dispatch.bind(this, constants.TARGETS_FETCH_SUCCESS));
     },
 
     addTarget: function(type, domain, project) {

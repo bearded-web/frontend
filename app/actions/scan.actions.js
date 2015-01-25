@@ -1,4 +1,5 @@
 var C = require('../constants'),
+    router = require('../router'),
     api = require('../lib/api2');
 
 module.exports = {
@@ -27,6 +28,9 @@ module.exports = {
                 project: projectId,
                 plan: planId
             })
-            .then((scan) => this.dispatch(C.SCANS_DETECT_CREATED, scan));
+            .then((scan) => {
+                router.get().transitionTo('target', { targetId: targetId });
+                this.dispatch(C.SCANS_DETECT_CREATED, scan);
+            });
     }
 };

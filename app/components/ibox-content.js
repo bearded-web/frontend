@@ -2,7 +2,7 @@ var React = require('react');
 
 var IboxContent = React.createClass({
     propTypes: {
-        children: React.PropTypes.renderable
+        children: React.PropTypes.node
     },
 
     render: function() {

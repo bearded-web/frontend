@@ -7,7 +7,7 @@ function makeRequest(options) {
     options.contentType = 'application/json';
     options.type = 'json';
     if (options.data) {
-        options.data = JSON.stringify(options.data, null, 4)
+        options.data = JSON.stringify(options.data, null, 4);
     }
 
     return reqwest(options);

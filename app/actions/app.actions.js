@@ -54,7 +54,7 @@ module.exports = {
                 handleMeData.call(this, data);
             })
             .catch((err) => {
-                dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'))
+                dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
             });
 
     },
@@ -64,8 +64,9 @@ module.exports = {
 
         dispatch(constants.USER_LOGOUT_START);
 
-        auth('logout')
-            .then(() => window.location = '/');
+        auth('logout').then(() => {
+            window.location = '/';
+        });
     },
 
     signUp: function(email, password) {

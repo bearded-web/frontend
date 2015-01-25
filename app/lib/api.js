@@ -61,8 +61,6 @@ var api = function(endpoint, alias, params, data) {
     return new Promise(function(resolve, reject) {
         var apiName = 'apiV1' + endpoint.charAt(0).toUpperCase() + endpoint.slice(1);
 
-        if (endpoint === 'targets')
-            debugger
         rawapi[apiName][alias](
             params,
             function(err, data) {

@@ -1,4 +1,5 @@
-var Router = require('react-router'),
+var React = require('react'),
+    Router = require('react-router'),
     flux = require('../../flux');
 
 var { Row, Col } = require('react-bootstrap'),
@@ -8,11 +9,12 @@ var { Row, Col } = require('react-bootstrap'),
     Ibox = require('../ibox'),
     IboxTitle = require('../ibox-title'),
     IboxContent = require('../ibox-content'),
+    StartScanButton = require('../start-scan-button'),
     TargetScan = require('../target-scan'),
     TargetStatus = require('../target-status'),
     Widget = require('../widget');
 
-module.exports = React.createClass({
+var Target = React.createClass({
     mixins: [
         Router.Navigation,
         FluxMixin,
@@ -26,10 +28,6 @@ module.exports = React.createClass({
         willTransitionFrom: function() {
             flux.actions.target.unsetCurrentTarget();
         }
-    },
-
-    removeTarget: function() {
-        this.getFlux().actions.target.removeTarget(this.state.target);
     },
 
     getStateFromFlux: function() {
@@ -57,7 +55,7 @@ module.exports = React.createClass({
 
         return (
             <div>
-                <TargetHeader title={target.web.domain} removeTarget={this.removeTarget}/>
+                <TargetHeader target={target}/>
                 <br/>
                 <Row>
                     <Col xs={12} md={4}>
@@ -85,11 +83,7 @@ module.exports = React.createClass({
                 <Col xs={12}>
                     <Ibox>
                         <IboxContent>
-                            <a onClick={this.createScan}>
-                                <Fa icon="play" size="2x" fw align="middle"/>
-                                <span className="target-scan--text">{iget('Start scanning')}</span>
-                            </a>
-
+                            <StartScanButton text={iget('Start detection scanning')} onClick={this.createScan}/>
                         </IboxContent>
                     </Ibox>
                 </Col>
@@ -97,3 +91,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = Target;

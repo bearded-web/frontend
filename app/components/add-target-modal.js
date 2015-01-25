@@ -21,7 +21,7 @@ module.exports = React.createClass({
             targetType = this.refs.targetType.getDOMNode().value;
 
         this.getFlux().actions.target
-            .addTarget(targetType, domain, this.props.targetsStore.project)
+            .addTarget(targetType, domain, this.props.targetsStore.project);
     },
 
 

@@ -16,6 +16,7 @@ module.exports.create = function buildRouter() {
         App = require('./components/app.js'),
         Dashboard = require('./components/dashboard'),
         Page = require('./components/page'),
+        Scan = require('./components/scan'),
         Overview = require('./components/overview'),
         NotFound = require('./components/not-found'),
         LoginOverlay = require('./components/login-overlay'),
@@ -26,6 +27,7 @@ module.exports.create = function buildRouter() {
         <Route flux={flux} handler={App}>
             <Route handler={Dashboard}>
                 <Route name="target" path="target/:targetId" handler={Target}/>
+                <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <DefaultRoute name="overview" handler={Overview}/>
 
                 <NotFoundRoute handler={NotFound}/>

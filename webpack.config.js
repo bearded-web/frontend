@@ -79,5 +79,6 @@ config.addVendor('fluxxor', path.resolve(bower_dir, 'fluxxor/build/fluxxor.js'))
 config.addVendor('pace', path.resolve(bower_dir, 'pace/pace.js'));
 config.addVendor('reqwest', path.resolve(node_modules_dir, 'reqwest/reqwest'));
 config.addVendor('moment', path.resolve(bower_dir, 'moment/moment'));
+config.addVendor('react-domify', path.resolve(node_modules_dir, 'react-domify/dist/react-domify'));
 
 module.exports = config;

@@ -20,14 +20,14 @@ var TargetScan = React.createClass({
     },
 
     componentWillUnmount: function() {
-        clearInterval(this.intervalId)
+        clearInterval(this.intervalId);
     },
 
     componentWillReceiveProps: function(nextProps) {
         var isEnded = _.contains(['finished', 'error'], nextProps.scan.status);
 
         if (isEnded) {
-            clearInterval(this.intervalId)
+            clearInterval(this.intervalId);
         }
     },
 

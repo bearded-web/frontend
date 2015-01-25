@@ -23,7 +23,6 @@ var App = React.createClass({
 
     render: function() {
         if (!this.state.app.inited) {
-            console.log('Render apploader')
             return (
                 <AppLoader />
             );

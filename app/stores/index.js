@@ -1,9 +1,11 @@
-var TargetsStore = require('./targets.store'),
-    TargetStore = require('./target.store'),
-    AppStore = require('./app.store');
-
-module.exports = {
-    TargetsStore: new TargetsStore(),
-    AppStore: new AppStore(),
-    TargetStore: new TargetStore()
+var Stores = {
+    TargetsStore: require('./targets.store'),
+    ScanStore: require('./scan.store'),
+    TargetStore: require('./target.store'),
+    AppStore: require('./app.store')
 };
+
+Object.keys(Stores).forEach(function(type) {
+    Stores[type] = new Stores[type]();
+});
+module.exports = Stores;

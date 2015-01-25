@@ -1,7 +1,8 @@
 var React = require('react'),
     moment = require('moment');
 
-var TargetScan = require('../target-scan');
+var { Row, Col } = require('react-bootstrap'),
+    TargetScan = require('../target-scan');
 
 var FeedItem = React.createClass({
     render: function() {
@@ -17,17 +18,17 @@ var FeedItem = React.createClass({
                 <div className="media-body ">
                     <small className="pull-right text-navy">1m ago</small>
                     <strong>Sandra Momot</strong>
-                started following
+                    started following
                     <strong>Monica Smith</strong>
                     <br/>
                     <small className="text-muted">Today 4:21 pm - 12.06.2014</small>
                     <div className="actions">
                         <a className="btn btn-xs btn-white">
                             <i className="fa fa-thumbs-up"></i>
-                        Like </a>
+                            Like </a>
                         <a className="btn btn-xs btn-danger">
                             <i className="fa fa-heart"></i>
-                        Love</a>
+                            Love</a>
                     </div>
                 </div>
             </div>
@@ -45,10 +46,15 @@ var FeedItem = React.createClass({
                 </a>
                 <div className="media-body ">
                     <small className="pull-right text-navy">{startedAt}</small>
-                    <strong>You</strong> <span>started scan</span>
+                    <strong>You</strong>
+                    <span>started scan</span>
                     <br/>
                     <br/>
-                    <TargetScan scan={scan}/>
+                    <Row>
+                        <Col sm={6} md={12} lg={6}>
+                            <TargetScan scan={scan}/>
+                        </Col>
+                    </Row>
                     <div className="actions">
                         <a className="btn btn-xs btn-white">
                             <i className="fa fa-thumbs-up"></i>
