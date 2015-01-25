@@ -8,6 +8,7 @@ var Fa = React.createClass({
     propTypes: {
         icon: React.PropTypes.string.isRequired,
         fw: React.PropTypes.bool,
+        spin: React.PropTypes.bool,
         flip: React.PropTypes.string,
         align: React.PropTypes.string,
         size: React.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x'])
@@ -20,6 +21,7 @@ var Fa = React.createClass({
             },
             cls = {
                 fa: true,
+                'fa-spin': props.spin,
                 'fa-fw': props.fw
             };
 

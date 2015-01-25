@@ -1,9 +1,10 @@
 var React = require('react'),
+    moment = require('moment'),
     _ = require('lodash'),
     flux = require('../../flux');
 
 var Fa = require('../fa'),
-    moment = require('moment'),
+    { Link } = require('react-router'),
     ScanSession = require('../scan-session');
 
 var TargetScan = React.createClass({
@@ -12,6 +13,7 @@ var TargetScan = React.createClass({
     },
 
     updateInterval: 3000,
+
 
     componentDidMount: function() {
         this.intervalId = setInterval(() => {
@@ -24,7 +26,7 @@ var TargetScan = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var isEnded = _.contains(['finished', 'error'], nextProps.scan.status);
+        var isEnded = this.isEnded(nextProps.scan);
 
         if (isEnded) {
             clearInterval(this.intervalId);
@@ -32,7 +34,8 @@ var TargetScan = React.createClass({
     },
 
     render: function() {
-        var { scan } = this.props;
+        var { scan } = this.props,
+            isEnded = this.isEnded(scan);
 
         return (
             <div className="target-scan">
@@ -41,8 +44,16 @@ var TargetScan = React.createClass({
                         <ScanSession key={session.id} session={session} />
                     );
                 })}
+
+                <Link className="btn btn-outline btn-primary btn-xs" to="scan-report" params={{ scanId: scan.id }}>
+                    {isEnded ? iget('Show report') : iget('Show process')}
+                </Link>
             </div>
         );
+    },
+
+    isEnded: function(scan) {
+        return _.contains(['finished', 'error'], scan.status);
     }
 });
 

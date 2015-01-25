@@ -51,7 +51,7 @@ var config = {
             },
             {
                 test: /\.(png|jpg|jpeg)$/,
-                loader: 'url-loader?limit=50000'
+                loader: 'url-loader?limit=10000'
             },
             {
                 test: /\.less$/,
@@ -68,7 +68,6 @@ config.addVendor('react', path.resolve(bower_dir, 'react/react-with-addons.js'))
 config.addVendor('react-router', path.resolve(bower_dir, 'react-router/dist/react-router.js'));
 config.addVendor('bootstrap', path.resolve(bower_dir, 'bootstrap/'));
 config.addVendor('bootstrap.css', path.resolve(bower_dir, 'bootstrap/dist/css/bootstrap.css'));
-config.addVendor('reflux', path.resolve(bower_dir, 'reflux/dist/reflux.js'));
 config.addVendor('font-awesome-webpack', path.resolve(node_modules_dir, 'font-awesome-webpack'), true);
 config.addVendor('react-bootstrap', path.resolve(node_modules_dir, 'react-bootstrap'), true);
 config.addVendor('swagger-client-generator', path.resolve(node_modules_dir, 'swagger-client-generator'), true);

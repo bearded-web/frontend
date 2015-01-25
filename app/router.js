@@ -17,6 +17,7 @@ module.exports.create = function buildRouter() {
         Dashboard = require('./components/dashboard'),
         Page = require('./components/page'),
         Scan = require('./components/scan'),
+        ScanReport = require('./components/scan-report'),
         Overview = require('./components/overview'),
         NotFound = require('./components/not-found'),
         LoginOverlay = require('./components/login-overlay'),
@@ -28,6 +29,7 @@ module.exports.create = function buildRouter() {
             <Route handler={Dashboard}>
                 <Route name="target" path="target/:targetId" handler={Target}/>
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
+                <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <DefaultRoute name="overview" handler={Overview}/>
 
                 <NotFoundRoute handler={NotFound}/>

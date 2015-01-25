@@ -1,7 +1,7 @@
 var React = require('react'),
     moment = require('moment');
 
-var { Row, Col } = require('react-bootstrap'),
+var { Row, Col, Button } = require('react-bootstrap'),
     TargetScan = require('../target-scan');
 
 var FeedItem = React.createClass({
@@ -22,7 +22,7 @@ var FeedItem = React.createClass({
                     <strong>Monica Smith</strong>
                     <br/>
                     <small className="text-muted">Today 4:21 pm - 12.06.2014</small>
-                    <div className="actions">
+                    <div className="с-feed-item--actions actions">
                         <a className="btn btn-xs btn-white">
                             <i className="fa fa-thumbs-up"></i>
                             Like </a>
@@ -55,11 +55,15 @@ var FeedItem = React.createClass({
                             <TargetScan scan={scan}/>
                         </Col>
                     </Row>
-                    <div className="actions">
-                        <a className="btn btn-xs btn-white">
-                            <i className="fa fa-thumbs-up"></i>
-                            Like
-                        </a>
+                    <div className="с-feed-item--actions actions">
+                        <a href>{iget('Comments')}</a>
+
+                        <div className="c-feed-item--loves">
+                            <a className="btn btn-xs btn-white ">
+                                <i className="fa fa-thumbs-up"></i>
+                                Like
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
