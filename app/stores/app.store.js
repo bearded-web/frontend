@@ -30,6 +30,12 @@ module.exports = Fluxxor.createStore({
         ]);
     },
 
+    getState: function() {
+        return {
+            user: this.user
+        };
+    },
+
     _onAppLoginPageState: function(state) {
         this.loginPageState = state;
 

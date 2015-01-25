@@ -5,6 +5,15 @@ var { Row, Col, Button } = require('react-bootstrap'),
     TargetScan = require('../target-scan');
 
 var FeedItem = React.createClass({
+    mixins: [
+        FluxMixin,
+        createStoreWatchMixin('AppStore')
+    ],
+
+    getStateFromFlux: function() {
+        return this.getFlux().store('AppStore').getState();
+    },
+
     render: function() {
         return this.props.scan ? this.renderScanFeedItem() : this.renderClassyFeedItem();
     },
@@ -42,11 +51,11 @@ var FeedItem = React.createClass({
         return (
             <div className="c-feed-item feed-element">
                 <a href="#" className="pull-left">
-                    <img alt="image" className="img-circle" src="http://webapplayers.com/inspinia_admin-v1.8/img/a1.jpg"/>
+                    <img alt="image" className="img-circle" src={this.state.user.avatar} />
                 </a>
                 <div className="media-body ">
                     <small className="pull-right text-navy">{startedAt}</small>
-                    <strong>You</strong>
+                    <strong>You&nbsp;</strong>
                     <span>started scan</span>
                     <br/>
                     <br/>
