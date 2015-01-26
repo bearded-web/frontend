@@ -1,25 +1,32 @@
 var React = require('react'),
     Router = require('react-router'),
+    _ = require('lodash'),
     flux = require('../../flux');
 
 var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
+    Header = require('../header'),
     Domify = require('react-domify');
 
 var ScanReport = React.createClass({
     mixins: [
         Router.Navigation,
+        Router.State,
         FluxMixin,
         createStoreWatchMixin('ScanStore')
     ],
 
     getStateFromFlux: function() {
-        return this.getFlux().store('ScanStore').getState();
+        var { scanId } = this.getParams();
+
+        return this.getFlux().store('ScanStore').getScanState(scanId);
     },
 
 
     statics: {
         willTransitionTo: function(transition, params) {
             flux.actions.scan.fetchReports(params.scanId);
+            flux.actions.scan.fetchScans(params.scanId);
+            flux.actions.plan.fetchPlans();
         }
     },
 
@@ -27,6 +34,11 @@ var ScanReport = React.createClass({
     render: function() {
         return (
             <div className="c-scan-report">
+                <Header>
+                    <Col xs={12}>
+                        <h2>{this.renderPlanInfo()}</h2>
+                    </Col>
+                </Header>
                 <br/>
                 {this.state.reports.map((report) => {
                     return (
@@ -34,9 +46,7 @@ var ScanReport = React.createClass({
                             <Col xs={12}>
                                 <Jumbotron>
                                     <h3>
-                                        {iget('Report data')}
-                                        <br/>
-                                        <small>Scan session: {report.scanSession}</small>
+                                        {this.renderSessionInfo(report.scanSession)}
                                     </h3>
                                     {this.renderReport(report)}
                                 </Jumbotron>
@@ -71,6 +81,32 @@ var ScanReport = React.createClass({
                 </pre>
             );
         }
+    },
+
+    renderSessionInfo: function(sessionId) {
+        var scan = this.state.scan,
+            session,
+            stepName;
+
+        if (!scan) {
+            return '';
+        }
+
+        session = _.find(scan.sessions, { id: sessionId });
+        stepName = session && session.step.name;
+
+        return (
+            <span>{stepName}</span>
+        );
+    },
+
+    renderPlanInfo: function() {
+        var { plan } = this.state,
+            desc = plan && plan.desc;
+
+        return (
+            <span>{desc}</span>
+        );
     }
 });
 

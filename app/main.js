@@ -14,7 +14,7 @@ var Jed = require('jed'),
 
 // Some globals   (>.<)  t(*_*)t
 window.i18n = new Jed({});
-window.__ = window.iget = i18n.gettext.bind(i18n);
+window.__ = window.iget = i18n.sprintf.bind(i18n);
 window.React = React;
 window.FluxMixin = Fluxxor.FluxMixin(React);
 window.createStoreWatchMixin = Fluxxor.StoreWatchMixin;

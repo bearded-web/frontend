@@ -1,5 +1,6 @@
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
+    merge = require('../lib/merge-collections'),
     C = require('../constants');
 
 module.exports = Fluxxor.createStore({
@@ -10,7 +11,8 @@ module.exports = Fluxxor.createStore({
     initialize: function() {
         this.bindActions(
             C.PLANS_FETCH_SUCCESS, this._onPlansFetchSuccess,
-            C.REPORTS_FETCH_SUCCESS, this._onReportsFetchSuccess
+            C.REPORTS_FETCH_SUCCESS, this._onReportsFetchSuccess,
+            C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess
         );
     },
 
@@ -21,8 +23,22 @@ module.exports = Fluxxor.createStore({
         };
     },
 
+    getScanState: function(scanId) {
+        var scan = _.find(this.allScans, { id: scanId }),
+            planId = scan && scan.plan,
+            plan = _.find(this.plans, { id: planId });
+
+        console.log('plan', plan, planId, this.plans);
+
+        return {
+            reports: _.where(this.reports, { scan: scanId }),
+            scan: scan,
+            plan: plan
+        };
+    },
+
     _onPlansFetchSuccess: function(plans) {
-        this.plans = plans;
+        merge(this.plans, plans);
 
         this._emitChange();
     },
@@ -33,6 +49,11 @@ module.exports = Fluxxor.createStore({
         this._emitChange();
     },
 
+    _onScansFetchSuccess: function(scans) {
+        merge(this.allScans, scans);
+
+        this._emitChange();
+    },
 
     _emitChange: function() {
         this.emit('change');

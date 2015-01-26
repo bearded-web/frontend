@@ -4,8 +4,10 @@ var C = require('../constants'),
 
 module.exports = {
     fetchScans: function(scan) {
-        if (scan) {
-            api.one('scans', scan.id).then((scan) => {
+        var scanId = scan && scan.id || scan;
+
+        if (scanId) {
+            api.one('scans', scanId).then((scan) => {
                 this.dispatch(C.SCANS_FETCH_SUCCESS, [scan]);
             });
         } else {
