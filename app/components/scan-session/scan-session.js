@@ -13,18 +13,23 @@ var ScanSession = React.createClass({
 
     render: function() {
         var session = this.props.session,
-            createdAt = moment(session.created),
+            updatedAt = moment(session.updated),
+            isWorking = session.status === 'working',
             isEnded = _.contains(['finished', 'error'], session.status),
             progress,
             tooltip;
 
         if (isEnded) {
             progress = 100;
-        } else {
-            progress = moment().diff(createdAt, 'seconds');
+        }
+        else if (isWorking) {
+            progress = moment().diff(updatedAt, 'seconds');
             progress = Math.tanh(progress / 20);
             progress = Math.min(progress * 100 - 3, 100);
             progress = Math.max(progress, 0);
+        }
+        else {
+            progress = 0;
         }
 
         tooltip = (
@@ -36,7 +41,7 @@ var ScanSession = React.createClass({
                 <OverlayTrigger placement="right" overlay={tooltip}>
                     <div>
                         <div className="c-scan-session--icon">
-                            <Fa icon={isEnded ? 'check' : 'cog'} fw spin={!isEnded}/>
+                            <Fa icon={isEnded ? 'check' : 'cog'} fw spin={isWorking}/>
                         </div>
                         <div className="c-scan-session--info">
                             <span>{session.step.name}</span>

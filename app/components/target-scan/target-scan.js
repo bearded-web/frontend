@@ -12,7 +12,7 @@ var TargetScan = React.createClass({
         scan: React.PropTypes.object.isRequired
     },
 
-    updateInterval: 3000,
+    updateInterval: 2000,
 
 
     componentDidMount: function() {
