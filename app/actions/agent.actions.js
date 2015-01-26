@@ -1,15 +1,23 @@
-var api = require('../lib/api2'),
-    constants = require('../constants');
+'use strict';
+
+var { agents, resultExtractor } = require('../lib/api3'),
+    { dispatchBuilder } = require('../lib/helpers'),
+    C = require('../constants');
+
+
 
 module.exports = {
     fetch: function() {
-        return api.all('agents')
-            .then((data) => this.dispatch(constants.AGENTS_FETCH_SUCCESS, data.results));
+        return agents.list().then(fetchDispatcher(this));
     },
 
 
     approve: function(agentId) {
-        return api.agents.approve(agentId)
-            .then((agent) => this.dispatch(constants.AGENTS_FETCH_SUCCESS, [agent]))
+
+        return agents.approve(agentId).then(fetchDispatcher(this));
     }
 };
+
+function fetchDispatcher(self) {
+    return resultExtractor(dispatchBuilder(C.AGENTS_FETCH_SUCCESS, self))
+}

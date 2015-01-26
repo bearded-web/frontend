@@ -1,20 +1,16 @@
+'use strict';
+
 var C = require('../constants'),
     router = require('../router'),
-    api = require('../lib/api2');
+    { dispatchBuilder } = require('../lib/helpers'),
+    { scans, resultExtractor } = require('../lib/api3');
 
 module.exports = {
     fetchScans: function(scan) {
-        var scanId = scan && scan.id || scan;
+        var scanId = scan && scan.id || scan,
+            handler = scanId ? scans.get(scanId) : scans.list();
 
-        if (scanId) {
-            api.one('scans', scanId).then((scan) => {
-                this.dispatch(C.SCANS_FETCH_SUCCESS, [scan]);
-            });
-        } else {
-            api.all('scans').then((data) => {
-                this.dispatch(C.SCANS_FETCH_SUCCESS, data.results);
-            });
-        }
+        return handler.then(resultExtractor(dispatchBuilder(C.SCANS_FETCH_SUCCESS, this)));
     },
 
     /**
@@ -24,12 +20,12 @@ module.exports = {
      * @param planId
      */
     createScan: function(targetId, projectId, planId) {
-        return api
-            .create('scans', {
+        return scans
+            .create({body:{
                 target: targetId,
                 project: projectId,
                 plan: planId
-            })
+            }})
             .then((scan) => {
                 router.get().transitionTo('target', { targetId: targetId });
                 this.dispatch(C.SCANS_DETECT_CREATED, scan);
@@ -37,7 +33,7 @@ module.exports = {
     },
 
     fetchReports: function(scanId) {
-        api.all('scans/' + scanId + '/reports')
+        scans.reports(scanId)
             .then((data) => {
                 this.dispatch(C.REPORTS_FETCH_SUCCESS, data.results);
             });

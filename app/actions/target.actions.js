@@ -1,21 +1,22 @@
+'use strict';
+
 var _ = require('lodash'),
-    constants = require('app/constants'),
+    C = require('../constants'),
     router = require('../router'),
-    targets = require('../lib/api')('targets'),
-    api = require('../lib/api2');
+    { dispatchBuilder } = require('../lib/helpers'),
+    { targets, resultExtractor } = require('../lib/api3');
+
 
 module.exports = {
     fetchTargets: function() {
-        return api
-            .targets.fetch()
-            .then(this.dispatch.bind(this, constants.TARGETS_FETCH_SUCCESS));
+        return targets.list().then(resultExtractor(dispatchBuilder(C.TARGETS_FETCH_SUCCESS, this)));
     },
 
     addTarget: function(type, domain, project) {
-        this.dispatch(constants.ADD_TARGET);
+        this.dispatch(C.ADD_TARGET);
 
         if (!domain) {
-            this.dispatch(constants.ADD_TARGET_FAIL, __('Target domain can\'t be empty'));
+            this.dispatch(C.ADD_TARGET_FAIL, __('Target domain can\'t be empty'));
             return;
         }
 
@@ -28,41 +29,39 @@ module.exports = {
         };
 
 
-        api.targets.create(target)
+        targets.create(target)
             .then((target) => {
                 router.get().transitionTo('target', { targetId: target.id });
-                this.dispatch(constants.ADD_TARGET_SUCCESS, target);
+                this.dispatch(C.ADD_TARGET_SUCCESS, target);
             })
-            .catch((e) => this.dispatch(constants.ADD_TARGET_FAIL, e));
+            .catch((e) => this.dispatch(C.ADD_TARGET_FAIL, e));
     },
 
     removeTarget: function(target) {
-        this.dispatch(constants.REMOVE_TARGET_START);
+        this.dispatch(C.REMOVE_TARGET_START);
 
-        api.targets.remove(target)
+        targets.delete(target.id)
             .then(() => {
                 router.get().transitionTo('/');
-                nextTick(() => {
-                    this.dispatch(constants.REMOVE_TARGET_SUCCESS, target.id);
-                });
+                nextTick(() => this.dispatch(C.REMOVE_TARGET_SUCCESS, target.id));
             });
     },
 
     openAddTargetModal: function() {
-        this.dispatch(constants.SHOW_TARGET_MODAL);
+        this.dispatch(C.SHOW_TARGET_MODAL);
     },
 
     hideModal: function() {
-        this.dispatch(constants.HIDE_TARGET_MODAL);
+        this.dispatch(C.HIDE_TARGET_MODAL);
     },
 
     setCurrentTarget: function(targetId) {
-        api.targets.one(targetId)
-            .then((target) => this.dispatch(constants.TARGETS_SET_CURRENT, target))
+        targets.get(targetId)
+            .then((target) => this.dispatch(C.TARGETS_SET_CURRENT, target))
             .then(() => this.flux.actions.scan.fetchScans());
     },
 
     unsetCurrentTarget: function() {
-        this.dispatch(constants.TARGETS_UNSET_CURRENT);
+        this.dispatch(C.TARGETS_UNSET_CURRENT);
     }
 };

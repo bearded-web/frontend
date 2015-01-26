@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "moment": "~2.9.0",
-    "json-human": "*"
+    "json-human": "*",
+    "swagger-ajax-client": "~0.2.2"
   }
 }

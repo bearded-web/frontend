@@ -1,10 +1,9 @@
-var _ = require('lodash');
-var constants = require('../constants'),
-    oldApi = require('../lib/api'),
-    api = require('../lib/api2'),
-    router = require('../router'),
-    users = oldApi('users'),
-    auth = oldApi('auth');
+'use strict';
+
+var _ = require('lodash'),
+    constants = require('../constants'),
+    { me, auth, users } = require('../lib/api3'),
+    router = require('../router');
 
 
 module.exports = {
@@ -17,7 +16,7 @@ module.exports = {
      */
     initApp: function() {
         // try to fetch data
-        oldApi('me', 'info')
+        me.info()
             .then((data) => {
                 this.dispatch(constants.APP_LIFT_SUCCESS);
                 handleMeData.call(this, data);
@@ -35,11 +34,11 @@ module.exports = {
     },
 
     showRegister: function() {
-        this.dispatch(constants.APP_LOGIN_PAGE_STATE, 'signup');
+        dispatchLoginState('signup', this);
     },
 
     showLogin: function() {
-        this.dispatch(constants.APP_LOGIN_PAGE_STATE, 'login');
+        dispatchLoginState('login', this);
     },
 
     logIn: function(email, password) {
@@ -47,8 +46,8 @@ module.exports = {
 
         dispatch(constants.USER_LOGIN_START);
 
-        auth('login', { email: email, password: password })
-            .then(() => oldApi('me', 'info'))
+        auth.login({ body: { email: email, password: password } })
+            .then(() => me.info())
             .then((data) => {
                 this.flux.actions.target.fetchTargets();
                 handleMeData.call(this, data);
@@ -56,7 +55,6 @@ module.exports = {
             .catch((err) => {
                 dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
             });
-
     },
 
     logOut: function() {
@@ -64,23 +62,21 @@ module.exports = {
 
         dispatch(constants.USER_LOGOUT_START);
 
-        auth('logout').then(() => {
-            window.location = '/';
-        });
+        auth.logout().then(() =>  window.location = '/');
     },
 
     signUp: function(email, password) {
         var dispatch = this.dispatch.bind(this);
 
         dispatch(constants.USER_LOGIN_START);
-        users('create', { email: email })
-            .then((user) => {
-                return users('setPassword', { 'user-id': user.id }, { password: password });
-            })
-            .then(() => auth('login', { email: email, password: password }))
-            .then(() => oldApi('me', 'info'))
-            .then(handleMeData.bind(this))
-            .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')));
+        //users('create', { email: email })
+        //    .then((user) => {
+        //        return users('setPassword', { 'user-id': user.id }, { password: password });
+        //    })
+        //    .then(() => auth('login', { email: email, password: password }))
+        //    .then(() => oldApi('me', 'info'))
+        //    .then(handleMeData.bind(this))
+        //    .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')));
     }
 };
 
@@ -89,4 +85,8 @@ function handleMeData(data) {
 
     if (data.projects.length)
         this.dispatch(constants.PROJECT_FETCH_SUCCESS, data.projects[0]);
+}
+
+function dispatchLoginState(state, self) {
+    self.dispatch(constants.APP_LOGIN_PAGE_STATE, state);
 }
