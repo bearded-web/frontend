@@ -73,11 +73,7 @@ module.exports = {
         var dispatch = this.dispatch.bind(this);
 
         dispatch(constants.USER_LOGIN_START);
-        users('create', { email: email })
-            .then((user) => {
-                return users('setPassword', { 'user-id': user.id }, { password: password });
-            })
-            .then(() => auth('login', { email: email, password: password }))
+        auth('register', { email: email, password: password })
             .then(() => oldApi('me', 'info'))
             .then(handleMeData.bind(this))
             .catch((err) => dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password')));
