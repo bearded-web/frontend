@@ -1,5 +1,6 @@
 var React = require('react'),
-    Router = require('react-router');
+    Router = require('react-router'),
+    _ = require('lodash');
 
 var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
     Domify = require('react-domify'),
@@ -29,6 +30,12 @@ var Scan = React.createClass({
             planId = this.state.selectedPlan.id;
 
         flux.actions.scan.createScan(targetId, projectId, planId);
+    },
+
+    onPlanChange: function(event) {
+        this.setState({
+            selectedPlan: _.find(this.state.plans, {id: event.target.value}, this)
+        })
     },
 
     render: function() {
@@ -69,7 +76,7 @@ var Scan = React.createClass({
 
         return (
             <form>
-                <Input type="select" defaultValue={selectedPlan.id} label={iget('Scan plan')}>
+                <Input type="select" defaultValue={selectedPlan.id} onChange={this.onPlanChange} label={iget('Select plan')}>
                     {this.state.plans.map(function(plan) {
                         return (
                             <option key={plan.id} value={plan.id}>
