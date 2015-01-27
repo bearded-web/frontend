@@ -56,7 +56,8 @@ var FeedItem = React.createClass({
                 <div className="media-body ">
                     <small className="pull-right text-navy">{startedAt}</small>
                     <strong>You&nbsp;</strong>
-                    <span>started scan</span>
+                    <span>started scan&nbsp;</span>
+                    <b>{scan.conf.target}</b>
                     <br/>
                     <br/>
                     <Row>

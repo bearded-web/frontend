@@ -34,7 +34,7 @@ module.exports = {
                 router.get().transitionTo('target', { targetId: target.id });
                 this.dispatch(C.ADD_TARGET_SUCCESS, target);
             })
-            .catch((e) => this.dispatch(C.ADD_TARGET_FAIL, e));
+            .catch((e) => this.dispatch(C.ADD_TARGET_FAIL, e.data.Message));
     },
 
     removeTarget: function(target) {
