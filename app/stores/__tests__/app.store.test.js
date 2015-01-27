@@ -2,17 +2,17 @@ describe('AppStore', function() {
     var FluxxorTestUtils, fakeFlux, appStore, appStoreSpy, constants;
 
     jest.dontMock('util');
-    jest.dontMock('../../app/stores/app.store');
+    jest.dontMock('../app.store');
 
 
     beforeEach(function() {
-        constants = require('../../app/constants');
+        constants = require('../../constants');
 
         FluxxorTestUtils = require('fluxxor-test-utils');
         FluxxorTestUtils.extendJasmineMatchers(this);
         // now our jasmine matchers are available
 
-        var AppStore = require('../../app/stores/app.store.js');
+        var AppStore = require('../app.store.js');
         fakeFlux = FluxxorTestUtils.fakeFlux({ AppStore: new AppStore() });
         // now we have a FakeFlux instance that has .stores.MyStore
 
