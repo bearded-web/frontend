@@ -2,13 +2,20 @@
 //TODO refactor
 'use strict';
 
-var schema = require('./swagger.json');
+var schema = require('./swagger.json'),
+    clientGenerator,
+    api,
+    __auth;
 
-var clientGenerator = require('swagger-client-generator');
+schema.apis.forEach(function(endpoint) {
+    endpoint.apiDeclaration.basePath = '';
+});
 
-var api = clientGenerator(schema, requestHandler);
+clientGenerator = require('swagger-client-generator');
 
-var __auth = api.auth;
+api = clientGenerator(schema, requestHandler);
+
+__auth = api.auth;
 delete api['auth'];
 
 Object.keys(api).forEach(function(endpoint) {
