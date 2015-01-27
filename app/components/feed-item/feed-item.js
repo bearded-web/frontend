@@ -64,7 +64,7 @@ var FeedItem = React.createClass({
                             <TargetScan scan={scan}/>
                         </Col>
                     </Row>
-                    <div className="с-feed-item--actions actions">
+                    <div className="с-feed-item--actions actions"  style={{display: 'none'}}>
                         <a href>{iget('Comments')}</a>
 
                         <div className="c-feed-item--loves">

@@ -38,14 +38,14 @@ var TargetScan = React.createClass({
             isEnded = this.isEnded(scan);
 
         return (
-            <div className="target-scan">
+            <div className="c-target-scan">
                 {scan.sessions.map(function(session) {
                     return (
                         <ScanSession key={session.id} session={session} />
                     );
                 })}
 
-                <Link className="btn btn-outline btn-primary btn-xs" to="scan-report" params={{ scanId: scan.id }}>
+                <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to="scan-report" params={{ scanId: scan.id }}>
                     {isEnded ? iget('Show report') : iget('Show process')}
                 </Link>
             </div>

@@ -1,18 +1,21 @@
 var Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
-    AddTargetButton = require('../add-target-button'),
     Fa = require('../fa'),
     cx = React.addons.classSet;
 
 
 var LeftPanel = React.createClass({
-    mixins: [Router.State],
+    mixins: [Router.State, FluxMixin],
 
     propTypes: {
         targets: React.PropTypes.object.isRequired,
         user: React.PropTypes.object.isRequired,
         show: React.PropTypes.bool
+    },
+
+    addTarget: function() {
+        this.getFlux().actions.target.openAddTargetModal();
     },
 
 
@@ -49,9 +52,13 @@ var LeftPanel = React.createClass({
                         <Link to="/">
                             <Fa icon="th-large" />
                             <span className="nav-label">
-                            Overview
+                                Overview
                             </span>
                         </Link>
+                    </li>
+
+                    <li className="c-left-panel--subheader">
+                        {iget('Targets')}
                     </li>
 
                     {targets.map(function(target) {
@@ -61,19 +68,28 @@ var LeftPanel = React.createClass({
                     })}
 
                     <li className="c-left-panel--button">
-                        <AddTargetButton />
+                        <a onClick={this.addTarget}>
+                            <Fa icon="plus" size="lg" />
+                        </a>
+                    </li>
+
+
+                    <li className="c-left-panel--subheader">
+                        {iget('Settings')}
                     </li>
 
                     <li className={this.isActive('agents') ? 'active' : ''}>
                         <Link to="agents">
                             <Fa icon="cube" />
                             <span className="nav-label">
-                            Agents
+                                Agents
                             </span>
                         </Link>
                     </li>
                 </ul>
-
+                <br/>
+                <br/>
+                <br/>
             </nav>
         );
     }

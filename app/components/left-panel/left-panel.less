@@ -5,6 +5,7 @@
     display: none;
 
     overflow: hidden;
+    overflow-y: scroll;
 
     width: @sidebar-width;
 
@@ -72,14 +73,19 @@
 
     &--button {
         text-align: center;
-        padding: 10px 4px;
-
-        .fa {
-            margin-right: 6px;
-        }
     }
 
+    &-- {
+        &subheader {
+            padding: 14px 0 0 0;
 
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+
+            //box-shadow: 0px -5px 8px -5px #000;
+        }
+    }
 }
 
 
