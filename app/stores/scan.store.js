@@ -28,8 +28,6 @@ module.exports = Fluxxor.createStore({
             planId = scan && scan.plan,
             plan = _.find(this.plans, { id: planId });
 
-        console.log('plan', plan, planId, this.plans);
-
         return {
             reports: _.where(this.reports, { scan: scanId }),
             scan: scan,

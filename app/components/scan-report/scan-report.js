@@ -3,8 +3,10 @@ var React = require('react'),
     _ = require('lodash'),
     flux = require('../../flux');
 
-var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
+var { Row, Col, Input, Jumbotron, Accordion, Panel } = require('react-bootstrap'),
     Header = require('../header'),
+    Fa = require('../fa'),
+    PanelHeader = require('../panel-header'),
     TargetScan = require('../target-scan'),
     Domify = require('react-domify');
 
@@ -17,9 +19,15 @@ var ScanReport = React.createClass({
     ],
 
     getStateFromFlux: function() {
-        var { scanId } = this.getParams();
+        var { scanId } = this.getParams(),
+            scanState = this.getFlux().store('ScanStore').getScanState(scanId),
+            { scan } = scanState;
 
-        return this.getFlux().store('ScanStore').getScanState(scanId);
+        if (scan && scan.status === 'finished' && scanState.reports.length !== scan.sessions.length) {
+            flux.actions.scan.fetchReports(scanId);
+        }
+
+        return scanState;
     },
 
 
@@ -64,20 +72,21 @@ var ScanReport = React.createClass({
     },
 
     renderReports: function() {
-        return this.state.reports.map((report) => {
-            return (
-                <Row>
-                    <Col xs={12}>
-                        <Jumbotron>
-                            <h3>
-                                {this.renderSessionInfo(report.scanSession)}
-                            </h3>
-                            {this.renderReport(report)}
-                        </Jumbotron>
-                    </Col>
-                </Row>
-            );
-        });
+        return (
+            <Row>
+                <Col xs={12}>
+                    <Accordion>
+                        {this.state.reports.map((report, i) => {
+                            return (
+                                <Panel header={this.renderPanelHeader(report.scanSession)} eventKey={i + 1}>
+                                        {this.renderReport(report)}
+                                </Panel>
+                            );
+                        })}
+                    </Accordion>
+                </Col>
+            </Row>
+        );
     },
 
     renderReport: function(report) {
@@ -105,7 +114,7 @@ var ScanReport = React.createClass({
         }
     },
 
-    renderSessionInfo: function(sessionId) {
+    renderPanelHeader: function(sessionId) {
         var scan = this.state.scan,
             session,
             stepName;
@@ -118,7 +127,11 @@ var ScanReport = React.createClass({
         stepName = session && session.step.name;
 
         return (
-            <span>{stepName}</span>
+            <div>
+                <PanelHeader>
+                {stepName}
+                </PanelHeader>
+            </div>
         );
     },
 

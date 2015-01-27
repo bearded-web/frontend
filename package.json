@@ -41,10 +41,11 @@
     "react-bootstrap": "^0.13.2",
     "react-domify": "^0.2.0",
     "react-toastr": "^1.1.2",
+    "reqwest": "^1.1.5",
     "style-loader": "^0.8.2",
+    "swagger-client-generator": "^0.2.12",
     "url-loader": "^0.5.5",
     "webpack": "^1.4.13",
-    "webpack-dev-server": "^1.6.6",
-    "reqwest": "^1.1.5"
+    "webpack-dev-server": "^1.6.6"
   }
 }

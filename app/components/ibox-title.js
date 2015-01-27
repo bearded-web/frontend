@@ -9,7 +9,7 @@ var IboxTitle = React.createClass({
         return (
             <div className="ibox-title">
                 {this.props.children}
-                <div className="ibox-tools">
+                <div className="ibox-tools" style={{display:'none'}}>
                     <a className="collapse-link">
                         <i className="fa fa-chevron-up"></i>
                     </a>
