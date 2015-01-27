@@ -4,6 +4,7 @@ var Fluxxor = require('fluxxor'),
 
 var LoginOverlay = require('./login-overlay'),
     AppLoader = require('./app-loader/index'),
+    Toast = require('./toast'),
     Dashboard = require('./dashboard');
 
 
@@ -35,7 +36,10 @@ var App = React.createClass({
         }
 
         return (
-            <RouteHandler />
+            <div>
+                <RouteHandler />
+                <Toast />
+            </div>
         );
     }
 });

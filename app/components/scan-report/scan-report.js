@@ -5,6 +5,7 @@ var React = require('react'),
 
 var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
     Header = require('../header'),
+    TargetScan = require('../target-scan'),
     Domify = require('react-domify');
 
 var ScanReport = React.createClass({
@@ -32,6 +33,16 @@ var ScanReport = React.createClass({
 
 
     render: function() {
+        var scan = this.state.scan;
+
+        if (!scan) {
+            return (
+                <div>Loading</div>
+            );
+        }
+
+        var isFinished = scan.status === 'finished';
+
         return (
             <div className="c-scan-report">
                 <Header>
@@ -40,22 +51,33 @@ var ScanReport = React.createClass({
                     </Col>
                 </Header>
                 <br/>
-                {this.state.reports.map((report) => {
-                    return (
-                        <Row>
-                            <Col xs={12}>
-                                <Jumbotron>
-                                    <h3>
-                                        {this.renderSessionInfo(report.scanSession)}
-                                    </h3>
-                                    {this.renderReport(report)}
-                                </Jumbotron>
-                            </Col>
-                        </Row>
-                    );
-                })}
+                
+                {isFinished ? this.renderReports() : this.renderProcess()}
             </div>
         );
+    },
+
+    renderProcess: function() {
+        return (
+            <TargetScan scan={this.state.scan}/>
+        );
+    },
+
+    renderReports: function() {
+        return this.state.reports.map((report) => {
+            return (
+                <Row>
+                    <Col xs={12}>
+                        <Jumbotron>
+                            <h3>
+                                {this.renderSessionInfo(report.scanSession)}
+                            </h3>
+                            {this.renderReport(report)}
+                        </Jumbotron>
+                    </Col>
+                </Row>
+            );
+        });
     },
 
     renderReport: function(report) {

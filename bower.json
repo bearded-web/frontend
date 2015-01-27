@@ -5,17 +5,14 @@
   ],
   "license": "MIT",
   "private": true,
-  "dependencies": {
-    "react": "~0.12.2",
+  "devDependencies": {
     "react-router": "~0.11.6",
     "bootstrap": "~3.3.1",
     "reflux": "~0.2.3",
     "jed": "~1.1.0",
     "lodash": "~2.4.1",
     "fluxxor": "~1.5.1",
-    "pace": "~1.0.2"
-  },
-  "devDependencies": {
+    "pace": "~1.0.2",
     "moment": "~2.9.0",
     "json-human": "*",
     "swagger-ajax-client": "~0.2.2"

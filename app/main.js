@@ -5,6 +5,7 @@ require('./styles/inspina/style.less');
 require('./styles/dashboard.less');
 
 var Jed = require('jed'),
+    jQuery = require('jquery'),
     Fluxxor = require('fluxxor'),
     React = window.React = require('react'),
     Bootstrap = require('react-bootstrap'),
@@ -13,6 +14,7 @@ var Jed = require('jed'),
 
 
 // Some globals   (>.<)  t(*_*)t
+window.jQuery = jQuery; // only for toastr
 window.i18n = new Jed({});
 window.__ = window.iget = i18n.sprintf.bind(i18n);
 window.React = React;

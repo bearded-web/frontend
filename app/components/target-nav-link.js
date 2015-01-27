@@ -11,7 +11,6 @@ module.exports = React.createClass({
             isActiveLink = this.isActive('target', { targetId });
 
 
-
         return (
             <li className={isActiveLink ? 'active' : ''}>
                 <Link to="target" params={{ targetId: targetId }}>

@@ -1,10 +1,22 @@
 @import "../../../bower_components/bootstrap/less/variables";
 
 .c-navbar {
-    &--toggler {
 
-        @media (min-width: @screen-xs-max) {
-            display: none;
+    &-- {
+        &toggler {
+
+            @media (min-width: @screen-xs-max) {
+                display: none;
+            }
+        }
+
+        &avatar {
+            margin-right: 10px;
+        }
+
+        &email {
+            font-size: 14px;
+            font-weight: 600;
         }
     }
 }

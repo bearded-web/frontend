@@ -28,6 +28,8 @@ var constants = {
     TARGETS_SET_CURRENT: true,
     TARGETS_UNSET_CURRENT: true,
 
+    TOAST_ADD: true,
+
 
     USER_LOGIN_START: true,
     USER_LOGIN_SUCCESS: true,
