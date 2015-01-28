@@ -22,7 +22,7 @@ module.exports = {
                 handleMeData.call(this, data);
 
                 return Promise.all([
-                    this.flux.actions.target.fetchTargets(),
+                    this.flux.actions.target.fetchTargets(data.projects[0].id),
                     this.flux.actions.plan.fetchPlans()
                 ]);
             })
@@ -49,7 +49,7 @@ module.exports = {
         auth.login({ body: { email: email, password: password } })
             .then(() => me.info())
             .then((data) => {
-                this.flux.actions.target.fetchTargets();
+                this.flux.actions.target.fetchTargets(data.projects[0].id);
                 handleMeData.call(this, data);
             })
             .catch((err) => {
