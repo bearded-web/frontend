@@ -41,7 +41,7 @@ module.exports = Fluxxor.createStore({
     },
 
     _onTargetsUnsetCurrent: function() {
-        this.target = null;
+        //this.target = null;
 
         this._emitChange();
     },
