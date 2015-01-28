@@ -69,7 +69,8 @@ var LeftPanel = React.createClass({
 
                     <li className="c-left-panel--button">
                         <a onClick={this.addTarget}>
-                            <Fa icon="plus" size="lg" />
+                            <Fa icon="plus"/>
+                            {iget('Add target')}
                         </a>
                     </li>
 

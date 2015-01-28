@@ -1,5 +1,7 @@
+var Router = require('react-router'),
+    _ = require('lodash');
+
 var Link = require('react-router').Link,
-    Router = require('react-router'),
     Fa = require('./fa');
 
 module.exports = React.createClass({
@@ -8,15 +10,25 @@ module.exports = React.createClass({
     render: function() {
         var target = this.props.target,
             targetId = target.id,
-            isActiveLink = this.isActive('target', { targetId });
+            isActiveLink = this.isActive('target', { targetId }),
+            domain = target.web.domain;
 
+
+        //TODO replace with _.startWith
+        if (domain.indexOf('http://') === 0) {
+            domain = domain.slice(7);
+        }
+
+        if (domain.indexOf('https://') === 0) {
+            domain = domain.slice(8);
+        }
 
         return (
             <li className={isActiveLink ? 'active' : ''}>
-                <Link to="target" params={{ targetId: targetId }}>
+                <Link to="target" params={{ targetId: targetId }} title={target.web.domain}>
                     <Fa icon="globe" />
                     <span className="nav-label">
-                        {target.web.domain}
+                        {domain}
                     </span>
                 </Link>
             </li>
