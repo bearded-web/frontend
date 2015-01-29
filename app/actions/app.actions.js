@@ -29,7 +29,7 @@ module.exports = {
             .catch((e) => {
                 console.log('cant init app', e.stack);
                 this.dispatch(constants.APP_LIFT_SUCCESS);
-                router.get().transitionTo('login');
+                dispatchLoginState('login', this);
             });
     },
 

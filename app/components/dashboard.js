@@ -15,8 +15,8 @@ var Dashboard = React.createClass({
             var app = flux.store('AppStore');
 
             if (!app.isLogedIn && app.inited) {
-                console.log('dashbord transit to ligin');
-                transition.redirect('/login');
+                transition.redirect('/');
+                flux.actions.app.showLogin();
             }
         }
     },
