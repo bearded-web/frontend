@@ -49,7 +49,13 @@ module.exports = React.createClass({
                                     <span>{__('Enter url which be used to scans and tests.')}</span>
                                     <br/>
                                     <span>{__('Better if it will be root url of your site')}</span>
-                                    <input ref="domain" className="form-control input-sm" type="text" autofocus placeholder="http://example.com" />
+                                    <input
+                                        ref="domain"
+                                        className="form-control
+                                        input-sm" type="text"
+                                        autoCapitalize="off"
+                                        autofocus
+                                        placeholder="http://example.com" />
                                 </label>
                             </div>
                         </div>
