@@ -3,6 +3,8 @@ var Fluxxor = require('fluxxor'),
     constants = require('../constants'),
     useActions = require('../lib/use-actions');
 
+var project = null;
+
 module.exports = Fluxxor.createStore({
     inited: false,
 
@@ -15,12 +17,14 @@ module.exports = Fluxxor.createStore({
     loginError: '',
     user: {},
 
+
     initialize: function() {
         this.bindActions(
             constants.USER_LOGIN_START, this.onUserLoginStart,
             constants.USER_LOGIN_SUCCESS, this.onUserLoginSuccess,
             constants.USER_LOGIN_FAIL, this.onUserLoginFail,
-            constants.APP_LOGIN_PAGE_STATE, this._onAppLoginPageState
+            constants.APP_LOGIN_PAGE_STATE, this._onAppLoginPageState,
+            constants.PROJECT_FETCH_SUCCESS, this._onProjectFetchSuccess
         );
 
         useActions(this, constants, [
@@ -34,6 +38,16 @@ module.exports = Fluxxor.createStore({
         return {
             user: this.user
         };
+    },
+
+    getProject: function() {
+        return project;
+    },
+
+    _onProjectFetchSuccess: function(p) {
+        project = p;
+
+        this._emitChange();
     },
 
     _onAppLoginPageState: function(state) {

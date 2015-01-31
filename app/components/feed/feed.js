@@ -4,22 +4,34 @@ var React = require('react'),
 var FeedItem = require('../feed-item');
 
 var Feed = React.createClass({
+    propTypes: {
+        source: React.PropTypes.object.isRequired,
+        type: React.PropTypes.oneOf(['project', 'target'])
+    },
+
     mixins: [
         FluxMixin,
         flux.createStoreWatchMixin('FeedStore')
     ],
 
-    _oneFetchLength: 3,
+    _oneFetchLength: 10,
     _fetchInterval: 10000,
 
     getStateFromFlux: function() {
+        var store = flux.store('FeedStore'),
+            { source, type } = this.props,
+            items;
+
         return {
-            items: flux.store('FeedStore').getTargetFeed(this.props.target.id)
+            items: store.getFeedFor(type, source)
         };
     },
 
-    componentWillMount: function() {
-        flux.actions.feed.fetchItems(this.props.target.id, this._oneFetchLength);
+    componentDidMount: function() {
+        var props = this.props,
+            source = this._getSource();
+
+        this._fetchItems();
 
         this._fetchIntervalId = setInterval(this._updateFeed, this._fetchInterval);
     },
@@ -29,17 +41,20 @@ var Feed = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var tId = nextProps.target.id;
+        var source = this._getSource(),
+            nextSource = this._getSource(nextProps);
 
-        if (this.props.target.id !== tId) {
-            flux.actions.feed.fetchItems(tId, this._oneFetchLength);
+        if ((!source && nextSource) || source && nextSource && source.id !== nextSource.id) {
+            this._fetchItems(nextProps);
         }
     },
 
     onShowMoreClick: function() {
-        var firstItem = this.state.items[0];
+        var type = this._getType(),
+            source = this._getSource(),
+            skip = this.state.items.length;
 
-        flux.actions.feed.fetchItems(this.props.target.id, this._oneFetchLength, this.state.items.length);
+        source && flux.actions.feed.fetchItems(type, source.id, this._oneFetchLength, skip);
     },
 
     render: function() {
@@ -66,14 +81,36 @@ var Feed = React.createClass({
 
     _updateFeed: function() {
         var lastItem = this.state.items[0],
-            tId = this.props.target.id;
+            tId = this.props[this.type].id;
 
         if (lastItem) {
-            flux.actions.feed.fetchNewItems(tId, lastItem.updated);
+            flux.actions.feed.fetchNewItems(this.type, tId, lastItem.updated);
         }
         else {
-            flux.actions.feed.fetchItems(tId);
+            flux.actions.feed.fetchItems(this.type, tId);
         }
+    },
+
+    _getType: function(props) {
+        props = props || this.props;
+
+        return props.type;
+    },
+
+    _getSource: function(props) {
+        props = props || this.props;
+
+        return props.source;
+    },
+
+    _fetchItems: function(props) {
+        props = props || this.props;
+
+        var type = this._getType(props),
+            source = this._getSource(props),
+            length = this._oneFetchLength;
+
+        source && flux.actions.feed.fetchItems(type, source.id, length);
     }
 });
 

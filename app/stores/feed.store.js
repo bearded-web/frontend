@@ -25,6 +25,32 @@ module.exports = Fluxxor.createStore({
         return _.where(feedItems, { target: targetId });
     },
 
+    /**
+     * Return feed items array for project
+     * @param {String|Number} projectId project id for filter
+     * @returns {Array}
+     */
+    getProjectFeed: function(projectId) {
+        return _.where(feedItems, { project: projectId });
+    },
+
+    getFeedFor: function(type, source) {
+        if (!source) return [];
+
+        var { id } = source;
+
+        if (type === 'target') {
+            return this.getTargetFeed(id);
+        }
+        else if(type === 'project') {
+            return this.getProjectFeed(id);
+        }
+        else {
+            console.warn('wrong type', type);
+            return [];
+        }
+    },
+
     _onFeedFetchSuccess: function(items) {
 
         items.forEach(function(sourceItem) {

@@ -68,7 +68,7 @@ var Target = React.createClass({
                                 <h5>{iget('Target timeline')}</h5>
                             </IboxTitle>
                             <IboxContent>
-                                <Feed target={target}/>
+                                <Feed source={target} type="target"/>
                             </IboxContent>
                         </Ibox>
                     </Col>

@@ -7,23 +7,22 @@ var { feed, users, extractor } = require('../lib/api3'),
 
 
 module.exports = {
-    fetchItems: function(targetId, limit, skip) {
-        return this.flux.actions.feed.fetchFeedForTarget(targetId, {
+    fetchItems: function(type, id, limit, skip) {
+        return this.flux.actions.feed.fetchFeedFor(type, id, {
             limit: limit || 3,
             skip: skip || 0
         });
     },
 
-    fetchNewItems: function(targetId, lastUpdate) {
-        return this.flux.actions.feed.fetchFeedForTarget(targetId, {
+    fetchNewItems: function(type, id, lastUpdate) {
+        return this.flux.actions.feed.fetchFeedFor(type, id, {
             updated_gte: lastUpdate
         });
     },
 
-    fetchFeedForTarget: function(targetId, query) {
-        _.assign(query || {}, {
-            target: targetId
-        });
+    fetchFeedFor: function(type, id, query) {
+        query = query || {};
+        query[type] = id;
 
         return this.flux.actions.feed.fetchFeed(query);
     },
