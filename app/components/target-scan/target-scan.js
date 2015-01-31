@@ -16,9 +16,14 @@ var TargetScan = React.createClass({
 
 
     componentDidMount: function() {
-        this.intervalId = setInterval(() => {
-            flux.actions.scan.fetchScans(this.props.scan);
-        }, this.updateInterval);
+        var isEnded = this.isEnded(this.props.scan);
+
+        if (!isEnded) {
+
+            this.intervalId = setInterval(() => {
+                flux.actions.scan.fetchScans(this.props.scan);
+            }, this.updateInterval);
+        }
     },
 
     componentWillUnmount: function() {

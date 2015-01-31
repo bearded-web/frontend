@@ -6,6 +6,10 @@ var { Row, Col, Button } = require('react-bootstrap'),
     TargetScan = require('../target-scan');
 
 var FeedItem = React.createClass({
+    propTypes: {
+        item: React.PropTypes.object.isRequired
+    },
+
     render: function() {
         var type = this.props.item.type,
             renderer = this['_render' + _.capitalize(type)] || this._renderUnknown;
@@ -14,17 +18,19 @@ var FeedItem = React.createClass({
     },
 
     _renderScan: function() {
-        var scan = this.props.item.scan,
+        var item = this.props.item,
+            { scan, owner } = item,
+            avatar = owner.avatar || this.generateAvatar(owner.email),
             startedAt = moment(scan.created).calendar();
 
         return (<div className="c-feed-item feed-element">
             <a href="#" className="pull-left">
-                <img alt="image" className="img-circle" />
+                <img alt="image" className="img-circle" src={avatar}/>
             </a>
             <div className="media-body ">
                 <small className="pull-right text-navy">{startedAt}</small>
-                <strong>You&nbsp;</strong>
-                <span>started scan&nbsp;</span>
+                <strong>{owner.nickname}</strong>
+                <span>&nbsp;started scan&nbsp;</span>
                 <b>{scan.conf.target}</b>
                 <br/>
                 <br/>
@@ -51,6 +57,16 @@ var FeedItem = React.createClass({
         return (
             <div>Unknown type {this.props.item.type}</div>
         );
+    },
+
+    generateAvatar: function(identifier) {
+        var images = [
+            require('./megusta.png'),
+            require('./no.png'),
+            require('./derp.png')
+        ];
+
+        return images[identifier.charCodeAt(0) % images.length];
     }
 });
 

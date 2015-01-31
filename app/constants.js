@@ -23,6 +23,7 @@ var constants = {
 
     SCANS_DETECT_CREATED: true,
     SCANS_FETCH_SUCCESS: true,
+    SCANS_CREATION: true,
 
     TARGETS_FETCH_START: true,
     TARGETS_FETCH_SUCCESS: true,

@@ -1,3 +1,5 @@
+'use strict';
+
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
     merge = require('../lib/merge-collections'),
@@ -9,7 +11,8 @@ var feedItems = [];
 module.exports = Fluxxor.createStore({
     initialize: function() {
         this.bindActions(
-            C.FEED_FETCH_SUCCESS, this._onFeedFetchSuccess
+            C.FEED_FETCH_SUCCESS, this._onFeedFetchSuccess,
+            C.SCANS_CREATION, this._onScansCreation
         );
     },
 
@@ -23,9 +26,52 @@ module.exports = Fluxxor.createStore({
     },
 
     _onFeedFetchSuccess: function(items) {
-        merge(feedItems, items);
 
-        feedItems = _.sortBy(feedItems, { updated: -1 });
+        items.forEach(function(sourceItem) {
+            var storedItem = _.find(feedItems, function(storedItem) {
+                if (storedItem.id === sourceItem.id) return true;
+
+                if (sourceItem.type === 'scan' && !storedItem.id &&
+                    storedItem.type === 'scan' && storedItem.scan.id === sourceItem.scan.id) {
+
+                    return true;
+                }
+            });
+
+            if (storedItem) {
+                _.assign(storedItem, sourceItem);
+            } else {
+                feedItems.unshift(sourceItem);
+            }
+        });
+
+        feedItems = _.sortBy(feedItems, (item) => -new Date(item.updated));
+
+        this._emitChange();
+    },
+
+    _onScansCreation: function(payload) {
+        var { status, scan } = payload,
+            exist,
+            feedItem;
+
+        if (status !== 'success') return;
+
+        exist = _(feedItems).where({ type: 'scan' }).pluck('scan').pluck('id').includes(scan.id);
+
+        if (exist) return;
+
+        feedItem = {
+            id: null,
+            type: 'scan',
+            target: scan.target,
+            created: new Date(),
+            updated: new Date(),
+            owner: scan.owner,
+            scan: scan
+        };
+
+        feedItems.unshift(feedItem);
 
         this._emitChange();
     },

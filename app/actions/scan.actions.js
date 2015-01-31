@@ -3,7 +3,7 @@
 var C = require('../constants'),
     router = require('../router'),
     { dispatchBuilder } = require('../lib/helpers'),
-    { scans, resultExtractor } = require('../lib/api3');
+    { scans, users, resultExtractor } = require('../lib/api3');
 
 module.exports = {
     fetchScans: function(scan) {
@@ -20,15 +20,38 @@ module.exports = {
      * @param planId
      */
     createScan: function(targetId, projectId, planId) {
+        var scan = {
+            target: targetId,
+            project: projectId,
+            plan: planId
+        };
+
+        this.dispatch(C.SCANS_CREATION, {
+            status: 'start',
+            scan: scan
+        });
+
         return scans
-            .create({body:{
-                target: targetId,
-                project: projectId,
-                plan: planId
-            }})
-            .then((scan) => {
+            .create({ body: scan })
+            .then((scan) => Promise.all([scan, users.get(scan.owner)]))
+            .then((result) => {
+                var [scan, user] = result;
+
+                scan.owner = user;
+
                 router.get().transitionTo('target', { targetId: targetId });
+
                 this.dispatch(C.SCANS_DETECT_CREATED, scan);
+                this.dispatch(C.SCANS_CREATION, {
+                    status: 'success',
+                    scan: scan
+                });
+            })
+            .catch((error) => {
+                this.dispatch(C.SCANS_CREATION, {
+                    status: 'error',
+                    error
+                });
             });
     },
 

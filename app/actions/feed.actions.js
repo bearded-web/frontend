@@ -2,15 +2,37 @@
 
 var { feed, users, extractor } = require('../lib/api3'),
     { dispatchBuilder } = require('../lib/helpers'),
+    _ = require('lodash'),
     C = require('../constants');
 
 
 module.exports = {
-    fetchFeedForTarget: function(targetId) {
+    fetchItems: function(targetId, limit, skip) {
+        return this.flux.actions.feed.fetchFeedForTarget(targetId, {
+            limit: limit || 3,
+            skip: skip || 0
+        });
+    },
+
+    fetchNewItems: function(targetId, lastUpdate) {
+        return this.flux.actions.feed.fetchFeedForTarget(targetId, {
+            updated_gte: lastUpdate
+        });
+    },
+
+    fetchFeedForTarget: function(targetId, query) {
+        _.assign(query || {}, {
+            target: targetId
+        });
+
+        return this.flux.actions.feed.fetchFeed(query);
+    },
+
+    fetchFeed: function(query) {
         var items;
 
         return feed
-            .list({ target: targetId })
+            .list(query)
             .then(extractor)
             .then((its) => items = its)
             .then((items) => _.pluck(items, 'scan'))
@@ -18,15 +40,15 @@ module.exports = {
             .then(_.unique)
             .then((ids) => users.list({ id_in: ids.join(',') }))
             .then(extractor)
-            .then((users) => items.map((item) => item.owner = _.where(users, { id: item.scan.owner })))
+            .then((users) => items.forEach((item) => item.owner = _.find(users, { id: item.scan.owner })))
+            .then(() => items)
             .then(dispatchBuilder(C.FEED_FETCH_SUCCESS, this))
             .catch(function(err) {
-                console.error(err, err.stack)
+                console.error(err, err.stack);
             });
     }
+
 };
-
-
 
 
 /**
@@ -40,4 +62,13 @@ function pluck(field) {
 
 function usersByIds(ids) {
     return ids.map((uid) => users.get(uid));
+}
+
+function log(name) {
+    return function(i) {
+
+        console.log(name, i)
+
+        return i
+    }
 }

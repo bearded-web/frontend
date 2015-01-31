@@ -57,8 +57,7 @@ module.exports = {
 
     setCurrentTarget: function(targetId) {
         targets.get(targetId)
-            .then((target) => this.dispatch(C.TARGETS_SET_CURRENT, target))
-            .then(() => this.flux.actions.scan.fetchScans());
+            .then((target) => this.dispatch(C.TARGETS_SET_CURRENT, target));
     },
 
     unsetCurrentTarget: function() {

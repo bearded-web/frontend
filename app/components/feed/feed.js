@@ -9,21 +9,37 @@ var Feed = React.createClass({
         flux.createStoreWatchMixin('FeedStore')
     ],
 
+    _oneFetchLength: 3,
+    _fetchInterval: 10000,
+
     getStateFromFlux: function() {
         return {
             items: flux.store('FeedStore').getTargetFeed(this.props.target.id)
         };
     },
 
-    componentDidMount: function() {
-        this.fetchFeed(this.props.target.id);
+    componentWillMount: function() {
+        flux.actions.feed.fetchItems(this.props.target.id, this._oneFetchLength);
+
+        this._fetchIntervalId = setInterval(this._updateFeed, this._fetchInterval);
+    },
+
+    componentWillUnmount: function() {
+        clearInterval(this._fetchIntervalId);
     },
 
     componentWillReceiveProps: function(nextProps) {
         var tId = nextProps.target.id;
 
-        if (this.props.target.id !== tId)
-            this.fetchFeed(tId);
+        if (this.props.target.id !== tId) {
+            flux.actions.feed.fetchItems(tId, this._oneFetchLength);
+        }
+    },
+
+    onShowMoreClick: function() {
+        var firstItem = this.state.items[0];
+
+        flux.actions.feed.fetchItems(this.props.target.id, this._oneFetchLength, this.state.items.length);
     },
 
     render: function() {
@@ -34,7 +50,7 @@ var Feed = React.createClass({
                 <div className="feed-activity-list">
                     {items.map(function(item) {
                         return (
-                            <FeedItem key={item.id} item={item}/>
+                            <FeedItem key={item.id || item.created} item={item}/>
                         );
                     })}
                 </div>
@@ -48,8 +64,16 @@ var Feed = React.createClass({
         );
     },
 
-    fetchFeed: function(tid) {
-        flux.actions.feed.fetchFeedForTarget(tid);
+    _updateFeed: function() {
+        var lastItem = this.state.items[0],
+            tId = this.props.target.id;
+
+        if (lastItem) {
+            flux.actions.feed.fetchNewItems(tId, lastItem.updated);
+        }
+        else {
+            flux.actions.feed.fetchItems(tId);
+        }
     }
 });
 
