@@ -9,4 +9,6 @@ flux.on('dispatch', function(type, payload) {
     }
 });
 
+flux.createStoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 module.exports = flux;

@@ -4,6 +4,7 @@ var Stores = {
     ScanStore: require('./scan.store'),
     ToastStore: require('./toast.store'),
     TargetStore: require('./target.store'),
+    FeedStore: require('./feed.store'),
     AppStore: require('./app.store')
 };
 

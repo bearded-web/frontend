@@ -34,6 +34,14 @@ api.resultExtractor = function resultsExtractor(callback, self) {
     };
 };
 
+/**
+ * Return array from fetch response
+ * @param {Array|Object} data response
+ * @returns {Array}
+ */
+api.extractor = function extractor(data) {
+    return data.results ? data.results : [data];
+};
 
 module.exports = api;
 

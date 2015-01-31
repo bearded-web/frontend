@@ -72,7 +72,7 @@ config.addVendor('font-awesome-webpack', path.resolve(node_modules_dir, 'font-aw
 config.addVendor('react-bootstrap', path.resolve(node_modules_dir, 'react-bootstrap'), true);
 config.addVendor('swagger-client-generator', path.resolve(node_modules_dir, 'swagger-client-generator'), true);
 config.addVendor('jed', path.resolve(bower_dir, 'jed/jed'));
-config.addVendor('lodash', path.resolve(bower_dir, 'lodash/dist/lodash.js'));
+config.addVendor('lodash', path.resolve(node_modules_dir, 'lodash/index'), true);
 config.addVendor('fluxxor', path.resolve(bower_dir, 'fluxxor/build/fluxxor.js'));
 config.addVendor('pace', path.resolve(bower_dir, 'pace/pace.js'));
 config.addVendor('reqwest', path.resolve(node_modules_dir, 'reqwest/reqwest'));
