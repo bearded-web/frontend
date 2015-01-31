@@ -17,7 +17,7 @@
     "install": "bower i && ./node_modules/.bin/webdriver-manager update --standalone",
     "lint": "./node_modules/.bin/jsxhint app/ --harmony",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
-    "deploy": "rm -rf dist && mkdir dist && cp templates/* dist && NODE_ENV=production webpack -p",
+    "deploy": "rm -rf dist && mkdir dist && cp templates/* dist && NODE_ENV=production webpack",
     "test-server": "./node_modules/.bin/webdriver-manager start",
     "test-unit": "./node_modules/.bin/jest",
     "test-e2e": "./node_modules/.bin/protractor protractor.js",
