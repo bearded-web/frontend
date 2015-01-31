@@ -9,7 +9,6 @@ var Jed = require('jed'),
     Fluxxor = require('fluxxor'),
     React = window.React = require('react'),
     Bootstrap = require('react-bootstrap'),
-    pace = require('pace'),
     Router = require('react-router');
 
 
@@ -24,8 +23,6 @@ window.Bootstrap = Bootstrap;
 window.nextTick = function(fn) {
     setTimeout(fn, 0);
 };
-
-pace.start();
 
 var flux = window.flux = require('./flux');
 
