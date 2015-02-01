@@ -80,14 +80,18 @@ var Feed = React.createClass({
     },
 
     _updateFeed: function() {
-        var lastItem = this.state.items[0],
-            tId = this.props[this.type].id;
+        var { items } = this.state,
+            lastItem = items[items.length - 1],
+            type = this._getType(),
+            source = this._getSource();
+
+        if (!source) return;
 
         if (lastItem) {
-            flux.actions.feed.fetchNewItems(this.type, tId, lastItem.updated);
+            flux.actions.feed.fetchNewItems(type, source.id, lastItem.updated);
         }
         else {
-            flux.actions.feed.fetchItems(this.type, tId);
+            flux.actions.feed.fetchItems(type, source.id);
         }
     },
 

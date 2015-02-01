@@ -11,22 +11,24 @@ module.exports = React.createClass({
         var target = this.props.target,
             targetId = target.id,
             isActiveLink = this.isActive('target', { targetId }),
+            isHttps = false,
             domain = target.web.domain;
 
 
         //TODO replace with _.startWith
-        if (domain.indexOf('http://') === 0) {
+        if (_.startsWith(domain, 'http://')) {
             domain = domain.slice(7);
         }
 
-        if (domain.indexOf('https://') === 0) {
+        if (_.startsWith(domain, 'https://')) {
             domain = domain.slice(8);
+            isHttps = true;
         }
 
         return (
             <li className={isActiveLink ? 'active' : ''}>
                 <Link to="target" params={{ targetId: targetId }} title={target.web.domain}>
-                    <Fa icon="globe" />
+                    <Fa icon={isHttps ? 'lock' : 'globe'} />
                     <span className="nav-label">
                         {domain}
                     </span>
