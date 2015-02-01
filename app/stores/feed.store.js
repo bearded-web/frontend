@@ -46,7 +46,8 @@ module.exports = Fluxxor.createStore({
             return this.getProjectFeed(id);
         }
         else {
-            console.warn('wrong type', type);
+            //TODO make loging
+            //console.warn('wrong type', type);
             return [];
         }
     },

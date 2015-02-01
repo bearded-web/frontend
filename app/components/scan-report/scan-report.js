@@ -96,7 +96,7 @@ var ScanReport = React.createClass({
 
         return (
             <h3>{iget('Report type (%s) not supported', report.type)}</h3>
-        )
+        );
     },
 
     renderRawReport: function(report) {

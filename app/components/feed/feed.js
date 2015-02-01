@@ -54,7 +54,7 @@ var Feed = React.createClass({
             source = this._getSource(),
             skip = this.state.items.length;
 
-        source && flux.actions.feed.fetchItems(type, source.id, this._oneFetchLength, skip);
+        if(source) flux.actions.feed.fetchItems(type, source.id, this._oneFetchLength, skip);
     },
 
     render: function() {
@@ -114,7 +114,7 @@ var Feed = React.createClass({
             source = this._getSource(props),
             length = this._oneFetchLength;
 
-        source && flux.actions.feed.fetchItems(type, source.id, length);
+        if (source) flux.actions.feed.fetchItems(type, source.id, length);
     }
 });
 

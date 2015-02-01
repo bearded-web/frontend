@@ -27,7 +27,6 @@ module.exports = {
                 ]);
             })
             .catch((e) => {
-                console.log('cant init app', e.stack);
                 this.dispatch(constants.APP_LIFT_SUCCESS);
                 dispatchLoginState('login', this);
             });
@@ -62,6 +61,7 @@ module.exports = {
 
         dispatch(constants.USER_LOGOUT_START);
 
+        /* jshint -W093 */
         auth.logout().then(() =>  window.location = '/');
     },
 
@@ -70,6 +70,7 @@ module.exports = {
 
         dispatch(constants.USER_LOGIN_START);
 
+        /* jshint -W093 */
         auth.register({ body: { email, password } })
             .then(() =>  window.location = '/')
             .catch((err) => {
@@ -78,6 +79,7 @@ module.exports = {
     }
 };
 
+/* jshint -W040 */
 function handleMeData(data) {
     this.dispatch(constants.USER_LOGIN_SUCCESS, data.user);
 

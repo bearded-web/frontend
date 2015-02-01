@@ -16,7 +16,7 @@ module.exports = {
         this.dispatch(C.ADD_TARGET);
 
         if (!domain) {
-            this.dispatch(C.ADD_TARGET_FAIL, __('Target domain can\'t be empty'));
+            this.dispatch(C.ADD_TARGET_FAIL, iget('Target domain can\'t be empty'));
             return;
         }
 

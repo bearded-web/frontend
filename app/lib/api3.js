@@ -16,7 +16,7 @@ clientGenerator = require('swagger-client-generator');
 api = clientGenerator(schema, requestHandler);
 
 __auth = api.auth;
-delete api['auth'];
+delete api.auth;
 
 Object.keys(api).forEach(function(endpoint) {
     if (endpoint === 'auth') return;
@@ -49,7 +49,8 @@ module.exports = api;
 function requestHandler(error, request) {
     return new Promise(function(resolve, reject) {
         if (error) {
-            console.error(error);
+            //TODO make logging
+            //console.error(error);
 
             return reject(error);
         }
@@ -61,7 +62,7 @@ function requestHandler(error, request) {
 
         var options = request.options;
         var async = ('async' in options) ? options.async : true;
-        var xhr = new XMLHttpRequest();
+        var xhr = new window.XMLHttpRequest();
 
         xhr.open(method, url, async);
 

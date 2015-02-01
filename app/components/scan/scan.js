@@ -35,7 +35,7 @@ var Scan = React.createClass({
     onPlanChange: function(event) {
         this.setState({
             selectedPlan: _.find(this.state.plans, {id: event.target.value}, this)
-        })
+        });
     },
 
     render: function() {

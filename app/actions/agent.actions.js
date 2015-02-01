@@ -5,12 +5,10 @@ var { agents, resultExtractor } = require('../lib/api3'),
     C = require('../constants');
 
 
-
 module.exports = {
     fetch: function() {
         return agents.list().then(fetchDispatcher(this));
     },
-
 
     approve: function(agentId) {
 
@@ -19,5 +17,5 @@ module.exports = {
 };
 
 function fetchDispatcher(self) {
-    return resultExtractor(dispatchBuilder(C.AGENTS_FETCH_SUCCESS, self))
+    return resultExtractor(dispatchBuilder(C.AGENTS_FETCH_SUCCESS, self));
 }

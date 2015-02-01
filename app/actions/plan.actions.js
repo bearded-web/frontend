@@ -13,5 +13,6 @@ module.exports = {
 
 
 function dispatchPlans(plans) {
+    /* jshint -W040 */
     this.dispatch(constants.PLANS_FETCH_SUCCESS, plans);
 }
