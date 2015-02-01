@@ -59,8 +59,12 @@ var ScanReport = React.createClass({
                     </Col>
                 </Header>
                 <br/>
-                
-                {isFinished ? this.renderReports() : this.renderProcess()}
+
+                <Row>
+                    <Col md={8} mdOffset={2}>
+                    {isFinished ? this.renderReports() : this.renderProcess()}
+                    </Col>
+                </Row>
             </div>
         );
     },
@@ -73,19 +77,15 @@ var ScanReport = React.createClass({
 
     renderReports: function() {
         return (
-            <Row>
-                <Col xs={12}>
-                    <Accordion>
-                        {this.state.reports.map((report, i) => {
-                            return (
-                                <Panel header={this.renderPanelHeader(report.scanSession)} eventKey={i + 1}>
-                                        {this.renderReport(report)}
-                                </Panel>
-                            );
-                        })}
-                    </Accordion>
-                </Col>
-            </Row>
+            <Accordion>
+                {this.state.reports.map((report, i) => {
+                    return (
+                        <Panel header={this.renderPanelHeader(report.scanSession)} eventKey={i + 1}>
+                            {this.renderReport(report)}
+                        </Panel>
+                    );
+                })}
+            </Accordion>
         );
     },
 

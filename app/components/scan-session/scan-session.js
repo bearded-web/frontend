@@ -38,7 +38,7 @@ var ScanSession = React.createClass({
 
         return (
             <div className="c-scan-session">
-                <OverlayTrigger placement="right" overlay={tooltip}>
+                <OverlayTrigger placement="bottom" overlay={tooltip}>
                     <div>
                         <div className="c-scan-session--icon">
                             <Fa icon={isEnded ? 'check' : 'cog'} fw spin={isWorking}/>
