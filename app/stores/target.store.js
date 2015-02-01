@@ -1,7 +1,11 @@
+'use strict';
+
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
     merge = require('../lib/merge-collections'),
     C = require('../constants');
+
+var loading = true;
 
 module.exports = Fluxxor.createStore({
     target: null,
@@ -31,17 +35,18 @@ module.exports = Fluxxor.createStore({
             .reverse()
             .valueOf();
 
-        return { target, scans, detectPlan };
+        return { target, scans, detectPlan, loading };
     },
 
     _onTargetsSetCurrent: function(target) {
+        loading = false;
         this.target = target;
 
         this._emitChange();
     },
 
     _onTargetsUnsetCurrent: function() {
-        //this.target = null;
+        loading = true;
 
         this._emitChange();
     },

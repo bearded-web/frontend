@@ -44,17 +44,23 @@ var Target = React.createClass({
     },
 
     render: function() {
-        var target = this.state.target,
-            scans = this.state.scans;
+        var { target, loading } = this.state;
 
-        if (!target) {
+        if (loading || !target) {
             return (
-                <div>{iget('No target Found')}</div>
+                <Row>
+                    <Col xs={12}>
+                        <h1 className="text-center">
+                        {loading ? ('Loading') : iget('No target Found')}
+                        </h1>
+                    </Col>
+                </Row>
             );
         }
 
+
         return (
-            <div>
+            <div className="c-target">
                 <TargetHeader target={target}/>
                 <br/>
                 <Row>
@@ -73,6 +79,7 @@ var Target = React.createClass({
                         </Ibox>
                     </Col>
                 </Row>
+
             </div>
         );
     },
