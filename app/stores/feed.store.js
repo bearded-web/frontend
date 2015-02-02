@@ -34,10 +34,17 @@ module.exports = Fluxxor.createStore({
         return _.where(feedItems, { project: projectId });
     },
 
+
+    /**
+     * Return feed for source
+     * @param {String} type source type
+     * @param {Object|String} source source or source id
+     * @returns {Array} array of items
+     */
     getFeedFor: function(type, source) {
         if (!source) return [];
 
-        var { id } = source;
+        var id = source.id || source;
 
         if (type === 'target') {
             return this.getTargetFeed(id);
@@ -97,7 +104,6 @@ module.exports = Fluxxor.createStore({
             owner: scan.owner,
             scan: scan
         };
-
         feedItems.unshift(feedItem);
 
         this._emitChange();

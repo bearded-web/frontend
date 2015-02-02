@@ -8,9 +8,25 @@
     "url": "https://github.com/bearded-web/frontend.git"
   },
   "jest": {
+    "rootDir": "./app",
+    "collectCoverage": false,
+    "coverageFormats": [
+      "json",
+      "html"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup-jasmine-env.js",
+    "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
+    "testFileExtensions": [
+      "test.js"
+    ],
+    "testDirectoryName": "",
     "unmockedModulePathPatterns": [
+      "react",
+      "react/addons",
+      "lodash",
       "node_modules/fluxxor",
-      "node_modules/fluxxor-jest-utils"
+      "node_modules/fluxxor-jest-utils",
+      "<rootDir>/../node_modules/react"
     ]
   },
   "scripts": {
@@ -20,6 +36,7 @@
     "deploy": "rm -rf dist && mkdir dist && cp templates/* dist && NODE_ENV=production webpack",
     "test-server": "./node_modules/.bin/webdriver-manager start",
     "test-unit": "./node_modules/.bin/jest",
+    "test-coverage": "mkdir output; ./node_modules/.bin/jest --coverage",
     "test-e2e": "./node_modules/.bin/protractor protractor.js",
     "test": "npm run test-unit"
   },
@@ -28,12 +45,15 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^0.9.0",
+    "es6-promise": "^2.0.1",
     "fetch-swagger-schema": "^0.1.2",
     "fluxxor": "^1.5.1",
     "fluxxor-test-utils": "^0.1.1",
     "font-awesome": "4.2.0",
     "font-awesome-webpack": "0.0.2",
-    "jest-cli": "^0.2.1",
+    "istanbul": "^0.3.0",
+    "jasmine-reporters": "^1.0.0",
+    "jest-cli": "git://github.com/hankhsiao/jest.git",
     "jquery": "^2.1.3",
     "json-loader": "^0.5.1",
     "jsx-loader": "^0.12.2",
@@ -41,11 +61,14 @@
     "less": "^2.2.0",
     "less-loader": "^2.0.0",
     "lodash": "^3.0.0",
+    "moment": "^2.9.0",
     "protractor": "^1.6.1",
     "react": "^0.12.2",
     "react-bootstrap": "^0.13.2",
     "react-domify": "^0.2.0",
+    "react-router": "^0.11.6",
     "react-toastr": "^1.1.2",
+    "react-tools": "^0.12.2",
     "reqwest": "^1.1.5",
     "style-loader": "^0.8.2",
     "swagger-client-generator": "^0.2.12",

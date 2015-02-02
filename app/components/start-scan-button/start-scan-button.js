@@ -1,18 +1,26 @@
-var React = require('react');
+var React = require('react'),
+    flux = require('../../flux');
 
 var Fa = require('../fa');
 
 var StartScanButton = React.createClass({
     propTypes: {
-        onClick: React.PropTypes.func.isRequired,
-        text: React.PropTypes.string
+        target: React.PropTypes.string,
+        project: React.PropTypes.string,
+        plan: React.PropTypes.string
+    },
+
+    createScan: function() {
+        var { target, project, plan } = this.props;
+
+        flux.actions.scan.createScan(target, project, plan);
     },
 
     render: function() {
         return (
-            <a onClick={this.props.onClick}>
+            <a onClick={this.createScan}>
                 <Fa icon="play" size="2x" fw align="middle"/>
-                <span className="c-start-scan-button--text">{this.props.text || iget('Start detection scanning')}</span>
+                <span className="c-start-scan-button--text">{iget('Start detection scanning')}</span>
             </a>
         );
     }

@@ -50,7 +50,7 @@ var constants = {
 
 
 
-var key = '_' || 'f^G&B#F@ffDEADCOW';
+var key = '_';
 Object.keys(constants).forEach(function(c) {
     constants[c] = c + key;
 });

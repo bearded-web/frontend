@@ -51,7 +51,7 @@ var TargetScan = React.createClass({
                 })}
 
                 <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to="scan-report" params={{ scanId: scan.id }}>
-                    {isEnded ? iget('Show report') : iget('Show process')}
+                    {isEnded ? iget('Show report') : iget('Show progress')}
                 </Link>
             </div>
         );

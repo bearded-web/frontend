@@ -34,15 +34,6 @@ var Target = React.createClass({
         return flux.store('TargetStore').getState();
     },
 
-    createScan: function() {
-        var target = this.state.target,
-            targetId = target.id,
-            projectId = target.project,
-            planId = this.state.detectPlan.id;
-
-        flux.actions.scan.createScan(targetId, projectId, planId);
-    },
-
     render: function() {
         var { target, loading } = this.state;
 
@@ -85,12 +76,20 @@ var Target = React.createClass({
     },
 
     renderStartScanButton: function() {
+        var { target, detectPlan } = this.state,
+            targetId = target.id,
+            projectId = target.project,
+            planId = detectPlan.id;
+
         return (
             <Row>
                 <Col xs={12}>
                     <Ibox>
                         <IboxContent>
-                            <StartScanButton text={iget('Start detection scanning')} onClick={this.createScan}/>
+                            <StartScanButton
+                                project={projectId}
+                                target={targetId}
+                                plan={planId} />
                         </IboxContent>
                     </Ibox>
                 </Col>

@@ -1,13 +1,19 @@
 'use strict';
 
-var { plans, resultExtractor } = require('../lib/api3'),
+var { plans } = require('../lib/api3'),
+    { extractor } = require('../lib/helpers'),
     constants = require('../constants');
 
 module.exports = {
     fetchPlans: function(planId) {
         var request = planId ? plans.get(planId) : plans.list();
+        console.log(request)
+        var a = request;
 
-        return request.then(resultExtractor(dispatchPlans, this));
+        a = a.then((data) =>  data.results ? data.results : [data])
+        //console.log('extractor', a, extractor)
+        a = a.then(dispatchPlans.bind(this));
+        console.log('res', a)
     }
 };
 

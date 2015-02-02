@@ -1,6 +1,6 @@
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
-    constants = require('app/constants'),
+    constants = require('../constants'),
     useActions = require('../lib/use-actions');
 
 module.exports = Fluxxor.createStore({

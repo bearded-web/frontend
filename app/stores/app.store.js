@@ -1,7 +1,6 @@
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
-    constants = require('../constants'),
-    useActions = require('../lib/use-actions');
+    constants = require('../constants');
 
 var project = null;
 
@@ -18,30 +17,34 @@ module.exports = Fluxxor.createStore({
     user: {},
 
 
+    getState: function() {
+        return _.pick(this, [
+            'user',
+            'inited',
+            'leftPanelVisible',
+            'isLogedIn',
+            'loginPageState',
+            'loginInProcess',
+            'loginError'
+        ]);
+    },
+
+    getProject: function() {
+        return project;
+    },
+
+
     initialize: function() {
         this.bindActions(
             constants.USER_LOGIN_START, this.onUserLoginStart,
             constants.USER_LOGIN_SUCCESS, this.onUserLoginSuccess,
             constants.USER_LOGIN_FAIL, this.onUserLoginFail,
             constants.APP_LOGIN_PAGE_STATE, this._onAppLoginPageState,
-            constants.PROJECT_FETCH_SUCCESS, this._onProjectFetchSuccess
+            constants.PROJECT_FETCH_SUCCESS, this._onProjectFetchSuccess,
+            constants.APP_TOGGLE_LEFT_PANEL, this._onAppToggleLeftPanel,
+            constants.APP_LIFT_SUCCESS, this._onAppLiftSuccess,
+            constants.USER_LOGOUT_SUCCESS, this._onUserLogoutSuccess
         );
-
-        useActions(this, constants, [
-            'USER_LOGOUT_SUCCESS',
-            'APP_TOGGLE_LEFT_PANEL',
-            'APP_LIFT_SUCCESS'
-        ]);
-    },
-
-    getState: function() {
-        return {
-            user: this.user
-        };
-    },
-
-    getProject: function() {
-        return project;
     },
 
     _onProjectFetchSuccess: function(p) {
