@@ -17,7 +17,7 @@ var Widget = React.createClass({
         widgetClasses = React.addons.classSet(widgetClasses);
 
         return (
-            <div className={widgetClasses}>
+            <div className={widgetClasses} style={this.props.style}>
                 {this.props.children}
             </div>
         );

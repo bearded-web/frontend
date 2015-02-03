@@ -40,7 +40,7 @@ var config = {
             },
             {
                 test: /\.js$/,
-                loader: 'jsx-loader?harmony',
+                loaders: ['react-hot', 'jsx-loader?harmony'],
                 exclude: [
                     bower_dir,
                     node_modules_dir

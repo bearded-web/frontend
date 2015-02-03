@@ -21,6 +21,8 @@ var constants = {
 
     REPORTS_FETCH_SUCCESS: true,
 
+    REPORTS_FETCH: true,
+
     SCANS_DETECT_CREATED: true,
     SCANS_FETCH_SUCCESS: true,
     SCANS_CREATION: true,
