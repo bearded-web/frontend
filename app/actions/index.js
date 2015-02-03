@@ -7,3 +7,9 @@ module.exports = {
     agent: require('./agent.actions'),
     app: require('./app.actions')
 };
+
+if (module.hot) {
+    module.hot.accept('./plan.actions', function() {
+
+    });
+}

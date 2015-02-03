@@ -1,38 +1,34 @@
 describe('plan.actions', function() {
-    jest.dontMock('../plan.actions');
     jest.dontMock('../../constants');
     jest.dontMock('../../lib/helpers');
+    jest.setMock('../../lib/dispatcher', {
+        dispatch: jest.genMockFunction()
+    });
     jest.setMock('../../lib/api3', {
         plans: {
-            get: jest.genMockFunction().mockReturnValue(new Promise(function(resolve) {
-                    console.log('in promise')
-                    resolve({ id: '123' })
-                })
-            )
+            get: jest.genMockFunction().mockImplementation(function() {
+                return new Promise(function(resolve) {
+                    resolve({ id: '123' });
+                });
+            })
         }
     });
-
-    var C = require('../../constants');
-
+    jest.dontMock('../plan.actions');
 
     describe('.fetchPlans()', function() {
-
-        var FluxxorTestUtils,
-            fakeFlux,
-            myActionsSpy;
-
-
+        var value, flag;
+        var C, actions, dispatch;
         beforeEach(function() {
-            FluxxorTestUtils = require('fluxxor-test-utils').extendJasmineMatchers(this);
-            fakeFlux = FluxxorTestUtils.fakeFlux({}, require('../plan.actions'));
-            myActionsSpy = fakeFlux.makeActionsDispatchSpy();
+            C = require('../../constants');
+            actions = require('../plan.actions');
+            dispatch = require('../../lib/dispatcher').dispatch;
         });
 
 
-        it('must dispatch plans success', function() {
-            fakeFlux.actions.fetchPlans('1');
-            console.log(myActionsSpy.getLastCall());
-            expect(myActionsSpy).lastDispatchedWith(C.PLANS_FETCH_SUCCESS);
+        pit('must dispatch plans success', function() {
+            return actions.fetchPlans('1').then(() => {
+                expect(dispatch).toBeCalledWith(C.PLANS_FETCH_SUCCESS, [{ id: '123' }]);
+            });
         });
     });
 });

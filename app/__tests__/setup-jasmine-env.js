@@ -3,6 +3,7 @@ var _ = require('lodash');
 require('jasmine-reporters');
 var reporter = new jasmine.JUnitXmlReporter("output/");
 jasmine.getEnv().addReporter(reporter);
+jasmine.VERBOSE = false;
 window.iget = function(text) {
     return text;
 };

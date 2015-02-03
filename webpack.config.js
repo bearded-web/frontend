@@ -14,7 +14,8 @@ var config = {
     },
     context: __dirname,
     entry: {
-        app: './app/main.js'
+        app: [
+            './app/main.js']
     },
     output: {
         publicPath: isProduction ? '/' : 'http://localhost:8080/',

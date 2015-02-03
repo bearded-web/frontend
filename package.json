@@ -23,6 +23,7 @@
     "unmockedModulePathPatterns": [
       "react",
       "react/addons",
+      "es6-promise",
       "lodash",
       "node_modules/fluxxor",
       "node_modules/fluxxor-jest-utils",

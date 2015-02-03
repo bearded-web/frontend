@@ -36,3 +36,9 @@ router.run(function(Handler, state) {
     //RouterActions.routeChange({ routerState: state });
     React.render(<Handler flux={flux} />, document.body);
 });
+
+if (module.hot) {
+    module.hot.accept('./actions', function() {
+        //TODO flux add actions
+    });
+}

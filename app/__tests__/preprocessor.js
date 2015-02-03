@@ -1,18 +1,18 @@
 var ReactTools = require('react-tools');
-module.exports = {
-    process: function(src) {
-        // remove require(*.lees)
 
+module.exports = {
+    process: function(src, fPath) {
         src = src.replace(/^(require\('.*\.less'\);)$/mi, '');
 
         try {
-            var result = ReactTools.transform(src, { harmony: true });
+            return ReactTools.transform(src, { harmony: true });
         }
         catch(e) {
             console.log('error in ', src);
             console.error(e);
+
+            return src;
         }
 
-        return result;
     }
 };
