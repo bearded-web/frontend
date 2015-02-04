@@ -89,9 +89,9 @@ describe('ReportIssues', function() {
 
 
         it('must return object with low, medium, hi field', function() {
-            var { lo, medium, hi } = component.getIssuesFromReports(reports);
+            var { low, medium, hi } = component.getIssuesFromReports(reports);
 
-            expect(_.isArray(lo)).toBeTruthy();
+            expect(_.isArray(low)).toBeTruthy();
             expect(_.isArray(medium)).toBeTruthy();
             expect(_.isArray(hi)).toBeTruthy();
         });
@@ -103,5 +103,37 @@ describe('ReportIssues', function() {
             expect(medium[0].summary).toBe('Vulnerability in angularjs version 1.2.12');
         });
 
+    });
+
+    describe('.setDefaultSeverity()', function() {
+        var actions;
+
+        beforeEach(function() {
+            actions = require('../../../actions/report.actions');
+        });
+
+        xit('must do nothing if severity if defined', function() {
+            component.setDefaultSeverity('hi');
+        });
+
+        it('must call action selectSeverity with "hi" if has hi severities', function() {
+            component.setDefaultSeverity('', {
+                low: [],
+                medium: [],
+                hi: [1]
+            });
+
+            expect(actions.selectSeverity).toBeCalledWith('hi');
+        });
+
+        xit('must call action selectSeverity with "medium" if no hi severities and has medium', function() {
+            component.setDefaultSeverity('', {
+                low: [],
+                medium: [1],
+                hi: []
+            });
+
+            expect(actions.selectSeverity).toBeCalledWith('medium');
+        });
     });
 });

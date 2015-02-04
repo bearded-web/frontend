@@ -1,70 +1,65 @@
 var React = require('react'),
-    _ = require('lodash');
+    { PropTypes } = React,
+    _ = require('lodash'),
+    actions = require('../../actions/report.actions');
 
 var ReportIssuesTotal = require('../report-issues-total'),
-    { Row, Col, Table } = require('react-bootstrap');
+    ReportIssuesDetail = require('../report-issues-detail'),
+    { Row, Col } = require('react-bootstrap');
 
 var ReportIssues = React.createClass({
-
-    getInitialState: function() {
-        return {
-            selectedSeverity: null
-        };
+    propTypes: {
+        severity: PropTypes.string,
+        reports: PropTypes.array.isRequired
     },
 
-
     render: function() {
-        var issues = this.getIssuesFromReports(this.props.reports),
-            { selectedSeverity } = this.state,
-            selectedIssues = issues[selectedSeverity];
+        var { severity, reports } = this.props,
+            issues = this.getIssuesFromReports(reports),
+            selectedIssues = issues[severity] || [];
+
+        nextTick(() => this.setDefaultSeverity(severity, issues));
 
         return (
             <div className="c-report-issues">
                 <Row>
-                    <Col xs={4} onClick={this.buildTotalOnClick('hi')}>
-                        <ReportIssuesTotal severity="hi" count={issues.lo.length} />
-                    </Col>
-                    <Col xs={4} onClick={this.buildTotalOnClick('medium')}>
-                        <ReportIssuesTotal severity="medium" count={issues.lo.length} />
-                    </Col>
-                    <Col xs={4} onClick={this.buildTotalOnClick('lo')}>
-                        <ReportIssuesTotal severity="lo" count={issues.lo.length} />
-                    </Col>
+                    {this.renderTotal('hi', issues)}
+                    {this.renderTotal('medium', issues)}
+                    {this.renderTotal('low', issues)}
                 </Row>
-                { selectedIssues && this.renderIssues(selectedIssues) }
+                <ReportIssuesDetail issues={selectedIssues} />
             </div>
         );
     },
 
-    renderIssues: function(selectedIssues) {
+    renderTotal: function(severity, issues) {
         return (
-            <Row>
-                <Col xs={12}>
-                    <Table striped bordered condensed hover>
-                        <tbody>
-                        {selectedIssues.map(function(issue) {
-                            return (
-                                <tr>
-                                    <td>
-                                        {issue.summary}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
+            <ReportIssuesTotal
+                severity={severity}
+                selected={this.props.severity === severity}
+                count={issues[severity].length} />
         );
     },
 
-    buildTotalOnClick: function(severity) {
-        return () => this.setState({ selectedSeverity: severity });
+    setDefaultSeverity: function(severity, issues) {
+        if (severity) return;
+
+        if (issues.hi.length) {
+            severity = 'hi';
+        }
+        if (issues.medium.length) {
+            severity = 'medium';
+        }
+        if (issues.low.length) {
+            severity = 'low';
+        }
+
+        if (severity) actions.selectSeverity(severity);
     },
 
     getIssuesFromReports: function(reports) {
         var issues = {
-            lo: [],
+            low: [],
             medium: [],
             hi: []
         };
@@ -101,7 +96,8 @@ module.exports = ReportIssues;
 
 if (module.hot) {
     module.hot.accept([
-        '../report-issues-total'
+        '../report-issues-total',
+        '../report-issues-detail'
     ], function() {
         //TODO flux add actions
     });

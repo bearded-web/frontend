@@ -1,39 +1,21 @@
 var React = require('react');
 
 var { Row, Col } = require('react-bootstrap'),
-    Widget = require('../widget'),
+    ReportIssuesTotal = require('../report-issues-total'),
     Fa = require('../fa');
 
 var TargetStatus = React.createClass({
     render: function() {
-        var iconSize = '2x';
 
         return (
             <div className="target-status">
                 <Row>
-                    <Col xs={4}>
-                        <Widget bg="red">
-                            <Fa icon="bomb" size={iconSize} fw />
-                            <h1>2</h1>
-                            <h3 className="font-bold no-margins">Crit</h3>
-                        </Widget>
-                    </Col>
-                    <Col xs={4}>
-                        <Widget bg="yellow">
-                            <Fa icon="exclamation-circle" size={iconSize} fw />
-                            <h1>5</h1>
-                            <h3 className="font-bold no-margins">Warn</h3>
-                        </Widget>
-                    </Col>
-                    <Col xs={4}>
-                        <Widget bg="lazur">
-                            <Fa icon="eye" size={iconSize} fw />
-                            <h1>7</h1>
-                            <h3 className="font-bold no-margins">Info</h3>
-                        </Widget>
+                    <Col xs={12}>
+                        <ReportIssuesTotal short severity="hi" count={3} />
+                        <ReportIssuesTotal short severity="medium" count={1} />
+                        <ReportIssuesTotal short severity="low" count={6} />
                     </Col>
                 </Row>
-
             </div>
         );
     }

@@ -6,22 +6,38 @@ var Fluxxor = require('fluxxor'),
     C = require('../constants');
 
 
-var reports = [];
+var reports = [],
+    severity = '';
 
 module.exports = Fluxxor.createStore({
     initialize: function() {
         this.bindActions(
-            C.REPORTS_FETCH, this._onReportsFetch
+            C.REPORTS_FETCH, this._onReportsFetch,
+            C.REPORTS_SEVERITY_SELECT, this._onReportsSeveritySelect
         );
+    },
+
+    getState: function() {
+        return {
+            severity
+        };
     },
 
     getScanReports: function(scan) {
         return _.where(reports, { scan });
     },
 
+    _onReportsSeveritySelect: function(s) {
+        severity = s;
+
+        this._emitChange();
+    },
+
     _onReportsFetch: function(payload) {
         if (payload.status === 'success') {
-            merge(reports, payload.reports);
+            var newReports = flattenReports(payload.reports);
+
+            merge(reports, newReports);
 
             this._emitChange();
         }
@@ -32,3 +48,19 @@ module.exports = Fluxxor.createStore({
         this.emit('change');
     }
 });
+
+function flattenReports(reports) {
+    var result = [];
+
+    reports.forEach(function(report) {
+        if (report.type === 'multi') {
+            result.push.apply(result, flattenReports(report.multi));
+
+            return;
+        }
+
+        result.push(report);
+    });
+
+    return result;
+}

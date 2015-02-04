@@ -99,3 +99,11 @@ var Target = React.createClass({
 });
 
 module.exports = Target;
+
+if (module.hot) {
+    module.hot.accept([
+        '../target-status'
+    ], function() {
+        //TODO flux add actions
+    });
+}

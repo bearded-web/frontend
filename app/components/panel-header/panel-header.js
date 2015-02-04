@@ -4,19 +4,24 @@ var Fa = require('../fa');
 
 var PanelHeader = React.createClass({
     render: function() {
-        return (
-            <span className="c-panel-header panel-title">
-                <span className="c-panel-header--down">
-                    <Fa icon="chevron-down" fw />
+        var link = this.props.children;
+
+        return React.addons.cloneWithProps(link, {
+            className: 'c-panel-header panel-title',
+            children: (
+                <span className="c-panel-header panel-title">
+                    <span className="c-panel-header--down">
+                        <Fa icon="chevron-down" fw />
+                    </span>
+                    <span className="c-panel-header--up">
+                        <Fa icon="chevron-up" fw />
+                    </span>
+                    <span>
+                        {link.props.children}
+                    </span>
                 </span>
-                <span className="c-panel-header--up">
-                    <Fa icon="chevron-up" fw />
-                </span>
-                <span>
-                        {this.props.children}
-                </span>
-            </span>
-        );
+            )
+        });
     }
 });
 

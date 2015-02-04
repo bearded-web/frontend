@@ -2,13 +2,16 @@
 
 var _ = require('lodash'),
     constants = require('../constants'),
+    { extractor } = require('../lib/helpers'),
     { me, auth, users } = require('../lib/api3'),
+    dispatch = require('../lib/dispatcher').dispatch,
+    targetActions = require('./target.actions'),
     router = require('../router');
 
 
 module.exports = {
     toggleLeftPanel: function() {
-        this.dispatch(constants.APP_TOGGLE_LEFT_PANEL);
+        dispatch(constants.APP_TOGGLE_LEFT_PANEL);
     },
 
     /**
@@ -18,7 +21,7 @@ module.exports = {
         // try to fetch data
         me.info()
             .then((data) => {
-                this.dispatch(constants.APP_LIFT_SUCCESS);
+                dispatch(constants.APP_LIFT_SUCCESS);
                 handleMeData.call(this, data);
 
                 return Promise.all([
@@ -27,7 +30,7 @@ module.exports = {
                 ]);
             })
             .catch((e) => {
-                this.dispatch(constants.APP_LIFT_SUCCESS);
+                dispatch(constants.APP_LIFT_SUCCESS);
                 dispatchLoginState('login', this);
             });
     },
@@ -41,14 +44,12 @@ module.exports = {
     },
 
     logIn: function(email, password) {
-        var dispatch = this.dispatch.bind(this);
-
         dispatch(constants.USER_LOGIN_START);
 
         auth.login({ body: { email: email, password: password } })
             .then(() => me.info())
             .then((data) => {
-                this.flux.actions.target.fetchTargets(data.projects[0].id);
+                targetActions.fetchTargets(data.projects[0].id);
                 handleMeData.call(this, data);
             })
             .catch((err) => {
@@ -57,8 +58,6 @@ module.exports = {
     },
 
     logOut: function() {
-        var dispatch = this.dispatch.bind(this);
-
         dispatch(constants.USER_LOGOUT_START);
 
         /* jshint -W093 */
@@ -66,8 +65,6 @@ module.exports = {
     },
 
     signUp: function(email, password) {
-        var dispatch = this.dispatch.bind(this);
-
         dispatch(constants.USER_LOGIN_START);
 
         /* jshint -W093 */
@@ -81,12 +78,12 @@ module.exports = {
 
 /* jshint -W040 */
 function handleMeData(data) {
-    this.dispatch(constants.USER_LOGIN_SUCCESS, data.user);
+    dispatch(constants.USER_LOGIN_SUCCESS, data.user);
 
     if (data.projects.length)
-        this.dispatch(constants.PROJECT_FETCH_SUCCESS, data.projects[0]);
+        dispatch(constants.PROJECT_FETCH_SUCCESS, data.projects[0]);
 }
 
-function dispatchLoginState(state, self) {
-    self.dispatch(constants.APP_LOGIN_PAGE_STATE, state);
+function dispatchLoginState(state) {
+    dispatch(constants.APP_LOGIN_PAGE_STATE, state);
 }

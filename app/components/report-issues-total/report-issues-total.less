@@ -1,7 +1,57 @@
+@import "../../styles/inspina/variables";
+
+.severityColor(@color) {
+    border-bottom-color: @color;
+    &:hover,
+    &.c-report-issues-total--selected {
+        background-color: @color;
+        color: #fff;
+    }
+}
+
 .c-report-issues-total {
+    float: left;
+
+    height: 120px;
+
+    width: 33.333%;
+
+    margin-bottom: 10px;
+
+    padding: 10px;
+
+    border-bottom: 6px solid;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    @media (max-width: @screen-xs-max) {
+        height: 90px;
+    }
+
+    &&--short {
+        height: 90px;
+    }
+
+    &&--hi {
+        .severityColor(@red);
+    }
+
+    &&--medium {
+        .severityColor(@yellow);
+    }
+
+    &&--low {
+        .severityColor(@navy);
+    }
 
     // elements
     &-- {
-
+        &desc {
+            @media (max-width: @screen-xs-max) {
+                display: none;
+            }
+        }
     }
 }

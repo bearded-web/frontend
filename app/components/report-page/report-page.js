@@ -23,20 +23,21 @@ var ReportPage = React.createClass({
     },
 
     getStateFromFlux: function() {
-        var { scan } = this.getQuery();
+        var { scan } = this.getQuery(),
+            state = flux.store('ReportStore').getState();
 
-        return {
-            reports: flux.store('ReportStore').getScanReports(scan)
-        };
+        state.reports = flux.store('ReportStore').getScanReports(scan);
+
+        return state;
     },
 
 
     render: function() {
-        var { reports } = this.state;
+        var { reports, severity } = this.state;
 
         return (
             <div className="c-report-page">
-                <ReportIssues reports={reports}/>
+                <ReportIssues reports={reports} severity={severity}/>
                 <ReportTechs reports={reports}/>
                 <RawReports reports={reports}  />
             </div>

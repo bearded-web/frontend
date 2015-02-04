@@ -62,7 +62,7 @@ var ScanReport = React.createClass({
 
                 <Row>
                     <Col md={8} mdOffset={2}>
-                    {isFinished ? this.renderReports() : this.renderProcess()}
+                    {this.renderProcess()}
                     </Col>
                 </Row>
             </div>
@@ -75,65 +75,6 @@ var ScanReport = React.createClass({
         );
     },
 
-    renderReports: function() {
-        return (
-            <Accordion>
-                {this.state.reports.map((report, i) => {
-                    return (
-                        <Panel header={this.renderPanelHeader(report.scanSession)} eventKey={i + 1}>
-                            {this.renderReport(report)}
-                        </Panel>
-                    );
-                })}
-            </Accordion>
-        );
-    },
-
-    renderReport: function(report) {
-        if (report.type === 'raw') {
-            return this.renderRawReport(report);
-        }
-
-        return (
-            <h3>{iget('Report type (%s) not supported', report.type)}</h3>
-        );
-    },
-
-    renderRawReport: function(report) {
-        var raw;
-
-        try {
-            raw = JSON.parse(report.raw);
-            return (<Domify value={raw}/>);
-        } catch (e) {
-            return (
-                <pre>
-                    {report.raw}
-                </pre>
-            );
-        }
-    },
-
-    renderPanelHeader: function(sessionId) {
-        var scan = this.state.scan,
-            session,
-            stepName;
-
-        if (!scan) {
-            return '';
-        }
-
-        session = _.find(scan.sessions, { id: sessionId });
-        stepName = session && session.step.name;
-
-        return (
-            <div>
-                <PanelHeader>
-                {stepName}
-                </PanelHeader>
-            </div>
-        );
-    },
 
     renderPlanInfo: function() {
         var { plan } = this.state,

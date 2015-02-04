@@ -8,7 +8,12 @@ window.iget = function(text) {
     return text;
 };
 window.Promise = require('es6-promise').Promise;
+window._ = require('lodash');
+window.nextTick = function(fn) {
+    setTimeout(fn, 0);
+};
 var React = require('react/addons');
+
 
 var TestWrapper = window.TestWrapper = React.createClass({
     childContextTypes: {
@@ -70,3 +75,7 @@ var TestWrapper = window.TestWrapper = React.createClass({
         return <Component {...props} />;
     }
 });
+
+window.prepareTest = function(jest) {
+
+};

@@ -15,24 +15,30 @@ describe('plan.actions', function() {
     });
     jest.dontMock('../report.actions');
 
+    var C, actions, dispatch;
+
+    beforeEach(function() {
+        C = require('../../constants');
+        actions = require('../report.actions');
+        dispatch = require('../../lib/dispatcher').dispatch;
+    });
+
     describe('.fetchScanReports()', function() {
-        var C, actions, dispatch;
-
-        beforeEach(function() {
-            C = require('../../constants');
-            actions = require('../report.actions');
-            dispatch = require('../../lib/dispatcher').dispatch;
-        });
-
-
         pit('must dispatch data from api', function() {
             return actions.fetchScanReports('1').then(() => {
-                console.log('lol')
                 expect(dispatch).toBeCalledWith(C.REPORTS_FETCH, {
                     status: 'success',
                     reports: [{ id: '1234' }]
                 });
             });
+        });
+    });
+
+    describe('.selectSeverity()', function() {
+        it('must dispatch REPORTS_SEVERITY_SELECT with severity', function() {
+            actions.selectSeverity('medium');
+
+            expect(dispatch).toBeCalledWith(C.REPORTS_SEVERITY_SELECT, 'medium');
         });
     });
 });
