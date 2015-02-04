@@ -6,6 +6,4 @@ node_js:
 
 before_script:
   - sudo npm install -g bower
-  
-install:
-  - sudo npm install -g bower
+
