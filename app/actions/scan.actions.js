@@ -60,5 +60,9 @@ module.exports = {
             .then((data) => {
                 this.dispatch(C.REPORTS_FETCH_SUCCESS, data.results);
             });
+    },
+
+    setSelectedPlan: function(id) {
+        this.dispatch(C.PLANS_SET_SELECTED, id);
     }
 };

@@ -3,6 +3,10 @@ var Fluxxor = require('fluxxor'),
     merge = require('../lib/merge-collections'),
     C = require('../constants');
 
+var state = {
+    selectedPlan: null
+};
+
 module.exports = Fluxxor.createStore({
     plans: [],
     allScans: [],
@@ -11,6 +15,7 @@ module.exports = Fluxxor.createStore({
     initialize: function() {
         this.bindActions(
             C.PLANS_FETCH_SUCCESS, this._onPlansFetchSuccess,
+            C.PLANS_SET_SELECTED, this._setSelectedPlan,
             C.REPORTS_FETCH_SUCCESS, this._onReportsFetchSuccess,
             C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess
         );
@@ -19,7 +24,8 @@ module.exports = Fluxxor.createStore({
     getState: function() {
         return {
             plans: this.plans,
-            reports: this.reports
+            reports: this.reports,
+            selectedPlan: state.selectedPlan || this.plans[0] || {}
         };
     },
 
@@ -35,8 +41,18 @@ module.exports = Fluxxor.createStore({
         };
     },
 
+    /**
+     * Set plan as selected
+     * @param {String} id plan id
+     */
+    _setSelectedPlan: function(id) {
+        state.selectedPlan = _.find(this.plans, { id }) || null;
+    },
+
     _onPlansFetchSuccess: function(plans) {
         merge(this.plans, plans);
+
+        this.plans = _.sortBy(this.plans, (plan) => -new Date(plan.updated));
 
         this._emitChange();
     },
@@ -55,5 +71,9 @@ module.exports = Fluxxor.createStore({
 
     _emitChange: function() {
         this.emit('change');
+    },
+
+    _freshest: function(item) {
+        return -new Date(item.updated);
     }
 });

@@ -14,6 +14,7 @@ var constants = {
     FEED_FETCH_SUCCESS: true,
 
     PLANS_FETCH_SUCCESS: true,
+    PLANS_SET_SELECTED: true,
 
     REMOVE_TARGET_START: true,
     REMOVE_TARGET_SUCCESS: true,

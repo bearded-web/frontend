@@ -1,4 +1,5 @@
 var React = require('react'),
+    flux = require('../../flux'),
     Router = require('react-router'),
     _ = require('lodash');
 
@@ -16,30 +17,18 @@ var Scan = React.createClass({
     ],
 
     getStateFromFlux: function() {
-        var state = flux.store('ScanStore').getState(),
-            oldState = this.state || {};
-
-        state.selectedPlan = oldState.selectedPlan || state.plans[0];
-
-        return state;
-    },
-
-    createScan: function() {
-        var targetId = this.getParams().targetId,
-            projectId = this.getQuery().project,
-            planId = this.state.selectedPlan.id;
-
-        flux.actions.scan.createScan(targetId, projectId, planId);
+        return flux.store('ScanStore').getState();
     },
 
     onPlanChange: function(event) {
-        this.setState({
-            selectedPlan: _.find(this.state.plans, {id: event.target.value}, this)
-        });
+        flux.actions.scan.setSelectedPlan(event.target.value);
     },
 
     render: function() {
-        var { selectedPlan } = this.state;
+        var { selectedPlan } = this.state,
+            targetId = this.getParams().targetId,
+            projectId = this.getQuery().project,
+            planId = selectedPlan.id;
 
         return (
             <div className="c-scan">
@@ -56,7 +45,10 @@ var Scan = React.createClass({
                     <Col sm={4} md={6}>
                         <Ibox>
                             <IboxContent>
-                                <StartScanButton text={iget('Create scan')} onClick={this.createScan}/>
+                                <StartScanButton
+                                    project={projectId}
+                                    target={targetId}
+                                    plan={planId} />
                             </IboxContent>
                         </Ibox>
                     </Col>
