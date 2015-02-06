@@ -35,8 +35,8 @@ var RawReports = React.createClass({
                 </h3>
                 {this.props.reports.map((report, i) => {
                     return (
-                        <Panel>
-                            <Domify value={report}/>
+                        <Panel key={i}>
+                            {this.renderReportData(report)}
                         </Panel>
                     );
                 })}
@@ -66,7 +66,47 @@ var RawReports = React.createClass({
         //        </PanelHeader>
         //    </div>
         //);
+    },
+
+    renderReportData: function(report) {
+        var json,
+            { raw } = report;
+
+        raw = raw.trim();
+
+        try {
+            json = JSON.parse(raw);
+
+            if (!Object.keys(json).length) {
+                return <pre>{'{}'}</pre>;
+            }
+
+            return <Domify value={json}/>;
+        }
+        catch(e) {
+            return <pre>{raw || iget('Empty report output')}</pre>;
+        }
+    },
+
+    getRawReportsFromReports: function(reports) {
+        var rawReports = [];
+
+        reports.forEach((report) => {
+            if (report.type === 'raw') {
+                rawReports.push(report);
+            }
+
+            if (report.type === 'multi') {
+                var sub = this.getRawReportsFromReports(report.multi);
+
+                rawReports.push.apply(rawReports, sub);
+            }
+
+        });
+
+        return rawReports;
     }
+
 });
 
 
