@@ -1,4 +1,5 @@
 var React = require('react'),
+    feedActions = require('../../actions/feed.actions'),
     flux = require('../../flux');
 
 var FeedItem = require('../feed-item');
@@ -54,7 +55,7 @@ var Feed = React.createClass({
             source = this._getSource(),
             skip = this.state.items.length;
 
-        if(source) flux.actions.feed.fetchItems(type, source.id, this._oneFetchLength, skip);
+        if(source) feedActions.fetchItems(type, source.id, this._oneFetchLength, skip);
     },
 
     render: function() {
@@ -88,10 +89,10 @@ var Feed = React.createClass({
         if (!source) return;
 
         if (lastItem) {
-            flux.actions.feed.fetchNewItems(type, source.id, lastItem.updated);
+            feedActions.fetchNewItems(type, source.id, lastItem.updated);
         }
         else {
-            flux.actions.feed.fetchItems(type, source.id);
+            feedActions.fetchItems(type, source.id);
         }
     },
 
@@ -114,7 +115,7 @@ var Feed = React.createClass({
             source = this._getSource(props),
             length = this._oneFetchLength;
 
-        if (source) flux.actions.feed.fetchItems(type, source.id, length);
+        if (source) feedActions.fetchItems(type, source.id, length);
     }
 });
 

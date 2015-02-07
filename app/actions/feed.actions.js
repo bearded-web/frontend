@@ -1,21 +1,29 @@
 'use strict';
 
-var { feed, users, extractor } = require('../lib/api3'),
-    { dispatchBuilder } = require('../lib/helpers'),
+var { feed, users } = require('../lib/api3'),
+    dispatcher = require('../lib/dispatcher'),
+    { dispatchBuilder, extractor } = require('../lib/helpers'),
     _ = require('lodash'),
     C = require('../constants');
 
-
 module.exports = {
+    /**
+     * Fetch feed for type
+     * @param {String} type entity type "target" or "project"
+     * @param {String} id entity id
+     * @param {Number} limit items limit to fetch
+     * @param {Number} skip number items to skip
+     * @return {Promise}
+     */
     fetchItems: function(type, id, limit, skip) {
-        return this.flux.actions.feed.fetchFeedFor(type, id, {
+        return this.fetchFeedFor(type, id, {
             limit: limit || 3,
             skip: skip || 0
         });
     },
 
     fetchNewItems: function(type, id, lastUpdate) {
-        return this.flux.actions.feed.fetchFeedFor(type, id, {
+        return this.fetchFeedFor(type, id, {
             updated_gte: lastUpdate
         });
     },
@@ -24,9 +32,14 @@ module.exports = {
         query = query || {};
         query[type] = id;
 
-        return this.flux.actions.feed.fetchFeed(query);
+        return this.fetchFeed(query);
     },
 
+    /**
+     * Fetch feed items
+     * @param {Object} query fetch params
+     * @return {Promise}
+     */
     fetchFeed: function(query) {
         var items;
 
@@ -39,12 +52,11 @@ module.exports = {
             .then((ids) => users.list({ id_in: ids.join(',') }))
             .then(extractor)
             .then((users) => items.forEach((item) => item.owner = _.find(users, { id: item.owner }))) // jshint ignore:line
-            .then(() => items)
-            .then(dispatchBuilder(C.FEED_FETCH_SUCCESS, this))
-            .catch(function(err) {
-                //TODO error handling
-                window.console.error(err, err.stack);
+            .then(function() {
+                dispatcher.dispatch(C.FEED_FETCH_SUCCESS, items);
             });
+
+        //TODO add catch and error report
     }
 };
 
