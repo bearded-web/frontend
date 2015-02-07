@@ -39,8 +39,7 @@ var TargetScan = React.createClass({
     },
 
     render: function() {
-        var { scan } = this.props,
-            isEnded = this.isEnded(scan);
+        var { scan } = this.props;
 
         return (
             <div className="c-target-scan">
@@ -49,16 +48,35 @@ var TargetScan = React.createClass({
                         <ScanSession key={session.id} session={session} />
                     );
                 })}
-
-                <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to={isEnded ? 'report' : 'scan-report'} params={{scanId: scan.id}} query={{ scan: scan.id }}>
-                    {isEnded ? iget('Show report') : iget('Show progress')}
-                </Link>
+                {this.renderLink()}
             </div>
         );
     },
 
+    renderLink: function() {
+        var { scan } = this.props,
+            isEnded = this.isEnded(scan);
+
+        if (this.isFailed(scan)) {
+            return (<div className="c-target-scan--fail">
+                <Fa icon="frown-o" fw size="lg"/>
+                {iget('Scan failed')}
+            </div>);
+        }
+
+        return (
+            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }} query={{ scan: scan.id }}>
+                {isEnded ? iget('Show report') : iget('Show progress')}
+            </Link>
+        );
+    },
+
     isEnded: function(scan) {
-        return _.contains(['finished', 'error'], scan.status);
+        return _.contains(['finished', 'failed'], scan.status);
+    },
+
+    isFailed: function(scan) {
+        return scan.status === 'failed';
     }
 });
 

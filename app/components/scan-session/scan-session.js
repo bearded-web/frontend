@@ -15,7 +15,12 @@ var ScanSession = React.createClass({
         var session = this.props.session,
             updatedAt = moment(session.updated),
             isWorking = session.status === 'working',
-            isEnded = _.contains(['finished', 'error'], session.status),
+            isEnded = _.contains(['finished', 'failed'], session.status),
+            icon = session.status === 'failed' ?
+                'frown-o' :
+                session.status === 'finished' ?
+                    'check' :
+                    'cog',
             progress,
             tooltip;
 
@@ -41,7 +46,7 @@ var ScanSession = React.createClass({
                 <OverlayTrigger placement="bottom" overlay={tooltip}>
                     <div>
                         <div className="c-scan-session--icon">
-                            <Fa icon={isEnded ? 'check' : 'cog'} fw spin={isWorking}/>
+                            <Fa icon={icon} fw spin={isWorking}/>
                         </div>
                         <div className="c-scan-session--info">
                             <span>{session.step.name}</span>
