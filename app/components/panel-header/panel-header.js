@@ -10,15 +10,15 @@ var PanelHeader = React.createClass({
             className: 'c-panel-header panel-title',
             children: (
                 <span className="c-panel-header panel-title">
-                    <span className="c-panel-header--down">
+                    <div className="c-panel-header--down">
                         <Fa icon="chevron-down" fw />
-                    </span>
-                    <span className="c-panel-header--up">
+                    </div>
+                    <div className="c-panel-header--up">
                         <Fa icon="chevron-up" fw />
-                    </span>
-                    <span>
+                    </div>
+                    <div className="c-panel-header--content">
                         {link.props.children}
-                    </span>
+                    </div>
                 </span>
             )
         });

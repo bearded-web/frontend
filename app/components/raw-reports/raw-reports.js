@@ -72,6 +72,10 @@ var RawReports = React.createClass({
         var json,
             { raw } = report;
 
+        if (!raw) {
+            return <span>{iget('Empty report output')}</span>;
+        }
+
         raw = raw.trim();
 
         try {
@@ -84,7 +88,7 @@ var RawReports = React.createClass({
             return <Domify value={json}/>;
         }
         catch(e) {
-            return <pre>{raw || iget('Empty report output')}</pre>;
+            return <pre>{raw}</pre>;
         }
     },
 

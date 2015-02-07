@@ -1,8 +1,9 @@
 @import "../../styles/inspina/variables";
 
+
 .severityColor(@color) {
     border-bottom-color: @color;
-    &:hover,
+    &:hover:not(.c-report-issues-total--disabled),
     &.c-report-issues-total--selected {
         background-color: @color;
         color: #fff;
@@ -12,11 +13,9 @@
 .c-report-issues-total {
     float: left;
 
-    height: 120px;
+    height: 85px;
 
     width: 33.333%;
-
-    margin-bottom: 10px;
 
     padding: 10px;
 
@@ -27,7 +26,7 @@
     cursor: pointer;
 
     @media (max-width: @screen-xs-max) {
-        height: 90px;
+        height: 100px;
     }
 
     &&--short {
@@ -44,6 +43,14 @@
 
     &&--low {
         .severityColor(@navy);
+    }
+
+    &&--disabled {
+        @disabledColor: #cecece;
+
+        color: @disabledColor;
+        border-bottom-color: @disabledColor;
+        cursor: default;
     }
 
     // elements

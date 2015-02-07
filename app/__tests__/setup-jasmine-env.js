@@ -79,3 +79,6 @@ var TestWrapper = window.TestWrapper = React.createClass({
 window.prepareTest = function(jest) {
 
 };
+
+var Jed = require('jed');
+window.i18n = new Jed({});

@@ -2,7 +2,13 @@
 
     // elements
     &-- {
+        &content {
+            padding-left: 2em;
+        }
+
         &up, &down {
+            float: left;
+
             margin-right: 0.5em;
         }
 
@@ -11,7 +17,7 @@
         }
 
         &up {
-            display: inline;
+            display: block;
         }
 
         &down {
@@ -19,7 +25,7 @@
         }
 
         .collapsed &down {
-            display: inline;
+            display: block;
         }
     }
 }

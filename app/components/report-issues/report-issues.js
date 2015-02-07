@@ -4,8 +4,9 @@ var React = require('react'),
     actions = require('../../actions/report.actions');
 
 var ReportIssuesTotal = require('../report-issues-total'),
+    SeverityLevelDesc = require('../severity-level-desc'),
     ReportIssuesDetail = require('../report-issues-detail'),
-    { Row, Col } = require('react-bootstrap');
+    { Row, Col, Panel } = require('react-bootstrap');
 
 var ReportIssues = React.createClass({
     propTypes: {
@@ -22,12 +23,30 @@ var ReportIssues = React.createClass({
 
         return (
             <div className="c-report-issues">
-                <Row>
+                <div>
                     {this.renderTotal('hi', issues)}
                     {this.renderTotal('medium', issues)}
                     {this.renderTotal('low', issues)}
+                    <div style={{ clear: 'both' }}></div>
+                </div>
+                {selectedIssues.length ? this.renderDetails(selectedIssues, severity) : <span></span>}
+            </div>
+        );
+    },
+
+    renderDetails: function(issues, severity) {
+        return (
+            <div className="c-report-issues--details">
+                <h3>{iget('Detailed report')}</h3>
+                <div classNamae="c-report-issues-desc">
+                    <SeverityLevelDesc severity={severity} count={issues.length}/>
+                </div>
+                <br/>
+                <Row>
+                    <Col xs={12}>
+                        <ReportIssuesDetail issues={issues} />
+                    </Col>
                 </Row>
-                <ReportIssuesDetail issues={selectedIssues} />
             </div>
         );
     },
@@ -40,6 +59,7 @@ var ReportIssues = React.createClass({
                 count={issues[severity].length} />
         );
     },
+
 
     setDefaultSeverity: function(severity, issues) {
         if (severity) return;

@@ -14,7 +14,9 @@ var ReportIssuesTotal = React.createClass({
     },
 
     onClick: function() {
-        actions.selectSeverity(this.props.severity);
+        if (this.props.count) {
+            actions.selectSeverity(this.props.severity);
+        }
     },
 
     render: function() {
@@ -23,6 +25,7 @@ var ReportIssuesTotal = React.createClass({
 
             cls = {
                 'c-report-issues-total': true,
+                'c-report-issues-total--disabled': !count,
                 'c-report-issues-total--short': short,
                 'c-report-issues-total--selected': selected
             };
@@ -48,13 +51,11 @@ var ReportIssuesTotal = React.createClass({
         }
 
         var severity = this.props.severity,
-            text = this.getText(severity),
-            desc = this.getDesc(severity);
+            text = this.getText(severity);
 
         return (
             <div>
                 <h3 className="font-bold no-margins">{text}</h3>
-                <small className="c-report-issues-total--desc">{desc}</small>
             </div>
         );
     },
@@ -64,14 +65,6 @@ var ReportIssuesTotal = React.createClass({
             hi: iget('Hi level exploits'),
             medium: iget('Medium warnings'),
             low: iget('Info and notices')
-        }[severity];
-    },
-
-    getDesc: function(severity) {
-        return {
-            hi: iget('You must fix it as soon as you can. Hackers can damage your site.'),
-            medium: iget('This warning show that your site have problems.'),
-            low: iget('Some info you need to know.')
         }[severity];
     }
 });

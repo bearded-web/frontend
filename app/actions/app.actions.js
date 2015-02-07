@@ -21,13 +21,15 @@ module.exports = {
         // try to fetch data
         me.info()
             .then((data) => {
-                dispatch(constants.APP_LIFT_SUCCESS);
-                handleMeData.call(this, data);
 
-                return Promise.all([
-                    this.flux.actions.target.fetchTargets(data.projects[0].id),
-                    this.flux.actions.plan.fetchPlans()
-                ]);
+                // for handle errors
+                nextTick(() => {
+                    dispatch(constants.APP_LIFT_SUCCESS);
+                    handleMeData.call(this, data);
+
+                    this.flux.actions.target.fetchTargets(data.projects[0].id);
+                    this.flux.actions.plan.fetchPlans();
+                });
             })
             .catch((e) => {
                 dispatch(constants.APP_LIFT_SUCCESS);

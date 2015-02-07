@@ -13,25 +13,23 @@ var ReportIssuesDetail = React.createClass({
         var { issues } = this.props;
 
         return (
-            <Row>
-                <Col xs={12}>
-                    <Accordion>
-                    {issues.map((issue, i) => {
-                        return (
-                            <Panel key={i} header={this.renderPanelHeader(issue)} eventKey={i + 1}>
-                                {this.renderDetail(issue)}
-                            </Panel>
-                        );
-                    })}
-                    </Accordion>
-                </Col>
-            </Row>
+            <div>
+                <Accordion>
+                {issues.map((issue, i) => {
+                    return (
+                        <Panel key={i} header={this.renderPanelHeader(issue)} eventKey={i + 1}>
+                            {this.renderDetail(issue)}
+                        </Panel>
+                    );
+                })}
+                </Accordion>
+            </div>
         );
     },
 
     renderPanelHeader: function(issue) {
         return (
-            <PanelHeader>{issue.summary}</PanelHeader>
+            <PanelHeader><h3 style={{display:'inline'}}>{issue.summary}</h3></PanelHeader>
         );
     },
 
@@ -55,7 +53,7 @@ var ReportIssuesDetail = React.createClass({
         var urls = _.pluck(issue.urls, 'url');
 
         return (
-            <h3>Find on {urls.join(', ')}</h3>
+            <h4>Find on {urls.join(', ')}</h4>
         );
     },
 
