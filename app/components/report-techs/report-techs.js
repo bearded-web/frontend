@@ -18,9 +18,9 @@ var ReportTechs = React.createClass({
             <div className="c-report-techs">
                 <Panel header={iget('Techs')}>
                 <Row>
-                {techs.map(function(tech) {
+                {techs.map(function(tech, i) {
                     return (
-                        <Col xs={6} sm={4} md={3}>
+                        <Col xs={6} sm={4} md={3} key={i}>
                             <h3>{tech.name}</h3>
                             Version: {tech.version}
                             <br/>

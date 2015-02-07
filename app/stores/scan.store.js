@@ -47,6 +47,8 @@ module.exports = Fluxxor.createStore({
      */
     _setSelectedPlan: function(id) {
         state.selectedPlan = _.find(this.plans, { id }) || null;
+
+        this._emitChange();
     },
 
     _onPlansFetchSuccess: function(plans) {

@@ -17,7 +17,7 @@ describe('ScanStore', function() {
         storeSpy = fakeFlux.makeStoreEmitSpy('Store');
     });
 
-    describe('.getState()', function() {
+    xdescribe('.getState()', function() {
         //xdescribe('dispatch REPORTS_SEVERITY_SELECT', function() {
         //    it('must set severity', function() {
         //        fakeFlux.dispatcher.dispatch({
@@ -64,6 +64,7 @@ describe('ScanStore', function() {
             });
 
             expect(store.getState().selectedPlan).toEqual(plan);
+            expect(storeSpy).lastEmittedWith('change');
         });
     });
 
@@ -88,9 +89,8 @@ describe('ScanStore', function() {
                 payload: plan2.id
             });
 
-
             expect(store.getState().selectedPlan).toEqual(plan2);
-
+            expect(storeSpy.getCalls()[1][0]).toEqual('change');
         });
     });
 
