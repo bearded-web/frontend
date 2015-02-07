@@ -38,12 +38,12 @@ module.exports = {
             .then(_.unique)
             .then((ids) => users.list({ id_in: ids.join(',') }))
             .then(extractor)
-            .then((users) => items.forEach((item) => item.owner = _.find(users, { id: item.scan.owner }))) // jshint ignore:line
+            .then((users) => items.forEach((item) => item.owner = _.find(users, { id: item.owner }))) // jshint ignore:line
             .then(() => items)
             .then(dispatchBuilder(C.FEED_FETCH_SUCCESS, this))
             .catch(function(err) {
                 //TODO error handling
-                console.error(err, err.stack);
+                window.console.error(err, err.stack);
             });
     }
 };
