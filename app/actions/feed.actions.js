@@ -34,8 +34,7 @@ module.exports = {
             .list(query)
             .then(extractor)
             .then((its) => items = its) // jshint ignore:line
-            .then((items) => _.pluck(items, 'scan'))
-            .then((scans) => _.pluck(scans, 'owner'))
+            .then((items) => _.pluck(items, 'owner'))
             .then(_.unique)
             .then((ids) => users.list({ id_in: ids.join(',') }))
             .then(extractor)
@@ -44,7 +43,7 @@ module.exports = {
             .then(dispatchBuilder(C.FEED_FETCH_SUCCESS, this))
             .catch(function(err) {
                 //TODO error handling
-                //console.error(err, err.stack);
+                console.error(err, err.stack);
             });
     }
 };
