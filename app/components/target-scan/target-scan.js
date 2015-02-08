@@ -65,7 +65,7 @@ var TargetScan = React.createClass({
         }
 
         return (
-            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }} query={{ scan: scan.id }}>
+            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }} query={{ scan: scan.id, target: scan.target }}>
                 {isEnded ? iget('Show report') : iget('Show progress')}
             </Link>
         );

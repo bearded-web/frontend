@@ -27,10 +27,9 @@ module.exports = React.createClass({
     render: function() {
         var target = this.props.target,
             targetId = target.id,
-            isActiveLink = this.isActive('target', { targetId }),
+            isActiveLink = this.isActiveState(),
             isHttps = false,
             domain = target.web.domain;
-
 
         if (_.startsWith(domain, 'http://')) {
             domain = domain.slice(7);
@@ -78,5 +77,12 @@ module.exports = React.createClass({
         if (!count) return '';
 
         return <Label bsStyle={labelStyle} className="pull-right">{count}</Label>;
-    }
+    },
+
+    isActiveState: function() {
+        var targetId = this.props.target.id;
+
+        return this.isActive('target', { targetId }) ||
+            this.isActive('report') && this.getQuery().target === targetId;
+    },
 });

@@ -14,27 +14,33 @@ window.nextTick = function(fn) {
 };
 var React = require('react/addons');
 
-
+var noop = function() {
+};
+var func = React.PropTypes.func;
 var TestWrapper = window.TestWrapper = React.createClass({
     childContextTypes: {
         currentPath: React.PropTypes.string,
-        makePath: React.PropTypes.func.isRequired,
-        makeHref: React.PropTypes.func.isRequired,
-        transitionTo: React.PropTypes.func.isRequired,
-        replaceWith: React.PropTypes.func.isRequired,
-        goBack: React.PropTypes.func.isRequired,
-        isActive: React.PropTypes.func.isRequired,
-        activeRoutes: React.PropTypes.array.isRequired,
-        activeParams: React.PropTypes.object.isRequired,
-        activeQuery: React.PropTypes.object.isRequired,
+        makePath: func,
+        makeHref: func,
+        transitionTo: func,
+        replaceWith: func,
+        goBack: func,
+        isActive: func,
+        activeRoutes: React.PropTypes.array,
+        activeParams: React.PropTypes.object,
+        activeQuery: React.PropTypes.object,
         location: React.PropTypes.object,
-        routes: React.PropTypes.array.isRequired,
-        namedRoutes: React.PropTypes.object.isRequired,
+        routes: React.PropTypes.array,
+        namedRoutes: React.PropTypes.object,
         scrollBehavior: React.PropTypes.object,
-        routeHandlers: React.PropTypes.array.isRequired,
-        getRouteAtDepth: React.PropTypes.func.isRequired,
-        getRouteComponents: React.PropTypes.func.isRequired,
-        getCurrentParams: React.PropTypes.func.isRequired
+        routeHandlers: React.PropTypes.array,
+        getRouteAtDepth: func,
+        getRouteComponents: func,
+        getCurrentQuery: func,
+        getCurrentPathname: func,
+        getCurrentPath: func,
+        getCurrentRoutes: func,
+        getCurrentParams: func
     },
 
     getChildContext: function() {
@@ -61,9 +67,13 @@ var TestWrapper = window.TestWrapper = React.createClass({
             namedRoutes: {},
             scrollBehavior: {},
             routeHandlers: [{}],
-            getRouteAtDepth: function() {},
-            getRouteComponents: function() { return {}; },
-            getCurrentParams: function() {}
+            getRouteAtDepth: noop,
+            getRouteComponents: noop,
+            getCurrentQuery: noop,
+            getCurrentPathname: noop,
+            getCurrentPath: noop,
+            getCurrentRoutes: noop,
+            getCurrentParams: noop
 
         }, this.props.contextStubs);
     },
