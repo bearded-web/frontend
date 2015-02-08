@@ -9,7 +9,8 @@ var _ = require('lodash'),
 
 module.exports = {
     fetchTargets: function(projectId) {
-        return targets.list({project: projectId}).then(resultExtractor(dispatchBuilder(C.TARGETS_FETCH_SUCCESS, this)));
+        return targets.list({project: projectId})
+            .then(resultExtractor(dispatchBuilder(C.TARGETS_FETCH_SUCCESS, this)));
     },
 
     addTarget: function(type, domain, project) {

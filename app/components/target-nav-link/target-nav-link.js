@@ -5,6 +5,7 @@ var React = require('react'),
     _ = require('lodash');
 
 var Link = require('react-router').Link,
+    { Label } = require('react-bootstrap'),
     Fa = require('../fa');
 
 module.exports = React.createClass({
@@ -12,7 +13,10 @@ module.exports = React.createClass({
 
     propTypes: {
         target: PropTypes.shape({
-            web: PropTypes.object.isRequired
+            web: PropTypes.object.isRequired,
+            summaryReport: PropTypes.shape({
+                issues: PropTypes.object.isRequired
+            }).isRequired
         }).isRequired
     },
 
@@ -44,8 +48,35 @@ module.exports = React.createClass({
                     <span className="nav-label">
                         {domain}
                     </span>
+                    {this.renderIssuesLabel()}
                 </Link>
             </li>
         );
+    },
+
+
+    renderIssuesLabel: function() {
+        var { issues } = this.props.target.summaryReport || { issues: {} },
+            count = 0,
+            labelStyle;
+
+        if (issues.info) {
+            count = issues.info;
+            labelStyle = 'info';
+        }
+
+        if (issues.medium) {
+            count = issues.medium;
+            labelStyle = 'warning';
+        }
+
+        if (issues.high) {
+            count = issues.high;
+            labelStyle = 'danger';
+        }
+
+        if (!count) return '';
+
+        return <Label bsStyle={labelStyle} className="pull-right">{count}</Label>;
     }
 });
