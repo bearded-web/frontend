@@ -10,10 +10,6 @@
   "jest": {
     "rootDir": "./app",
     "collectCoverage": false,
-    "coverageFormats": [
-      "json",
-      "html"
-    ],
     "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup-jasmine-env.js",
     "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
     "testFileExtensions": [
@@ -59,7 +55,6 @@
     "istanbul": "^0.3.0",
     "jasmine-reporters": "^1.0.0",
     "jed": "^1.1.0",
-    "jest-cli": "git://github.com/hankhsiao/jest.git",
     "jquery": "^2.1.3",
     "json-loader": "^0.5.1",
     "jsx-loader": "^0.12.2",
