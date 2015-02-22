@@ -72,6 +72,15 @@ module.exports = Fluxxor.createStore({
                 }
             });
 
+
+            if (sourceItem.scan && _.isString(sourceItem.scan.plan)) {
+                var plans = window.flux.store('ScanStore').getState().plans;
+
+                var plan = _.find(plans, { id: sourceItem.scan.plan });
+
+                sourceItem.scan.plan = plan;
+            }
+
             if (storedItem) {
                 _.assign(storedItem, sourceItem);
             } else {

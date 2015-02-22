@@ -6,6 +6,7 @@ var { Row, Col, Button } = require('react-bootstrap'),
     TargetScan = require('../target-scan');
 
 var FeedItem = React.createClass({
+
     propTypes: {
         item: React.PropTypes.object.isRequired
     },

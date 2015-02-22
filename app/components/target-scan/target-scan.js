@@ -43,6 +43,9 @@ var TargetScan = React.createClass({
 
         return (
             <div className="c-target-scan">
+                <h4>
+                    {scan.plan && scan.plan.name}
+                </h4>
                 {scan.sessions.map(function(session) {
                     return (
                         <ScanSession key={session.id} session={session} />
