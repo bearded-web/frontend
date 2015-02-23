@@ -1,5 +1,7 @@
 'use strict';
 
+import { setCurrentProject } from './project.actions';
+
 var _ = require('lodash'),
     C = require('../constants'),
     router = require('../router'),
@@ -13,7 +15,7 @@ module.exports = {
             .then(resultExtractor(dispatchBuilder(C.TARGETS_FETCH_SUCCESS, this)));
     },
 
-    addTarget: function(type, domain, project) {
+    addTarget: function(type, domain, projectId) {
         this.dispatch(C.ADD_TARGET);
 
         if (!domain) {
@@ -23,7 +25,7 @@ module.exports = {
 
         var target = {
             type: 'web',
-            project: project.id,
+            project: projectId,
             web: {
                 domain: domain
             }
@@ -58,7 +60,11 @@ module.exports = {
 
     setCurrentTarget: function(targetId) {
         targets.get(targetId)
-            .then((target) => this.dispatch(C.TARGETS_SET_CURRENT, target));
+            .then((target) => {
+                return setCurrentProject(target.project, true).then(() => {
+                    this.dispatch(C.TARGETS_SET_CURRENT, target);
+                });
+            })
     },
 
     unsetCurrentTarget: function() {

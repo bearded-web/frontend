@@ -1,3 +1,8 @@
+import React, { PropTypes } from 'react/addons';
+import { Map } from 'immutable';
+
+import ProjectInfo from '../project-info';
+
 var Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
@@ -5,13 +10,18 @@ var Router = require('react-router'),
     cx = React.addons.classSet;
 
 
+
 var LeftPanel = React.createClass({
     mixins: [Router.State, FluxMixin],
 
     propTypes: {
-        targets: React.PropTypes.object.isRequired,
-        user: React.PropTypes.object.isRequired,
-        show: React.PropTypes.bool
+        app: PropTypes.shape({
+            currentProject: PropTypes.instanceOf(Map).isRequired,
+            projects: PropTypes.instanceOf(Map).isRequired,
+        }).isRequired,
+        targets: PropTypes.object.isRequired,
+        user: PropTypes.object.isRequired,
+        show: PropTypes.bool
     },
 
     addTarget: function() {
@@ -19,9 +29,14 @@ var LeftPanel = React.createClass({
     },
 
 
-    render: function() {
+    render() {
+        let { app } = this.props,
+            { currentProject } = app,
+            $targets = currentProject.get('targets');
+
+
         var targetsStore = this.props.targets,
-            { project, targets } = targetsStore;
+            { project } = targetsStore;
 
         var addingStateShow;
 
@@ -41,11 +56,13 @@ var LeftPanel = React.createClass({
             'navbar-default': true
         });
 
+
         return (
             <nav role="navigation" className={classes}>
                 <ul className="nav">
                     <li className="nav-header">
-                        <div className="logo-element">Barbudo</div>
+
+                        <ProjectInfo projects={app.projects} currentProject={currentProject}/>
                     </li>
 
                     <li className={this.isActive('overview') ? 'active' : ''}>
@@ -61,7 +78,7 @@ var LeftPanel = React.createClass({
                         {iget('Targets')}
                     </li>
 
-                    {targets.map(function(target) {
+                    {$targets.toArray().map(function(target) {
                         return (
                             <TargetNavLink  key={target.id} target={target} />
                         );

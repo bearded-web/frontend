@@ -1,3 +1,5 @@
+import flux from '../flux';
+
 var Bootstrap = require('react-bootstrap'),
     _ = require('lodash'),
     Fluxxor = require('fluxxor');
@@ -20,8 +22,10 @@ module.exports = React.createClass({
         var domain = this.refs.domain.getDOMNode().value,
             targetType = this.refs.targetType.getDOMNode().value;
 
+        let projectId = flux.store('Store').getState().currentProject.get('id');
+
         this.getFlux().actions.target
-            .addTarget(targetType, domain, this.props.targetsStore.project);
+            .addTarget(targetType, domain, projectId);
     },
 
 

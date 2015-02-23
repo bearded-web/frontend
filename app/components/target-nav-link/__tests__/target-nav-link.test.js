@@ -1,26 +1,29 @@
 describe('TargetNavLink', function() {
     var componentPath = '../target-nav-link';
 
-    jest.dontMock(componentPath);
     jest.dontMock('react-router');
     jest.dontMock('react/addons');
     jest.dontMock('react-router');
+    jest.dontMock('immutable');
     jest.dontMock('react-bootstrap');
+    jest.dontMock(componentPath);
 
     var React,
         TestUtils,
         Component,
         component,
         Link,
+        Immutable,
         appActions;
 
     beforeEach(function() {
         React = require('react/addons');
+        Immutable = require('immutable');
         Component = require(componentPath);
         TestUtils = React.addons.TestUtils;
         Link = require('react-router').Link;
         appActions = require('../../../actions/app.actions');
-        var target = { web: { domain: 'heelo.com' }, summaryReport: { issues: {} } };
+        var target = Immutable.fromJS({ web: { domain: 'heelo.com' }, summaryReport: { issues: {} } });
 
         component = TestUtils.renderIntoDocument(
             <TestWrapper component={Component} target={target} />
@@ -36,12 +39,12 @@ describe('TargetNavLink', function() {
     });
 
     it('must show label with high level warning and red label', function() {
-        var target = {
+        var target = Immutable.fromJS({
             web: { domain: 'heelo.com' },
             summaryReport: {
                 "issues": { "high": 2, "medium": 3, "info": 4 }
             }
-        };
+        });
 
         component = TestUtils.renderIntoDocument(
             <TestWrapper component={Component} target={target} />
@@ -54,12 +57,12 @@ describe('TargetNavLink', function() {
     });
 
     it('must show label with medium warnings', function() {
-        var target = {
+        var target = Immutable.fromJS({
             web: { domain: 'heelo.com' },
             summaryReport: {
                 "issues": { "high": 0, "medium": 3, "info": 4 }
             }
-        };
+        });
 
         component = TestUtils.renderIntoDocument(
             <TestWrapper component={Component} target={target} />
@@ -72,12 +75,12 @@ describe('TargetNavLink', function() {
     });
 
     it('must show label with info warnings', function() {
-        var target = {
+        var target = Immutable.fromJS({
             web: { domain: 'heelo.com' },
             summaryReport: {
                 "issues": { "high": 0, "medium": 0, "info": 4 }
             }
-        };
+        });
 
         component = TestUtils.renderIntoDocument(
             <TestWrapper component={Component} target={target} />
@@ -90,12 +93,12 @@ describe('TargetNavLink', function() {
     });
 
     it('must show no label if no issues', function() {
-        var target = {
+        var target = Immutable.fromJS({
             web: { domain: 'heelo.com' },
             summaryReport: {
                 "issues": { "high": 0, "medium": 0, "info": 0 }
             }
-        };
+        });
 
         component = TestUtils.renderIntoDocument(
             <TestWrapper component={Component} target={target} />

@@ -8,7 +8,9 @@ module.exports = {
 };
 
 if (module.hot) {
-    module.hot.accept('./plan.actions', function() {
+    module.hot.accept([
+        './plan.actions'
+    ], function() {
 
     });
 }

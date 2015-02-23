@@ -6,7 +6,7 @@ var FeedItem = require('../feed-item');
 
 var Feed = React.createClass({
     propTypes: {
-        source: React.PropTypes.object.isRequired,
+        source: React.PropTypes.object,
         type: React.PropTypes.oneOf(['project', 'target'])
     },
 

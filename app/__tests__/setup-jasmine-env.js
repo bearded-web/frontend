@@ -1,6 +1,7 @@
 jasmine.VERBOSE = true;
 var _ = require('lodash');
 require('jasmine-reporters');
+
 var reporter = new jasmine.JUnitXmlReporter("output/");
 jasmine.getEnv().addReporter(reporter);
 jasmine.VERBOSE = false;

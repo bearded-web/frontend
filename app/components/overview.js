@@ -1,3 +1,6 @@
+import { Navigation } from 'react-router';
+import { setCurrentProject } from '../actions/project.actions';
+
 var flux = require('../flux');
 
 var Header = require('./header'),
@@ -9,8 +12,17 @@ var Header = require('./header'),
 var Overview = React.createClass({
     mixins: [
         FluxMixin,
+        Navigation,
         flux.createStoreWatchMixin('AppStore')
     ],
+
+
+    statics: {
+        willTransitionTo: function(transition, params, query) {
+            
+        }
+    },
+
 
     getStateFromFlux: function() {
         return {

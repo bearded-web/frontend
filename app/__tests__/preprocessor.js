@@ -1,4 +1,4 @@
-var ReactTools = require('react-tools');
+var babel = require("babel");
 
 module.exports = {
     process: function(src, fPath) {
@@ -9,7 +9,9 @@ module.exports = {
         src = src.replace(/^(require\('.*\.less'\);)$/mi, '');
 
         try {
-            return ReactTools.transform(src, { harmony: true });
+            var result = babel.transform(src);
+
+            return result.code;
         }
         catch(e) {
             console.log('error in ', src);

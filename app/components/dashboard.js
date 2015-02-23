@@ -1,3 +1,7 @@
+import flux from '../flux';
+
+import ModalManager from './modal-manager';
+
 var React = require('react'),
     Router = require('react-router'),
     AppStore = require('../stores/app.store'),
@@ -8,7 +12,10 @@ var React = require('react'),
     LeftPanelCover = require('./left-panel-cover');
 
 var Dashboard = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [
+        FluxMixin,
+        flux.createStoreWatchMixin('Store')
+    ],
 
     statics: {
         willTransitionTo: function(transition) {
@@ -21,7 +28,15 @@ var Dashboard = React.createClass({
         }
     },
 
-    render: function() {
+    getStateFromFlux() {
+        return {
+            app: flux.store('Store').getState()
+        };
+    },
+
+    render() {
+        let appStore = this.state.app;
+
         var app = this.props.app,
             targets = this.props.targets,
             leftPanelCover,
@@ -38,10 +53,9 @@ var Dashboard = React.createClass({
             targetModal = <AddTargetModal targetsStore={targets} />;
         }
 
-
         return (
             <div className="c-dashboard">
-                <LeftPanel show={app.leftPanelVisible} targets={targets} user={app.user}/>
+                <LeftPanel app={appStore} show={app.leftPanelVisible} targets={targets} user={app.user}/>
                 <div className="page-wrapper gray-bg">
                     <div className="container-fluid">
                         <Navbar user={app.user}/>
@@ -52,6 +66,8 @@ var Dashboard = React.createClass({
                 </div>
                 {leftPanelCover}
                 {targetModal}
+
+                <ModalManager modal={appStore.modal} />
             </div>
         );
     }

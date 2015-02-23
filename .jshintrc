@@ -5,6 +5,7 @@
     "nextTick",
     "iget"
   ],
+  "esnext":true,
   "browser": true,
   "indent": 4,
   "-W097": true

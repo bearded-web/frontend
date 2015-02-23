@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 var React = require('react'),
     { PropTypes } = React,
     Router = require('react-router'),
@@ -12,12 +14,7 @@ module.exports = React.createClass({
     mixins: [Router.State],
 
     propTypes: {
-        target: PropTypes.shape({
-            web: PropTypes.object.isRequired,
-            summaryReport: PropTypes.shape({
-                issues: PropTypes.object.isRequired
-            }).isRequired
-        }).isRequired
+        target: PropTypes.instanceOf(Map).isRequired
     },
 
     onClick: function() {
@@ -25,7 +22,7 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var target = this.props.target,
+        var target = this.props.target.toJS(),
             targetId = target.id,
             isActiveLink = this.isActiveState(),
             isHttps = false,
@@ -55,7 +52,7 @@ module.exports = React.createClass({
 
 
     renderIssuesLabel: function() {
-        var { issues } = this.props.target.summaryReport || { issues: {} },
+        var { issues } = this.props.target.toJS().summaryReport || { issues: {} },
             count = 0,
             labelStyle;
 
@@ -80,7 +77,7 @@ module.exports = React.createClass({
     },
 
     isActiveState: function() {
-        var targetId = this.props.target.id;
+        var targetId = this.props.target.toJS().id;
 
         return this.isActive('target', { targetId }) ||
             this.isActive('report') && this.getQuery().target === targetId;

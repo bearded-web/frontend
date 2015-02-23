@@ -13,6 +13,9 @@ var constants = {
 
     FEED_FETCH_SUCCESS: true,
 
+    MODAL_OPEN: true,
+    MODAL_CLOSE: true,
+
     PLANS_FETCH_SUCCESS: true,
     PLANS_SET_SELECTED: true,
 
@@ -47,6 +50,11 @@ var constants = {
     USER_LOGOUT_FAIL: true,
 
     PROJECT_FETCH_SUCCESS: true,
+    
+    PROJECTS_FETCH_SUCCESS: true,
+    PROJECTS_SET_CURRENT: true,
+
+
 
 
     ________: false // dont want delete "," after duplicate line
