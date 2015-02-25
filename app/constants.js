@@ -49,7 +49,12 @@ var constants = {
     USER_LOGOUT_SUCCESS: true,
     USER_LOGOUT_FAIL: true,
 
+    USERS_FETCH_SUCCESS: true,
+
+
+    PROJECT_ADD_MEMBER: true,
     PROJECT_FETCH_SUCCESS: true,
+    PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS: true,
     
     PROJECTS_FETCH_SUCCESS: true,
     PROJECTS_SET_CURRENT: true,

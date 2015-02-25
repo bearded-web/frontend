@@ -23,9 +23,10 @@ export default React.createClass({
 
 	render() {
 		let error = '',
-			{ onRequestHide } = this.props;
+			{ onRequestHide } = this.props,
+            title = __('Create new project');
 
-		return <Modal title="Create new projext" onRequestHide={onRequestHide}  animation={true}>
+		return <Modal title={title} onRequestHide={onRequestHide}  animation={true}>
             <form onSubmit={this.onSubmit}>
                 <div className="modal-body">
                 	<Input 

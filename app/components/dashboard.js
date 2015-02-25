@@ -1,4 +1,5 @@
 import flux from '../flux';
+import { setCurrentProject } from '../actions/project.actions';
 
 import ModalManager from './modal-manager';
 
@@ -18,12 +19,25 @@ var Dashboard = React.createClass({
     ],
 
     statics: {
-        willTransitionTo: function(transition) {
+        willTransitionTo: function(transition,a,c, callback) {
             var app = flux.store('AppStore');
 
             if (!app.isLogedIn && app.inited) {
                 transition.redirect('/');
                 flux.actions.app.showLogin();
+            }
+            else {
+                let interval = setInterval(function(){
+
+                    let $currentProject = flux.store('Store')
+                        .getState().currentProject;
+                    
+                    if ($currentProject) {
+                        setCurrentProject($currentProject.get('id'), true);
+                        clearInterval(interval);
+                        callback();
+                    }
+                })
             }
         }
     },
@@ -55,7 +69,7 @@ var Dashboard = React.createClass({
 
         return (
             <div className="c-dashboard">
-                <LeftPanel app={appStore} show={app.leftPanelVisible} targets={targets} user={app.user}/>
+                <LeftPanel app={appStore} targets={targets} show={app.leftPanelVisible} user={app.user}/>
                 <div className="page-wrapper gray-bg">
                     <div className="container-fluid">
                         <Navbar user={app.user}/>

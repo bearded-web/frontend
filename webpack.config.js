@@ -66,7 +66,7 @@ var config = {
 };
 
 config.addVendor('react', path.resolve(node_modules_dir, 'react'), true);
-config.addVendor('react-router', path.resolve(bower_dir, 'react-router/dist/react-router.js'));
+config.addVendor('react-router', path.resolve(node_modules_dir, 'react-router/lib/index.js'), true);
 config.addVendor('bootstrap', path.resolve(bower_dir, 'bootstrap/'));
 config.addVendor('bootstrap.css', path.resolve(bower_dir, 'bootstrap/dist/css/bootstrap.css'));
 config.addVendor('font-awesome-webpack', path.resolve(node_modules_dir, 'font-awesome-webpack'), true);

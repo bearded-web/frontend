@@ -69,7 +69,7 @@
     "react-bootstrap": "^0.13.2",
     "react-domify": "^0.2.0",
     "react-hot-loader": "^1.1.4",
-    "react-router": "^0.11.6",
+    "react-router": "0.12.2",
     "react-toastr": "^1.1.2",
     "react-tools": "^0.12.2",
     "reqwest": "^1.1.5",

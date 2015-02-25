@@ -1,6 +1,6 @@
 describe('Store', function() {
     var FluxxorTestUtils, fakeFlux, store,
-        appStoreSpy, constants;
+        appStoreSpy, constants, Immutable;
 
 
     jest.dontMock('util');
@@ -10,10 +10,11 @@ describe('Store', function() {
     jest.setMock('../../lib/local-storage', {
         getItem: jest.genMockFunction(),
         setItem: jest.genMockFunction()
-    })
+    });
 
 
     beforeEach(function() {
+        Immutable = require('immutable');
         constants = require('../../constants');
 
         FluxxorTestUtils = require('fluxxor-test-utils');
@@ -81,6 +82,69 @@ describe('Store', function() {
             expect($projects.size).toBe(2);
             expect($projects.get('2').get('created')).toBe('444');
             expect($projects.get('2').get('updated')).toBe('123');
+        });
+    });
+
+    describe('members', function() {
+
+        it('must populate state.currentProject.members', function() {
+            let project = { id: '1', title: 'supp', members: [
+                { user: '1' },
+                { user: '2' }
+            ] };
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.PROJECTS_FETCH_SUCCESS,
+                payload: [project]
+            });
+
+            let users = [
+                { id: '1', name: 'V' },
+                { id: '2', name: 'D' }
+            ];
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.USERS_FETCH_SUCCESS,
+                payload: users
+            });
+
+            let { currentProject } = store.getState();
+            let $members = currentProject.get('members');
+            let $firstMember = $members.get(0);
+            let $user = $firstMember.get('user');
+
+            let user = $user.toJS();
+            expect(user.id).toBe('1');
+            expect(user.name).toBe('V');
+        });
+
+
+
+        it('must populate state.currentProject.members', function() {
+            let project = { id: '1', title: 'supp', members: [
+                { user: '1' }
+            ] };
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.PROJECTS_FETCH_SUCCESS,
+                payload: [project]
+            });
+
+            let users = [
+                { id: '1', name: 'V' },
+                { id: '2', name: 'D' }
+            ];
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.USERS_FETCH_SUCCESS,
+                payload: users
+            });
+
+            let fproject = store.getState().projects.first().toJS();
+            let member = fproject.members[0];
+            let user = member.user;
+
+            expect(user.name).toBe('V');
         });
     });
 
@@ -165,7 +229,8 @@ describe('Store', function() {
                 payload: projects
             });
 
-            expect(store.getState().currentProject.get('id')).toBe('1');
+            let $currentProject = store.getState().currentProject;
+            expect($currentProject.get('id')).toBe('1');
 
             fakeFlux.dispatcher.dispatch({
                 type: constants.TARGETS_SET_CURRENT,
@@ -205,6 +270,18 @@ describe('Store', function() {
 
             expect(store.getState().modal.get('name')).toBeFalsy();
         });
+    });
+
+    describe('Suggest', function() {
+        it('must populate state.membersSuggest with users', function() {
+            fakeFlux.dispatcher.dispatch({
+                type: constants.PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS,
+                payload: [{ id: '1', email: '1@' }]
+            });
+
+            expect(store.getState().membersSuggest.size).toBe(1);
+            expect(store.getState().membersSuggest.get(0).get('id')).toBe('1');
+        });             
     });
 
 });

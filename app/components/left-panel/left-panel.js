@@ -31,8 +31,11 @@ var LeftPanel = React.createClass({
 
     render() {
         let { app } = this.props,
-            { currentProject } = app,
-            $targets = currentProject.get('targets');
+            { currentProject } = app;
+
+        if (!currentProject) return <div></div>;
+
+        let $targets = currentProject.get('targets');
 
 
         var targetsStore = this.props.targets,
@@ -56,7 +59,6 @@ var LeftPanel = React.createClass({
             'navbar-default': true
         });
 
-
         return (
             <nav role="navigation" className={classes}>
                 <ul className="nav">
@@ -78,7 +80,7 @@ var LeftPanel = React.createClass({
                         {iget('Targets')}
                     </li>
 
-                    {$targets.toArray().map(function(target) {
+                    {$targets && $targets.toArray().map(function(target) {
                         return (
                             <TargetNavLink  key={target.id} target={target} />
                         );

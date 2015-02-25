@@ -102,7 +102,7 @@ export default React.createClass({
                 <ProjectCreateBtn />
             </div>
             <br/>
-            <Members members={current.members}/>
+            <Members project={props.currentProject}/>
         </div>
     }
 });

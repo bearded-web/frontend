@@ -7,6 +7,7 @@ describe('TargetNavLink', function() {
     jest.dontMock('immutable');
     jest.dontMock('react-bootstrap');
     jest.dontMock(componentPath);
+    jest.setMock('../../../flux.js');
 
     var React,
         TestUtils,

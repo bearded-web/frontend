@@ -1,7 +1,13 @@
 describe('StartScanButton', function() {
     jest.dontMock('../start-scan-button');
     jest.dontMock('react/addons');
-    jest.dontMock('../../../flux');
+    jest.setMock('../../../flux', {
+        actions: {
+            scan: {
+                createScan: function(){}
+            }
+        }
+    });
 
 
     it('must call actions.scan.createScans if clicked', function() {

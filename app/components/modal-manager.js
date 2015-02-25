@@ -3,6 +3,7 @@ import { Map } from 'immutable';
 import { closeModal } from '../actions/app.actions.js';
 
 import ProjectCreateModal from './project-create-modal'
+import AddMemberModal from './add-member-modal';
 
 let { PureRenderMixin } = addons;
 
@@ -18,10 +19,14 @@ export default React.createClass({
     },
 
 	render() {
-		let name = this.props.modal.get('name');
+		let $modal = this.props.modal,
+			name = $modal.get('name');
 
 		if(name === 'project-create') {
 			return <ProjectCreateModal  onRequestHide={this.onRequestHide}  animation={true}/>
+		}
+		if (name === 'project-add-member') {
+			return <AddMemberModal params={$modal.toObject()}  onRequestHide={this.onRequestHide}  animation={true}/>
 		}
 
 		return <span></span>

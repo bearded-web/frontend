@@ -3,6 +3,7 @@ describe('TargetScan', function() {
     jest.dontMock('react-router');
     jest.dontMock('react/addons');
     jest.dontMock('../../../flux');
+    jest.setMock('../../../stores/store', function() {});
 
     var _ = require('lodash');
 
