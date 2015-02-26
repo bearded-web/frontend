@@ -88,12 +88,12 @@ describe('ReportIssues', function() {
     describe('.getIssuesFromReports()', function() {
 
 
-        it('must return object with low, medium, hi field', function() {
-            var { low, medium, hi } = component.getIssuesFromReports(reports);
+        it('must return object with low, medium, high field', function() {
+            var { low, medium, high } = component.getIssuesFromReports(reports);
 
             expect(_.isArray(low)).toBeTruthy();
             expect(_.isArray(medium)).toBeTruthy();
-            expect(_.isArray(hi)).toBeTruthy();
+            expect(_.isArray(high)).toBeTruthy();
         });
 
         it('must return medium field as array with one issue', function() {
@@ -113,24 +113,24 @@ describe('ReportIssues', function() {
         });
 
         xit('must do nothing if severity if defined', function() {
-            component.setDefaultSeverity('hi');
+            component.setDefaultSeverity('high');
         });
 
-        it('must call action selectSeverity with "hi" if has hi severities', function() {
+        it('must call action selectSeverity with "high" if has high severities', function() {
             component.setDefaultSeverity('', {
                 low: [],
                 medium: [],
-                hi: [1]
+                high: [1]
             });
 
-            expect(actions.selectSeverity).toBeCalledWith('hi');
+            expect(actions.selectSeverity).toBeCalledWith('high');
         });
 
-        xit('must call action selectSeverity with "medium" if no hi severities and has medium', function() {
+        xit('must call action selectSeverity with "medium" if no high severities and has medium', function() {
             component.setDefaultSeverity('', {
                 low: [],
                 medium: [1],
-                hi: []
+                high: []
             });
 
             expect(actions.selectSeverity).toBeCalledWith('medium');

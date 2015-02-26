@@ -24,7 +24,7 @@ var ReportIssues = React.createClass({
         return (
             <div className="c-report-issues">
                 <div>
-                    {this.renderTotal('hi', issues)}
+                    {this.renderTotal('high', issues)}
                     {this.renderTotal('medium', issues)}
                     {this.renderTotal('low', issues)}
                     <div style={{ clear: 'both' }}></div>
@@ -64,8 +64,8 @@ var ReportIssues = React.createClass({
     setDefaultSeverity: function(severity, issues) {
         if (severity) return;
 
-        if (issues.hi.length) {
-            severity = 'hi';
+        if (issues.high.length) {
+            severity = 'high';
         }
         if (issues.medium.length) {
             severity = 'medium';
@@ -79,9 +79,12 @@ var ReportIssues = React.createClass({
 
     getIssuesFromReports: function(reports) {
         var issues = {
+            info: [],
             low: [],
             medium: [],
-            hi: []
+            high: [],
+            error: []
+
         };
 
         reports.forEach((report) => {
