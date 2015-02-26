@@ -53,6 +53,7 @@ var constants = {
 
 
     PROJECT_ADD_MEMBER: true,
+    PROJECT_REMOVE_MEMBER: true,
     PROJECT_FETCH_SUCCESS: true,
     PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS: true,
     

@@ -146,6 +146,38 @@ describe('Store', function() {
 
             expect(user.name).toBe('V');
         });
+
+        it('must remove member', function() {
+            let project = { id: '1', title: 'supp', members: [
+                { user: 'addd' }
+            ] };
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.PROJECTS_FETCH_SUCCESS,
+                payload: [project]
+            });
+
+            let users = [
+                { id: 'addd', name: 'V' }
+            ];
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.USERS_FETCH_SUCCESS,
+                payload: users
+            });
+
+            fakeFlux.dispatcher.dispatch({
+                type: constants.PROJECT_REMOVE_MEMBER,
+                payload: {
+                    projectId: '1',
+                    userId: 'addd'
+                }
+            });
+
+            let $members = store.getState().projects.getIn(['1', 'members'])
+
+            expect($members.size).toBe(0);
+        });
     });
 
     describe('targets', function() {

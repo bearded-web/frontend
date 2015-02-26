@@ -47,6 +47,7 @@ export default Fluxxor.createStore({
             consts.TARGETS_SET_CURRENT, this._onTargetSetCurrent,
             consts.USERS_FETCH_SUCCESS, this._onUsersFetch,
             consts.PROJECT_ADD_MEMBER, this._onAddMember,
+            consts.PROJECT_REMOVE_MEMBER, this._onRemoveMember,
             consts.PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS, this._onMemberSuggest
         );
     },
@@ -155,6 +156,24 @@ export default Fluxxor.createStore({
         let $members = state.getIn(['projects', projectId, 'members']);
 
         $members = $members.push(fromJS(member));
+
+        state = state.setIn(['projects', projectId, 'members'], $members);
+
+        this._emitChange();
+    },
+
+    _onRemoveMember(payload) {
+        let { userId, projectId } = payload;
+
+        let $members = state.getIn(['projects', projectId, 'members']);
+
+        $members = $members.filter(function($member) {
+            let user = $member.get('user').toJS(),
+                id = user.id || user;
+
+            return id !== userId;
+        });
+
 
         state = state.setIn(['projects', projectId, 'members'], $members);
 

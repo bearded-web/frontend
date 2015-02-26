@@ -1,6 +1,6 @@
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
-import { addMember, fillMembersSuggest } from '../actions/project.actions.js';
+import { addMember, fillMembersSuggest, removeMember } from '../actions/project.actions.js';
 import { closeModal } from '../actions/app.actions.js';
 import flux from '../flux';
 import { debounce } from 'lodash';
@@ -8,9 +8,10 @@ import { debounce } from 'lodash';
 let { PureRenderMixin } = addons;
 
 import ErrorMessage from './error-message';
-import { Modal, Input, Button } from 'react-bootstrap';
+import { Modal, Input, Button, Row, Col } from 'react-bootstrap';
 import Member from './project-member';
 import SuggestUsers from './suggest-users';
+import Fa from './fa';
 
 export default React.createClass({
     mixins: [
@@ -55,6 +56,13 @@ export default React.createClass({
         fillMembersSuggest('');
     },
 
+    removeMember($member) {
+        let projectId = this.props.params.project.get('id'),
+            userId = $member.getIn(['user', 'id']);
+
+        removeMember(projectId, userId);
+    },
+
     render() {
         let error = '',
             { onRequestHide, params } = this.props,
@@ -74,11 +82,9 @@ export default React.createClass({
             <div className="modal-body">
                 <form>
                     <label>{__('Members')}</label>
-                    <div>
-                        {$members.toArray().map(function($member){
-                            return <Member member={$member} />
-                        })}
-                    </div>
+                    <Row>
+                        {$members.toArray().map(this.renderMember)}
+                    </Row>
                     <br style={{clear:'both'}}/>
                     <br/>
                     <Input 
@@ -91,7 +97,6 @@ export default React.createClass({
 
                     <div>
                         <SuggestUsers $users={$membersSuggest} onSelect={this.addMember}/>
-                       
                     </div>
                    
                     <ErrorMessage text={error} />
@@ -103,6 +108,21 @@ export default React.createClass({
                 </Button>
             </div>
         </Modal>
+    },
+
+    renderMember($member, i) {
+        let email = $member.getIn(['user', 'email']) || '',
+            handler = () => this.removeMember($member);
+
+        return <Col key={i} xs={12} sm={4}>
+            <div>
+                <a className="pull-right" onClick={handler}>
+                    <Fa icon="remove"/>
+                </a>
+                <Member member={$member} />
+                {email}
+            </div>
+        </Col>
     }
 });
 
