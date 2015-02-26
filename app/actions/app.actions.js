@@ -1,5 +1,7 @@
 'use strict';
 
+import { setCurrentProject } from './project.actions';
+
 var _ = require('lodash'),
     constants = require('../constants'),
     { extractor } = require('../lib/helpers'),
@@ -26,8 +28,12 @@ export function initApp() {
                 dispatch(constants.APP_LIFT_SUCCESS);
                 handleMeData.call(this, data);
 
-                this.flux.actions.target.fetchTargets(data.projects[0].id);
-                this.flux.actions.plan.fetchPlans();
+                nextTick(() => {
+
+                    let $project = this.flux.store('Store').getState().currentProject;
+                    this.flux.actions.target.fetchTargets($project.get('id'));
+                    this.flux.actions.plan.fetchPlans();
+                });
             });
         })
         .catch((e) => {
@@ -50,8 +56,15 @@ export function logIn(email, password) {
     auth.login({ body: { email: email, password: password } })
         .then(() => me.info())
         .then((data) => {
-            targetActions.fetchTargets(data.projects[0].id);
             handleMeData.call(this, data);
+
+            nextTick(() => {
+
+                let $project = this.flux.store('Store').getState().currentProject;
+                this.flux.actions.target.fetchTargets($project.get('id'));
+                setCurrentProject($project.get('id'), true);
+                this.flux.actions.plan.fetchPlans();
+            });
         })
         .catch((err) => {
             dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
