@@ -40,11 +40,7 @@ var ReportIssuesDetail = React.createClass({
 
                 <p>{issue.desc}</p>
 
-                <Table>
-                    <tbody>
-                    {issue.extras.map(this.renderExtra)}
-                    </tbody>
-                </Table>
+                {issue.extras ? this.renderExtrasTable(extras) : ''}
             </div>
         );
     },
@@ -55,6 +51,14 @@ var ReportIssuesDetail = React.createClass({
         return (
             <h4>Find on {urls.join(', ')}</h4>
         );
+    },
+
+    renderExtrasTable: function(extras) {
+        return <Table>
+            <tbody>
+            {extras.map(this.renderExtra)}
+            </tbody>
+        </Table>
     },
 
     renderExtra: function(extra, key) {
