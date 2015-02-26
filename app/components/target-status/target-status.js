@@ -11,7 +11,7 @@ var TargetStatus = React.createClass({
             <div className="target-status">
                 <Row>
                     <Col xs={12}>
-                        <ReportIssuesTotal short severity="hi" count={3} />
+                        <ReportIssuesTotal short severity="high" count={3} />
                         <ReportIssuesTotal short severity="medium" count={1} />
                         <ReportIssuesTotal short severity="low" count={6} />
                     </Col>
