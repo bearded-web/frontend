@@ -20,25 +20,33 @@ var Dashboard = React.createClass({
 
     statics: {
         willTransitionTo: function(transition,a,c, callback) {
-            var app = flux.store('AppStore');
+            let app = flux.store('AppStore'),
+                initInterval;
 
-            if (!app.isLogedIn && app.inited) {
-                transition.redirect('/');
-                flux.actions.app.showLogin();
-            }
-            else {
-                let interval = setInterval(function(){
+            initInterval = setInterval(function(){
+                if (!app.inited) return;
 
-                    let $currentProject = flux.store('Store')
-                        .getState().currentProject;
-                    
-                    if ($currentProject) {
-                        setCurrentProject($currentProject.get('id'), true);
-                        clearInterval(interval);
-                        callback();
-                    }
-                })
-            }
+                clearInterval(initInterval);
+                
+                if (!app.isLogedIn) {
+                    callback();
+                    transition.redirect('/');
+                    flux.actions.app.showLogin();
+                }
+                else {
+                    let interval = setInterval(function(){
+
+                        let $currentProject = flux.store('Store')
+                            .getState().currentProject;
+                        
+                        if ($currentProject) {
+                            setCurrentProject($currentProject.get('id'), true);
+                            clearInterval(interval);
+                            callback();
+                        }
+                    })
+                }
+            }, 30);
         }
     },
 

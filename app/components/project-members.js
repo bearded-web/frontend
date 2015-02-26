@@ -9,11 +9,6 @@ import Fa from './fa';
 
 let { PureRenderMixin } = addons;
 
-let addStyle = {
-	fontSize: '20px',
-	lineHeight: '25px'
-};
-
 export default React.createClass({
 	mixins: [PureRenderMixin],
 
@@ -29,18 +24,10 @@ export default React.createClass({
 		let $project = this.props.project,
 			$members = $project.get('members');
 
-		return <div>
+		return <div onClick={this.onAddMemberClick}>
 			{$members.toArray().map(function($member, i){
 				return <Member key={i} member={$member}/>
 			})}
-
-			<a 
-				title={__('Add member to project')}
-				style={addStyle} 
-				onClick={this.onAddMemberClick}>
-				<Fa icon="plus" fw/>
-			</a>
-
 			<div style={{clear: 'both'}}></div>
 		</div>
 	}

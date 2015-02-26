@@ -34,7 +34,7 @@ module.exports.create = function buildRouter() {
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <Route name="agents" path="agents" handler={Agents}/>
                 <Route name="report" path="report" handler={ReportPage}/>
-                <DefaultRoute name="overview" handler={Overview}/>
+                <DefaultRoute name="overview" path="/" handler={Overview}/>
 
                 <NotFoundRoute handler={NotFound}/>
             </Route>
