@@ -28,7 +28,15 @@ export default React.createClass({
 			{$members.toArray().map(function($member, i){
 				return <Member key={i} member={$member}/>
 			})}
+			{$members.size ? '' : this.renderAddBtn()}
 			<div style={{clear: 'both'}}></div>
 		</div>
+	},
+
+	renderAddBtn() {
+		return <a  onClick={this.onAddMemberClick}>
+			<Fa icon="plus" fw size="lg"/>
+			Add member
+		</a>
 	}
 });
