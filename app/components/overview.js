@@ -2,13 +2,13 @@ import { Navigation } from 'react-router';
 import { setCurrentProject } from '../actions/project.actions';
 
 import Fa from './fa';
+import Members from './project-members';
+import Ibox, { IboxContent, IboxTitle } from './ibox';
 
 var flux = require('../flux');
 
 var Header = require('./header'),
     Feed = require('./feed'),
-    Ibox = require('./ibox'),
-    IboxContent = require('./ibox-content'),
     { Row, Col } = require('react-bootstrap');
 
 var Overview = React.createClass({
@@ -44,7 +44,19 @@ var Overview = React.createClass({
                 </Header>
                 <br/>
                 <Row>
-                    <Col md={8} mdOffset={2}>
+                    <Col md={6}>
+                        <Row>
+                            <Col md={6}>
+                                <Ibox>
+                                    <IboxTitle>{__('Members')}</IboxTitle>
+                                    <IboxContent>
+                                        <Members project={$project} extended/>
+                                    </IboxContent>
+                                </Ibox>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col md={6}>
                         <Ibox>
                             <IboxContent>
                                 {

@@ -63,7 +63,7 @@ export default Fluxxor.createStore({
         let $projects = state.get('projects');
         let currentId = state.get('currentProjectId');
 
-        if (!currentId || !$projects.get('currentId')) {
+        if (!currentId || !$projects.get(currentId)) {
             currentId = $projects.first().get('id');
             state = state.set('currentProjectId', currentId);
         }

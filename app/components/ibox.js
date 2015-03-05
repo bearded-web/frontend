@@ -1,11 +1,16 @@
-var React = require('react');
+import React, { PropTypes, addons } from 'react/addons';
 
-var Ibox = React.createClass({
+
+let { PureRenderMixin } = addons;
+
+export default React.createClass({
+    mixins: [PureRenderMixin],
+
     propTypes: {
-        children: React.PropTypes.node
+        children: PropTypes.node
     },
 
-    render: function() {
+    render() {
         return (
             <div className="ibox">
                 {this.props.children}
@@ -14,4 +19,10 @@ var Ibox = React.createClass({
     }
 });
 
-module.exports = Ibox;
+export var IboxTitle = require('./ibox-title');
+export var IboxContent = require('./ibox-content');
+
+
+if (module.hot) {
+    module.hot.accept(['./ibox-content', './ibox-title']);
+}
