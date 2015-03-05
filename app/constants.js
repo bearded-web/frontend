@@ -37,6 +37,7 @@ var constants = {
     TARGETS_FETCH_FAIL: true,
     TARGETS_SET_CURRENT: true,
     TARGETS_UNSET_CURRENT: true,
+    TARGETS_COMMENTS_FETCH_SUCCESS: true,
 
     TOAST_ADD: true,
 

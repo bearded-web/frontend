@@ -1,6 +1,7 @@
 require('bootstrap.css');
 require('font-awesome-webpack');
 
+require('./styles/fonts.less');
 require('./styles/inspina/style.less');
 require('./styles/dashboard.less');
 

@@ -1,5 +1,7 @@
 'use strict';
 
+import { fromJS, List } from 'immutable';
+
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
     merge = require('../lib/merge-collections'),
@@ -7,10 +9,13 @@ var Fluxxor = require('fluxxor'),
 
 var loading = true;
 
+
+
 module.exports = Fluxxor.createStore({
     target: null,
     plans: [],
     allScans: [],
+    $comments: List(),
 
     initialize: function() {
         this.bindActions(
@@ -18,12 +23,13 @@ module.exports = Fluxxor.createStore({
             C.TARGETS_UNSET_CURRENT, this._onTargetsUnsetCurrent,
             C.PLANS_FETCH_SUCCESS, this._onPlansFetchSuccess,
             C.SCANS_DETECT_CREATED, this._onScansDetectCreated,
-            C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess
+            C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess,
+            C.TARGETS_COMMENTS_FETCH_SUCCESS, this._onCommentsFetch
         );
     },
 
     getState: function() {
-        var target = this.target,
+        var { target, $comments } = this,
             scans,
             detectPlan;
 
@@ -35,7 +41,7 @@ module.exports = Fluxxor.createStore({
             .reverse()
             .valueOf();
 
-        return { target, scans, detectPlan, loading };
+        return { target, scans, detectPlan, loading, $comments };
     },
 
     _onTargetsSetCurrent: function(target) {
@@ -67,6 +73,12 @@ module.exports = Fluxxor.createStore({
         merge(this.allScans, scans);
 
         this._emitChange();
+    },
+
+    _onCommentsFetch(comments) {
+        this.$comments = fromJS(comments);
+
+        this.emit('change');
     },
 
 

@@ -1,17 +1,25 @@
-var React = require('react');
+import React, { addons, PropTypes } from 'react/addons';
 
-var IboxContent = React.createClass({
+let { PureRenderMixin, classSet } = addons;
+
+export default React.createClass({
+    mixins: [PureRenderMixin],
+
     propTypes: {
-        children: React.PropTypes.node
+        children: PropTypes.node,
+        noPadding: PropTypes.bool
     },
 
     render: function() {
-        return (
-            <div className="ibox-content">
-                {this.props.children}
-            </div>
-        );
+        let { children, noPadding } = this.props;
+            classes = classSet({
+                'ibox-content': true,
+                'no-padding': noPadding
+            });
+
+        return <div className={classes}>
+            {children}
+        </div>
     }
 });
 
-module.exports = IboxContent;

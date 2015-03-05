@@ -1,12 +1,12 @@
 'use strict';
 
 import { setCurrentProject } from './project.actions';
+import _, { pluck, unique, find } from 'lodash'
+import { users, targets, resultExtractor } from '../lib/api3';
+import { dispatchBuilder, extractor } from '../lib/helpers';
 
-var _ = require('lodash'),
-    C = require('../constants'),
-    router = require('../router'),
-    { dispatchBuilder } = require('../lib/helpers'),
-    { targets, resultExtractor } = require('../lib/api3');
+var C = require('../constants'),
+    router = require('../router');
 
 
 module.exports = {
@@ -73,5 +73,35 @@ module.exports = {
 
     unsetCurrentTarget: function() {
         this.dispatch(C.TARGETS_UNSET_CURRENT);
+    },
+
+    fetchComments(target) {
+        let comments = [],
+            findUser = (users, comment) => find(users, { id: comment.owner }),
+            assignUser = (comment, users) => comment.owner = findUser(users, comment);
+            assignUsersToComments = (users) => {
+                comments.forEach(c => assignUser(c, users))
+            };
+
+        return targets.comments(target.id)
+            .then(extractor)
+            .then(cs => comments = cs.reverse())
+            .then(comments => pluck(comments, 'owner'))
+            .then(unique)
+            .then(userIds => users.list({ id_in: userIds.join(',') }))
+            .then(extractor)
+            .then(assignUsersToComments) // jshint ignore:line
+            .then(() => this.dispatch(C.TARGETS_COMMENTS_FETCH_SUCCESS, comments));
+    },
+
+    addComment(target, text) {
+        return targets
+            .commentsAdd({
+                'target-id': target.id,
+                body: { text }
+            })
+            .then(() => {
+                return this.flux.actions.target.fetchComments(target);
+            });
     }
 };

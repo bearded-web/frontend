@@ -1,7 +1,7 @@
 .nav > li > a {
   color: @nav-text-color;
   font-weight: 600;
-  padding: 12px 20px 12px 25px;
+  padding: 14px 20px 14px 25px;
 }
 
 .nav.navbar-right > li > a {
@@ -13,12 +13,16 @@
 }
 
 .navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
-  background-color: @nav-bg;
+  background-color: darken(@nav-bg, 3%);
   color: white;
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: #fff;
+}
+
 .nav.navbar-top-links > li > a:hover, .nav.navbar-top-links > li > a:focus {
-  background-color: #ececec;
+  background-color: transparent;
 }
 
 .nav > li > a i {
@@ -146,7 +150,7 @@
 
 .nav > li.active {
   border-left: 4px solid darken(@navy, 2%);
-//  background: darken(@nav-bg, 3%);
+  background: darken(@nav-bg, 3%);
 }
 
 .nav-second-level {
@@ -171,11 +175,9 @@
 
 .minimalize-styl-2 {
   padding: 4px 12px;
-  margin: 14px 5px 5px 0;
+  margin: 14px 5px 5px 20px;
   font-size: 14px;
   float: left;
-
-
 }
 
 .navbar-form-custom {
@@ -437,8 +439,4 @@ body.fixed-sidebar.mini-navbar .navbar-default .nav li a span {
 
 .fixed-sidebar.mini-navbar .nav-second-level {
   left: 0px
-}
-
-.nav-label {
-    white-space: nowrap;
 }

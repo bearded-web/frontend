@@ -2,13 +2,14 @@ var React = require('react'),
     Router = require('react-router'),
     flux = require('../../flux');
 
+import Ibox, { IboxContent, IboxTitle } from '../ibox';
+import TargetComments from '../target-comments';
+
+
 var { Row, Col } = require('react-bootstrap'),
     TargetHeader = require('../target-header'),
     Feed = require('../feed'),
     Fa = require('../fa'),
-    Ibox = require('../ibox'),
-    IboxTitle = require('../ibox-title'),
-    IboxContent = require('../ibox-content'),
     StartScanButton = require('../start-scan-button'),
     TargetScan = require('../target-scan'),
     TargetStatus = require('../target-status'),
@@ -55,11 +56,21 @@ var Target = React.createClass({
                 <TargetHeader target={target}/>
                 <br/>
                 <Row>
-                    <Col xs={12} md={4}>
-                        <TargetStatus />
-                        {this.renderStartScanButton()}
+                    <Col xs={12} md={6}>
+                        <Row>
+                            <Col md={8}>
+                                <TargetStatus />
+                                {this.renderStartScanButton()}
+                            </Col>
+                        </Row>
+                        <Ibox>
+                            <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>
+                            <IboxContent >
+                                <TargetComments target={target}/>
+                            </IboxContent>
+                        </Ibox>
                     </Col>
-                    <Col xs={12} md={8}>
+                    <Col xs={12} md={6}>
                         <Ibox>
                             <IboxTitle>
                                 <h5>{iget('Target timeline')}</h5>
@@ -102,7 +113,8 @@ module.exports = Target;
 
 if (module.hot) {
     module.hot.accept([
-        '../target-status'
+        '../target-status',
+        '../target-comments'
     ], function() {
         //TODO flux add actions
     });
