@@ -21,8 +21,8 @@ module.exports = Fluxxor.createStore({
             constants.ADD_TARGET_FAIL, this.onTargetAddFail,
             constants.SHOW_TARGET_MODAL, this.onShowTargetModal,
             constants.HIDE_TARGET_MODAL, this.onHideTargetModal,
-            constants.REMOVE_TARGET_SUCCESS, this.onRemoveTargetSuccess,
-            constants.TARGETS_FETCH_SUCCESS, this._onTargetsFetch
+            constants.REMOVE_TARGET_SUCCESS, this.onRemoveTargetSuccess
+            //constants.TARGETS_FETCH_SUCCESS, this._onTargetsFetch
         );
 
         useActions(this, constants, [
@@ -42,7 +42,7 @@ module.exports = Fluxxor.createStore({
     },
 
     _onTargetsFetch: function(targets) {
-        this.targets = targets;
+        this.targets = targets.reverse;
 
         this._emitChange();
     },
@@ -57,7 +57,7 @@ module.exports = Fluxxor.createStore({
     },
 
     onTargetAdd: function(target) {
-        this.targets.push(target);
+        //this.targets.unshift(target);
         this.targetAddInProcess = false;
         this.targetAddSuccess = true;
         this.modalIsVisible = false;

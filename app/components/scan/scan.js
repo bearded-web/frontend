@@ -1,12 +1,17 @@
-var React = require('react'),
-    flux = require('../../flux'),
+'use strict';
+
+import React from 'react/addons';
+
+import Ibox, { IboxContent } from '../ibox';
+
+var flux = require('../../flux'),
     Router = require('react-router'),
     _ = require('lodash');
 
+
+
 var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
     Domify = require('react-domify'),
-    Ibox = require('../ibox'),
-    IboxContent = require('../ibox-content'),
     StartScanButton = require('../start-scan-button');
 
 var Scan = React.createClass({

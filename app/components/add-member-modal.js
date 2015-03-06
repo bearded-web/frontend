@@ -80,7 +80,7 @@ export default React.createClass({
 
         return <Modal title={title} onRequestHide={onRequestHide}  animation={true}>
             <div className="modal-body">
-                <form>
+                <div>
                     <label>{__('Members')}</label>
                     <Row>
                         {$members.toArray().map(this.renderMember)}
@@ -100,7 +100,7 @@ export default React.createClass({
                     </div>
                    
                     <ErrorMessage text={error} />
-                </form>
+                </div>
             </div>
             <div className="modal-footer">
                 <Button onClick={onRequestHide}>

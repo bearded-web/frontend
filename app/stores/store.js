@@ -84,7 +84,7 @@ export default Fluxxor.createStore({
         let projectId = targets[0].project,
             project = state.getIn(['projects', projectId]);
 
-        project = project.set('targets', fromJS(targets));
+        project = project.set('targets', fromJS(targets.reverse()));
 
         state = state.setIn(['projects', projectId], project);
 
@@ -100,7 +100,7 @@ export default Fluxxor.createStore({
         let $target = fromJS(target);
         let $targets = $project.get('targets');
 
-        $targets = $targets.push($target);
+        $targets = $targets.unshift($target);
         $project = $project.set('targets', $targets);
 
         state = state.setIn(['projects', projectId], $project);

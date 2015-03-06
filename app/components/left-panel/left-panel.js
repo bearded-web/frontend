@@ -9,6 +9,18 @@ var Router = require('react-router'),
     Fa = require('../fa'),
     cx = React.addons.classSet;
 
+class CName {
+    constructor(componentName) {
+        this.componentName = componentName;
+        this.el = this.el.bind(this);
+    }
+
+    el(elementName) {
+        return 'c-' + this.componentName + '--' + elementName;
+    }
+}
+
+let { el } = new CName('left-panel');
 
 
 var LeftPanel = React.createClass({
@@ -77,21 +89,25 @@ var LeftPanel = React.createClass({
                     </li>
 
                     <li className="c-left-panel--subheader">
+                        <a onClick={this.addTarget} className={el('add-link')}>
+                            <Fa icon="plus"/>
+                            {iget('add')}
+                        </a>
                         {iget('Targets')}
                     </li>
+
+                    {!$targets || !$targets.size ? <li className="c-left-panel--button">
+                        <a onClick={this.addTarget}>
+                            <Fa icon="plus"/>
+                            {iget('Add target')}
+                        </a>
+                    </li> : ''}
 
                     {$targets && $targets.toArray().map(function(target) {
                         return (
                             <TargetNavLink  key={target.id} target={target} />
                         );
                     })}
-
-                    <li className="c-left-panel--button">
-                        <a onClick={this.addTarget}>
-                            <Fa icon="plus"/>
-                            {iget('Add target')}
-                        </a>
-                    </li>
 
 
                     <li className="c-left-panel--subheader">
