@@ -1,6 +1,6 @@
 var React = require('react');
 
-var { Panel, Accordion } = require('react-bootstrap'),
+var { Panel, Table, Accordion } = require('react-bootstrap'),
     PanelHeader = require('../panel-header'),
     Domify = require('react-domify');
 
@@ -37,6 +37,7 @@ var RawReports = React.createClass({
                     return (
                         <Panel key={i}>
                             {this.renderReportData(report)}
+                            {report.files ? this.renderFilesTable(report.files) : ""}
                         </Panel>
                     );
                 })}
@@ -109,6 +110,27 @@ var RawReports = React.createClass({
         });
 
         return rawReports;
+    },
+
+    renderFilesTable: function(files) {
+        return <Table>
+            <thead>
+                <tr><td><h4>{iget('Artifacts')}:</h4></td></tr>
+            </thead>
+            <tbody>
+            {files.map(this.renderFile)}
+            </tbody>
+        </Table>
+    },
+
+    renderFile: function(file) {
+        return (
+            <tr key={file.id}>
+                <td className="c-report-issues-detail--file">
+                    <a href={'api/v1/files/' + file.id + "/download"}>{file.name}</a> - <span className="small">{file.size + iget("b")}</span>
+                </td>
+            </tr>
+        );
     }
 
 });
