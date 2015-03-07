@@ -1,10 +1,20 @@
-import { PropTypes } from 'react/addons';
-import { Map } from 'immutable';
+'use strict';
 
-export function $Model(props, propName) {
+import { PropTypes } from 'react/addons';
+import { Map, OrderedMap } from 'immutable';
+
+export function $Model(props, propName, componentName) {
     let prop = props[propName];
 
-    if (!prop.get || !prop.get('id')) {
-        return new Error(`Prop ${propName} id not a immutable Map Model`);
-    } 
+    if (!Map.isMap(prop) || !prop.get('id')) {
+        return new Error(`You must pass Model for prop ${propName}, check ${componentName}`);
+    }
+}
+
+export function $Models(props, propName, componentName) {
+    let prop = props[propName];
+
+    if (!Map.isMap(prop) && !OrderedMap.isOrderedMap(prop)) { //TODO add checking each model
+        return new Error(`You must pass Models for prop ${propName}, check ${componentName}`);
+    }
 }

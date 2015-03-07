@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react/addons';
 import { Map } from 'immutable';
 
 import ProjectInfo from '../project-info';
+import NavListItem from '../../components/navigation-list-item';
 
 var Router = require('react-router'),
     Link = require('react-router').Link,
@@ -122,6 +123,13 @@ var LeftPanel = React.createClass({
                             </span>
                         </Link>
                     </li>
+
+                    <NavListItem route="plans">
+                        <Fa icon="tasks" />
+                        <span className="nav-label">
+                            Plans
+                        </span>
+                    </NavListItem>
                 </ul>
                 <br/>
                 <br/>

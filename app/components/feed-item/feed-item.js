@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react'),
     _ = require('lodash'),
     moment = require('moment');
@@ -11,11 +13,69 @@ var FeedItem = React.createClass({
         item: React.PropTypes.object.isRequired
     },
 
-    render: function() {
+    render() {
         var type = this.props.item.type,
             renderer = this['_render' + _.capitalize(type)] || this._renderUnknown;
 
         return renderer.call(this);
+    },
+
+    _renderPens() {
+        let startedAt = moment().calendar(),
+            ava = {
+                width: '20px',
+                height: '20px',
+                borderRadius: '30px',
+                marginRight: '4px'
+            };
+
+        return <div className="c-feed-item feed-element">
+            <a href="#" className="pull-left">
+                <img alt="image" className="img-circle" src={this.generateAvatar('b')}/>
+            </a>
+            <div className="media-body ">
+                <small className="pull-right text-navy">{startedAt}</small>
+                <strong>Mike Mayers</strong>
+                <span>&nbsp;connected security specialists&nbsp;</span>
+                <br/>
+                <br/>
+                <Row>
+                    <Col xs={12}>
+                        <img style={ava} src={this.generateAvatar('c')}/>
+                        Sam Fisher
+                        <br/>
+                    </Col>
+                    <br/>
+                    <br/>
+                    <Col xs={12}>
+                        <img style={ava} src={this.generateAvatar('a')}/>
+                        Ivan Ivanov
+                        <br/>
+                    </Col>
+                </Row>
+            </div>
+        </div>;
+    },
+
+    _renderFake() {
+        let startedAt = moment().calendar();
+
+        return <div className="c-feed-item feed-element">
+            <a href="#" className="pull-left">
+                <img alt="image" className="img-circle" src={this.generateAvatar('b')}/>
+            </a>
+            <div className="media-body ">
+                <small className="pull-right text-navy">{startedAt}</small>
+                <strong>Mike Mayers</strong>
+                <span>&nbsp;joined the project as manager&nbsp;</span>
+                <br/>
+                <br/>
+                <Row>
+                    <Col sm={12} md={12} lg={12}>
+                    </Col>
+                </Row>
+            </div>
+        </div>;
     },
 
     _renderScan: function() {
@@ -36,7 +96,7 @@ var FeedItem = React.createClass({
                 <br/>
                 <br/>
                 <Row>
-                    <Col sm={6} md={12} lg={6}>
+                    <Col sm={12} md={12} lg={12}>
                         <TargetScan scan={scan}/>
                     </Col>
                 </Row>

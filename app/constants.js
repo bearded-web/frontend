@@ -16,8 +16,19 @@ var constants = {
     MODAL_OPEN: true,
     MODAL_CLOSE: true,
 
+    PLAN_ADD: true,
     PLANS_FETCH_SUCCESS: true,
     PLANS_SET_SELECTED: true,
+    PLANS_SELECT: true,
+    PLAN_CHANGE: true,
+    PLAN_REMOVE_SUCCESS: true,
+    PLAN_SAVE_START: true,
+    PLAN_SAVE_SUCCESS: true,
+    PLAN_SAVE_ERROR: true,
+    PLAN_WORKFLOW_CHANGE: true,
+    PLAN_NEW_STEP: true,
+
+    PLUGINS_FETCH_SUCCESS: true,
 
     REMOVE_TARGET_START: true,
     REMOVE_TARGET_SUCCESS: true,
@@ -62,7 +73,9 @@ var constants = {
     PROJECTS_SET_CURRENT: true,
 
 
-
+    FAKE_ADD_MANAGER: true,
+    FAKE_ADD_PENTESTERS: true,
+    FAKE_ADD_COMMENT: true,
 
     ________: false // dont want delete "," after duplicate line
 };

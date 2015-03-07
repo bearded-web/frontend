@@ -20,7 +20,7 @@ var StartScanButton = React.createClass({
         return (
             <a onClick={this.createScan}>
                 <Fa icon="play" size="2x" fw align="middle"/>
-                <span className="c-start-scan-button--text">{iget('Start detection scanning')}</span>
+                <span className="c-start-scan-button--text">{iget('Start scan')}</span>
             </a>
         );
     }

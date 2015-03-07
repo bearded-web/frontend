@@ -7,7 +7,7 @@ var Bootstrap = require('react-bootstrap'),
 var TargetsStore = require('../stores/targets.store');
 
 var { Modal, Input, Button } = Bootstrap,
-    ErrorMessage = require('app/components/error-message');
+    ErrorMessage = require('./error-message');
 
 module.exports = React.createClass({
     mixins: [window.FluxMixin],
@@ -39,20 +39,16 @@ module.exports = React.createClass({
             error = targets.targetAddError;
 
         return (
-            <Modal title="My modal" onRequestHide={this.onRequestHide}  animation={true}>
+            <Modal title="Create project" onRequestHide={this.onRequestHide}  animation={true}>
                 <form onSubmit={this.onSubmit}>
                     <div className="modal-body">
-                        <p>{i18n.gettext('Web is for web. Mobile is for mobile NEED text')}</p>
+                        <p>{i18n.gettext('Select target type')}</p>
 
                         <div className="form-group">
                             <div className="radio">
                                 <label>
                                     <input disabled={isSending} ref="targetType" type='radio' defaultChecked value='web' name='targetType' />
-                                    <span>{ __('Web url target. Used for websites.')}</span>
-                                    <br/>
-                                    <span>{__('Enter url which be used to scans and tests.')}</span>
-                                    <br/>
-                                    <span>{__('Better if it will be root url of your site')}</span>
+                                    <span>{ __('Web-site target.')}</span>
                                     <input
                                         ref="domain"
                                         className="form-control
@@ -67,9 +63,7 @@ module.exports = React.createClass({
                             <div className="radio">
                                 <label>
                                     <input disabled type='radio'  />
-                                    <span>{ __('Mobile target. Available on request.')}</span>
-                                    <br/>
-                                    <span>{__('If you want to test mobile platforms contact us.')}</span>
+                                    <span>{ __('Mobile target.')}</span>
                                 </label>
                             </div>
                         </div>

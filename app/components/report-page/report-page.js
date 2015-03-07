@@ -34,7 +34,7 @@ var ReportPage = React.createClass({
 
     render: function() {
         var { reports, severity } = this.state;
-
+        
         return (
             <div className="c-report-page">
                 <ReportIssues reports={reports} severity={severity}/>

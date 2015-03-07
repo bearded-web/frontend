@@ -3,6 +3,7 @@
 
 .severityColor(@color) {
     border-bottom-color: @color;
+    background-color: lighten(@color, 30%);
     &:hover:not(.c-report-issues-total--disabled),
     &.c-report-issues-total--selected {
         background-color: @color;
@@ -30,7 +31,7 @@
     }
 
     &&--short {
-        height: 90px;
+        height: 70px;
     }
 
     &&--high {

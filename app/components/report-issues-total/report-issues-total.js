@@ -35,7 +35,6 @@ var ReportIssuesTotal = React.createClass({
         return (
             <div className={React.addons.classSet(cls)} onClick={this.onClick}>
                 <h1 className="m-xs">
-                    <Fa icon={icon} fw  />
                     {count}
                 </h1>
                 {this.renderInfo()}
@@ -62,7 +61,7 @@ var ReportIssuesTotal = React.createClass({
 
     getText: function(severity) {
         return {
-            hi: iget('Hi level exploits'),
+            high: iget('Critical problems'),
             medium: iget('Medium warnings'),
             low: iget('Info and notices')
         }[severity];

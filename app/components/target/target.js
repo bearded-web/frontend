@@ -1,9 +1,12 @@
+'use strict';
+
 var React = require('react'),
     Router = require('react-router'),
     flux = require('../../flux');
 
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
+import { Button } from 'react-bootstrap';
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -35,8 +38,12 @@ var Target = React.createClass({
         return flux.store('TargetStore').getState();
     },
 
+    addFakePentesters() {
+        flux.actions.app.addFakePentesters();
+    },
+
     render: function() {
-        var { target, loading } = this.state;
+        var { target, loading, showTechs, showIssues } = this.state;
 
         if (loading || !target) {
             return (
@@ -58,11 +65,36 @@ var Target = React.createClass({
                 <Row>
                     <Col xs={12} md={6}>
                         <Row>
-                            <Col md={8}>
-                                <TargetStatus />
+                            <Col md={6}>
+                                <TargetStatus 
+                                    high={showIssues ? 1 : 0}
+                                    medium={showIssues ? 3 : 0}
+                                    low={showIssues ? 0 : 0}
+                                    />
                                 {this.renderStartScanButton()}
                             </Col>
+                            {showTechs && <Col md={6}>
+                                <Ibox>
+                                    <IboxTitle>
+                                        <h5>{iget('Technologies')}</h5>
+                                    </IboxTitle>
+                                    <IboxContent>
+                                        <Techs />
+                                    </IboxContent>
+                                </Ibox>
+                            </Col>}
                         </Row>
+                        {this.state.showPs && <Ibox>
+                            <IboxTitle>
+                                {iget('Specialists')}
+                                <Button onClick={this.addFakePentesters} className="pull-right" bsStyle="success" bsSize="xsmall">
+                                    Append to project
+                                </Button>
+                            </IboxTitle>
+                            <IboxContent>
+                                <Specialists />
+                            </IboxContent>
+                        </Ibox>}
                         <Ibox>
                             <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>
                             <IboxContent >

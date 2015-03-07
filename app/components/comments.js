@@ -2,7 +2,6 @@
 
 import React, { PropTypes, addons } from 'react/addons';
 import moment from 'moment';
-import { $Model } from '../lib/types';
 import { List } from 'immutable';
 
 import Comments from './comments';

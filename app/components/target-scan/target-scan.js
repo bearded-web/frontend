@@ -1,7 +1,13 @@
+'use strict';
+
 var React = require('react'),
     moment = require('moment'),
     _ = require('lodash'),
     flux = require('../../flux');
+
+import { Row, Col } from 'react-bootstrap';
+import FakeTechs from '../fake-techs';
+import TargetStatus from '../target-status';
 
 var Fa = require('../fa'),
     { Link } = require('react-router'),
@@ -39,21 +45,55 @@ var TargetScan = React.createClass({
     },
 
     render: function() {
-        var { scan } = this.props;
+        var { scan } = this.props,
+            { sessions } = scan,
+            isEnded = this.isEnded(scan) || '';
 
         return (
             <div className="c-target-scan">
                 <h4>
                     {scan.plan && scan.plan.name}
                 </h4>
-                {scan.sessions.map(function(session) {
+                {sessions.map(function(session) {
                     return (
                         <ScanSession key={session.id} session={session} />
                     );
                 })}
                 {this.renderLink()}
+                {this.renderFakeIssues()}
+                {this.renderFakeTechs()}
             </div>
         );
+    },
+
+    renderFakeIssues() {
+        let { scan } = this.props,
+            finished = scan.status === 'finished',
+            isVisible = scan.sessions[0].step.name === 'Detect wordpress' && finished,
+            style = {
+                marginTop: '14px'
+            };
+
+        if (!isVisible) return '';
+
+        return <div>
+            <br/>
+            <h4>Issues</h4>
+            <TargetStatus
+                high={1}
+                medium={3}
+                low={0}/>
+        </div>
+    },
+
+    renderFakeTechs() {
+        let { scan } = this.props,
+            finished = scan.status === 'finished',
+            isVisible = scan.sessions[0].step.name === 'Detect technologies' && finished;
+
+        if (!isVisible) return '';
+
+        return <FakeTechs/>
     },
 
     renderLink: function() {

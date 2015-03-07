@@ -15,6 +15,7 @@ module.exports.create = function buildRouter() {
         NotFoundRoute = Router.NotFoundRoute,
         App = require('./components/app.js'),
         Agents = require('./components/agents'),
+        PlansPage = require('./components/plans-page'),
         Dashboard = require('./components/dashboard'),
         Page = require('./components/page'),
         ReportPage = require('./components/report-page'),
@@ -33,6 +34,7 @@ module.exports.create = function buildRouter() {
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <Route name="agents" path="agents" handler={Agents}/>
+                <Route name="plans" path="plans" handler={PlansPage}/>
                 <Route name="report" path="report" handler={ReportPage}/>
                 <DefaultRoute name="overview" path="/" handler={Overview}/>
 
@@ -42,7 +44,13 @@ module.exports.create = function buildRouter() {
     );
 
     router = Router.create({
-        routes: routes
+        routes: routes,
+
+        onError(error) {
+            console.log(error.stack);
+
+            throw error;
+        }
         //location: Router.HistoryLocation
     });
 
