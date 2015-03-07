@@ -40,7 +40,7 @@ var ReportIssuesDetail = React.createClass({
 
                 <p>{issue.desc}</p>
 
-                {issue.extras ? this.renderExtrasTable(extras) : ''}
+                {issue.extras ? this.renderExtrasTable(issue.extras) : ''}
             </div>
         );
     },
