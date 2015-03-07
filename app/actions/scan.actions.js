@@ -5,6 +5,9 @@ var C = require('../constants'),
     { dispatchBuilder } = require('../lib/helpers'),
     { scans, users, resultExtractor } = require('../lib/api3');
 
+let wpScanId = '54d6153bc168ae101e000008',
+    techId = '54c10f78c168ae62bb000001';
+
 module.exports = {
     fetchScans: function(scan) {
         var scanId = scan && scan.id || scan,
@@ -25,6 +28,7 @@ module.exports = {
             project: projectId,
             plan: planId
         };
+
 
         this.dispatch(C.SCANS_CREATION, {
             status: 'start',
@@ -53,6 +57,15 @@ module.exports = {
                     error
                 });
             });
+    },
+
+    startFakeWp(t, p) {
+        nextTick(() => this.flux.actions.scan.createScan(t, p, wpScanId));
+    },
+
+    startFakeTechs(t, p) {
+        nextTick(() => this.flux.actions.scan.createScan(t, p, techId));
+        
     },
 
     fetchReports: function(scanId) {

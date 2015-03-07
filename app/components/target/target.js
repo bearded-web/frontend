@@ -1,9 +1,12 @@
+'use strict';
+
 var React = require('react'),
     Router = require('react-router'),
     flux = require('../../flux');
 
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
+import Techs from '../fake-techs-small';
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -36,7 +39,7 @@ var Target = React.createClass({
     },
 
     render: function() {
-        var { target, loading } = this.state;
+        var { target, loading, showTechs, showIssues } = this.state;
 
         if (loading || !target) {
             return (
@@ -58,10 +61,24 @@ var Target = React.createClass({
                 <Row>
                     <Col xs={12} md={6}>
                         <Row>
-                            <Col md={8}>
-                                <TargetStatus />
+                            <Col md={6}>
+                                <TargetStatus 
+                                    high={showIssues ? 5 : 0}
+                                    medium={showIssues ? 3 : 0}
+                                    low={showIssues ? 7 : 0}
+                                    />
                                 {this.renderStartScanButton()}
                             </Col>
+                            {showTechs && <Col md={6}>
+                                <Ibox>
+                                    <IboxTitle>
+                                        <h5>{iget('Technologies')}</h5>
+                                    </IboxTitle>
+                                    <IboxContent>
+                                        <Techs />
+                                    </IboxContent>
+                                </Ibox>
+                            </Col>}
                         </Row>
                         <Ibox>
                             <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>

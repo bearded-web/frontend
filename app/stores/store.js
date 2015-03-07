@@ -1,7 +1,7 @@
 'use strict';
 
 import Fluxxor from 'fluxxor';
-import Immutable, { fromJS, Map } from 'immutable';
+import Immutable, { fromJS, is, Map } from 'immutable';
 import consts from '../constants.js';
 import { setCurrentProject as setCurrentAction, fetchProjectMembers } from '../actions/project.actions';
 import { nextTick } from '../lib/helpers';
@@ -42,6 +42,7 @@ export default Fluxxor.createStore({
             consts.PROJECTS_SET_CURRENT, this._onSetCurrentProject,
             consts.TARGETS_FETCH_SUCCESS, this._onTargetsFetch,
             consts.ADD_TARGET_SUCCESS, this._onTargetAdd,
+            consts.REMOVE_TARGET_SUCCESS, this._onTargetRemove,
             consts.MODAL_OPEN, this._onOpenModal,
             consts.MODAL_CLOSE, this._onCloseModal,
             consts.TARGETS_SET_CURRENT, this._onTargetSetCurrent,
@@ -54,8 +55,8 @@ export default Fluxxor.createStore({
 
     _onProjectsFetch(projects) {
         projects.forEach(function(project) {
-            if (!project.members) project.members = [];
-            if (!project.targets) project.targets = [];
+            if (!project.members) { project.members = []; }
+            if (!project.targets) { project.targets = []; }
 
             state = state.mergeDeepIn(['projects', project.id], fromJS(project));
         });
@@ -106,6 +107,16 @@ export default Fluxxor.createStore({
         state = state.setIn(['projects', projectId], $project);
 
         state = state.set('currentProjectId', projectId);
+
+        this._emitChange();
+    },
+
+    _onTargetRemove(targetId) {
+        let $targets = state.getIn(['projects', state.get('currentProjectId'), 'targets']);
+
+        $targets = $targets.filterNot($target => $target.get('id') === targetId);
+
+        state = state.setIn(['projects', state.get('currentProjectId'), 'targets'], $targets);
 
         this._emitChange();
     },
@@ -181,8 +192,8 @@ export default Fluxxor.createStore({
     },
 
     _emitChange() {
-        if (oldState !== state) {
-            localStorage.setItem('currentProjectId', state.get('currentProjectId'))
+        if (!is(oldState, state)) {
+            localStorage.setItem('currentProjectId', state.get('currentProjectId'));
 
             oldState = state;
             this.emit('change');

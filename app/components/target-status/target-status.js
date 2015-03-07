@@ -1,27 +1,49 @@
-var React = require('react');
+'use strict';
 
-var { Row, Col } = require('react-bootstrap'),
-    ReportIssuesTotal = require('../report-issues-total'),
-    Fa = require('../fa');
+import React, { PropTypes, addons } from'react';
+import keys from 'lodash';
 
-var TargetStatus = React.createClass({
-    render: function() {
+import { Row, Col } from 'react-bootstrap';
+import ReportIssuesTotal from '../report-issues-total';
 
-        return (
-            <div className="target-status">
-                <Row>
-                    <Col xs={12}>
-                        <ReportIssuesTotal short severity="high" count={3} />
-                        <ReportIssuesTotal short severity="medium" count={1} />
-                        <ReportIssuesTotal short severity="low" count={6} />
-                    </Col>
-                </Row>
-            </div>
-        );
+let { PureRenderMixin } = addons,
+    { number } = PropTypes,
+    severities = ['high', 'medium', 'low'];
+
+export default React.createClass({
+    mixins: [PureRenderMixin],
+
+    PropTypes: {
+        high: number,
+        medium: number,
+        low: number
+    },
+
+    getDefaultProps() {
+        return {
+            high: 0,
+            medium: 0,
+            low: 0
+        };
+    },
+
+    render() {
+        return <div className="target-status">
+            <Row>
+                <Col xs={12}>
+                    {severities.map(this.renderCount)}
+                </Col>
+            </Row>
+        </div>
+    },
+
+    renderCount(severity, i) {
+        let count = this.props[severity];
+
+        return <ReportIssuesTotal key={i} short severity={severity} count={count} />
     }
 });
 
-module.exports = TargetStatus;
 //<ul className="list-unstyled">
 //                 <li className="target-status--item target-status--hi">
 //

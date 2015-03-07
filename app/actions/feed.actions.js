@@ -43,6 +43,7 @@ module.exports = {
     fetchFeed: function(query) {
         var items;
 
+
         return feed
             .list(query)
             .then(extractor)

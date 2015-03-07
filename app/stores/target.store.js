@@ -1,6 +1,8 @@
 'use strict';
 
 import { fromJS, List } from 'immutable';
+import { wpScanStarted } from '../actions/app.actions';
+import { startFakeTechs, startFakeWp } from '../actions/scan.actions';
 
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
@@ -16,6 +18,10 @@ module.exports = Fluxxor.createStore({
     plans: [],
     allScans: [],
     $comments: List(),
+    showTechs: false,
+    showIssues: false,
+
+    wpStarted: false,
 
     initialize: function() {
         this.bindActions(
@@ -29,7 +35,7 @@ module.exports = Fluxxor.createStore({
     },
 
     getState: function() {
-        var { target, $comments } = this,
+        var { target, $comments, showTechs, showIssues } = this,
             scans,
             detectPlan;
 
@@ -41,12 +47,14 @@ module.exports = Fluxxor.createStore({
             .reverse()
             .valueOf();
 
-        return { target, scans, detectPlan, loading, $comments };
+        return { target, scans, detectPlan, loading, $comments, showTechs, showIssues };
     },
 
     _onTargetsSetCurrent: function(target) {
         loading = false;
         this.target = target;
+
+        startFakeTechs(this.target.id, this.target.project);
 
         this._emitChange();
     },
@@ -71,6 +79,35 @@ module.exports = Fluxxor.createStore({
 
     _onScansFetchSuccess: function(scans) {
         merge(this.allScans, scans);
+
+        this.showTechs = this.showTechs ||
+            scans.some((scan) => {
+                let show = scan.status === 'finished' &&
+                    scan.sessions[0].step.name === 'Detect technologies';
+
+                if (show && !this.showTechs) {
+                    startFakeWp(this.target.id, this.target.project);
+                }
+
+                return show;
+            });
+
+        this.showIssues = this.showIssues ||
+            scans.some((scan) => {
+                let finished = scan.status === 'finished';
+                    
+                return scan.sessions[0].step.name === 'Detect wordpress' && finished;
+            });
+
+        scans.forEach((scan) => {
+            let started = scan.sessions[0].step.name === 'Detect wordpress';
+
+            if (started && !this.wpStarted) {
+                this.wpStarted = true;
+
+                setTimeout(wpScanStarted, 100);
+            }
+        });
 
         this._emitChange();
     },

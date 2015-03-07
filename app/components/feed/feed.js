@@ -16,7 +16,7 @@ var Feed = React.createClass({
     ],
 
     _oneFetchLength: 10,
-    _fetchInterval: 10000,
+    _fetchInterval: 3000,
 
     getStateFromFlux: function() {
         var store = flux.store('FeedStore'),
@@ -24,6 +24,8 @@ var Feed = React.createClass({
             items;
 
         return {
+            managerAdded: store.getState().managerAdded,
+            fakePentesters: store.getState().fakePentesters,
             items: store.getFeedFor(type, source)
         };
     },
@@ -59,11 +61,13 @@ var Feed = React.createClass({
     },
 
     render: function() {
-        var items = this.state.items;
+        let { items, managerAdded, fakePentesters } = this.state;
 
         return (
             <div>
                 <div className="feed-activity-list">
+                    {fakePentesters ? <FeedItem item={{ type: 'pens' }}/> : ''}
+                    {managerAdded ? <FeedItem item={{ type: 'fake' }}/> : ''}
                     {items.map(function(item) {
                         return (
                             <FeedItem key={item.id || item.created} item={item}/>

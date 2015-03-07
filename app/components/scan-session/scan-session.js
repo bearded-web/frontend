@@ -24,6 +24,7 @@ var ScanSession = React.createClass({
             progress,
             tooltip;
 
+
         if (isEnded) {
             progress = 100;
         }

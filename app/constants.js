@@ -62,7 +62,8 @@ var constants = {
     PROJECTS_SET_CURRENT: true,
 
 
-
+    FAKE_ADD_MANAGER: true,
+    FAKE_ADD_PENTESTERS: true,
 
     ________: false // dont want delete "," after duplicate line
 };

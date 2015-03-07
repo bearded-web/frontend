@@ -94,6 +94,17 @@ export function closeModal() {
     dispatch(constants.MODAL_CLOSE);
 }
 
+export function wpScanStarted() {
+    setTimeout(function() {
+        dispatch(constants.FAKE_ADD_MANAGER);
+    }, 1500);
+
+    setTimeout(function() {
+        dispatch(constants.FAKE_ADD_PENTESTERS);
+    }, 3500);
+}
+
+
 /* jshint -W040 */
 function handleMeData(data) {
     dispatch(constants.USER_LOGIN_SUCCESS, data.user);
@@ -105,3 +116,4 @@ function handleMeData(data) {
 function dispatchLoginState(state) {
     dispatch(constants.APP_LOGIN_PAGE_STATE, state);
 }
+
