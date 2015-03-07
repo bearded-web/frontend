@@ -21,6 +21,8 @@ module.exports = Fluxxor.createStore({
     showTechs: false,
     showIssues: false,
 
+    showFakeComment: false,
+
     wpStarted: false,
 
     initialize: function() {
@@ -30,8 +32,15 @@ module.exports = Fluxxor.createStore({
             C.PLANS_FETCH_SUCCESS, this._onPlansFetchSuccess,
             C.SCANS_DETECT_CREATED, this._onScansDetectCreated,
             C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess,
-            C.TARGETS_COMMENTS_FETCH_SUCCESS, this._onCommentsFetch
+            C.TARGETS_COMMENTS_FETCH_SUCCESS, this._onCommentsFetch,
+            C.FAKE_ADD_COMMENT, this._onFakeComent
         );
+    },
+
+    _onFakeComent() {
+        this.showFakeComment = true;
+
+        this._emitChange();
     },
 
     getState: function() {
@@ -46,6 +55,19 @@ module.exports = Fluxxor.createStore({
             .sortBy('created')
             .reverse()
             .valueOf();
+
+        if (this.showFakeComment) {
+            let scanId = scans[0].id;
+            let fakeCommentLink = `/#/report?scan=${scanId}&target=${this.target.id}`;
+            $comments = $comments.unshift(fromJS({
+                "id":"54fb6ce1c168ae4093000326",
+                "owner":{"id":"54ba68b5c168ae6d38000001",
+                "nickname":"Mike Mayers ",
+                "email":"slonoed@gmail.com",
+                "avatar":"/4bcd5a9e5d1140ac33c04a55468285e6.png","created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
+                text: `Hi! My name is Mike. I'm your manager now. [Click this link](${fakeCommentLink} "Scan report") to see issue`
+            }));
+        }
 
         return { target, scans, detectPlan, loading, $comments, showTechs, showIssues };
     },
@@ -85,9 +107,12 @@ module.exports = Fluxxor.createStore({
                 let show = scan.status === 'finished' &&
                     scan.sessions[0].step.name === 'Detect technologies';
 
+                
                 if (show && !this.showTechs) {
                     startFakeWp(this.target.id, this.target.project);
                 }
+
+
 
                 return show;
             });
@@ -96,8 +121,16 @@ module.exports = Fluxxor.createStore({
             scans.some((scan) => {
                 let finished = scan.status === 'finished';
                     
-                return scan.sessions[0].step.name === 'Detect wordpress' && finished;
+                let r = scan.sessions[0].step.name === 'Detect wordpress' && finished;
+
+                if (r)
+                    setTimeout(()=>{
+                        this.showFakeComment = true;
+                    }, 2500);
+
+                return r
             });
+
 
         scans.forEach((scan) => {
             let started = scan.sessions[0].step.name === 'Detect wordpress';
@@ -105,7 +138,9 @@ module.exports = Fluxxor.createStore({
             if (started && !this.wpStarted) {
                 this.wpStarted = true;
 
-                setTimeout(wpScanStarted, 100);
+                setTimeout(() => {
+                    wpScanStarted(this.target);
+                }, 100);
             }
         });
 

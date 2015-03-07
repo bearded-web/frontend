@@ -64,6 +64,7 @@ var constants = {
 
     FAKE_ADD_MANAGER: true,
     FAKE_ADD_PENTESTERS: true,
+    FAKE_ADD_COMMENT: true,
 
     ________: false // dont want delete "," after duplicate line
 };

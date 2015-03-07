@@ -1,5 +1,7 @@
 'use strict';
 
+import { pluck } from 'lodash';
+
 var { feed, users } = require('../lib/api3'),
     dispatcher = require('../lib/dispatcher'),
     { dispatchBuilder, extractor } = require('../lib/helpers'),
@@ -55,6 +57,9 @@ module.exports = {
             .then((users) => items.forEach((item) => item.owner = _.find(users, { id: item.owner }))) // jshint ignore:line
             .then(function() {
                 dispatcher.dispatch(C.FEED_FETCH_SUCCESS, items);
+
+                let scans = pluck(items, 'scan');
+                dispatcher.dispatch(C.SCANS_FETCH_SUCCESS, scans);
             });
 
         //TODO add catch and error report

@@ -27,9 +27,6 @@ var TargetScan = React.createClass({
         if (!isEnded) {
 
             this.intervalId = setInterval(() => {
-                if (isEnded) {
-                    return clearInterval(this.intervalId);
-                }
                 flux.actions.scan.fetchScans(this.props.scan);
             }, this.updateInterval);
         }
@@ -83,8 +80,8 @@ var TargetScan = React.createClass({
             <br/>
             <TargetStatus
                 high={1}
-                medium={2}
-                low={4}/>
+                medium={3}
+                low={0}/>
         </div>
     },
 

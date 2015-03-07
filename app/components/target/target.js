@@ -63,9 +63,9 @@ var Target = React.createClass({
                         <Row>
                             <Col md={6}>
                                 <TargetStatus 
-                                    high={showIssues ? 5 : 0}
+                                    high={showIssues ? 1 : 0}
                                     medium={showIssues ? 3 : 0}
-                                    low={showIssues ? 7 : 0}
+                                    low={showIssues ? 0 : 0}
                                     />
                                 {this.renderStartScanButton()}
                             </Col>

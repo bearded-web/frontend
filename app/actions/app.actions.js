@@ -1,6 +1,7 @@
 'use strict';
 
 import { setCurrentProject } from './project.actions';
+import { addComment } from './target.actions';
 
 var _ = require('lodash'),
     constants = require('../constants'),
@@ -94,7 +95,7 @@ export function closeModal() {
     dispatch(constants.MODAL_CLOSE);
 }
 
-export function wpScanStarted() {
+export function wpScanStarted(target) {
     setTimeout(function() {
         dispatch(constants.FAKE_ADD_MANAGER);
     }, 1500);
@@ -102,6 +103,8 @@ export function wpScanStarted() {
     setTimeout(function() {
         dispatch(constants.FAKE_ADD_PENTESTERS);
     }, 3500);
+
+    
 }
 
 

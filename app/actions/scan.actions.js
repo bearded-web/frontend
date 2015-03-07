@@ -60,6 +60,7 @@ module.exports = {
     },
 
     startFakeWp(t, p) {
+        console.log('start fake wp');
         nextTick(() => this.flux.actions.scan.createScan(t, p, wpScanId));
     },
 
