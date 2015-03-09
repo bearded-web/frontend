@@ -101,10 +101,14 @@ export function wpScanStarted(target) {
     }, 1500);
 
     setTimeout(function() {
-        dispatch(constants.FAKE_ADD_PENTESTERS);
+        //dispatch(constants.FAKE_ADD_PENTESTERS);
     }, 3500);
 
     
+}
+
+export function addFakePentesters() {
+    dispatch(constants.FAKE_ADD_PENTESTERS);
 }
 
 

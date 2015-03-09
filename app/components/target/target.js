@@ -7,6 +7,8 @@ var React = require('react'),
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
 import Techs from '../fake-techs-small';
+import Specialists from '../specialists';
+import { Button } from 'react-bootstrap';
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -36,6 +38,10 @@ var Target = React.createClass({
 
     getStateFromFlux: function() {
         return flux.store('TargetStore').getState();
+    },
+
+    addFakePentesters() {
+        flux.actions.app.addFakePentesters();
     },
 
     render: function() {
@@ -80,6 +86,17 @@ var Target = React.createClass({
                                 </Ibox>
                             </Col>}
                         </Row>
+                        {this.state.showPs && <Ibox>
+                            <IboxTitle>
+                                {iget('Specialists')}
+                                <Button onClick={this.addFakePentesters} className="pull-right" bsStyle="success" bsSize="xsmall">
+                                    Append to project
+                                </Button>
+                            </IboxTitle>
+                            <IboxContent>
+                                <Specialists />
+                            </IboxContent>
+                        </Ibox>}
                         <Ibox>
                             <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>
                             <IboxContent >

@@ -8,6 +8,8 @@ import React, { addons, PropTypes } from 'react/addons';
 import { $Model } from '../lib/types';
 import moment from 'moment';
 
+let ava = require('./feed-item/derp.png');
+
 let { PureRenderMixin, classSet } = addons;
 
 export default React.createClass({
@@ -30,14 +32,14 @@ export default React.createClass({
 
         return <div className="feed-element">
             <a className="pull-left">
-                <img className="img-circle" src={avatar}/>
+                <img className="img-circle" src={ava}/>
             </a>
             <div className="media-body">
                 <small className="pull-right">
                     {timestamp}
                 </small>
-                <strong>{nickname}</strong>
-                &nbsp;{action}
+                <strong>Mike Mayers</strong>
+                &nbsp;commented
                 <br/>
                 {children}
             </div>

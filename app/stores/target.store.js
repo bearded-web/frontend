@@ -11,6 +11,8 @@ var Fluxxor = require('fluxxor'),
 
 var loading = true;
 
+let ava = require('../components/feed-item/derp.png');
+
 
 
 module.exports = Fluxxor.createStore({
@@ -20,6 +22,7 @@ module.exports = Fluxxor.createStore({
     $comments: List(),
     showTechs: false,
     showIssues: false,
+    showPs: true,
 
     showFakeComment: false,
 
@@ -33,7 +36,8 @@ module.exports = Fluxxor.createStore({
             C.SCANS_DETECT_CREATED, this._onScansDetectCreated,
             C.SCANS_FETCH_SUCCESS, this._onScansFetchSuccess,
             C.TARGETS_COMMENTS_FETCH_SUCCESS, this._onCommentsFetch,
-            C.FAKE_ADD_COMMENT, this._onFakeComent
+            C.FAKE_ADD_COMMENT, this._onFakeComent,
+            C.FAKE_ADD_PENTESTERS, this._onFakePentesters
         );
     },
 
@@ -43,8 +47,14 @@ module.exports = Fluxxor.createStore({
         this._emitChange();
     },
 
+    _onFakePentesters() {
+        this.showPs = false;
+
+        this._emitChange();
+    },
+
     getState: function() {
-        var { target, $comments, showTechs, showIssues } = this,
+        var { target, $comments, showTechs, showIssues, showPs } = this,
             scans,
             detectPlan;
 
@@ -59,17 +69,19 @@ module.exports = Fluxxor.createStore({
         if (this.showFakeComment) {
             let scanId = scans[0].id;
             let fakeCommentLink = `/#/report?scan=${scanId}&target=${this.target.id}`;
-            $comments = $comments.unshift(fromJS({
-                "id":"54fb6ce1c168ae4093000326",
-                "owner":{"id":"54ba68b5c168ae6d38000001",
-                "nickname":"Mike Mayers ",
-                "email":"slonoed@gmail.com",
-                "avatar":"/4bcd5a9e5d1140ac33c04a55468285e6.png","created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
-                text: `Hi! My name is Mike. I'm your manager now. [Click this link](${fakeCommentLink} "Scan report") to see issue`
-            }));
+            // $comments = $comments.unshift(fromJS({
+            //     "id":"54fb6ce1c168ae4093000326",
+            //     "owner":{"id":"54ba68b5c168ae6d38000001",
+            //     "nickname":"Mike Mayers ",
+            //     "email":"slonoed@gmail.com",
+            //     "avatar":ava,
+            //     "created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
+            //     text: `Hi! My name is Mike. I'm your manager now. [Click this link](${fakeCommentLink} "Scan report") to see issue`
+            // }));
         }
 
-        return { target, scans, detectPlan, loading, $comments, showTechs, showIssues };
+        return { showPs, target, scans, detectPlan,
+             loading, $comments, showTechs, showIssues };
     },
 
     _onTargetsSetCurrent: function(target) {
@@ -148,6 +160,9 @@ module.exports = Fluxxor.createStore({
     },
 
     _onCommentsFetch(comments) {
+        comments[0].avatar = ava;
+        comments[0].nickname = 'Mike Mayers';
+
         this.$comments = fromJS(comments);
 
         this.emit('change');
