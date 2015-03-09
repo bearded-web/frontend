@@ -62,7 +62,7 @@ var ReportIssuesTotal = React.createClass({
 
     getText: function(severity) {
         return {
-            hi: iget('Hi level exploits'),
+            high: iget('Critical problems'),
             medium: iget('Medium warnings'),
             low: iget('Info and notices')
         }[severity];

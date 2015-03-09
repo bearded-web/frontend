@@ -15,8 +15,8 @@ var SeverityLevelDesc = React.createClass({
                     .translate('You have serious exploit on your site. You must fix it as soon as you can. Hackers can damage your site.')
                     .ifPlural(count, 'You have %d hi level exploits on your site. You must fix this issues as soon as you can. Hackers can damage your site.'),
                 medium: i18n
-                    .translate('We found warning on your site. This warning show that your site have problems.')
-                    .ifPlural(count, 'We found %s medium warnings on your site. This warnings show that your site have problems.'),
+                    .translate('We found breaches on your site. You have to fix this issues as soon as you can.')
+                    .ifPlural(count, 'We found %s breaches on your site. You have to fix this issues as soon as you can.'),
                 low: i18n
                     .translate('Some info you need to know.')
                     .ifPlural(count, 'There are %s notices you need to know.')

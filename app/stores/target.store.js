@@ -66,7 +66,7 @@ module.exports = Fluxxor.createStore({
                 "nickname":"Mike Mayers ",
                 "email":"slonoed@gmail.com",
                 "avatar":ava,"created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
-                text: `Hi! My name is Mike. I'm your manager now. [Click this link](${fakeCommentLink} "Scan report") to see issue`
+                text: `Hi! My name is Mike. I'm your manager now. Please [Click this link](${fakeCommentLink} "Scan report") to see issues we found.`
             }));
         }
 

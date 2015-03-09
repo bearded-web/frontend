@@ -36,7 +36,7 @@ var FeedItem = React.createClass({
             <div className="media-body ">
                 <small className="pull-right text-navy">{startedAt}</small>
                 <strong>Mike Mayers</strong>
-                <span>&nbsp;adds security specialists&nbsp;</span>
+                <span>&nbsp;connected security specialists&nbsp;</span>
                 <br/>
                 <br/>
                 <Row>
@@ -67,7 +67,7 @@ var FeedItem = React.createClass({
             <div className="media-body ">
                 <small className="pull-right text-navy">{startedAt}</small>
                 <strong>Mike Mayers</strong>
-                <span>&nbsp;join the project as manager&nbsp;</span>
+                <span>&nbsp;joined the project as manager&nbsp;</span>
                 <br/>
                 <br/>
                 <Row>
