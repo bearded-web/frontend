@@ -11,6 +11,7 @@ var Fluxxor = require('fluxxor'),
 
 var loading = true;
 
+let ava = require('../components/feed-item/derp.png');
 
 
 module.exports = Fluxxor.createStore({
@@ -64,7 +65,7 @@ module.exports = Fluxxor.createStore({
                 "owner":{"id":"54ba68b5c168ae6d38000001",
                 "nickname":"Mike Mayers ",
                 "email":"slonoed@gmail.com",
-                "avatar":"/4bcd5a9e5d1140ac33c04a55468285e6.png","created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
+                "avatar":ava,"created":"2015-01-17T10:50:45.007-03:00","updated":"2015-01-31T15:47:50.657-03:00"},
                 text: `Hi! My name is Mike. I'm your manager now. [Click this link](${fakeCommentLink} "Scan report") to see issue`
             }));
         }
