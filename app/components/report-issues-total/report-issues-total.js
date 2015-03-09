@@ -35,7 +35,6 @@ var ReportIssuesTotal = React.createClass({
         return (
             <div className={React.addons.classSet(cls)} onClick={this.onClick}>
                 <h1 className="m-xs">
-                    <Fa icon={icon} fw  />
                     {count}
                 </h1>
                 {this.renderInfo()}

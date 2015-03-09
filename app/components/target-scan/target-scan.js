@@ -78,6 +78,7 @@ var TargetScan = React.createClass({
 
         return <div>
             <br/>
+            <h4>Issues</h4>
             <TargetStatus
                 high={1}
                 medium={3}
