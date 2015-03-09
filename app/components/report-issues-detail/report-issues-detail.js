@@ -49,7 +49,7 @@ var ReportIssuesDetail = React.createClass({
         var urls = _.pluck(issue.urls, 'url');
 
         return (
-            <h4>Find on {urls.join(', ')}</h4>
+            <h4>Found on {urls.join(', ')}</h4>
         );
     },
 

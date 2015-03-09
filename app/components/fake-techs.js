@@ -13,7 +13,7 @@ export default React.createClass({
 
         return <Row style={style}>
             <Col xs={12}>
-                <h4>{iget('Found technologies')}</h4>
+                <h4>{iget('Detected technologies:')}</h4>
             </Col>
             {techs.map(this.renderTech)}
         </Row>
