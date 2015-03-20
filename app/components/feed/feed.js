@@ -24,8 +24,6 @@ var Feed = React.createClass({
             items;
 
         return {
-            managerAdded: store.getState().managerAdded,
-            fakePentesters: store.getState().fakePentesters,
             items: store.getFeedFor(type, source)
         };
     },
@@ -61,13 +59,11 @@ var Feed = React.createClass({
     },
 
     render: function() {
-        let { items, managerAdded, fakePentesters } = this.state;
+        let { items } = this.state;
 
         return (
             <div>
                 <div className="feed-activity-list">
-                    {fakePentesters ? <FeedItem item={{ type: 'pens' }}/> : ''}
-                    {managerAdded ? <FeedItem item={{ type: 'fake' }}/> : ''}
                     {items.map(function(item) {
                         return (
                             <FeedItem key={item.id || item.created} item={item}/>

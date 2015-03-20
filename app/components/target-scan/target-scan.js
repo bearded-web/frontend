@@ -6,7 +6,6 @@ var React = require('react'),
     flux = require('../../flux');
 
 import { Row, Col } from 'react-bootstrap';
-import FakeTechs from '../fake-techs';
 import TargetStatus from '../target-status';
 
 var Fa = require('../fa'),
@@ -60,40 +59,8 @@ var TargetScan = React.createClass({
                     );
                 })}
                 {this.renderLink()}
-                {this.renderFakeIssues()}
-                {this.renderFakeTechs()}
             </div>
         );
-    },
-
-    renderFakeIssues() {
-        let { scan } = this.props,
-            finished = scan.status === 'finished',
-            isVisible = scan.sessions[0].step.name === 'Detect wordpress' && finished,
-            style = {
-                marginTop: '14px'
-            };
-
-        if (!isVisible) return '';
-
-        return <div>
-            <br/>
-            <h4>Issues</h4>
-            <TargetStatus
-                high={1}
-                medium={3}
-                low={0}/>
-        </div>
-    },
-
-    renderFakeTechs() {
-        let { scan } = this.props,
-            finished = scan.status === 'finished',
-            isVisible = scan.sessions[0].step.name === 'Detect technologies' && finished;
-
-        if (!isVisible) return '';
-
-        return <FakeTechs/>
     },
 
     renderLink: function() {

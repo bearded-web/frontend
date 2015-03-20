@@ -33,7 +33,6 @@ describe('TargetScan', function() {
             <TestWrapper component={TargetScan} scan={scan} />
         );
 
-
         var link = TestUtils.findRenderedComponentWithType(targetScan, Link).getDOMNode();
 
         expect(link.innerHTML).toEqual(iget('Show report'));

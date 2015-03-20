@@ -95,23 +95,6 @@ export function closeModal() {
     dispatch(constants.MODAL_CLOSE);
 }
 
-export function wpScanStarted(target) {
-    setTimeout(function() {
-        dispatch(constants.FAKE_ADD_MANAGER);
-    }, 1500);
-
-    setTimeout(function() {
-        //dispatch(constants.FAKE_ADD_PENTESTERS);
-    }, 3500);
-
-    
-}
-
-export function addFakePentesters() {
-    dispatch(constants.FAKE_ADD_PENTESTERS);
-}
-
-
 /* jshint -W040 */
 function handleMeData(data) {
     dispatch(constants.USER_LOGIN_SUCCESS, data.user);

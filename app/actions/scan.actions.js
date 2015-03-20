@@ -59,16 +59,6 @@ module.exports = {
             });
     },
 
-    startFakeWp(t, p) {
-        console.log('start fake wp');
-        nextTick(() => this.flux.actions.scan.createScan(t, p, wpScanId));
-    },
-
-    startFakeTechs(t, p) {
-        nextTick(() => this.flux.actions.scan.createScan(t, p, techId));
-        
-    },
-
     fetchReports: function(scanId) {
         scans.reports(scanId)
             .then((data) => {

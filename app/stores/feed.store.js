@@ -6,37 +6,14 @@ var Fluxxor = require('fluxxor'),
     C = require('../constants');
 
 
-let feedItems = [],
-    fakePentesters = false,
-    managerAdded = false;
+let feedItems = [];
 
 module.exports = Fluxxor.createStore({
     initialize: function() {
         this.bindActions(
             C.FEED_FETCH_SUCCESS, this._onFeedFetchSuccess,
-            C.SCANS_CREATION, this._onScansCreation,
-            C.FAKE_ADD_MANAGER, this._onAddManager,
-            C.FAKE_ADD_PENTESTERS, this._onFakePentesters
+            C.SCANS_CREATION, this._onScansCreation
         );
-    },
-
-    _onFakePentesters() {
-        fakePentesters = true;
-
-        this._emitChange();
-    },
-
-    _onAddManager() {
-        managerAdded = true;
-
-        this._emitChange();
-    },
-
-    getState() {
-        return {
-            managerAdded,
-            fakePentesters
-        }
     },
 
     /**

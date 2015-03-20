@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { PropTypes, addons } from'react';
+import React, { PropTypes, addons } from'react/addons';
 import keys from 'lodash';
 
 import { Row, Col } from 'react-bootstrap';

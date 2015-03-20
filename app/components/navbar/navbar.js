@@ -3,7 +3,6 @@ var {Input, Row, Col} = Bootstrap;
 var LeftPanelToggler = require('../left-panel-toggler'),
     AccountControls = require('../account-controls');
 
-let ava = require('../feed-item/derp.png');
 
 var Navbar = React.createClass({
     mixins: [FluxMixin],
@@ -25,6 +24,7 @@ var Navbar = React.createClass({
 
     render: function() {
         var { user } = this.props,
+            { nickname, avatar } = user,
             navStyle = {
                 marginBottom: 0
             };
@@ -49,10 +49,10 @@ var Navbar = React.createClass({
 
                         <ul className="nav navbar-top-links navbar-right">
                             <li>
-                                <img alt="image" className="c-navbar--avatar img-circle" src={ava} />
+                                <img alt="image" className="c-navbar--avatar img-circle" src={avatar} />
                             </li>
                             <li>
-                                <span className="c-navbar--email m-r-sm text-muted welcome-message">Mike Mayers</span>
+                                <span className="c-navbar--email m-r-sm text-muted welcome-message">{nickname}</span>
                             </li>
                             {this.renderMailBadge()}
                             {this.renderNotifyBadge()}

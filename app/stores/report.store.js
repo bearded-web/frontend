@@ -24,7 +24,6 @@ module.exports = Fluxxor.createStore({
     },
 
     getScanReports: function(scan) {
-        return reports;
         return _.where(reports, { scan });
     },
 
