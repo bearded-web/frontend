@@ -11,6 +11,12 @@ let $state = fromJS({
 let $oldState = $state;
 
 export default createStore({
+    getPlugin(pluginId) {
+        let find = $p => pluginId === $p.get('name') + ':' + $p.get('version');
+
+        return this.getPlugins().find(find);
+    },
+
     getPlugins() {
         return $state.get('$plugins');
     },

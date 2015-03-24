@@ -1,6 +1,6 @@
 "use strict";
 
-import React, { PropTypes, addons } from 'react/addons';
+import { PropTypes, addons, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
 import { $Models } from '../lib/types';
 import { addNew } from '../actions/plan.actions';
@@ -8,8 +8,9 @@ import { addNew } from '../actions/plan.actions';
 import PlanListItem from './plans-list-item';
 import { Button } from 'react-bootstrap';
 
-export default React.createClass({
+export default createClass({
     mixins: [ImMixin],
+    displayName: 'PlanList',
 
     propTypes: {
         $plans: $Models,

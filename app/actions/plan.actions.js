@@ -60,9 +60,10 @@ export function changeWorkflow($workflow) {
 
 /**
  * Add new step to current editing plan
+ * @param {String} pluginId plugin to use
  */
-export function addStep() {
-    dispatch(C.PLAN_NEW_STEP);
+export function addStep(pluginId) {
+    dispatch(C.PLAN_NEW_STEP, pluginId);
 }
 
 /**

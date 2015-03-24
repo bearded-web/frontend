@@ -1,18 +1,18 @@
-import React, { PropTypes, addons } from 'react/addons';
+import { PropTypes, addons, createClass } from 'react/addons';
 import { List, Map } from 'immutable';
 import { setCurrentProject } from '../actions/project.actions';
+import ImMixin from 'react-immutable-render-mixin';
+
 
 import Fa from './fa';
 import Members from './project-members';
 import { Input } from 'react-bootstrap';
 import ProjectCreateBtn from './project-create-btn';
 
-let { ReactCSSTransitionGroup, PureRenderMixin } = addons;
+let { ReactCSSTransitionGroup } = addons;
 
-
-
-export default React.createClass({
-    mixins: [PureRenderMixin],
+export default createClass({
+    mixins: [ImMixin],
 
     propTypes: {
         projects: PropTypes.instanceOf(Map).isRequired,

@@ -81,7 +81,7 @@
     "yaspeller": "^1.0.2"
   },
   "dependencies": {
-    "babel": "^4.4.5",
+    "babel": "^4.7.16",
     "babel-core": "^4.4.5",
     "babel-loader": "^4.0.0",
     "immutable": "^3.6.2",

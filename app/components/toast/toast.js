@@ -9,7 +9,7 @@ var Toast = React.createClass({
     componentDidMount: function() {
         var ToastStore = flux.store('ToastStore');
 
-        ToastStore.on('toast_add', this.showToast.bind(this));
+        ToastStore.on('toast_add', this.showToast);
     },
 
 
