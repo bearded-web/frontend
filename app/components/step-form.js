@@ -3,12 +3,14 @@
 import { PropTypes, createClass, createElement } from 'react/addons';
 import { $Model } from '../lib/types';
 import ImMixin from 'react-immutable-render-mixin';
+import { Map } from 'immutable';
 
 import UtilStepForm from './util-step-form';
 import DefaultForm from './default-step-form';
 
 export default createClass({
     mixins: [ImMixin],
+    displayName: 'StepForm',
 
     propTypes: {
          $step: PropTypes.instanceOf(Map).isRequired,

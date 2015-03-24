@@ -4,27 +4,38 @@ import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
 import { $Model, $Models } from '../lib/types';
 
+import { Alert } from 'react-bootstrap';
+
 export default createClass({
     mixins: [ImMixin],
 
     propTypes: {
-        selectedName: PropTypes.string,
         $plugins: $Models,
+        selectedName: PropTypes.string,
         onSelect: PropTypes.func.isRequired
     },
 
+    getValue() {
+        return this.refs.sel.getDOMNode().value;
+    },
+
     onChange() {
-        this.props.onSelect(this.refs.sel.getDOMNode().value);
+        let selectedName = this.getValue();
+
+        if (this.props.onSelect) {
+            this.props.onSelect(selectedName);
+        }
     },
 
     render() {
-        let { $plugins, selectedName } = this.props;
+        let { $plugins, style, selectedName } = this.props;
 
         return <select className="form-control"
+                       stlye={style}
                        ref="sel"
                        value={selectedName}
                        onChange={this.onChange}>
-
+            <option value={''}>select plugin</option>
             {$plugins.toArray().map(this.renderPlugin)}
         </select>
     },

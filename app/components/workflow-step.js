@@ -5,7 +5,6 @@ import ImMixin from 'react-immutable-render-mixin';
 import { $Model, $Models } from '../lib/types';
 import { Map } from 'immutable';
 
-import PluginSelect from './plugin-select';
 import RemoveLink from './remove-link';
 import StepForm from './step-form';
 import { Input } from 'react-bootstrap';
@@ -79,16 +78,6 @@ export default createClass({
                                   onChange={this.onDescChange}
                                   className="form-control"
                                   placeholder={iget('Description')}/>
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <label className="col-sm-2 control-label">{iget('Plugin')}</label>
-
-                    <div className="col-sm-9">
-                        <PluginSelect $plugins={$plugins}
-                                      selectedName={plugin}
-                                      onSelect={this.onPluginChange}/>
                     </div>
                 </div>
             </form>

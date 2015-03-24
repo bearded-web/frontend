@@ -1,7 +1,5 @@
 describe('ReportIssues', function() {
 
-
-
     var React,
         TestUtils,
         Component,

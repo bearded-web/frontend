@@ -79,7 +79,7 @@ export default Fluxxor.createStore({
     },
 
     _onTargetsFetch(targets) {
-        if (!targets.length) return;
+        if (!targets.length) { return; }
 
         //TODO check each target project
         let projectId = targets[0].project,
@@ -148,8 +148,8 @@ export default Fluxxor.createStore({
                     if (member.user === user.id || member.user.id === user.id) {
                         state = state.setIn(['projects', project.id, 'members', i, 'user'], fromJS(user));
                     }
-                })
-            })
+                });
+            });
         });
 
         this._emitChange();

@@ -1,11 +1,9 @@
-var React = require('react');
+'use strict';
 
-var IboxTitle = React.createClass({
-    propTypes: {
-        children: React.PropTypes.node
-    },
+import { Component, PropTypes } from 'react/addons';
 
-    render: function() {
+export default class IboxTitle extends Component {
+    render() {
         return (
             <div className="ibox-title">
                 {this.props.children}
@@ -31,6 +29,8 @@ var IboxTitle = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = IboxTitle;
+IboxTitle.propTypes = {
+    children: PropTypes.node
+};

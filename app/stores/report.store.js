@@ -49,10 +49,10 @@ module.exports = Fluxxor.createStore({
     }
 });
 
-function flattenReports(reports) {
+function flattenReports(reportsArray) {
     var result = [];
 
-    reports.forEach(function(report) {
+    reportsArray.forEach(function(report) {
         if (report.type === 'multi') {
             result.push.apply(result, flattenReports(report.multi));
 

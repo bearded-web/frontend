@@ -1,14 +1,15 @@
-var {Input, Row, Col} = Bootstrap;
+import { PropTypes, createClass } from 'react/addons';
 
-var LeftPanelToggler = require('../left-panel-toggler'),
-    AccountControls = require('../account-controls');
+import { Input, Row, Col } from 'react-bootstrap';
+
+import LeftPanelToggler from '../left-panel-toggler';
 
 
-var Navbar = React.createClass({
+export default createClass({
     mixins: [FluxMixin],
 
     propTypes: {
-        user: React.PropTypes.object.isRequired
+        user: PropTypes.object.isRequired
     },
 
     logOut: function() {
@@ -34,22 +35,23 @@ var Navbar = React.createClass({
                 <Col xs={12}>
                     <nav className="navbar navbar-static-top" role="navigation" style={navStyle}>
                         <div className="navbar-header">
-                            <span  className="c-navbar--toggler">
+                            <span className="c-navbar--toggler">
                                 <LeftPanelToggler />
                             </span>
+
                             <form role="search" className="navbar-form-custom" onSubmit={this.showNotImplemented}>
                                 <div className="form-group">
                                     <Input type="text"
-                                        id="top-search"
-                                        placeholder={iget('Search for something...')}
-                                        ref="search"/>
+                                           id="top-search"
+                                           placeholder={iget('Search for something...')}
+                                           ref="search"/>
                                 </div>
                             </form>
                         </div>
 
                         <ul className="nav navbar-top-links navbar-right">
                             <li>
-                                <img alt="image" className="c-navbar--avatar img-circle" src={avatar} />
+                                <img alt="image" className="c-navbar--avatar img-circle" src={avatar}/>
                             </li>
                             <li>
                                 <span className="c-navbar--email m-r-sm text-muted welcome-message">{nickname}</span>
@@ -72,7 +74,8 @@ var Navbar = React.createClass({
     renderMailBadge: function() {
         return (
             <li className="dropdown">
-                <a onClick={this.showNotImplemented} className="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="true">
+                <a onClick={this.showNotImplemented} className="dropdown-toggle count-info" data-toggle="dropdown"
+                   href="#" aria-expanded="true">
                     <i className="fa fa-envelope"></i>
                     <span className="label label-warning">16</span>
                 </a>
@@ -83,7 +86,8 @@ var Navbar = React.createClass({
     renderNotifyBadge: function() {
         return (
             <li className="dropdown">
-                <a onClick={this.showNotImplemented} className="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="false">
+                <a onClick={this.showNotImplemented} className="dropdown-toggle count-info" data-toggle="dropdown"
+                   href="#" aria-expanded="false">
                     <i className="fa fa-bell"></i>
                     <span className="label label-primary">8</span>
                 </a>
@@ -131,5 +135,3 @@ var Navbar = React.createClass({
         );
     }
 });
-
-module.exports = Navbar;

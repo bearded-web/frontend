@@ -1,17 +1,12 @@
-import React, { addons, PropTypes } from 'react/addons';
+import React, { addons, PropTypes, Component } from 'react/addons';
+import classSet from 'classnames';
 
-let { PureRenderMixin, classSet } = addons;
+let { PureRenderMixin } = addons;
 
-export default React.createClass({
-    mixins: [PureRenderMixin],
 
-    propTypes: {
-        children: PropTypes.node,
-        noPadding: PropTypes.bool
-    },
-
-    render: function() {
-        let { children, noPadding } = this.props;
+export default class IboxContent extends Component {
+    render() {
+        let { children, noPadding } = this.props,
             classes = classSet({
                 'ibox-content': true,
                 'no-padding': noPadding
@@ -19,7 +14,12 @@ export default React.createClass({
 
         return <div className={classes}>
             {children}
-        </div>
+        </div>;
     }
-});
+}
 
+IboxContent.mixins = [PureRenderMixin];
+IboxContent.propTypes = {
+    children: PropTypes.node,
+    noPadding: PropTypes.bool
+};
