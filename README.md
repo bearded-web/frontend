@@ -1,3 +1,5 @@
+# Fronted for bearded-web
+[![Build Status](https://travis-ci.org/bearded-web/frontend.svg?branch=master)](https://travis-ci.org/bearded-web/frontend)
 
 ### How to use
 
