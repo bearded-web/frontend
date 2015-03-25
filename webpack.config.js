@@ -2,6 +2,9 @@ var webpack = require('webpack');
 var path = require('path');
 var bower_dir = path.join(__dirname, 'bower_components');
 var node_modules_dir = path.join(__dirname, 'node_modules');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var SplitPlugin = require('split-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -18,7 +21,7 @@ var config = {
     },
     resolve: {
         root: path.resolve(__dirname),
-        alias: { }
+        alias: {}
     },
     module: {
         noParse: [],
@@ -50,14 +53,28 @@ var config = {
             },
             {
                 test: /\.less$/,
-                loader: "style-loader!css-loader!less-loader"
+                loader: 'style-loader!css-loader!less-loader'
             }
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('app', null, false)
+        new SplitPlugin({
+            buckets: [{
+                name: 'modules',
+                path: path.join(__dirname, './node_modules')
+            }]
+        }),
+        new HtmlWebpackPlugin({
+            template: 'app/index.html'
+        })
     ]
 };
+
+if (isProduction) {
+    //config.plugins.unshift(new ExtractTextPlugin("[name].[hash].bundle.css")); //TODO make separate CSS
+    config.output.filename = '[name].[chunkhash].bundle.js';
+    config.output.chunkFilename = "[name].[chunkhash].bundle.js";
+}
 
 
 module.exports = config;

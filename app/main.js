@@ -18,7 +18,6 @@ window.__ = window.iget = i18n.sprintf.bind(i18n);
 window.React = React;
 window.FluxMixin = Fluxxor.FluxMixin(React);
 window.createStoreWatchMixin = Fluxxor.StoreWatchMixin;
-window.Bootstrap = Bootstrap;
 window.nextTick = function(fn) {
     setTimeout(fn, 0);
 };
