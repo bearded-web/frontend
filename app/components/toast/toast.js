@@ -3,10 +3,6 @@ var React = require('react'),
 
 
 var Toast = React.createClass({
-
-        ToastStore.on('toast_add', this.showToast);
-    },
-
     render: function() {
         return <span></span>;
     }

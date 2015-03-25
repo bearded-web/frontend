@@ -1,20 +1,22 @@
 'use strict';
 
-var React = require('react'),
-    moment = require('moment'),
-    _ = require('lodash'),
-    flux = require('../../flux');
+import React, { PropTypes } from 'react/addons';
+import moment from 'moment';
+import { contains } from 'lodash';
+import flux from '../../flux';
 
 import { Row, Col } from 'react-bootstrap';
 import TargetStatus from '../target-status';
-
-var Fa = require('../fa'),
-    { Link } = require('react-router'),
-    ScanSession = require('../scan-session');
+import Fa from '../fa';
+import { Link } from 'react-router';
+import ScanSession from '../scan-session';
 
 var TargetScan = React.createClass({
     propTypes: {
-        scan: React.PropTypes.object.isRequired
+        scan: PropTypes.object.isRequired
+    },
+    contextTypes: {
+        router: PropTypes.func
     },
 
     updateInterval: 2000,
@@ -55,7 +57,7 @@ var TargetScan = React.createClass({
                 </h4>
                 {sessions.map(function(session) {
                     return (
-                        <ScanSession key={session.id} session={session} />
+                        <ScanSession key={session.id} session={session}/>
                     );
                 })}
                 {this.renderLink()}
@@ -75,14 +77,16 @@ var TargetScan = React.createClass({
         }
 
         return (
-            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs" to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }} query={{ scan: scan.id, target: scan.target }}>
+            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs"
+                  to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
+                  query={{ scan: scan.id, target: scan.target }}>
                 {isEnded ? iget('Show report') : iget('Show progress')}
             </Link>
         );
     },
 
     isEnded: function(scan) {
-        return _.contains(['finished', 'failed'], scan.status);
+        return contains(['finished', 'failed'], scan.status);
     },
 
     isFailed: function(scan) {
