@@ -6,6 +6,7 @@ import ImMixin from 'react-immutable-render-mixin';
 
 import UtilStepForm from './util-step-form';
 import DefaultForm from './default-step-form';
+import W3afScriptStepForm from './w3af-script-step-form'
 
 export default createClass({
     mixins: [ImMixin],
@@ -24,6 +25,8 @@ export default createClass({
             { type, name, version } = $plugin.toObject();
 
         switch (true) {
+            case name == "barbudo/w3af-script":
+                return W3afScriptStepForm;
             case type === 'util':
                 return UtilStepForm;
             default:

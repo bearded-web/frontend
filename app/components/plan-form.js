@@ -43,13 +43,13 @@ export default createClass({
 
         return <Row>
             <Col xs={12} sm={6}>
-                <label>{iget('Target type')}</label>
+                {/*<label>{iget('Target type')}</label>
                 <br/>
                 <ButtonGroup>
                     <Button>{iget('Web')}</Button>
                     <Button disabled>{iget('Mobile')}</Button>
                 </ButtonGroup>
-                <br/>
+                <br/>*/}
                 <Input
                     ref="name"
                     type="text"
@@ -64,7 +64,7 @@ export default createClass({
                     value={desc}
                     type="textarea"
                     onChange={this.onChange}
-                    style={{height:'90px'}}
+                    style={{height:'60px'}}
                     label={iget('Description')}/>
             </Col>
             <Col xs={12}>
