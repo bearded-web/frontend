@@ -7,14 +7,39 @@
     // in CommonJS
     "node": true
   },
+  "ecmaFeatures": {
+    "jsx": true
+  },
   // To give you an idea how to override rule options:
   "rules": {
-    "quotes": [2, "single"],
+    "strict": 1,
+    "semi": 1,
+    "camelcase": 1,
+    "no-use-before-define": 1,
+    "comma-spacing": 1,
+    "no-multi-spaces": 1,
+    "curly": 1,
+    "quotes": [1, "single"],
     "eol-last": [0],
-    "no-mixed-requires": [0],
-    "no-underscore-dangle": [0]
+    "no-mixed-requires": [1],
+    "no-underscore-dangle": [1],
+    "no-unused-vars": 1,
+    "new-cap": 0,
+    "no-trailing-spaces": 1
   },
   "globals": {
-    "iget": true
+    "iget": true,
+    "it": true,
+    "expect": true,
+    "describe": true,
+    "jest": true,
+    "createStoreWatchMixin": true,
+    "nextTick": true,
+    "React": true,
+    "flux": true,
+    "i18n": true,
+    "jasmine": true,
+    "__": true,
+    "FluxMixin": true
   }
 }

@@ -30,7 +30,7 @@ var LeftPanel = React.createClass({
     propTypes: {
         app: PropTypes.shape({
             currentProject: PropTypes.instanceOf(Map).isRequired,
-            projects: PropTypes.instanceOf(Map).isRequired,
+            projects: PropTypes.instanceOf(Map).isRequired
         }).isRequired,
         targets: PropTypes.object.isRequired,
         user: PropTypes.object.isRequired,

@@ -6,7 +6,7 @@ import { pluck, zipObject } from 'lodash';
 
 let $state = Map({
     $edit: null,
-    $plans: OrderedMap()
+    $plans: new OrderedMap()
 });
 
 let $oldState = $state;
@@ -74,14 +74,16 @@ export default createStore({
         this._emitChange();
     },
 
-    _onAddNewStep() {
+    _onAddNewStep(pluginId) {
         let path = ['$edit', 'workflow'],
             $wf = $state.getIn(path),
-            $plugin = this.flux.store('PluginsStore').getPlugins().first(),
+            $plugin = this.flux.store('PluginsStore').getPlugin(pluginId),
+            { title, info } = $plugin.get('desc').toObject(),
             plugin = $plugin.get('name') + ':' + $plugin.get('version');
 
         $wf = $wf.push(Map({
-            name: iget('New step'),
+            name: title,
+            desc: info,
             plugin
         }));
 
@@ -100,7 +102,7 @@ export default createStore({
     },
 
     _onAddPlan() {
-        let id = Math.random(),
+        let id = Math.random() + '',
             $plan = fromJS({
                 id,
                 targetType: 'web',

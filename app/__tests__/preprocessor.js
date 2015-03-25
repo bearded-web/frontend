@@ -1,5 +1,5 @@
-var babel = require("babel");
-
+var babel = require('babel');
+require("babel/register");
 module.exports = {
     process: function(src, fPath) {
         if (fPath.indexOf('node_modules') > -1) {

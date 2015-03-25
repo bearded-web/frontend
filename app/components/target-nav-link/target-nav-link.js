@@ -81,5 +81,5 @@ module.exports = React.createClass({
 
         return this.isActive('target', { targetId }) ||
             this.isActive('report') && this.getQuery().target === targetId;
-    },
+    }
 });

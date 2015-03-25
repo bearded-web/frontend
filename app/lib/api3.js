@@ -72,6 +72,7 @@ function requestHandler(error, request) {
             });
         }
 
+        /*eslint-disable*/
         if (options.withCredentials) xhr.withCredentials = options.withCredentials;
         if (options.timeout) xhr.timeout = options.timeout;
         if (options.onabort) xhr.onabort = options.onabort;
@@ -79,6 +80,7 @@ function requestHandler(error, request) {
         if (options.onload) xhr.onload = options.onload;
         if (options.ontimeout) xhr.ontimeout = options.ontimeout;
         if (options.onprogress) xhr.onprogress = options.onprogress;
+        /*eslint-enable*/
 
         xhr.onloadend = function() {
             var data = this.response;

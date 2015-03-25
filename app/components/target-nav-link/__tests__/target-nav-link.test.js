@@ -1,4 +1,4 @@
-describe('TargetNavLink', function() {
+xdescribe('TargetNavLink', function() {
     var componentPath = '../target-nav-link';
 
     jest.dontMock('react-router');

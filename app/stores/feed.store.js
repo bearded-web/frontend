@@ -2,7 +2,6 @@
 
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
-    merge = require('../lib/merge-collections'),
     C = require('../constants');
 
 
@@ -42,7 +41,7 @@ module.exports = Fluxxor.createStore({
      * @returns {Array} array of items
      */
     getFeedFor: function(type, source) {
-        if (!source) return [];
+        if (!source) { return []; }
 
         var id = source.id || source;
 
@@ -62,11 +61,11 @@ module.exports = Fluxxor.createStore({
     _onFeedFetchSuccess: function(items) {
 
         items.forEach(function(sourceItem) {
-            var storedItem = _.find(feedItems, function(storedItem) {
-                if (storedItem.id === sourceItem.id) return true;
+            var storedItem = _.find(feedItems, function(sItem) {
+                if (sItem.id === sourceItem.id) { return true; }
 
-                if (sourceItem.type === 'scan' && !storedItem.id &&
-                    storedItem.type === 'scan' && storedItem.scan.id === sourceItem.scan.id) {
+                if (sourceItem.type === 'scan' && !sItem.id &&
+                    sItem.type === 'scan' && sItem.scan.id === sourceItem.scan.id) {
 
                     return true;
                 }
@@ -98,11 +97,11 @@ module.exports = Fluxxor.createStore({
             exist,
             feedItem;
 
-        if (status !== 'success') return;
+        if (status !== 'success') { return; }
 
         exist = _(feedItems).where({ type: 'scan' }).pluck('scan').pluck('id').includes(scan.id);
 
-        if (exist) return;
+        if (exist) { return; }
 
         feedItem = {
             id: null,

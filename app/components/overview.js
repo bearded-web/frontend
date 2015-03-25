@@ -35,6 +35,10 @@ var Overview = React.createClass({
     render: function() {
         let { $project } = this.state;
 
+        if (!$project) {
+            return <h1>Project loading</h1>
+        }
+
         return (
             <div>
                 <Header>

@@ -85,7 +85,7 @@ export default React.createClass({
                     <Row>
                         {$members.toArray().map(this.renderMember)}
                     </Row>
-                    <br style={{clear:'both'}}/>
+                    <br style={{clear: 'both'}}/>
                     <br/>
                     <Input 
                         ref="email"

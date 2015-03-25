@@ -9,6 +9,7 @@ import { saveEdit, change } from '../actions/plan.actions';
 
 import { Row, Col, Input, ButtonGroup, Button } from 'react-bootstrap';
 import Workflow from './workflow';
+import Fa from './fa';
 
 export default createClass({
     mixins: [ImMixin],
@@ -46,8 +47,12 @@ export default createClass({
                 {/*<label>{iget('Target type')}</label>
                 <br/>
                 <ButtonGroup>
-                    <Button>{iget('Web')}</Button>
-                    <Button disabled>{iget('Mobile')}</Button>
+                    <button className="btn-white btn btn-sm">
+                        <Fa icon="globe" size="lg"/> {iget('Web')}
+                    </button>
+                    <button className="btn-white btn btn-sm" disabled>
+                        <Fa icon="mobile" size="lg"/> {iget('Mobile')}
+                    </button>
                 </ButtonGroup>
                 <br/>*/}
                 <Input
@@ -64,7 +69,7 @@ export default createClass({
                     value={desc}
                     type="textarea"
                     onChange={this.onChange}
-                    style={{height:'60px'}}
+                    style={{height: '60px'}}
                     label={iget('Description')}/>
             </Col>
             <Col xs={12}>

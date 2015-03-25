@@ -27,3 +27,15 @@ export function zipModels(collection) {
     return fromJS(zipObject(pluck(collection, 'id'), collection))
 }
 
+
+/**
+ * Find plugin in plugins list
+ * @param {Map|List} $plugins plugins list
+ * @param {String} pluginId name:version plugin id
+ * @return {Map|null} plugin
+ */
+export function findPlugin($plugins, pluginId) {
+    let finder = $p => $p.get('name') + ':' + $p.get('version') === pluginId;
+
+    return $plugins.find(finder);
+}

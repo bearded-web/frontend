@@ -8,27 +8,27 @@ import AddMemberModal from './add-member-modal';
 let { PureRenderMixin } = addons;
 
 export default React.createClass({
-	mixins: [PureRenderMixin],
+    mixins: [PureRenderMixin],
 
-	propTypes: {
-		modal: PropTypes.instanceOf(Map).isRequired
-	},
+    propTypes: {
+        modal: PropTypes.instanceOf(Map).isRequired
+    },
 
-	onRequestHide() {
+    onRequestHide() {
         closeModal();
     },
 
-	render() {
-		let $modal = this.props.modal,
-			name = $modal.get('name');
+    render() {
+        let $modal = this.props.modal,
+            name = $modal.get('name');
 
-		if(name === 'project-create') {
-			return <ProjectCreateModal  onRequestHide={this.onRequestHide}  animation={true}/>
-		}
-		if (name === 'project-add-member') {
-			return <AddMemberModal params={$modal.toObject()}  onRequestHide={this.onRequestHide}  animation={true}/>
-		}
+        if (name === 'project-create') {
+            return <ProjectCreateModal onRequestHide={this.onRequestHide} animation={true}/>
+        }
+        if (name === 'project-add-member') {
+            return <AddMemberModal params={$modal.toObject()} onRequestHide={this.onRequestHide} animation={true}/>
+        }
 
-		return <span></span>
-	}
+        return <span></span>;
+    }
 });

@@ -1,5 +1,5 @@
 import React, { PropTypes, addons } from 'react/addons';
-import flux from '../flux';
+import flux, { createStoreWatchMixin } from '../flux';
 
 import Comments from './comments';
 import CommentForm from './comment-form'
@@ -9,7 +9,7 @@ export default React.createClass({
         FluxMixin,
         createStoreWatchMixin('TargetStore')
     ],
-    
+
     propTypes: {
         target: PropTypes.shape({
             id: PropTypes.string.isRequired
@@ -17,7 +17,7 @@ export default React.createClass({
     },
 
     getStateFromFlux() {
-        return { 
+        return {
             $comments: flux.store('TargetStore').getState().$comments 
         };
     },
@@ -43,7 +43,7 @@ export default React.createClass({
             <CommentForm onNewComment={this.onCommentAdd}/>
             <hr/>
             <Comments $comments={$comments}/>
-        </div>
+        </div>;
     },
 
     fetchComments() {

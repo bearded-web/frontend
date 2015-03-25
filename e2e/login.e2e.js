@@ -27,17 +27,15 @@ describe('Login page', function() {
         email
             .sendKeys(browser.params.login.email)
             .then(function() {
-                password.sendKeys(browser.params.login.password)
+                password.sendKeys(browser.params.login.password);
             })
             .then(function() {
                 return btn.click();
             })
             .then(function() {
-                browser.sleep(200)
-            })
-            .then(function() {
+                browser.sleep(200);
                 expect(getCmp('c-dashboard').isDisplayed()).toBeTruthy();
-            })
+            });
     });
 
     it('must logout', function() {

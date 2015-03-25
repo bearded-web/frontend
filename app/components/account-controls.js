@@ -1,7 +1,4 @@
-var Grid = Bootstrap.Grid,
-    Row = Bootstrap.Row,
-    Button = Bootstrap.Button,
-    Col = Bootstrap.Col;
+import { Grid, Row, Button, Col } from 'react-bootstrap';
 
 module.exports = React.createClass({
     mixins: [FluxMixin],
