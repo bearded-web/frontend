@@ -56,13 +56,7 @@ export default createClass({
                 {$steps.toArray().map(this.renderStep)}
 
                 <li className="list-group-item">
-                    <button onClick={this.onAddStep}
-                            type="button"
-                            className="btn btn-block btn-outline btn-primary">
-                        <Fa icon="plus"/>
-                        &nbsp;
-                        {iget('Add step')}
-                    </button>
+                    {this.renderAdd()}
                 </li>
             </ul>
         </div>;
