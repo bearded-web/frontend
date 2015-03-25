@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
@@ -107,7 +107,6 @@ export default createClass({
                 ref="data"
                 value={w3afData.type === type ? w3afData.data: ''}
                 type="textarea"
-                labelClassName="col-xs-2"
                 rows="10"
                 wrapperClassName="col-xs-10"
                 onChange={this.onFormDataChange.bind(this, type)}
