@@ -78,7 +78,7 @@ module.exports = {
     fetchComments(target) {
         let comments = [],
             findUser = (users, comment) => find(users, { id: comment.owner }),
-            assignUser = (comment, users) => comment.owner = findUser(users, comment);
+            assignUser = (comment, users) => comment.owner = findUser(users, comment),
             assignUsersToComments = (users) => {
                 comments.forEach(c => assignUser(c, users))
             };

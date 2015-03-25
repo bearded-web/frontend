@@ -69,7 +69,7 @@ export default createClass({
                     value={desc}
                     type="textarea"
                     onChange={this.onChange}
-                    style={{height:'90px'}}
+                    style={{height: '90px'}}
                     label={iget('Description')}/>
             </Col>
             <Col xs={12}>

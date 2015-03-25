@@ -5,6 +5,11 @@ import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/dispatcher';
 import C from '../constants';
 
+
+function dispatchPlans(plans) {
+    dispatch(C.PLANS_FETCH_SUCCESS, plans);
+}
+
 export function fetchPlans(planId) {
     var request = planId ? plans.get(planId) : plans.list();
 
@@ -18,9 +23,6 @@ export function selectPlans($plan) {
 }
 
 
-function dispatchPlans(plans) {
-    dispatch(C.PLANS_FETCH_SUCCESS, plans);
-}
 
 
 /**
@@ -45,7 +47,7 @@ export function saveEdit() {
     }
     else {
         plans.update({ 'plan-id': plan.id, body: plan })
-            .then(plan => dispatch(C.PLAN_SAVE_SUCCESS, plan));;
+            .then(plan => dispatch(C.PLAN_SAVE_SUCCESS, plan));
     }
 }
 

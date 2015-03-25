@@ -29,7 +29,7 @@ var ReportIssuesDetail = React.createClass({
 
     renderPanelHeader: function(issue) {
         return (
-            <PanelHeader><h3 style={{display:'inline'}}>{issue.summary}</h3></PanelHeader>
+            <PanelHeader><h3 style={{display: 'inline'}}>{issue.summary}</h3></PanelHeader>
         );
     },
 

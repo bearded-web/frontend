@@ -13,12 +13,19 @@
   // To give you an idea how to override rule options:
   "rules": {
     "strict": 1,
-    "quotes": [2, "single"],
+    "semi": 1,
+    "camelcase": 1,
+    "no-use-before-define": 1,
+    "comma-spacing": 1,
+    "no-multi-spaces": 1,
+    "curly": 1,
+    "quotes": [1, "single"],
     "eol-last": [0],
     "no-mixed-requires": [1],
     "no-underscore-dangle": [1],
     "no-unused-vars": 1,
-    "new-cap": 0
+    "new-cap": 0,
+    "no-trailing-spaces": 1
   },
   "globals": {
     "iget": true,
@@ -26,7 +33,13 @@
     "expect": true,
     "describe": true,
     "jest": true,
+    "createStoreWatchMixin": true,
+    "nextTick": true,
+    "React": true,
+    "flux": true,
     "i18n": true,
+    "jasmine": true,
+    "__": true,
     "FluxMixin": true
   }
 }

@@ -24,11 +24,16 @@ try {
         },
 
         getChildContext: function() {
-            return {router:{
-                makePath: function() {},
-                makeHref: function() {},
-                isActive: function() {}
-            }};
+            return {
+                router: {
+                    makePath: function() {
+                    },
+                    makeHref: function() {
+                    },
+                    isActive: function() {
+                    }
+                }
+            };
         },
 
 

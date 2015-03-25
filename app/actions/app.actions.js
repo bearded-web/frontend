@@ -67,7 +67,7 @@ export function logIn(email, password) {
                 this.flux.actions.plan.fetchPlans();
             });
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
         });
 }

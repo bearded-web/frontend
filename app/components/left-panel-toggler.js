@@ -1,4 +1,4 @@
-var { Button } = Bootstrap;
+import { Button } from 'react-bootstrap';
 
 var LeftPanelToggler = React.createClass({
     mixins: [FluxMixin],
