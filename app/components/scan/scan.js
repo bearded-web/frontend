@@ -1,8 +1,11 @@
 'use strict';
 
 import React from 'react/addons';
+import {fromJS} from 'immutable';
 
 import Ibox, { IboxContent } from '../ibox';
+import PlanItemView from '../plan-item-view';
+
 
 var flux = require('../../flux'),
     Router = require('react-router'),
@@ -10,8 +13,7 @@ var flux = require('../../flux'),
 
 
 
-var { Row, Col, Input, Jumbotron } = require('react-bootstrap'),
-    Domify = require('react-domify'),
+var { Row, Col, Input } = require('react-bootstrap'),
     StartScanButton = require('../start-scan-button');
 
 var Scan = React.createClass({
@@ -42,10 +44,7 @@ var Scan = React.createClass({
                 <Row>
                     <Col sm={8} md={6}>
                         {this.renderForm()}
-                        <Jumbotron>
-                            <h3>{iget('Plan data')}</h3>
-                            <Domify value={selectedPlan}/>
-                        </Jumbotron>
+                        <PlanItemView $plan={fromJS(selectedPlan)}/>
                     </Col>
                     <Col sm={4} md={6}>
                         <Ibox>
