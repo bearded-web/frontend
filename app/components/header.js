@@ -1,22 +1,18 @@
-var Bootstrap = require('react-bootstrap');
+import { createClass, PropTypes } from 'react/addons';
 
-var { Row, Col } = Bootstrap;
+import { Row, Col } from 'react-bootstrap';
 
-var Header = React.createClass({
+export default createClass({
     propTypes: {
-        children: React.PropTypes.oneOfType([
-            React.PropTypes.element,
-            React.PropTypes.arrayOf(React.PropTypes.element)
+        children: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.arrayOf(PropTypes.element)
         ])
     },
 
-    render: function() {
-        return (
-            <Row className="border-bottom white-bg page-heading">
+    render() {
+        return <Row className="border-bottom white-bg page-heading">
                 {this.props.children}
             </Row>
-        );
     }
 });
-
-module.exports = Header;

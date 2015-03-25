@@ -1,8 +1,7 @@
 'use strict';
 
-import { PropTypes } from 'react/addons';
 import { Map, OrderedMap } from 'immutable';
-
+/*eslint-disable*/
 export function $Model(props, propName, componentName) {
     let prop = props[propName];
 
@@ -20,3 +19,4 @@ export function $Models(props, propName, componentName) {
             check ${componentName}`);
     }
 }
+/*eslint-enable*/

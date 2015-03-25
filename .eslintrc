@@ -7,14 +7,26 @@
     // in CommonJS
     "node": true
   },
+  "ecmaFeatures": {
+    "jsx": true
+  },
   // To give you an idea how to override rule options:
   "rules": {
+    "strict": 1,
     "quotes": [2, "single"],
     "eol-last": [0],
-    "no-mixed-requires": [0],
-    "no-underscore-dangle": [0]
+    "no-mixed-requires": [1],
+    "no-underscore-dangle": [1],
+    "no-unused-vars": 1,
+    "new-cap": 0
   },
   "globals": {
-    "iget": true
+    "iget": true,
+    "it": true,
+    "expect": true,
+    "describe": true,
+    "jest": true,
+    "i18n": true,
+    "FluxMixin": true
   }
 }

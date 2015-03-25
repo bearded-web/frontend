@@ -2,23 +2,23 @@
 
 import { setCurrentProject } from './project.actions';
 import { addComment } from './target.actions';
+import { nextTick } from '../lib/helpers';
 
 var _ = require('lodash'),
     constants = require('../constants'),
     { extractor } = require('../lib/helpers'),
     { me, auth, users } = require('../lib/api3'),
     dispatch = require('../lib/dispatcher').dispatch,
-    targetActions = require('./target.actions'),
     router = require('../router');
 
 
 export function toggleLeftPanel() {
-        dispatch(constants.APP_TOGGLE_LEFT_PANEL);
-    }
+    dispatch(constants.APP_TOGGLE_LEFT_PANEL);
+}
 
-    /**
-     * App lift action
-     */
+/**
+ * App lift action
+ */
 export function initApp() {
     // try to fetch data
     me.info()
@@ -95,12 +95,12 @@ export function closeModal() {
     dispatch(constants.MODAL_CLOSE);
 }
 
-/* jshint -W040 */
 function handleMeData(data) {
     dispatch(constants.USER_LOGIN_SUCCESS, data.user);
 
-    if (data.projects.length)
+    if (data.projects.length) {
         dispatch(constants.PROJECTS_FETCH_SUCCESS, data.projects);
+    }
 }
 
 function dispatchLoginState(state) {

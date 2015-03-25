@@ -27,7 +27,7 @@ var Dashboard = React.createClass({
                 if (!app.inited) return;
 
                 clearInterval(initInterval);
-                
+
                 if (!app.isLogedIn) {
                     callback();
                     transition.redirect('/');
@@ -38,7 +38,7 @@ var Dashboard = React.createClass({
 
                         let $currentProject = flux.store('Store')
                             .getState().currentProject;
-                        
+
                         if ($currentProject) {
                             setCurrentProject($currentProject.get('id'), true);
                             clearInterval(interval);

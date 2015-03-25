@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
@@ -56,10 +56,16 @@ export default createClass({
                 {$steps.toArray().map(this.renderStep)}
 
                 <li className="list-group-item">
-                    {this.renderAdd()}
+                    <button onClick={this.onAddStep}
+                            type="button"
+                            className="btn btn-block btn-outline btn-primary">
+                        <Fa icon="plus"/>
+                        &nbsp;
+                        {iget('Add step')}
+                    </button>
                 </li>
             </ul>
-        </div>
+        </div>;
     },
 
     renderStep($step, i) {
@@ -73,7 +79,7 @@ export default createClass({
                   $plugins={$plugins}
                   onChange={handler}
                   onRemove={onRemove}/>
-        </li>
+        </li>;
     },
 
     renderAdd() {
@@ -101,7 +107,7 @@ export default createClass({
             <Col xs={12}>
                 {$plugin && this.renderPluginInfo($plugin)}
             </Col>
-        </Row>
+        </Row>;
     },
 
     renderPluginInfo($plugin) {
@@ -114,7 +120,7 @@ export default createClass({
             <br/>
             <br/>
             Details: <a href={url} target="_blank">{url}</a>
-        </Alert>
+        </Alert>;
     }
 });
 

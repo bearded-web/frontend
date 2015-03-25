@@ -6,7 +6,7 @@ import { pluck, zipObject } from 'lodash';
 
 let $state = Map({
     $edit: null,
-    $plans: OrderedMap()
+    $plans: new OrderedMap()
 });
 
 let $oldState = $state;
