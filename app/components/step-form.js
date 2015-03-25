@@ -27,7 +27,7 @@ export default createClass({
             { type, name, version } = $plugin.toObject();
 
         switch (true) {
-            case name == "barbudo/w3af-script":
+            case name === "barbudo/w3af-script":
                 return W3afScriptStepForm;
             case type === 'util':
                 return UtilStepForm;
