@@ -106,7 +106,7 @@ export default createClass({
 
     renderPluginInfo($plugin) {
         let { info, title, url } = $plugin.get('desc').toObject(),
-            style = { marginTop: '10px' };
+            style = { marginTop: '10px', textOverflow: 'ellipsis', overflow: 'hidden' };
 
         return <Alert bsStyle="info" style={style}>
             <h4>{title}</h4>

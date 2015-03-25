@@ -11,8 +11,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 var config = {
     context: __dirname,
     entry: {
-        app: [
-            './app/main.js']
+        app: ['./app/main.js']
     },
     output: {
         publicPath: isProduction ? '/' : 'http://localhost:8080/',
@@ -29,7 +28,7 @@ var config = {
             { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
             {
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=50000&minetype=application/font-woff"
+                loader: 'url-loader?limit=50000&minetype=application/font-woff'
             },
             {
                 test: /\.json$/,
@@ -58,12 +57,6 @@ var config = {
         ]
     },
     plugins: [
-        new SplitPlugin({
-            buckets: [{
-                name: 'modules',
-                path: path.join(__dirname, './node_modules')
-            }]
-        }),
         new HtmlWebpackPlugin({
             template: 'app/index.html'
         })
@@ -71,9 +64,15 @@ var config = {
 };
 
 if (isProduction) {
+    config.plugins.unshift(new SplitPlugin({
+        buckets: [{
+            name: 'modules',
+            path: path.join(__dirname, './node_modules')
+        }]
+    }));
     //config.plugins.unshift(new ExtractTextPlugin("[name].[hash].bundle.css")); //TODO make separate CSS
     config.output.filename = '[name].[chunkhash].bundle.js';
-    config.output.chunkFilename = "[name].[chunkhash].bundle.js";
+    config.output.chunkFilename = '[name].[chunkhash].bundle.js';
 }
 
 

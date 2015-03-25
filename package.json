@@ -31,7 +31,7 @@
     "install": "./node_modules/.bin/webdriver-manager update --standalone",
     "lint": "eslint app/ --quiet",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
-    "deploy": "rm -rf dist && mkdir dist && NODE_ENV=production webpack",
+    "deploy": "rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p",
     "test-server": "./node_modules/.bin/webdriver-manager start",
     "test-unit": "./node_modules/jest-cli/bin/jest.js",
     "test-coverage": "mkdir output; ./node_modules/.bin/jest --coverage",

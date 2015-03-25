@@ -1,6 +1,9 @@
-var CreateAccountBtn = require('./create-account-btn'),
-    Router = require('react-router'),
-    GoToLoginBtn = require('./go-to-login-btn');
+'use strict';
+
+import CreateAccountBtn from './create-account-btn';
+import Router from 'react-router';
+import GoToLoginBtn from './go-to-login-btn';
+import Logo from './logo';
 
 var LoginOverlay = React.createClass({
     mixins: [FluxMixin, Router.State],
@@ -28,11 +31,12 @@ var LoginOverlay = React.createClass({
                 <div className="middle-box text-center loginscreen  animated fadeInDown">
                     <div>
                         <div>
-                            <h1 className="logo-name">B+</h1>
+                            <Logo/>
                         </div>
-                        <h3>{isSignUp ? iget('Sign up') : iget('Welcome to Barbudo')}</h3>
-                        <p>Greate systet to protect your business</p>
-                        <p>{isSignUp ? iget('Create account') : iget('Log in')}. To see it in action.</p>
+                        <br/>
+                        <br/>
+                        <p>{iget('Greate system to protect your business')}</p>
+                        <p>{isSignUp ? iget('Create account') : iget('Log in')}. {iget('To see it in action.')}</p>
                         <form className="m-t" role="form" onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <input disabled={loginInProcess} ref="email" type="email" className="form-control" placeholder="Username" required />
@@ -47,7 +51,7 @@ var LoginOverlay = React.createClass({
                                 {loginError}
                             </div>
                             <a href="#">
-                                <small>Forgot password</small>
+                                <small>{iget('Forgot password')}</small>
                             </a>
 
                             {isSignUp ? <GoToLoginBtn /> : <CreateAccountBtn />}

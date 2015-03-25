@@ -35,8 +35,8 @@ export default createClass({
                    ref="args"
                    label={iget('Arguments')}
                    value={cmdArgs}
-                   labelClassName="col-xs-2"
-                   wrapperClassName="col-xs-10"
+                   labelClassName="col-sm-2"
+                   wrapperClassName="col-sm-10"
                    onChange={this.onArgsChange}
                    placeholder={iget('Command line args...')}/>
         </form>
