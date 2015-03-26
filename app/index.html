@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    {%if (o.htmlWebpackPlugin.options.isProduction) { %}
+       <script type="text/javascript">
+           window.process = window.process || {};
+           window.process.env = window.process.env || {};
+           window.process.env.NODE_ENV = "production"
+       </script>
+   {% } %}
+
     <meta charset="utf-8">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name='viewport' content='width=device-width initial-scale=1.0'/>
@@ -25,7 +33,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=1">
     <meta name="theme-color" content="#ffffff">
-    
+
     <title>Dasboard • Bearded</title>
 
     <style type="text/css">
@@ -33,6 +41,8 @@
             background-color: #2F4050;
         }
     </style>
+
+
 </head>
 <body>
     <div id="app"></div>
