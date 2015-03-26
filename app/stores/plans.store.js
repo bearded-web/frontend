@@ -1,3 +1,5 @@
+'use strict';
+
 import { createStore } from 'fluxxor';
 import { fromJS, is, Map, OrderedMap } from 'immutable';
 import C from '../constants';
@@ -12,8 +14,16 @@ let $state = Map({
 let $oldState = $state;
 
 export default createStore({
+    getEdit() {
+        return $state.get('$edit');
+    },
+
     getPlans() {
         return $state.get('$plans');
+    },
+
+    getPlan(planId) {
+        return $state.getIn(['$plans', planId]);
     },
 
     getState() {

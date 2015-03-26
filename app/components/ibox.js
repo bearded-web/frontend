@@ -14,7 +14,7 @@ export var propTypes = {
  */
 export default class Ibox extends Component {
     render() {
-        return <div className="ibox">
+        return <div {...this.props} className="ibox">
             {this.props.children}
         </div>;
     }

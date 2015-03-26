@@ -22,7 +22,7 @@
     "quotes": [1, "single"],
     "eol-last": [0],
     "no-mixed-requires": [1],
-    "no-underscore-dangle": [1],
+    "no-underscore-dangle": [0],
     "no-unused-vars": 1,
     "new-cap": 0,
     "no-trailing-spaces": 1

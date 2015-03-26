@@ -11,6 +11,8 @@ import Fa from './fa';
 import Step from './workflow-step';
 import PluginSelect from './plugin-select';
 import { Col, Row, Alert } from 'react-bootstrap';
+import Ibox, { IboxContent } from './ibox';
+
 
 export default createClass({
     mixins: [ImMixin],
@@ -52,13 +54,10 @@ export default createClass({
         let { $steps } = this.props;
 
         return <div>
-            <ul className="list-group">
-                {$steps.toArray().map(this.renderStep)}
-
-                <li className="list-group-item">
-                    {this.renderAdd()}
-                </li>
-            </ul>
+            {$steps.toArray().map(this.renderStep)}
+            <Ibox><IboxContent>
+                {this.renderAdd()}
+            </IboxContent></Ibox>
         </div>;
     },
 
@@ -67,13 +66,14 @@ export default createClass({
             handler = this.onStepChange.bind(this, i),
             onRemove = this.onRemove.bind(this, i);
 
-
-        return <li className="list-group-item" key={i}>
-            <Step $step={$step}
-                  $plugins={$plugins}
-                  onChange={handler}
-                  onRemove={onRemove}/>
-        </li>;
+        return <Ibox>
+            <IboxContent className="list-group-item" key={i}>
+                <Step $step={$step}
+                      $plugins={$plugins}
+                      onChange={handler}
+                      onRemove={onRemove}/>
+            </IboxContent>
+        </Ibox>;
     },
 
     renderAdd() {

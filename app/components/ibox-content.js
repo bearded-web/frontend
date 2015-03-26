@@ -14,6 +14,8 @@ export default class IboxContent extends Component {
 
         return <div className={classes}>
             {children}
+
+            <div className="clearfix"></div>
         </div>;
     }
 }

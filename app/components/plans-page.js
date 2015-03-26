@@ -10,6 +10,7 @@ import { defaults } from 'lodash';
 import { Row, Col } from 'react-bootstrap';
 import Ibox, { IboxContent } from './ibox';
 import Header from './header';
+import Plans from './plans-with-search';
 import PlansList from '../components/plans-list';
 import PlanForm from '../components/plan-form';
 
@@ -56,41 +57,9 @@ export default React.createClass({
                     </h2>
                 </Col>
             </Header>
-            <br/>
-            <br/>
 
-            <Row>
-                <Col xs={12} md={4}>
-                    <Ibox><IboxContent noPadding>
-                        <PlansList
-                            selectedId={selectedId}
-                            $plans={$plans}
-                            onSelect={this.onPlanSelect}/>
-                    </IboxContent></Ibox>
-                </Col>
-
-                <Col xs={12} md={8}>
-                    <Ibox><IboxContent>
-                        {$edit ?
-                            this.renderForm() :
-                            this.renderEmptyMessage()
-                        }
-                    </IboxContent></Ibox>
-                </Col>
-            </Row>
-        </div>
-    },
-
-    renderForm() {
-        let { $edit, $plugins } = this.state;
-
-        return <PlanForm
-            $plan={$edit}
-            $plugins={$plugins}/>
-    },
-
-    renderEmptyMessage() {
-        return <h3 className="text-center">{iget('Select plan in list')}</h3>
+            <Plans $plans={$plans}/>
+        </div>;
     }
 });
 

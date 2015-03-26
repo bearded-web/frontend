@@ -29,6 +29,9 @@ export default React.createClass({
         let { $plan, active, onSelect } = this.props,
             { name, desc, targetType, workflow } = $plan.toObject()
 
+        if (!workflow) {
+            return <span>Loading</span>;//TODO move loading to upper component
+        }
 
         return <div>
             <p>{desc}</p>

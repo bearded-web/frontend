@@ -1,88 +1,44 @@
 'use strict';
 
-import React from 'react/addons';
-import {fromJS} from 'immutable';
+import { createClass } from 'react/addons';
+import { fromJS } from 'immutable';
+import flux from '../../flux';
+import { State } from 'react-router';
+import { assign } from 'lodash';
 
 import Ibox, { IboxContent } from '../ibox';
-import PlanItemView from '../plan-item-view';
+import { Row, Col, Input } from 'react-bootstrap';
+import Plans from '../plans-with-search';
 
-
-var flux = require('../../flux'),
-    Router = require('react-router'),
-    _ = require('lodash');
-
-
-
-var { Row, Col, Input } = require('react-bootstrap'),
-    StartScanButton = require('../start-scan-button');
-
-var Scan = React.createClass({
+var Scan = createClass({
     mixins: [
-        Router.State,
+        State,
         FluxMixin,
-        createStoreWatchMixin('ScanStore')
+        createStoreWatchMixin('PlansStore')
     ],
 
     getStateFromFlux: function() {
-        return flux.store('ScanStore').getState();
+        let state = {};
+
+        state.$plans = flux.store('PlansStore').getPlans();
+
+        return state;
     },
 
-    onPlanChange: function(event) {
-        flux.actions.scan.setSelectedPlan(event.target.value);
+    onStartScan($plan) {
+        flux.actions.scan.createScan(
+            this.getParams().targetId,
+            this.getQuery().project,
+            $plan.get('id'));
     },
+
 
     render: function() {
-        var { selectedPlan } = this.state,
-            targetId = this.getParams().targetId,
-            projectId = this.getQuery().project,
-            planId = selectedPlan.id;
+        var { $plans, search } = this.state;
 
-        return (
-            <div className="c-scan">
-                <br/>
-                <br/>
-                <Row>
-                    <Col sm={8} md={6}>
-                        {this.renderForm()}
-                        <PlanItemView $plan={fromJS(selectedPlan)}/>
-                    </Col>
-                    <Col sm={4} md={6}>
-                        <Ibox>
-                            <IboxContent>
-                                <StartScanButton
-                                    project={projectId}
-                                    target={targetId}
-                                    plan={planId} />
-                            </IboxContent>
-                        </Ibox>
-                    </Col>
-                </Row>
-            </div>
-        );
-    },
-
-    renderForm: function() {
-        var { selectedPlan, plans } = this.state;
-
-        if (!plans.length) {
-            return (
-                <div>{iget('Loading...')}</div>
-            );
-        }
-
-        return (
-            <form>
-                <Input type="select" defaultValue={selectedPlan.id} onChange={this.onPlanChange} label={iget('Select plan')}>
-                    {this.state.plans.map(function(plan) {
-                        return (
-                            <option key={plan.id} value={plan.id}>
-                                {plan.name}
-                            </option>
-                        );
-                    })}
-                </Input>
-            </form>
-        );
+        return <div className="c-scan">
+            <Plans $plans={$plans} onStartScan={this.onStartScan}/>
+        </div>;
     }
 });
 

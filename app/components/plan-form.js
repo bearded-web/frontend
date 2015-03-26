@@ -10,6 +10,7 @@ import { saveEdit, change } from '../actions/plan.actions';
 import { Row, Col, Input, ButtonGroup, Button } from 'react-bootstrap';
 import Workflow from './workflow';
 import Fa from './fa';
+import Ibox, { IboxContent } from './ibox';
 
 export default createClass({
     mixins: [ImMixin],
@@ -43,42 +44,30 @@ export default createClass({
             $steps = $plan.get('workflow');
 
         return <Row>
-            <Col xs={12} sm={6}>
-                {/*<label>{iget('Target type')}</label>
-                <br/>
-                <ButtonGroup>
-                    <button className="btn-white btn btn-sm">
-                        <Fa icon="globe" size="lg"/> {iget('Web')}
+            <Col xs={12} md={4}>
+                <Ibox style={{marginTop: '56px'}}><IboxContent>
+                    <Input
+                        ref="name"
+                        type="text"
+                        value={name}
+                        required
+                        onChange={this.onChange}
+                        label={iget('Plan name')}/>
+
+                    <Input
+                        ref="desc"
+                        value={desc}
+                        type="textarea"
+                        onChange={this.onChange}
+                        style={{height: '60px'}}
+                        label={iget('Description')}/>
+                    <button className="btn btn-primary" disabled={!dirty} onClick={this.onSave}>
+                        {iget('Save')}
                     </button>
-                    <button className="btn-white btn btn-sm" disabled>
-                        <Fa icon="mobile" size="lg"/> {iget('Mobile')}
-                    </button>
-                </ButtonGroup>
-                <br/>*/}
-                <Input
-                    ref="name"
-                    type="text"
-                    value={name}
-                    required
-                    onChange={this.onChange}
-                    label={iget('Plan name')}/>
+                </IboxContent></Ibox>
             </Col>
-            <Col xs={12} sm={6}>
-                <Input
-                    ref="desc"
-                    value={desc}
-                    type="textarea"
-                    onChange={this.onChange}
-                    style={{height: '60px'}}
-                    label={iget('Description')}/>
-            </Col>
-            <Col xs={12}>
-                <button className="btn btn-primary" disabled={!dirty} onClick={this.onSave}>
-                    {iget('Save')}
-                </button>
-            </Col>
-            <Col xs={12} style={{marginTop: '30px'}}>
-                <h2>{iget('Workflow')}</h2>
+            <Col xs={12} md={8}>
+                <h2 className="text-center">{iget('Workflow')}</h2>
                 <Workflow $steps={$steps} $plugins={$plugins}/>
             </Col>
         </Row>

@@ -23,8 +23,6 @@ export function selectPlans($plan) {
 }
 
 
-
-
 /**
  * Save current editing plan
  */
@@ -92,4 +90,22 @@ export function remove($plan) {
  */
 export function addNew() {
     dispatch(C.PLAN_ADD);
+}
+
+/**
+ * Start plan editing
+ * @param {String} planId plan id
+ */
+export function startPlanEdit(planId) {
+    let flux = require('../flux'),
+        plansStore = flux.store('PlansStore'),
+        plan = plansStore.getPlan(planId);
+
+    if (plan) {
+        return dispatch(C.PLANS_SELECT, plan);
+    }
+
+    fetchPlans(planId).then(function() {
+        dispatch(C.PLANS_SELECT, plansStore.getPlan(planId));
+    });
 }

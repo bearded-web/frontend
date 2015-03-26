@@ -13,11 +13,12 @@ module.exports.create = function buildRouter() {
         Route = Router.Route,
         DefaultRoute = Router.DefaultRoute,
         NotFoundRoute = Router.NotFoundRoute,
+        Redirect = Router.Redirect,
         App = require('./components/app.js'),
         Agents = require('./components/agents'),
         PlansPage = require('./components/plans-page'),
+        PlanPage = require('./components/plan-page'),
         Dashboard = require('./components/dashboard'),
-        Page = require('./components/page'),
         ReportPage = require('./components/report-page'),
         Scan = require('./components/scan'),
         ScanReport = require('./components/scan-report'),
@@ -34,7 +35,12 @@ module.exports.create = function buildRouter() {
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <Route name="agents" path="agents" handler={Agents}/>
+
                 <Route name="plans" path="plans" handler={PlansPage}/>
+                <Redirect from="plans/" to="plans"/>
+                <Route name="plan" path="plans/:planId" handler={PlanPage}/>
+                <Redirect from="plans/:planId/" to="plan"/>
+
                 <Route name="report" path="report" handler={ReportPage}/>
                 <DefaultRoute name="overview" path="/" handler={Overview}/>
 
