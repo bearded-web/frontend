@@ -11,6 +11,7 @@ import { Row, Col, Input, Button, ButtonToolbar } from 'react-bootstrap';
 import Fa from './fa';
 import PlanItemView from './plan-item-view';
 import { Link } from 'react-router';
+import PlanRemoveLink from './plan-remove-link';
 
 export default class Plans extends Component {
     constructor() {
@@ -43,11 +44,15 @@ export default class Plans extends Component {
     }
 
     renderPlan($plan) {
-        let { name, id } = $plan.toObject();
+        let { name, id } = $plan.toObject(),
+            editParams = { planId: id };
 
         return <Ibox key={id}>
             <IboxTitle>
-                <h5>{name}</h5>
+                <PlanRemoveLink className="pull-right" plan={$plan}/>
+                <Link to="plan" params={editParams}>
+                    <h5>{name}</h5>
+                </Link>
             </IboxTitle>
             <IboxContent>
                 <PlanItemView $plan={$plan}/>
@@ -59,16 +64,13 @@ export default class Plans extends Component {
 
     renderToolbar($plan) {
         let scanHandler = this.onStartScan.bind(this, $plan),
-            withStartScanButton = !!this.props.onStartScan,
-            editParams = { planId: $plan.get('id') };
+            withStartScanButton = !!this.props.onStartScan;
 
         return <ButtonToolbar className="pull-right">
-            <Link to="plan" params={editParams}>
-                Start edit
-            </Link>
+
             {withStartScanButton && <Button bsStyle="primary"
-                    onClick={scanHandler}
-                    bsSize="xsmall">
+                                            onClick={scanHandler}
+                                            bsSize="xsmall">
                 {iget('Start scan')}
             </Button>}
         </ButtonToolbar>;

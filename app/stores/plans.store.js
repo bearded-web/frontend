@@ -111,13 +111,13 @@ export default createStore({
         this._emitChange();
     },
 
-    _onAddPlan() {
-        let id = Math.random() + '',
-            $plan = fromJS({
+    _onAddPlan(id) {
+        let $plan = fromJS({
                 id,
                 targetType: 'web',
-                name: iget('New plan'),
+                name: iget('New plan') + ' ' + id,
                 desc: '',
+                dirty: true,
                 isNew: true,
                 workflow: []
             });

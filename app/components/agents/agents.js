@@ -28,13 +28,7 @@ var Agents = React.createClass({
 
         return (
             <div className="c-agents">
-                <Header>
-                    <Col xs={12}>
-                        <h2>
-                                {iget('Agents list')}
-                        </h2>
-                    </Col>
-                </Header>
+                Header = require('../header');
                 <br/>
                 <Row>
                     <Col xs={12}>

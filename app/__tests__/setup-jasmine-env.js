@@ -13,6 +13,9 @@ try {
     window.nextTick = function(fn) {
         setTimeout(fn, 0);
     };
+    window.localStorage = {
+        getItem() { return null }
+    };
     var React = require('react/addons');
 
     var noop = function() {

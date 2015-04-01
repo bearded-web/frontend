@@ -45,6 +45,12 @@ export default React.createClass({
         );
     },
 
+    addNewPlan() {
+        this.context.router.transitionTo('plan', {
+            planId: 'new'
+        });
+    },
+
     render() {
         let { $plans, $edit, $plugins, $steps } = this.state,
             selectedId = $edit && $edit.get('id');
@@ -53,6 +59,8 @@ export default React.createClass({
             <Header>
                 <Col xs={12}>
                     <h2>
+                        <a onClick={this.addNewPlan} className="pull-right">Create new plan</a>
+
                         {iget('Plans')}
                     </h2>
                 </Col>

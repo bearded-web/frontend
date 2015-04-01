@@ -3,6 +3,7 @@
 import { plans } from '../lib/api3';
 import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/dispatcher';
+import router from '../router';
 import C from '../constants';
 
 
@@ -29,7 +30,8 @@ export function selectPlans($plan) {
 export function saveEdit() {
     let flux = require('../flux'),
         $plan = flux.store('PlansStore').getState().$edit,
-        plan = $plan.toJS();
+        plan = $plan.toJS(),
+        promise;
 
 
     dispatch(C.PLAN_SAVE_START, $plan);
@@ -38,15 +40,17 @@ export function saveEdit() {
         let oldId = plan.id;
         delete plan.id;
 
-        plans.create({ body: plan }).then(plan => {
+        promise = plans.create({ body: plan }).then(plan => {
             plan.oldId = oldId;
             dispatch(C.PLAN_SAVE_SUCCESS, plan);
         });
     }
     else {
-        plans.update({ 'plan-id': plan.id, body: plan })
+        promise = plans.update({ 'plan-id': plan.id, body: plan })
             .then(plan => dispatch(C.PLAN_SAVE_SUCCESS, plan));
     }
+
+    promise.then(() => router.get().transitionTo('plans'));
 }
 
 export function change(data) {
@@ -85,12 +89,6 @@ export function remove($plan) {
         });
 }
 
-/**
- * Add new plan to store (but not to server)
- */
-export function addNew() {
-    dispatch(C.PLAN_ADD);
-}
 
 /**
  * Start plan editing
@@ -99,7 +97,15 @@ export function addNew() {
 export function startPlanEdit(planId) {
     let flux = require('../flux'),
         plansStore = flux.store('PlansStore'),
-        plan = plansStore.getPlan(planId);
+        plan;
+
+    if (planId === 'new') {
+        planId = Math.floor(Math.random() * 10000000) + '';
+
+        dispatch(C.PLAN_ADD, planId);
+    }
+
+    plan = plansStore.getPlan(planId);
 
     if (plan) {
         return dispatch(C.PLANS_SELECT, plan);

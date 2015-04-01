@@ -40,7 +40,7 @@ export default createClass({
     //TODO add component for 2 columns
     render() {
         let { $plugins, $plan } = this.props,
-            { name, desc, dirty } = $plan ? $plan.toObject() : {},
+            { name, desc, dirty, isNew } = $plan ? $plan.toObject() : {},
             $steps = $plan.get('workflow');
 
         return <Row>
@@ -62,7 +62,7 @@ export default createClass({
                         style={{height: '60px'}}
                         label={iget('Description')}/>
                     <button className="btn btn-primary" disabled={!dirty} onClick={this.onSave}>
-                        {iget('Save')}
+                        {isNew ? iget('Create') : iget('Save')}
                     </button>
                 </IboxContent></Ibox>
             </Col>
