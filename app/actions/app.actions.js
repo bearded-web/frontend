@@ -3,9 +3,11 @@
 import { setCurrentProject } from './project.actions';
 import { addComment } from './target.actions';
 import { nextTick } from '../lib/helpers';
+import { dispatch as nDispatch } from '../lib/disp';
+import _, { isUndefined } from 'lodash';
+import authStore from '../stores/auth.store';
 
-var _ = require('lodash'),
-    constants = require('../constants'),
+var constants = require('../constants'),
     { extractor } = require('../lib/helpers'),
     { me, auth, users } = require('../lib/api3'),
     dispatch = require('../lib/dispatcher').dispatch,
@@ -51,7 +53,13 @@ export function showLogin() {
     dispatchLoginState('login', this);
 }
 
+/**
+ * Login user by email and password
+ * @param {String} email user email
+ * @param {String} password user password
+ */
 export function logIn(email, password) {
+
     dispatch(constants.USER_LOGIN_START);
 
     auth.login({ body: { email: email, password: password } })
@@ -68,6 +76,7 @@ export function logIn(email, password) {
             });
         })
         .catch(() => {
+            nDispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
             dispatch(constants.USER_LOGIN_FAIL, iget('Wrong email or password'));
         });
 }
@@ -75,8 +84,11 @@ export function logIn(email, password) {
 export function logOut() {
     dispatch(constants.USER_LOGOUT_START);
 
-    /* jshint -W093 */
-    auth.logout().then(() =>  window.location = '/');
+    const reloadPage = () =>  window.location = '/'
+
+    auth.logout()
+        .then(reloadPage)
+        .catch(reloadPage);
 }
 
 export function signUp(email, password) {
@@ -97,6 +109,7 @@ export function closeModal() {
 
 function handleMeData(data) {
     dispatch(constants.USER_LOGIN_SUCCESS, data.user);
+    nDispatch(constants.USER_LOGIN_SUCCESS, data.user);
 
     if (data.projects.length) {
         dispatch(constants.PROJECTS_FETCH_SUCCESS, data.projects);

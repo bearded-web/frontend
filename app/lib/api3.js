@@ -2,6 +2,8 @@
 //TODO refactor
 'use strict';
 
+import { lostAuth } from '../actions/auth.actions';
+
 var schema = require('./swagger.json'),
     clientGenerator,
     api,
@@ -99,6 +101,11 @@ function requestHandler(error, request) {
             }
 
             if (this.status < 200 || this.status >= 300) {
+                if (this.status === 401) {
+                    // user was loged out somewhere
+                    lostAuth();
+                }
+
                 reject({
                     error: error,
                     status: this.status,

@@ -9,6 +9,7 @@ export function $Model(props, propName, componentName) {
         return new Error(`You must pass Model for prop ${propName}, check ${componentName}`);
     }
 }
+export const Model = $Model;
 
 export function $Models(props, propName, componentName) {
     let prop = props[propName];
@@ -19,4 +20,5 @@ export function $Models(props, propName, componentName) {
             check ${componentName}`);
     }
 }
+export const Models = $Models;
 /*eslint-enable*/

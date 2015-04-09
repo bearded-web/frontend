@@ -1,3 +1,5 @@
+'use strict';
+
 var constants = {
     AGENTS_FETCH_SUCCESS: true,
 
@@ -60,6 +62,7 @@ var constants = {
     USER_LOGOUT_START: true,
     USER_LOGOUT_SUCCESS: true,
     USER_LOGOUT_FAIL: true,
+    USER_LOST_AUTH: true,
 
     USERS_FETCH_SUCCESS: true,
 
@@ -68,7 +71,7 @@ var constants = {
     PROJECT_REMOVE_MEMBER: true,
     PROJECT_FETCH_SUCCESS: true,
     PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS: true,
-    
+
     PROJECTS_FETCH_SUCCESS: true,
     PROJECTS_SET_CURRENT: true,
 

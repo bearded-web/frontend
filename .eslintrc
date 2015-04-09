@@ -5,7 +5,9 @@
     // I write for browser
     "browser": true,
     // in CommonJS
-    "node": true
+    "node": true,
+
+    "mocha": true
   },
   "ecmaFeatures": {
     "jsx": true
@@ -28,11 +30,8 @@
     "no-trailing-spaces": 1
   },
   "globals": {
-    "iget": true,
-    "it": true,
-    "expect": true,
-    "describe": true,
     "jest": true,
+    "iget": true,
     "createStoreWatchMixin": true,
     "nextTick": true,
     "React": true,

@@ -1,47 +1,70 @@
-var Fluxxor = require('fluxxor'),
-    Router = require('react-router'),
-    RouteHandler = Router.RouteHandler;
+'use strict';
 
-var LoginOverlay = require('./login-overlay'),
-    AppLoader = require('./app-loader/index'),
-    Toast = require('./toast'),
-    Dashboard = require('./dashboard');
+import { createClass} from 'react/addons';
+import { FluxMixin } from 'fluxxor';
+import { State, RouteHandler } from 'react-router';
+import authStore from '../stores/auth.store';
+
+import LoginOverlay from './login-overlay';
+import AppLoader from './app-loader/index';
+import Toast from './toast';
+import Dashboard from './dashboard';
+import LockScreenContainer from './lock-screen-container';
 
 
-var App = React.createClass({
+export default createClass({
+    name: 'App',
+
     mixins: [
-        Fluxxor.FluxMixin(React),
+        FluxMixin(React),
         createStoreWatchMixin('AppStore', 'TargetsStore'),
-        Router.State
+        State
     ],
 
-    getStateFromFlux: function() {
+    getInitialState() {
+        return this.getState();
+    },
+
+    componentDidMount() {
+        authStore.onChange(this.onStoreChange);
+    },
+
+    componentWillUnmount() {
+        authStore.offChange(this.onStoreChange);
+    },
+
+    onStoreChange() {
+        this.setState(this.getState());
+    },
+
+    getState() {
+        return authStore.getState();
+    },
+
+    getStateFromFlux() {
         return {
             app: this.getFlux().store('AppStore'),
             targets: this.getFlux().store('TargetsStore')
         };
     },
 
-    render: function() {
-        if (!this.state.app.inited) {
+    render() {
+        const { app, isLogedIn, user } = this.state;
+
+        if (!app.inited) {
+            return <AppLoader/>;
+        }
+
+        if (!isLogedIn && !user) {
             return (
-                <AppLoader />
+                <LoginOverlay/>
             );
         }
 
-        if (!this.state.app.isLogedIn) {
-            return (
-                <LoginOverlay />
-            );
-        }
-
-        return (
-            <div>
-                <RouteHandler />
-                <Toast />
-            </div>
-        );
+        return <div>
+            {(user && !isLogedIn) ? <LockScreenContainer/> : ''}
+            <RouteHandler/>
+            <Toast/>
+        </div>;
     }
 });
-
-module.exports = App;
