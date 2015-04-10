@@ -1,0 +1,24 @@
+{
+  // I want to use babel-eslint for parsing!
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  // To give you an idea how to override rule options:
+  "rules": {
+    "no-unused-expressions": 0,
+    "no-shadow": 0
+  },
+  "globals": {
+    "TestUtils": true,
+    "byTag": true,
+    "byClass": true,
+    "findDOMNode": true,
+    "it": true,
+    "expect": true,
+    "describe": true
+  }
+}

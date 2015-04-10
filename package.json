@@ -13,7 +13,7 @@
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
     "deploy": "rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p",
     "test-server": "./node_modules/.bin/webdriver-manager start",
-    "test-unit": "./node_modules/.bin/mocha --compilers js:babel/register -R nyan \"app/**/*.t.js\"",
+    "test-unit": "./node_modules/.bin/mocha --compilers js:babel/register -R spec \"app/**/*.t.js\"",
     "coverage": "(cd app && ../node_modules/babel-istanbul/lib/cli.js  --include-all-sources cover ../node_modules/mocha/bin/_mocha -- -t 5000  -R spec \"./**/*.t.js\")",
     "test-e2e": "./node_modules/.bin/protractor protractor.js",
     "test": "npm run test-unit",

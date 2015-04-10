@@ -30,7 +30,7 @@
     "eol-last": [0],
     "no-mixed-requires": [1],
     "no-underscore-dangle": [0],
-    "no-unused-vars": 1,
+    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
     "new-cap": 0,
     "no-trailing-spaces": 1,
     "react/display-name": 0,

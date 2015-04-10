@@ -15,6 +15,8 @@ var constants = {
 
     FEED_FETCH_SUCCESS: true,
 
+    ISSUES_FETCH_SUCCESS: true,
+
     MODAL_OPEN: true,
     MODAL_CLOSE: true,
 
