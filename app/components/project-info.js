@@ -42,7 +42,7 @@ export default createClass({
         });
     },
 
-    onProjectSelect(e) {
+    onProjectSelect() {
         let projectId = this.refs.project.getDOMNode().value;
 
         this.setState({ settingsOpen: false });
@@ -95,7 +95,7 @@ export default createClass({
                         project = project.toObject();
                         return <option value={project.id}>
                             {project.name}
-                        </option>
+                        </option>;
                     })}
                 </select>
                 <br/>
@@ -103,6 +103,6 @@ export default createClass({
             </div>
             <br/>
             <Members project={props.currentProject}/>
-        </div>
+        </div>;
     }
 });

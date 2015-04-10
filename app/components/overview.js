@@ -36,7 +36,7 @@ var Overview = React.createClass({
         let { $project } = this.state;
 
         if (!$project) {
-            return <h1>Project loading</h1>
+            return <h1>Project loading</h1>;
         }
 
         return (

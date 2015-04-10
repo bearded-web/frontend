@@ -26,6 +26,6 @@ export default React.createClass({
         return <a 
             className="c-project-member" 
             style={style}
-            title={user.email}></a>
+            title={user.email}></a>;
     }
 });

@@ -19,7 +19,7 @@ export default React.createClass({
 
         return <div className="feed-activity-list">
             {comments.map(this.renderComment)}
-        </div>
+        </div>;
     },
 
     renderComment($comment, key) {
@@ -32,6 +32,6 @@ export default React.createClass({
             action={actionText}
             $user={owner}>
             <Markdown text={text}/>
-        </FeedItem>
+        </FeedItem>;
     }
 });

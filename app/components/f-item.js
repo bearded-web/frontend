@@ -41,6 +41,6 @@ export default React.createClass({
                 <br/>
                 {children}
             </div>
-        </div>
+        </div>;
     }
 });

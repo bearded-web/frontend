@@ -23,7 +23,7 @@ export default createClass({
     getValues() {
         let refs = keys(this.refs);
 
-        return zipObject(refs, refs.map(k => this.refs[k].getValue()))
+        return zipObject(refs, refs.map(k => this.refs[k].getValue()));
     },
 
 
@@ -70,7 +70,7 @@ export default createClass({
                 <h2 className="text-center">{iget('Workflow')}</h2>
                 <Workflow $steps={$steps} $plugins={$plugins}/>
             </Col>
-        </Row>
+        </Row>;
     }
 });
 

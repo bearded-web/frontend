@@ -34,13 +34,13 @@ export default React.createClass({
                     {severities.map(this.renderCount)}
                 </Col>
             </Row>
-        </div>
+        </div>;
     },
 
     renderCount(severity, i) {
         let count = this.props[severity];
 
-        return <ReportIssuesTotal key={i} short severity={severity} count={count} />
+        return <ReportIssuesTotal key={i} short severity={severity} count={count} />;
     }
 });
 

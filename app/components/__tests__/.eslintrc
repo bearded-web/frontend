@@ -9,7 +9,8 @@
   },
   // To give you an idea how to override rule options:
   "rules": {
-    "no-unused-expressions": 0
+    "no-unused-expressions": 0,
+    "no-shadow": 0
   },
   "globals": {
     "TestUtils": true,

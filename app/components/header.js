@@ -12,7 +12,7 @@ export default createClass({
 
     render() {
         return <Row className="border-bottom white-bg page-heading">
-                {this.props.children}
-            </Row>
+            {this.props.children}
+        </Row>;
     }
 });

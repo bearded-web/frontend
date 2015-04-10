@@ -41,7 +41,7 @@ export function setCurrentProject(projectId, noTransition) {
                 nextTick(() => {
                     let router = require('../router.js').get(); 
                     router.transitionTo('overview');
-                })    
+                });
             }
 
             return data.results;
@@ -108,5 +108,5 @@ export function fillMembersSuggest(email) {
             let users = data.results;
 
             dispatch(consts.PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS, users);
-        })
+        });
 }

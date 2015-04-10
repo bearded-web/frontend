@@ -24,7 +24,7 @@ export default createClass({
         return <ul className="list-group">
             {plans.map(this.renderPlan)}
             {this.renderAdd()}
-        </ul>
+        </ul>;
     },
 
     onAddNew() {
@@ -40,7 +40,7 @@ export default createClass({
             active={active}
             key={key}
             $plan={$plan}
-            onSelect={handler}/>
+            onSelect={handler}/>;
     },
 
     renderAdd() {
@@ -48,7 +48,7 @@ export default createClass({
             <Button  bsStyle="primary"  block onClick={this.onAddNew}>
                 {iget('Add new plan')}
             </Button>
-        </li>
+        </li>;
     }
 });
 

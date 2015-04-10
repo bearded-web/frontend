@@ -11,8 +11,8 @@ export default createClass({
     mixins: [ImMixin],
 
     propTypes: {
-        $step: $Model,
-        $plugin: $Model,
+        step: $Model,
+        plugin: $Model,
         onChange: PropTypes.func.isRequired
     },
 
@@ -25,16 +25,16 @@ export default createClass({
             $conf = Map({
                 formData: JSON.stringify({data: data, type: type})
             });
-        this.props.onChange(this.props.$step.set('conf', $conf));
+        this.props.onChange(this.props.step.set('conf', $conf));
     },
 
     onTypeClick(type) {
-        this.setState({type})
+        this.setState({type});
     },
 
     render() {
-        let { $plugin, $step } = this.props,
-            formData = $step.getIn(['conf', 'formData']);
+        const { step } = this.props;
+        const formData = step.getIn(['conf', 'formData']);
 
         let w3afData = {data: '', type: "plan"};
 
@@ -81,7 +81,7 @@ export default createClass({
     renderTypeButton(type) {
         let active = this.state.type === type;
         let className = "btn-white" + (active? " active": "");
-        return <Button className={className} onClick={this.onTypeClick.bind(this, type)}>{iget(type)}</Button>
+        return <Button className={className} onClick={this.onTypeClick.bind(this, type)}>{iget(type)}</Button>;
     },
 
     renderPlanForm(w3afData) {
@@ -89,7 +89,7 @@ export default createClass({
             <a href="http://docs.w3af.org/en/latest/gui/scanning.html#using-the-profiles" target="_blank">{iget('Read more')}</a> {iget('about w3af profiles')}
         </span>;
 
-        return this.renderForm(w3afData, 'plan', help)
+        return this.renderForm(w3afData, 'plan', help);
 
     },
 
@@ -98,7 +98,7 @@ export default createClass({
             <a href="http://docs.w3af.org/en/latest/scripts.html" target="_blank">{iget('Read more')}</a> {iget('about w3af scripts')}
         </span>;
 
-        return this.renderForm(w3afData, 'script', help)
+        return this.renderForm(w3afData, 'script', help);
     },
 
     renderForm(w3afData, type, help) {
@@ -113,11 +113,11 @@ export default createClass({
                 labelClassName="col-xs-2"
                 help={help}
                 label=' '/>
-        </form>
+        </form>;
     },
 
     renderCustomForm(w3afData) {
-        return <div className="col-md-offset-2"><h2>{iget("Coming soon")}</h2></div>
+        return <div className="col-md-offset-2"><h2>{iget("Coming soon")}</h2></div>;
     }
 
 

@@ -76,6 +76,13 @@
     "swagger-client-generator": "^0.2.13"
   },
   "dependencies": {
-    "coveralls": "^2.11.2"
+    "coveralls": "^2.11.2",
+    "eslint-plugin-react": "^2.1.0",
+    "plexus-form": "slonoed/plexus-form",
+    "plexus-validate": "0.0.4",
+    "tcomb": "^1.0.1",
+    "tcomb-form": "^0.4.8",
+    "tcomb-json-schema": "^0.1.2",
+    "tcomb-validation": "^1.0.3"
   }
 }

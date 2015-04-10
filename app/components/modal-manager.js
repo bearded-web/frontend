@@ -23,10 +23,10 @@ export default React.createClass({
             name = $modal.get('name');
 
         if (name === 'project-create') {
-            return <ProjectCreateModal onRequestHide={this.onRequestHide} animation={true}/>
+            return <ProjectCreateModal onRequestHide={this.onRequestHide} animation={true}/>;
         }
         if (name === 'project-add-member') {
-            return <AddMemberModal params={$modal.toObject()} onRequestHide={this.onRequestHide} animation={true}/>
+            return <AddMemberModal params={$modal.toObject()} onRequestHide={this.onRequestHide} animation={true}/>;
         }
 
         return <span></span>;

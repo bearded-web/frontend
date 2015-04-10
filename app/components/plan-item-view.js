@@ -27,7 +27,7 @@ export default React.createClass({
     //TODO add icon for type
     render() {
         let { $plan, active, onSelect } = this.props,
-            { name, desc, targetType, workflow } = $plan.toObject()
+            { name, desc, targetType, workflow } = $plan.toObject();
 
         if (!workflow) {
             return <span>Loading</span>;//TODO move loading to upper component
@@ -37,14 +37,14 @@ export default React.createClass({
             <p>{desc}</p>
             <p>{workflow.toArray().map(this.renderStepLabel)}</p>
             <div className="clearfix"></div>
-        </div>
+        </div>;
     },
 
     renderStepLabel($step, i) {
         let name = $step.get('name'),
             style = { float: 'left', margin: '0 4px 4px 0' };
 
-        return <Label key={i} style={style}>{name}</Label>
+        return <Label key={i} style={style}>{name}</Label>;
     }
 });
 

@@ -32,6 +32,6 @@ export default React.createClass({
                 backgroundImage: `url(${url})`
             };
 
-        return <div style={style}></div>
+        return <div style={style}></div>;
     }
 });

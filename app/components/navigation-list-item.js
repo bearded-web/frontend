@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React, { PropTypes, addons } from 'react/addons';
 import { State, Link } from 'react-router';
@@ -24,7 +24,7 @@ export default React.createClass({
             <Link to={route}>
                 {children}
             </Link>
-        </li>
+        </li>;
     }
 });
 

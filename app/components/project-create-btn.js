@@ -13,7 +13,7 @@ export default React.createClass({
 		return <a onClick={this.onCLick}>
             <Fa icon="plus" fw/>
             {i18n.gettext('Create project')}
-        </a>
+        </a>;
 	}
 
 });

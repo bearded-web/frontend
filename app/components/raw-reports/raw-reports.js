@@ -28,21 +28,19 @@ var RawReports = React.createClass({
             );
         }
 
-        return (
-            <div className="c-raw-reports">
-                <h3>
-                    <a onClick={this.toggle}>{iget('Hide raw reports info')}</a>
-                </h3>
-                {this.props.reports.map((report, i) => {
-                    return (
-                        <Panel key={i}>
-                            {this.renderReportData(report)}
-                            {report.files ? this.renderFilesTable(report.files) : ""}
-                        </Panel>
-                    );
-                })}
-            </div>
-        );
+        return <div className="c-raw-reports">
+            <h3>
+                <a onClick={this.toggle}>{iget('Hide raw reports info')}</a>
+            </h3>
+            {this.props.reports.map((report, i) => {
+                return (
+                    <Panel key={i}>
+                        {this.renderReportData(report)}
+                        {report.files ? this.renderFilesTable(report.files) : ""}
+                    </Panel>
+                );
+            })}
+        </div>;
     },
 
 
@@ -88,7 +86,7 @@ var RawReports = React.createClass({
 
             return <Domify value={json}/>;
         }
-        catch(e) {
+        catch (e) {
             return <pre>{raw}</pre>;
         }
     },
@@ -115,19 +113,22 @@ var RawReports = React.createClass({
     renderFilesTable: function(files) {
         return <Table>
             <thead>
-                <tr><td><h4>{iget('Artifacts')}:</h4></td></tr>
+            <tr>
+                <td><h4>{iget('Artifacts')}:</h4></td>
+            </tr>
             </thead>
             <tbody>
             {files.map(this.renderFile)}
             </tbody>
-        </Table>
+        </Table>;
     },
 
     renderFile: function(file) {
         return (
             <tr key={file.id}>
                 <td className="c-report-issues-detail--file">
-                    <a href={'api/v1/files/' + file.id + "/download"}>{file.name}</a> - <span className="small">{file.size + iget("b")}</span>
+                    <a href={'api/v1/files/' + file.id + "/download"}>{file.name}</a> - <span
+                    className="small">{file.size + iget("b")}</span>
                 </td>
             </tr>
         );

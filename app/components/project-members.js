@@ -26,17 +26,17 @@ export default React.createClass({
 
 		return <div onClick={this.onAddMemberClick}>
 			{$members.toArray().map(function($member, i){
-				return <Member key={i} member={$member}/>
+				return <Member key={i} member={$member}/>;
 			})}
 			{$members.size ? '' : this.renderAddBtn()}
 			<div style={{clear: 'both'}}></div>
-		</div>
+		</div>;
 	},
 
 	renderAddBtn() {
 		return <a  onClick={this.onAddMemberClick}>
 			<Fa icon="plus" fw size="lg"/>
 			Add member
-		</a>
+		</a>;
 	}
 });

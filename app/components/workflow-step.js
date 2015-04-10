@@ -94,8 +94,8 @@ export default createClass({
                 </div>
             </form>
 
-            <StepForm $step={$step} $plugin={$plugin} onChange={this.onFormChange}/>
-        </div>
+            <StepForm step={$step} plugin={$plugin} onChange={this.onFormChange}/>
+        </div>;
     }
 });
 

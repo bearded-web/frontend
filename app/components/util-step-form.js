@@ -11,8 +11,8 @@ export default createClass({
     mixins: [ImMixin],
 
     propTypes: {
-        $step: $Model,
-        $plugin: $Model,
+        step: $Model,
+        plugin: $Model,
         onChange: PropTypes.func.isRequired
     },
 
@@ -23,12 +23,12 @@ export default createClass({
                 Target: ""
             });
 
-        this.props.onChange(this.props.$step.set('conf', $conf));
+        this.props.onChange(this.props.step.set('conf', $conf));
     },
 
     render() {
-        let { $plugin, $step } = this.props,
-            cmdArgs = $step.getIn(['conf', 'commandArgs']);
+        let { plugin, step } = this.props,
+            cmdArgs = step.getIn(['conf', 'commandArgs']);
 
         return <form className="form-horizontal">
             <Input type="text"
@@ -39,7 +39,7 @@ export default createClass({
                    wrapperClassName="col-sm-10"
                    onChange={this.onArgsChange}
                    placeholder={iget('Command line args...')}/>
-        </form>
+        </form>;
     }
 });
 

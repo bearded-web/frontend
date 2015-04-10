@@ -20,7 +20,7 @@ export default React.createClass({
     expand() {
         this.setState({ expanded: true });
 
-        this.refs.text.getDOMNode().focus()
+        this.refs.text.getDOMNode().focus();
     },
 
     collapse() {
@@ -79,7 +79,7 @@ export default React.createClass({
             
                 {iget('Add comment')}
             </Button>}
-        </form>
+        </form>;
     }
 });
 

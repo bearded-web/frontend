@@ -22,7 +22,7 @@ export default React.createClass({
             <Avatar url={user.avatar} size={30} />
             &nbsp;
             {user.email}
-        </div>
+        </div>;
     }
 });
 

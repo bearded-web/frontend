@@ -73,7 +73,7 @@ export default React.createClass({
 
         let { $membersSuggest } = this.state;
 
-        console.log('suggest',$membersSuggest.toJS())
+        console.log('suggest',$membersSuggest.toJS());
 
         
         let $members = $project.get('members');
@@ -107,7 +107,7 @@ export default React.createClass({
                     {__('Close')}
                 </Button>
             </div>
-        </Modal>
+        </Modal>;
     },
 
     renderMember($member, i) {
@@ -122,7 +122,7 @@ export default React.createClass({
                 <Member member={$member} />
                 {email}
             </div>
-        </Col>
+        </Col>;
     }
 });
 

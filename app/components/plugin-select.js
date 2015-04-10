@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
@@ -37,7 +37,7 @@ export default createClass({
                        onChange={this.onChange}>
             <option value={''}>select plugin</option>
             {$plugins.toArray().map(this.renderPlugin)}
-        </select>
+        </select>;
     },
 
     renderPlugin($plugin) {
@@ -47,7 +47,7 @@ export default createClass({
 
         return <option value={value} key={name}>
             {name}
-        </option>
+        </option>;
     }
 });
 

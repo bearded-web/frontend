@@ -24,7 +24,7 @@ export function nextTick(foo) {
  * @return {Map}
  */
 export function zipModels(collection) {
-    return fromJS(zipObject(pluck(collection, 'id'), collection))
+    return fromJS(zipObject(pluck(collection, 'id'), collection));
 }
 
 

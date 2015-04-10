@@ -44,7 +44,7 @@ var ScanReport = React.createClass({
         var scan = this.state.scan;
 
         if (!scan) {
-            return <div>Loading</div>
+            return <div>Loading</div>;
         }
 
         var isFinished = scan.status === 'finished';

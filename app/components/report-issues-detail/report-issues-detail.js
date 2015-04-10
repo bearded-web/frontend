@@ -15,13 +15,13 @@ var ReportIssuesDetail = React.createClass({
         return (
             <div>
                 <Accordion>
-                {issues.map((issue, i) => {
-                    return (
-                        <Panel key={i} header={this.renderPanelHeader(issue)} eventKey={i + 1}>
-                            {this.renderDetail(issue)}
-                        </Panel>
-                    );
-                })}
+                    {issues.map((issue, i) => {
+                        return (
+                            <Panel key={i} header={this.renderPanelHeader(issue)} eventKey={i + 1}>
+                                {this.renderDetail(issue)}
+                            </Panel>
+                        );
+                    })}
                 </Accordion>
             </div>
         );
@@ -34,15 +34,11 @@ var ReportIssuesDetail = React.createClass({
     },
 
     renderDetail: function(issue) {
-        return (
-            <div>
-                {this.renderDetailHeader(issue)}
-
-                <p>{issue.desc}</p>
-
-                {issue.extras ? this.renderExtrasTable(issue.extras) : ''}
-            </div>
-        );
+        return <div>
+            {this.renderDetailHeader(issue)}
+            <p>{issue.desc}</p>
+            {issue.extras ? this.renderExtrasTable(issue.extras) : ''}
+        </div>;
     },
 
     renderDetailHeader: function(issue) {
@@ -58,7 +54,7 @@ var ReportIssuesDetail = React.createClass({
             <tbody>
             {extras.map(this.renderExtra)}
             </tbody>
-        </Table>
+        </Table>;
     },
 
     renderExtra: function(extra, key) {

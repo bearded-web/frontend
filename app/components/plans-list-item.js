@@ -44,14 +44,14 @@ export default React.createClass({
             <p>{desc}</p>
             <p>{workflow.toArray().map(this.renderStepLabel)}</p>
             <div className="clearfix"></div>
-        </li>
+        </li>;
     },
 
     renderStepLabel($step, i) {
         let name = $step.get('name'),
             style = { float: 'left', margin: '0 4px 4px 0' };
 
-        return <Label key={i} style={style}>{name}</Label>
+        return <Label key={i} style={style}>{name}</Label>;
     }
 });
 

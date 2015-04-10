@@ -45,6 +45,6 @@ export default React.createClass({
                     <Button bsStyle="primary" type="submit">{__('Create project')}</Button>
                 </div>
             </form>
-        </Modal>
+        </Modal>;
     }
 });

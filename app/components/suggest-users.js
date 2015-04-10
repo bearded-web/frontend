@@ -23,20 +23,20 @@ export default React.createClass({
     },
 
     buildHandler($user) {
-        return this.props.onSelect.bind(null, $user)
+        return this.props.onSelect.bind(null, $user);
     },
 
     render() {
         return <div>
             {this.props.$users.toArray().map(($user, i) => {
-                return <a 
-                    key={i} 
+                return <a
+                    key={i}
                     className="c-suggest-users--item"
                     onClick={this.buildHandler($user)}>
-                    <User $user={$user} />
-                </a>
+                    <User $user={$user}/>
+                </a>;
             })}
-        </div>
+        </div>;
     }
 });
 

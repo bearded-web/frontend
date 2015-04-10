@@ -44,7 +44,7 @@ var Dashboard = React.createClass({
                             clearInterval(interval);
                             callback();
                         }
-                    })
+                    });
                 }
             }, 30);
         }

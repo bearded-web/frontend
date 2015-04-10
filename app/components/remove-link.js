@@ -16,7 +16,7 @@ export default createClass({
                   onClick={this.props.onClick}
                   title={iget('Remove')}>
             <Fa icon="remove"/>
-        </a>
+        </a>;
     }
 });
 

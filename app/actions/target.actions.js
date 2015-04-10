@@ -68,7 +68,7 @@ module.exports = {
                 return setCurrentProject(target.project, true).then(() => {
                     this.dispatch(C.TARGETS_SET_CURRENT, target);
                 });
-            })
+            });
     },
 
     unsetCurrentTarget: function() {
@@ -80,7 +80,7 @@ module.exports = {
             findUser = (users, comment) => find(users, { id: comment.owner }),
             assignUser = (comment, users) => comment.owner = findUser(users, comment),
             assignUsersToComments = (users) => {
-                comments.forEach(c => assignUser(c, users))
+                comments.forEach(c => assignUser(c, users));
             };
 
         return targets.comments(target.id)
