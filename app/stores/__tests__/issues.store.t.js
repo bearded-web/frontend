@@ -5,12 +5,13 @@ import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('LockScreen', function() {
+describe('issuesStore', function() {
     let createStore = null;
     let store = null;
+    let api = null;
     let handlers = null;
 
-    before(() => {
+    beforeEach(() => {
         mockery.enable({
             warnOnReplace: false,
             warnOnUnregistered: false,
@@ -20,12 +21,14 @@ describe('LockScreen', function() {
         createStore = spy();
         mockery.registerMock('../lib/create-store', createStore);
 
+        mockery.registerAllowable('../issues.store', true);
         store = require('../issues.store');
 
+        api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
     });
 
-    after(() => {
+    afterEach(() => {
         mockery.deregisterAll();
         mockery.disable();
     });
@@ -81,5 +84,45 @@ describe('LockScreen', function() {
             });
         });
 
+    });
+
+    describe('api', function() {
+        describe('.getIssues()', function() {
+            it('should return issues map', function() {
+                const id = 'someId';
+                const desc = 'desc 1';
+                const store = {
+                    getState() {
+                        return fromJS({
+                            [id]: { id, desc }
+                        });
+                    }
+                };
+
+                api.getIssues.bind(store)(id).get(id).get('desc')
+                    .should.be.eql(desc);
+            });
+
+            it('should return 2 of 3', function() {
+                const id = 'someId';
+                const desc = 'desc 1';
+                const id2 = 'someId2';
+                const desc2 = 'desc 2';
+                const id3 = 'someId3';
+                const desc3 = 'desc 3';
+                const store = {
+                    getState() {
+                        return fromJS({
+                            [id]: { id, desc },
+                            [id2]: { id2, desc2 },
+                            [id3]: { id3, desc3 },
+                        });
+                    }
+                };
+
+                api.getIssues.bind(store)(id, id3).size
+                    .should.be.eql(2);
+            });
+        });
     });
 });

@@ -22,7 +22,13 @@ function mergeToState(state, issue) {
 // store issues as state = { issueId: issue, ... }
 const initialState = fromJS({});
 
-const api = {};
+const api = {
+    getIssues(...ids) {
+        const isRequested = (v, key) => ids.indexOf(key) > -1;
+
+        return this.getState().filter(isRequested);
+    }
+};
 
 const handlers = {
     [C.ISSUES_FETCH_SUCCESS](state, issues) {
