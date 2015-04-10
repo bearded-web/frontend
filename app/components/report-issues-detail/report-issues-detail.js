@@ -42,8 +42,8 @@ var ReportIssuesDetail = React.createClass({
     },
 
     renderDetailHeader: function(issue) {
-        if (!issue.vector || !issue.vector.url || issue.vector.url === "") {
-            return "";
+        if (!issue.vector || !issue.vector.url) {
+            return <span></span>;
         } 
 
         return (
