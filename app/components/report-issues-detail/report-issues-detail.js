@@ -42,10 +42,12 @@ var ReportIssuesDetail = React.createClass({
     },
 
     renderDetailHeader: function(issue) {
-        var urls = _.pluck(issue.urls, 'url');
+        if (!issue.vector || !issue.vector.url) {
+            return <span></span>;
+        } 
 
         return (
-            <h4>Found on {urls.join(', ')}</h4>
+            <h4>Found on {issue.vector.url}</h4>
         );
     },
 
