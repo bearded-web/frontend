@@ -1,3 +1,8 @@
+/**
+ * Form for plan step. Use plugin.formSchema to render form.
+ * If schema not provided – return empty span.
+ */
+
 'use strict';
 
 import { PropTypes, Component } from 'react/addons';
