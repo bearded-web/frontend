@@ -5,8 +5,6 @@ env:
   global:
   - COVERALLS_SERVICE_NAME="travis-ci"
   - COVERALLS_REPO_TOKEN="2vmMsfQIGRDVJLmpTOmgPicnnG2rHqZy3"
-before_install:
-- npm install -g bower
 script: npm run travis
 notifications:
   slack:
