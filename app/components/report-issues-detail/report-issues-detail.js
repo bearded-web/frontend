@@ -35,9 +35,9 @@ var ReportIssuesDetail = React.createClass({
 
     renderDetail: function(issue) {
         return <div>
-            {this.renderDetailHeader(issue)}
-            <p>{issue.desc}</p>
-            {issue.extras ? this.renderExtrasTable(issue.extras) : ''}
+                {this.renderDetailHeader(issue)}
+                <p>{issue.desc}</p>
+                {issue.references ? this.renderReferencesTable(issue.references) : ''}
         </div>;
     },
 
@@ -49,21 +49,21 @@ var ReportIssuesDetail = React.createClass({
         );
     },
 
-    renderExtrasTable: function(extras) {
+    renderReferencesTable: function(references) {
         return <Table>
             <tbody>
-            {extras.map(this.renderExtra)}
+            {references.map(this.renderReference)}
             </tbody>
         </Table>;
     },
 
-    renderExtra: function(extra, key) {
+    renderReference: function(reference, key) {
         return (
             <tr key={key}>
-                <td className="c-report-issues-detail--extra">
-                    {extra.title}
+                <td className="c-report-issues-detail--reference">
+                    {reference.title}
                     <br/>
-                    <a href={extra.url} target="_blank">{extra.url}</a>
+                    <a href={reference.url} target="_blank">{reference.url}</a>
                 </td>
             </tr>
         );
