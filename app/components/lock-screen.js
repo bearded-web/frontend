@@ -87,6 +87,7 @@ LockScreen.propTypes = {
     loginError: PropTypes.string.isRequired
 };
 
+/* istanbul ignore if  */
 if (module.hot) {
     module.hot.accept([
         '../actions/app.actions',
