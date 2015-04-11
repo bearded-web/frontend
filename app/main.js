@@ -4,6 +4,7 @@ require('font-awesome-webpack');
 require('./styles/fonts.less');
 require('./styles/inspina/style.less');
 require('./styles/dashboard.less');
+require('./styles/transitions.less');
 
 var Jed = require('jed'),
     Fluxxor = require('fluxxor'),

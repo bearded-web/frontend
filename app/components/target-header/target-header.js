@@ -30,6 +30,12 @@ var TargetHeader = React.createClass({
                         </span>
                         <small className="pull-right c-target-header--controls">
                             <Link
+                                to="issues"
+                                query={{ target: target.id }}>
+                            Issues
+                            </Link>
+                            <span>&nbsp;</span>
+                            <Link
                                 to="new-scan"
                                 params={{ targetId: target.id }}
                                 query={{ project: target.project }}>

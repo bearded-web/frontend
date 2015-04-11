@@ -1,0 +1,31 @@
+//.shrink-transition {
+@time: 0.5s;
+@size: 300px;
+@type: cubic-bezier(0.02, 1.14, 0.77, 0.98);
+
+.shrink-enter {
+    opacity: 0.01;
+    max-height: 1px;
+    overflow: hidden;
+    transition: @time @type;
+}
+
+.shrink-enter.shrink-enter-active {
+    max-height: @size;
+    opacity: 1;
+
+}
+
+.shrink-leave {
+    opacity: 0.01;
+    overflow: hidden;
+    max-height: @size;
+    transition: @time @type;
+}
+
+.shrink-leave.shrink-leave-active {
+    opacity: 1;
+    max-height: 1px;
+}
+
+//}

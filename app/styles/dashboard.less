@@ -41,7 +41,7 @@
     rgb(@stop,@stop,@stop) 100%);
     background: -o-linear-gradient(rgb(@stop,@stop,@stop),
     rgb(@start,@start,@start));
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",rgb(@stop,@stop,@stop), rgb(@start,@start,@start)));
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", rgb(@stop,@stop,@stop), rgb(@start,@start,@start)));
 }
 
 .bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
@@ -183,7 +183,6 @@
     height: 100%;
 }
 
-
 // inject: imports
 // endinject
 
@@ -220,12 +219,12 @@ body.sidebar-enabled .page-wrapper {
 
 .panel-group {
     & .panel {
-        margin: 0!important;
-        border: none!important;
-        border-radius: 0!important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
 
         & .panel-heading {
-            border-radius: 0!important;
+            border-radius: 0 !important;
         }
     }
 }
@@ -238,3 +237,30 @@ body.sidebar-enabled .page-wrapper {
     width: auto;
 }
 
+
+.route-transition {
+    @time: 0.2s;
+
+    &-enter {
+        //position: absolute;
+        opacity: 0.01;
+        transition: opacity @time ease-in;
+    }
+
+    &-enter&-enter-active {
+        opacity: 1;
+    }
+
+    &-leave {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        opacity: 0.02;
+        transition: opacity @time ease-in;
+    }
+
+    &-leave&-leave-active {
+        opacity: 0.01;
+    }
+}

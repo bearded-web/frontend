@@ -4,10 +4,10 @@
 
 'use strict';
 
-import { fromJS } from 'immutable';
+import { fromJS, OrderedMap } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
-import { pluck, zipObject } from 'lodash';
+import { pluck, zipObject, isArray } from 'lodash';
 
 /**
  * Merge new issue into state. Add if new.
@@ -23,15 +23,35 @@ function mergeToState(state, issue) {
 const initialState = fromJS({});
 
 const api = {
+    /**
+     * Return all issues by ids
+     *
+     * Get ids of issues.
+     * Returns OrderedMap for this ids
+     */
     getIssues(...ids) {
-        const isRequested = (v, key) => ids.indexOf(key) > -1;
+        let allIssues = this.getState();
 
-        return this.getState().filter(isRequested);
+        if (!ids.length) return new OrderedMap(allIssues);
+
+        let issues = new OrderedMap();
+
+        issues = issues.asMutable();
+
+        ids.forEach(function(id) {
+            issues.set(id, allIssues[id]);
+        });
+
+        return issues.asImmutable();
     }
 };
 
 const handlers = {
     [C.ISSUES_FETCH_SUCCESS](state, issues) {
+        if (issues && isArray(issues.results)) {
+            issues = issues.results;
+        }
+
         return issues
             .reduce(mergeToState, state.asMutable())
             .asImmutable();

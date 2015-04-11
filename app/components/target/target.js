@@ -42,15 +42,15 @@ var Target = React.createClass({
         var { target, loading } = this.state;
 
         if (loading || !target) {
-            return (
+            return <div className="c-target">
                 <Row>
                     <Col xs={12}>
                         <h1 className="text-center">
-                        {loading ? ('Loading') : iget('No target Found')}
+                            {loading ? ('Loading') : iget('No target Found')}
                         </h1>
                     </Col>
                 </Row>
-            );
+            </div>;
         }
 
 
@@ -102,7 +102,7 @@ var Target = React.createClass({
                             <StartScanButton
                                 project={projectId}
                                 target={targetId}
-                                plan={planId} />
+                                plan={planId}/>
                         </IboxContent>
                     </Ibox>
                 </Col>

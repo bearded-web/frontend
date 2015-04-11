@@ -1,20 +1,10 @@
-/*
-Font-awesome icon wrapper
- */
+'use strict';
 
-var React = require('react');
+import { PropTypes, Component } from 'react/addons';
+import cNames from 'classnames';
 
-var Fa = React.createClass({
-    propTypes: {
-        icon: React.PropTypes.string.isRequired,
-        fw: React.PropTypes.bool,
-        spin: React.PropTypes.bool,
-        flip: React.PropTypes.string,
-        align: React.PropTypes.string,
-        size: React.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x'])
-    },
-
-    render: function() {
+export default class Fa2 extends Component {
+    render() {
         var props = this.props,
             style = {
                 verticalAlign: this.props.align || 'inherit'
@@ -31,11 +21,19 @@ var Fa = React.createClass({
         if (props.flip) cls['fa-flip-' + props.flip] = true;
 
 
-
         return (
-            <i className={React.addons.classSet(cls)} style={style}></i>
+            <i className={cNames(cls)} style={style}></i>
         );
     }
-});
+}
 
-module.exports = Fa;
+Fa2.propTypes = {
+    icon: PropTypes.string.isRequired,
+    fw: PropTypes.bool,
+    spin: PropTypes.bool,
+    flip: PropTypes.string,
+    align: PropTypes.string,
+    size: PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x'])
+};
+
+

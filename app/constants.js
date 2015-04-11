@@ -1,81 +1,83 @@
 'use strict';
 
 var constants = {
-    AGENTS_FETCH_SUCCESS: true,
+    AGENTS_FETCH_SUCCESS: '--',
 
-    APP_TOGGLE_LEFT_PANEL: true,
-    APP_LIFT_SUCCESS: true,
-    APP_LOGIN_PAGE_STATE: true,
+    APP_TOGGLE_LEFT_PANEL: '--',
+    APP_LIFT_SUCCESS: '--',
+    APP_LOGIN_PAGE_STATE: '--',
 
-    SHOW_TARGET_MODAL: true,
-    HIDE_TARGET_MODAL: true,
+    SHOW_TARGET_MODAL: '--',
+    HIDE_TARGET_MODAL: '--',
     ADD_TARGET: 'ADD_TARGET',
     ADD_TARGET_SUCCESS: 'ADD_TARGET_SUCCESS',
     ADD_TARGET_FAIL: 'ADD_TARGET_FAIL',
 
-    FEED_FETCH_SUCCESS: true,
+    FEED_FETCH_SUCCESS: '--',
 
-    ISSUES_FETCH_SUCCESS: true,
+    ISSUES_FETCH_SUCCESS: '--',
+    ISSUES_UPDATE_FILTER: '--',
+    ISSUES_UPDATE_SORT: '--',
 
-    MODAL_OPEN: true,
-    MODAL_CLOSE: true,
+    MODAL_OPEN: '--',
+    MODAL_CLOSE: '--',
 
-    PLAN_ADD: true,
-    PLANS_FETCH_SUCCESS: true,
-    PLANS_SET_SELECTED: true,
-    PLANS_SELECT: true,
-    PLAN_CHANGE: true,
-    PLAN_REMOVE_SUCCESS: true,
-    PLAN_SAVE_START: true,
-    PLAN_SAVE_SUCCESS: true,
-    PLAN_SAVE_ERROR: true,
-    PLAN_WORKFLOW_CHANGE: true,
-    PLAN_NEW_STEP: true,
+    PLAN_ADD: '--',
+    PLANS_FETCH_SUCCESS: '--',
+    PLANS_SET_SELECTED: '--',
+    PLANS_SELECT: '--',
+    PLAN_CHANGE: '--',
+    PLAN_REMOVE_SUCCESS: '--',
+    PLAN_SAVE_START: '--',
+    PLAN_SAVE_SUCCESS: '--',
+    PLAN_SAVE_ERROR: '--',
+    PLAN_WORKFLOW_CHANGE: '--',
+    PLAN_NEW_STEP: '--',
 
-    PLUGINS_FETCH_SUCCESS: true,
+    PLUGINS_FETCH_SUCCESS: '--',
 
-    REMOVE_TARGET_START: true,
-    REMOVE_TARGET_SUCCESS: true,
-    REMOVE_TARGET_FAIL: true,
+    REMOVE_TARGET_START: '--',
+    REMOVE_TARGET_SUCCESS: '--',
+    REMOVE_TARGET_FAIL: '--',
 
-    REPORTS_FETCH_SUCCESS: true,
+    REPORTS_FETCH_SUCCESS: '--',
 
-    REPORTS_FETCH: true,
-    REPORTS_SEVERITY_SELECT: true,
+    REPORTS_FETCH: '--',
+    REPORTS_SEVERITY_SELECT: '--',
 
-    SCANS_DETECT_CREATED: true,
-    SCANS_FETCH_SUCCESS: true,
-    SCANS_CREATION: true,
+    SCANS_DETECT_CREATED: '--',
+    SCANS_FETCH_SUCCESS: '--',
+    SCANS_CREATION: '--',
 
-    TARGETS_FETCH_START: true,
-    TARGETS_FETCH_SUCCESS: true,
-    TARGETS_FETCH_FAIL: true,
-    TARGETS_SET_CURRENT: true,
-    TARGETS_UNSET_CURRENT: true,
-    TARGETS_COMMENTS_FETCH_SUCCESS: true,
+    TARGETS_FETCH_START: '--',
+    TARGETS_FETCH_SUCCESS: '--',
+    TARGETS_FETCH_FAIL: '--',
+    TARGETS_SET_CURRENT: '--',
+    TARGETS_UNSET_CURRENT: '--',
+    TARGETS_COMMENTS_FETCH_SUCCESS: '--',
 
-    TOAST_ADD: true,
-
-
-    USER_LOGIN_START: true,
-    USER_LOGIN_SUCCESS: true,
-    USER_LOGIN_FAIL: true,
-
-    USER_LOGOUT_START: true,
-    USER_LOGOUT_SUCCESS: true,
-    USER_LOGOUT_FAIL: true,
-    USER_LOST_AUTH: true,
-
-    USERS_FETCH_SUCCESS: true,
+    TOAST_ADD: '--',
 
 
-    PROJECT_ADD_MEMBER: true,
-    PROJECT_REMOVE_MEMBER: true,
-    PROJECT_FETCH_SUCCESS: true,
-    PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS: true,
+    USER_LOGIN_START: '--',
+    USER_LOGIN_SUCCESS: '--',
+    USER_LOGIN_FAIL: '--',
 
-    PROJECTS_FETCH_SUCCESS: true,
-    PROJECTS_SET_CURRENT: true,
+    USER_LOGOUT_START: '--',
+    USER_LOGOUT_SUCCESS: '--',
+    USER_LOGOUT_FAIL: '--',
+    USER_LOST_AUTH: '--',
+
+    USERS_FETCH_SUCCESS: '--',
+
+
+    PROJECT_ADD_MEMBER: '--',
+    PROJECT_REMOVE_MEMBER: '--',
+    PROJECT_FETCH_SUCCESS: '--',
+    PROJECT_MEMBERS_SUGGEST_FETCH_SUCCESS: '--',
+
+    PROJECTS_FETCH_SUCCESS: '--',
+    PROJECTS_SET_CURRENT: '--',
 
     ________: false // dont want delete "," after duplicate line
 };

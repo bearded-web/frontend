@@ -78,6 +78,7 @@
   "dependencies": {
     "coveralls": "^2.11.2",
     "eslint-plugin-react": "^2.1.0",
+    "normalizr": "^0.1.3",
     "tcomb": "^1.0.1",
     "tcomb-form": "^0.4.8",
     "tcomb-json-schema": "^0.1.2",

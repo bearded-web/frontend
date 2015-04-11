@@ -1,9 +1,11 @@
+'use strict';
+
 import flux from '../flux';
 import { setCurrentProject } from '../actions/project.actions';
 
 import ModalManager from './modal-manager';
 
-var React = require('react'),
+var React = require('react/addons'),
     Router = require('react-router'),
     AppStore = require('../stores/app.store'),
     RouteHandler = Router.RouteHandler,
@@ -12,18 +14,25 @@ var React = require('react'),
     Navbar = require('./navbar'),
     LeftPanelCover = require('./left-panel-cover');
 
+import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+
 var Dashboard = React.createClass({
     mixins: [
         FluxMixin,
         flux.createStoreWatchMixin('Store')
     ],
 
+    contextTypes: {
+        router: React.PropTypes.func
+    },
+
+
     statics: {
-        willTransitionTo: function(transition,a,c, callback) {
+        willTransitionTo: function(transition, a, c, callback) {
             let app = flux.store('AppStore'),
                 initInterval;
 
-            initInterval = setInterval(function(){
+            initInterval = setInterval(function() {
                 if (!app.inited) return;
 
                 clearInterval(initInterval);
@@ -34,7 +43,7 @@ var Dashboard = React.createClass({
                     flux.actions.app.showLogin();
                 }
                 else {
-                    let interval = setInterval(function(){
+                    let interval = setInterval(function() {
 
                         let $currentProject = flux.store('Store')
                             .getState().currentProject;
@@ -72,24 +81,30 @@ var Dashboard = React.createClass({
         }
 
         if (targets.modalIsVisible) {
-            targetModal = <AddTargetModal targetsStore={targets} />;
+            targetModal = <AddTargetModal targetsStore={targets}/>;
         }
+
+        const routes = this.context.router.getCurrentRoutes();
+        const name = routes[routes.length - 1].name;
 
         return (
             <div className="c-dashboard">
                 <LeftPanel app={appStore} targets={targets} show={app.leftPanelVisible} user={app.user}/>
+
                 <div className="page-wrapper gray-bg">
                     <div className="container-fluid">
                         <Navbar user={app.user}/>
                     </div>
                     <div className="page-wrapper--content container-fluid">
-                        <RouteHandler/>
+                        <TransitionGroup component="div" transitionName="route-transition">
+                            <RouteHandler key={name}/>
+                        </TransitionGroup>
                     </div>
                 </div>
                 {leftPanelCover}
                 {targetModal}
 
-                <ModalManager modal={appStore.modal} />
+                <ModalManager modal={appStore.modal}/>
             </div>
         );
     }

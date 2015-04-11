@@ -25,6 +25,8 @@ module.exports.create = function buildRouter() {
         Overview = require('./components/overview'),
         NotFound = require('./components/not-found'),
         LoginOverlay = require('./components/login-overlay'),
+        IssuesPage = require('./components/issues-page'),
+        IssuePage = require('./components/issue-page'),
         Target = require('./components/target/');
 
     var routes = (
@@ -35,6 +37,12 @@ module.exports.create = function buildRouter() {
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <Route name="agents" path="agents" handler={Agents}/>
+
+                <Route name="issues" path="issues" handler={IssuesPage}/>
+                <Redirect from="issues/" to="issues"/>
+                <Route name="issue" path="issues/:issueId" handler={IssuePage}/>
+                <Redirect from="issues/:issueId/" to="issue"/>
+
 
                 <Route name="plans" path="plans" handler={PlansPage}/>
                 <Redirect from="plans/" to="plans"/>

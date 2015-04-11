@@ -10,6 +10,7 @@ describe('issuesStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
+    let initalState = null;
 
     beforeEach(() => {
         mockery.enable({
@@ -26,11 +27,7 @@ describe('issuesStore', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-    });
-
-    afterEach(() => {
-        mockery.deregisterAll();
-        mockery.disable();
+        initalState = createStore.firstCall.args[2];
     });
 
     it('must call createStore', () => {
@@ -88,40 +85,46 @@ describe('issuesStore', function() {
 
     describe('api', function() {
         describe('.getIssues()', function() {
-            it('should return issues map', function() {
+            const id = 'someId';
+            const desc = 'desc 1';
+            const id2 = 'someId2';
+            const desc2 = 'desc 2';
+            const id3 = 'someId3';
+            const desc3 = 'desc 3';
+            const store = {
+                getState() {
+                    return {
+                        [id]: Map({ id, desc }),
+                        [id2]: Map({ id: id2, desc: desc2 }),
+                        [id3]: Map({ id: id3, desc: desc3 })
+                    };
+                }
+            };
+
+            it('should return issues array', function() {
                 const id = 'someId';
                 const desc = 'desc 1';
                 const store = {
                     getState() {
-                        return fromJS({
-                            [id]: { id, desc }
-                        });
+                        return {
+                            [id]: Map({ id, desc })
+                        };
                     }
                 };
 
-                api.getIssues.bind(store)(id).get(id).get('desc')
+                api.getIssues.bind(store)(id).first().get('desc')
                     .should.be.eql(desc);
             });
 
-            it('should return 2 of 3', function() {
-                const id = 'someId';
-                const desc = 'desc 1';
-                const id2 = 'someId2';
-                const desc2 = 'desc 2';
-                const id3 = 'someId3';
-                const desc3 = 'desc 3';
-                const store = {
-                    getState() {
-                        return fromJS({
-                            [id]: { id, desc },
-                            [id2]: { id2, desc2 },
-                            [id3]: { id3, desc3 },
-                        });
-                    }
-                };
 
+            it('should return 2 of 3', function() {
                 api.getIssues.bind(store)(id, id3).size
                     .should.be.eql(2);
+            });
+
+            it('should return 3 and 2', function() {
+                api.getIssues.bind(store)(id3, id2).first().get('desc')
+                    .should.be.eql(desc3);
             });
         });
     });
