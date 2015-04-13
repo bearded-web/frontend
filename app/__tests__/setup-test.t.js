@@ -9,6 +9,7 @@ import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import mockery from 'mockery';
 import { spy } from 'sinon';
+import { assign } from 'lodash';
 
 chai.should();
 chai.use(sinonChai);
@@ -50,8 +51,7 @@ global.Simulate = global.TestUtils.Simulate;
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {
     }
-
-    Object.assign(RouterStub, {
+    assign(RouterStub, {
         makePath: spy(),
         makeHref: spy(),
         transitionTo: spy(),
