@@ -39,7 +39,7 @@ describe('issuesListStore', function() {
                 ];
 
                 allIssues.map((issue, i) => {
-                    issue.create = moment().subtract(100 - i, 'day').format();
+                    issue.created = moment().subtract(100 - i, 'day').format();
                 });
 
                 allIssues = zipObject(pluck(allIssues, 'id'), allIssues);
@@ -228,7 +228,7 @@ describe('issuesListStore', function() {
 
                 issues.size.should.be.eql(3);
                 issues.toArray().map(v => v.get('id'))
-                    .should.be.eql(['i1', 'i2', 'i3']);
+                    .should.be.eql(['i3', 'i2', 'i1']);
             });
         });
     });

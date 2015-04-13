@@ -1,3 +1,5 @@
+'use strict';
+
 import { createClass, PropTypes } from 'react/addons';
 
 import { Row, Col } from 'react-bootstrap';

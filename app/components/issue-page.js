@@ -7,6 +7,8 @@ import { bindAll } from 'lodash';
 import { fetchOne } from '../actions/issues.actions';
 import issuesStore from '../stores/issues.store';
 
+import Issue from './issue';
+
 export default class IssuePage extends Component {
     constructor(props, context) {
         super(props, context);
@@ -49,9 +51,7 @@ export default class IssuePage extends Component {
         const { issue } = this.state;
 
         return <div>
-            {issue ? <h1>
-                {issue.get('summary')}
-            </h1> : ''}
+            {issue ? <Issue issue={issue}/> : ''}
         </div>;
     }
 }

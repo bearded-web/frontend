@@ -39,7 +39,7 @@ var LoginOverlay = React.createClass({
                         <p>{isSignUp ? iget('Create account') : iget('Log in')}. {iget('To see it in action.')}</p>
                         <form className="m-t" role="form" onSubmit={this.onSubmit}>
                             <div className="form-group">
-                                <input disabled={loginInProcess} ref="email" type="email" className="form-control" placeholder="Username" required />
+                                <input disabled={loginInProcess} ref="email" type="email" className="form-control" placeholder="Email" required />
                             </div>
                             <div className="form-group">
                                 <input disabled={loginInProcess} ref="password" type="password" className="form-control" placeholder="Password" required />
