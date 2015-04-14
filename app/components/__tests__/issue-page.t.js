@@ -14,6 +14,10 @@ describe('IssuePage', function() {
         { severity: MEDIUM },
         { severity: LOW }
     ]);
+    const issue = fromJS({
+        id: 'some id',
+        severity: HIGH
+    });
 
     let fetchOne = null;
     let instance = null;
@@ -33,7 +37,7 @@ describe('IssuePage', function() {
         mockery.registerAllowable('../issue-page', true);
         Component = require('../issue-page');
 
-        const Subject = stubRouterContext(Component, {}, {
+        const Subject = stubRouterContext(Component, { issue }, {
             getCurrentParams: stub().returns({ issueId })
         });
         instance = TestUtils.renderIntoDocument(
@@ -48,9 +52,9 @@ describe('IssuePage', function() {
     });
 
     describe('render', function() {
-         it('should contain Issue', function() {
-             byType(instance, Issue).should.have.length(1);
-         });
-     });
+        it('should contain Issue', function() {
+            byType(instance, Issue).should.have.length(1);
+        });
+    });
 
 });

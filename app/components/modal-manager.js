@@ -2,7 +2,7 @@ import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
 import { closeModal } from '../actions/app.actions.js';
 
-import ProjectCreateModal from './project-create-modal'
+import ProjectCreateModal from './project-create-modal';
 import AddMemberModal from './add-member-modal';
 
 let { PureRenderMixin } = addons;

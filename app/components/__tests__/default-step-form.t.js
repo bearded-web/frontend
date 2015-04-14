@@ -5,9 +5,11 @@ import { spy } from 'sinon';
 
 describe('DefaultStepForm', function() {
     const plugin = fromJS({
-        name: 'test-plugin'
+        name: 'test-plugin',
+        id: 'some id'
     });
     const step = fromJS({
+        id: 'some plan id',
         conf: {
             formData: '{}'
         }
@@ -48,6 +50,7 @@ describe('DefaultStepForm', function() {
 
         it('should render empty span if invalid json in schema', function() {
             const plugin = fromJS({
+                id: 'some plugin is',
                 formSchema: 'invalid json string'
             });
 
@@ -63,6 +66,7 @@ describe('DefaultStepForm', function() {
 
         it('should render form with one input', function() {
             const plugin = fromJS({
+                id: 'some plugin is',
                 formSchema
             });
 
@@ -93,6 +97,7 @@ describe('DefaultStepForm', function() {
                 }
             });
             const plugin = fromJS({
+                id: 'some plugin id',
                 formSchema
             });
 
@@ -113,6 +118,7 @@ describe('DefaultStepForm', function() {
 
         it('should render input with value', function() {
             const plugin = fromJS({
+                id: 'some plugin id',
                 formSchema
             });
 
@@ -137,7 +143,10 @@ describe('DefaultStepForm', function() {
         });
 
         it('should render input without value if invalid json in data', function() {
-            const plugin = fromJS({ formSchema });
+            const plugin = fromJS({
+                formSchema,
+                id: 's'
+            });
             const step = fromJS({
                 conf: {
                     formData: 'invalid data'
@@ -159,7 +168,8 @@ describe('DefaultStepForm', function() {
 
         it('should call onChange when input changed', function() {
             const plugin = fromJS({
-                formSchema
+                formSchema,
+                id: 's'
             });
 
             defaultStepForm = <DefaultStepForm plugin={plugin}

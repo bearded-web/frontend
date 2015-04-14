@@ -3,6 +3,7 @@ import { Map } from 'immutable';
 
 import ProjectInfo from '../project-info';
 import NavListItem from '../../components/navigation-list-item';
+import ProfileNavContainer from '../profile-nav-container';
 
 var Router = require('react-router'),
     Link = require('react-router').Link,
@@ -76,7 +77,8 @@ var LeftPanel = React.createClass({
             <nav role="navigation" className={classes}>
                 <ul className="nav">
                     <li className="nav-header">
-
+                        <ProfileNavContainer/>
+                        <br/>
                         <ProjectInfo projects={app.projects} currentProject={currentProject}/>
                     </li>
 

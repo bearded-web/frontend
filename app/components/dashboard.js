@@ -89,7 +89,10 @@ var Dashboard = React.createClass({
 
         return (
             <div className="c-dashboard">
-                <LeftPanel app={appStore} targets={targets} show={app.leftPanelVisible} user={app.user}/>
+                <LeftPanel app={appStore}
+                           targets={targets}
+                           show={app.leftPanelVisible}
+                           user={app.user}/>
 
                 <div className="page-wrapper gray-bg">
                     <div className="container-fluid">

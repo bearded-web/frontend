@@ -18,11 +18,11 @@ export default class Issue extends Component {
     }
 
     render() {
-        const { summary, activities, extras } = this.props.issue.toObject();
+        const { summary, activities, references } = this.props.issue.toObject();
         const aStyle = {
             marginTop: '15px'
         };
-        const hasExtras = !!(extras && extras.size);
+        const hasReferences = !!(references && references.size);
         const hasActivities = !!(activities && activities.size);
 
         return <div>
@@ -37,8 +37,8 @@ export default class Issue extends Component {
                         <IboxTitle>
                             {iget('Extras')}
                         </IboxTitle>
-                        {hasExtras && <IboxContent>
-                            <IssueExtras extras={extras}/>
+                        {hasReferences && <IboxContent>
+                            <IssueExtras extras={references}/>
                         </IboxContent>}
                     </Ibox>
                 </Col>

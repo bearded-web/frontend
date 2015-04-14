@@ -20,9 +20,10 @@ export default class Fa2 extends Component {
         if (props.size) cls['fa-' + props.size] = true;
         if (props.flip) cls['fa-flip-' + props.flip] = true;
 
+        const className = cNames(cls) + ' ' + (props.className || '');
 
         return (
-            <i className={cNames(cls)} style={style}></i>
+            <i className={className} style={style}></i>
         );
     }
 }
@@ -33,6 +34,7 @@ Fa2.propTypes = {
     spin: PropTypes.bool,
     flip: PropTypes.string,
     align: PropTypes.string,
+    className: PropTypes.string,
     size: PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x'])
 };
 

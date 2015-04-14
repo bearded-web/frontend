@@ -2,7 +2,7 @@ import React, { PropTypes, addons } from 'react/addons';
 import flux, { createStoreWatchMixin } from '../flux';
 
 import Comments from './comments';
-import CommentForm from './comment-form'
+import CommentForm from './comment-form';
 
 export default React.createClass({
     mixins: [

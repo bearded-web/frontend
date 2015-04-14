@@ -47,7 +47,6 @@ api.extractor = function extractor(data) {
 
 module.exports = api;
 
-
 function requestHandler(error, request) {
     return new Promise(function(resolve, reject) {
         if (error) {

@@ -11,6 +11,7 @@ import { Model } from '../lib/types';
 import { bindAll } from 'lodash';
 import t from 'tcomb-form';
 import toType from 'tcomb-json-schema';
+import { Map } from 'immutable';
 
 const { Form } = t.form;
 

@@ -24,15 +24,14 @@ export default class IssueActivities extends Component {
 
         return <div>
             {activities.toArray().map(this.renderActivity)}
-
         </div>;
     }
 
-    renderActivity(activity) {
+    renderActivity(activity, i) {
         const { created, type, report } = activity.toObject();
         const scan = report && report.get('scan');
 
-        return <TimelineItem icon="cog" date={created}>
+        return <TimelineItem icon="cog" date={created} key={i}>
             <p className="m-b-xs">
                 <strong>{capitalize(type)}</strong>
             </p>

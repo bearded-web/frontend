@@ -1,37 +1,39 @@
-import React, { PropTypes, addons } from 'react/addons';
+/**
+ * User avatar
+ */
 
-let { PureRenderMixin } = addons;
+'use strict';
 
+import { PropTypes, Component } from 'react/addons';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { merge } from 'lodash';
 
-export default React.createClass({
-    mixins: [
-        PureRenderMixin
-    ],
+export default class Avatar extends Component {
+    constructor(props, context) {
+        super(props, context);
 
-    getDefaultProps() {
-        return {
-            size: 25
-        };
-    },
-
-    propTypes: {
-        url: PropTypes.string.isRequired,
-        size: PropTypes.number
-    },
+        this.shouldComponentUpdate = shouldComponentUpdate;
+    }
 
     render() {
-        let { size, url } = this.props,
-            style = {
-                display: 'inline-block',
-                verticalAlign: 'middle',
-                width: size,
-                height: size,
-                borderRadius: size,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                backgroundImage: `url(${url})`
-            };
-
-        return <div style={style}></div>;
+        const { avatar, size, style } = this.props;
+        const imgStyle = merge({
+            height: size,
+            width: size,
+            borderRadius: size
+        }, style);
+        console.log('### is', imgStyle);
+        return <img src={avatar} style={imgStyle}/>;
     }
-});
+}
+
+Avatar.propTypes = {
+    avatar: PropTypes.string.isRequired,
+    size: PropTypes.number,
+    style: PropTypes.object
+};
+
+Avatar.defaultProps = {
+    size: 38,
+    style: {}
+};

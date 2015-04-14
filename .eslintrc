@@ -23,6 +23,7 @@
     "comma-spacing": 1,
     "no-multi-spaces": 1,
     "curly": [2, "multi-line"],
+    "no-shadow": 1,
     "quotes": [
       1,
       "single"

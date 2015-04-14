@@ -237,30 +237,10 @@ body.sidebar-enabled .page-wrapper {
     width: auto;
 }
 
+.nav-header {
+    padding-top: 10px;
+}
 
-.route-transition {
-    @time: 0.2s;
-
-    &-enter {
-        //position: absolute;
-        opacity: 0.01;
-        transition: opacity @time ease-in;
-    }
-
-    &-enter&-enter-active {
-        opacity: 1;
-    }
-
-    &-leave {
-        position: absolute;
-        width: 0;
-        height: 0;
-        overflow: hidden;
-        opacity: 0.02;
-        transition: opacity @time ease-in;
-    }
-
-    &-leave&-leave-active {
-        opacity: 0.01;
-    }
+.nav-header .dropdown-toggle.btn-link {
+  color: #DFE4ED!important;
 }

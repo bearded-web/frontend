@@ -1,7 +1,7 @@
 'use strict';
 
 import { setCurrentProject } from './project.actions';
-import _, { pluck, unique, find } from 'lodash'
+import _, { pluck, unique, find } from 'lodash';
 import { users, targets, resultExtractor } from '../lib/api3';
 import { dispatchBuilder, extractor } from '../lib/helpers';
 

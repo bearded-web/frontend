@@ -7,7 +7,7 @@ import { Map } from 'immutable';
 
 import UtilStepForm from './util-step-form';
 import DefaultForm from './default-step-form';
-import W3afScriptStepForm from './w3af-script-step-form'
+import W3afScriptStepForm from './w3af-script-step-form';
 
 export default createClass({
     mixins: [ImMixin],

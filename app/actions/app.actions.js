@@ -81,16 +81,6 @@ export function logIn(email, password) {
         });
 }
 
-export function logOut() {
-    dispatch(constants.USER_LOGOUT_START);
-
-    const reloadPage = () =>  window.location = '/';
-
-    auth.logout()
-        .then(reloadPage)
-        .catch(reloadPage);
-}
-
 export function signUp(email, password) {
     dispatch(constants.USER_LOGIN_START);
 
