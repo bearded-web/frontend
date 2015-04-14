@@ -40,11 +40,11 @@ module.exports = React.createClass({
         return (
             <li className={isActiveLink ? 'active' : ''}>
                 <Link onClick={this.onClick} to="target" params={{ targetId: targetId }} title={target.web.domain}>
-                    <Fa icon={isHttps ? 'lock' : 'globe'} />
+                    {this.renderIssuesLabel()}
                     <span className="nav-label">
+                        <Fa icon={isHttps ? 'lock' : 'globe'}/>
                         {domain}
                     </span>
-                    {this.renderIssuesLabel()}
                 </Link>
             </li>
         );
@@ -73,7 +73,12 @@ module.exports = React.createClass({
 
         if (!count) return '';
 
-        return <Label bsStyle={labelStyle} className="pull-right">{count}</Label>;
+        const style = {
+            float: 'right',
+            marginLeft: '0.3rem'
+        };
+
+        return <Label bsStyle={labelStyle} style={style}>{count}</Label>;
     },
 
     isActiveState: function() {

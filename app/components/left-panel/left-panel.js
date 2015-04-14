@@ -84,8 +84,8 @@ var LeftPanel = React.createClass({
 
                     <li className={this.isActive('overview') ? 'active' : ''}>
                         <Link to="/">
-                            <Fa icon="th-large" />
                             <span className="nav-label">
+                                <Fa icon="th-large" />
                                 Overview
                             </span>
                         </Link>
@@ -119,16 +119,16 @@ var LeftPanel = React.createClass({
 
                     <li className={this.isActive('agents') ? 'active' : ''}>
                         <Link to="agents">
-                            <Fa icon="cube" />
                             <span className="nav-label">
+                                <Fa icon="cube" />
                                 Agents
                             </span>
                         </Link>
                     </li>
 
                     <NavListItem route="plans">
-                        <Fa icon="tasks" />
                         <span className="nav-label">
+                            <Fa icon="tasks" />
                             Plans
                         </span>
                     </NavListItem>
