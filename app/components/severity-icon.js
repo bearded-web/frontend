@@ -16,6 +16,8 @@ export default class SeverityIcon extends Component {
     render() {
         const { size, severity, style } = this.props;
 
+        if (!severity) return <span></span>;
+
         const iconStyle = {
             display: 'inline-block',
             height: size,

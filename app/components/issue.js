@@ -17,6 +17,7 @@ import Header from './header';
 import SeverityIcon from './severity-icon';
 import CommentForm from './comment-form';
 import Comments from './comments';
+import Markdown from 'react-markdown-el';
 
 export default class Issue extends Component {
     constructor(props, context) {
@@ -74,7 +75,7 @@ export default class Issue extends Component {
                             {iget('Description')}
                         </IboxTitle>
                         <IboxContent>
-                            {desc}
+                            <Markdown text={desc}/>
                         </IboxContent>
                     </Ibox>}
                     <Ibox style={aStyle}>
