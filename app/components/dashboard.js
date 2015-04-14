@@ -11,7 +11,6 @@ var React = require('react/addons'),
     RouteHandler = Router.RouteHandler,
     AddTargetModal = require('./add-target-modal'),
     LeftPanel = require('./left-panel'),
-    Navbar = require('./navbar'),
     LeftPanelCover = require('./left-panel-cover');
 
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
@@ -95,9 +94,6 @@ var Dashboard = React.createClass({
                            user={app.user}/>
 
                 <div className="page-wrapper gray-bg">
-                    <div className="container-fluid">
-                        <Navbar user={app.user}/>
-                    </div>
                     <div className="page-wrapper--content container-fluid">
                         <TransitionGroup component="div" transitionName="route-transition">
                             <RouteHandler key={name}/>

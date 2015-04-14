@@ -3,12 +3,11 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
-import { greenColor, grayColor, orangeColor, redColor } from '../style';
 import { bindAll } from 'lodash';
 import moment from 'moment';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
 
 import { Row, Col } from 'react-bootstrap';
+import SeverityIcon from './severity-icon';
 
 const size = 25;
 
@@ -43,44 +42,22 @@ export default class IssuesListItem extends Component {
             lineHeight: size + 'px',
             display: 'inline'
         };
+        const iconStyle = {
+            display: 'block',
+            float: 'left'
+        };
 
         return <Row style={style} onClick={this.onClick}>
             <Col xs={12} sm={6}>
-                {this.renderIcon(severity)}
+                <SeverityIcon severity={severity} size={24} style={iconStyle}/>
+                &nbsp;
+                &nbsp;
                 <h3 style={summaryStyle}>{summary}</h3>
             </Col>
             <Col xs={12} sm={6} className="text-right">
                 Created {createdAt}
             </Col>
         </Row>;
-    }
-
-    renderIcon(severity) {
-        const iconStyle = {
-            float: 'left',
-            height: size,
-            width: size,
-            marginRight: 15,
-            borderRadius: size,
-            overflow: 'hidden',
-            textAlign: 'center',
-            lineHeight: size + 'px',
-            fontSize: size - 10 + 'px',
-            color: '#FFF',
-            textTransform: 'uppercase'
-        };
-
-        iconStyle.backgroundColor = {
-            [HIGH]: redColor,
-            [MEDIUM]: orangeColor,
-            [LOW]: greenColor
-        }[severity];
-
-        const letter = severity.charAt(0);
-
-        return <div style={iconStyle}>
-            {letter}
-        </div>;
     }
 }
 
