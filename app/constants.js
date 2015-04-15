@@ -18,6 +18,9 @@ var constants = {
     ISSUES_FETCH_SUCCESS: '--',
     ISSUES_UPDATE_FILTER: '--',
     ISSUES_UPDATE_SORT: '--',
+    ISSUE_UPDATE_START: '--',
+    ISSUE_UPDATE_SUCCESS: '--',
+    ISSUE_UPDATE_FAIL: '--',
 
     MODAL_OPEN: '--',
     MODAL_CLOSE: '--',

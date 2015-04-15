@@ -55,6 +55,10 @@ const handlers = {
         return issues
             .reduce(mergeToState, state.asMutable())
             .asImmutable();
+    },
+
+    [C.ISSUE_UPDATE_START](state, update) {
+        return state.mergeIn([update.id], update);
     }
 };
 

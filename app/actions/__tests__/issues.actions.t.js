@@ -1,9 +1,9 @@
 'use strict';
 
-import { stub, spy, mock } from 'sinon';
+import { stub, spy, mock, match } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 describe('issuesActions', function() {
     const data = {
@@ -16,14 +16,20 @@ describe('issuesActions', function() {
     let loadForTarget = null;
     let dispatch = null;
     let apiMock = null;
+    let issuesApi = null;
 
     beforeEach(() => {
 
         const issues = { then: (f) => f(data) };
 
-        const issuesApi = {
-            list: () => false
+        issuesApi = {
+            list: () => false,
+            update: () => ({
+                catch: a => a()
+            })
         };
+
+        spy(issuesApi, 'update');
 
         apiMock = mock(issuesApi);
         apiMock.expects('list').once().returns(issues);
@@ -73,6 +79,42 @@ describe('issuesActions', function() {
 
             dispatch.should.be.calledOnce;
             dispatch.should.be.calledWith(C.ISSUES_UPDATE_SORT, sortBy);
+        });
+    });
+
+    describe('toggleStatus', function() {
+        const statusName = 'confirmed';
+        const id = 'some id';
+        const issue = fromJS({
+            id,
+            [statusName]: false
+        });
+
+        beforeEach(() => {
+            actions.toggleStatus(issue, statusName);
+        });
+
+        it('should call api.issues.update with new status', function() {
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { [statusName]: true }
+            });
+        });
+
+        it('should dispatch ISSUE_UPDATE_START', function() {
+            dispatch.should.have.been.calledWith(C.ISSUE_UPDATE_START, {
+                id,
+                [statusName]: true
+            });
+        });
+
+        it('should dispatch ISSUE_UPDATE_FAIL on api error', function() {
+            dispatch.args[1].should.be.eql([
+                C.ISSUE_UPDATE_FAIL, {
+                    id,
+                    [statusName]: false
+                }
+            ]);
         });
     });
 });

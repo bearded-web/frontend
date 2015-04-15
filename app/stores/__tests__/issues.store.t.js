@@ -81,6 +81,35 @@ describe('issuesStore', function() {
             });
         });
 
+        describe('ISSUE_UPDATE_START', function() {
+            const id = 'some id';
+
+            let handler = null;
+            let state = null;
+
+            before(() => {
+                handler = handlers[C.ISSUE_UPDATE_START];
+            });
+
+            beforeEach(() => {
+                state = fromJS({
+                    [id]: {
+                        id,
+                        confirmed: false
+                    }
+                });
+            });
+
+            it('should merge issue', function() {
+                state = handler(state, {
+                    id,
+                    confirmed: true
+                });
+
+                state.getIn([id, 'confirmed']).should.be.eql.true;
+            });
+        });
+
     });
 
     describe('api', function() {

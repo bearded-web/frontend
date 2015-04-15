@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import { Row, Col } from 'react-bootstrap';
 import SeverityIcon from './severity-icon';
+import IssueListItemsControls from './issue-list-items-controls';
 
 const size = 25;
 
@@ -29,7 +30,8 @@ export default class IssuesListItem extends Component {
     }
 
     render() {
-        const { summary, severity, created } = this.props.issue.toObject();
+        const { issue } = this.props;
+        const { summary, severity, created } = issue.toObject();
         const createdAt = moment(created).calendar();
         const style = {
             padding: '10px',
@@ -46,6 +48,7 @@ export default class IssuesListItem extends Component {
             display: 'block',
             float: 'left'
         };
+        const controlsStyle = { display: 'inline', marginLeft: '2rem' };
 
         return <Row style={style} onClick={this.onClick}>
             <Col xs={12} sm={6}>
@@ -56,6 +59,7 @@ export default class IssuesListItem extends Component {
             </Col>
             <Col xs={12} sm={6} className="text-right">
                 Created {createdAt}
+                <IssueListItemsControls issue={issue} style={controlsStyle}/>
             </Col>
         </Row>;
     }

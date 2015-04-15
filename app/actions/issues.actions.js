@@ -48,6 +48,40 @@ export function updateSort(sortBy) {
 }
 
 
+/**
+ * Toggle issue status
+ * @param {Model} issue issue
+ * @param {String} statusName status name (confirmed, false, muted, resolved)
+ */
+export function toggleStatus(issue, statusName) {
+    const issueId = issue.get('id');
+    const status = !issue.get(statusName);
+
+    dispatch(C.ISSUE_UPDATE_START, {
+        id: issueId,
+        [statusName]: status
+    });
+
+    issue = issue.set(statusName, status);
+    issue = issue.toJS();
+    delete issue.vector;
+    delete issue.references;
+    delete issue.extras;
+
+    issues
+        .update({
+            issueId,
+            body: issue
+        })
+        .catch(() => {
+            dispatch(C.ISSUE_UPDATE_FAIL, {
+                id: issueId,
+                [statusName]: !status
+            });
+        });
+}
+
+
 //TODO delete, used for dev
 function addFakeIssueToData(data) {
     let i = cloneDeep(data.results[0]);
