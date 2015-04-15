@@ -23,7 +23,8 @@ export default class IssuesList extends Component {
     render() {
         const { issues } = this.props;
 
-        console.log('### l', issues.size);
+        if (!issues) return <h1 className="text-center">Loading</h1>;
+
         return <div>
             {issues.toArray().map(this.renderIssue)}
         </div>;

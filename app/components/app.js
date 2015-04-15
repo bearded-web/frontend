@@ -29,6 +29,7 @@ export default createClass({
         authStore.onChange(this.onStoreChange);
     },
 
+
     componentWillUnmount() {
         authStore.offChange(this.onStoreChange);
     },
@@ -50,6 +51,7 @@ export default createClass({
 
     render() {
         const { app, isLogedIn, user } = this.state;
+        const { routeQuery } = this.props;
 
         if (!app.inited) {
             return <AppLoader/>;
@@ -63,7 +65,7 @@ export default createClass({
 
         return <div>
             {(user && !isLogedIn) ? <LockScreenContainer/> : ''}
-            <RouteHandler/>
+            <RouteHandler routeQuery={routeQuery}/>
             <Toast/>
         </div>;
     }

@@ -15,6 +15,7 @@ var constants = {
 
     FEED_FETCH_SUCCESS: '--',
 
+    ISSUES_FETCH_START: '--',
     ISSUES_FETCH_SUCCESS: '--',
     ISSUES_UPDATE_FILTER: '--',
     ISSUES_UPDATE_SORT: '--',

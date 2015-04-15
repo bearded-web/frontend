@@ -65,6 +65,7 @@ var Dashboard = React.createClass({
     },
 
     render() {
+        const { routeQuery } = this.props;
         let appStore = this.state.app;
 
         var app = this.props.app,
@@ -96,7 +97,7 @@ var Dashboard = React.createClass({
                 <div className="page-wrapper gray-bg">
                     <div className="page-wrapper--content container-fluid">
                         <TransitionGroup component="div" transitionName="route-transition">
-                            <RouteHandler key={name}/>
+                            <RouteHandler key={name} routeQuery={routeQuery}/>
                         </TransitionGroup>
                     </div>
                 </div>

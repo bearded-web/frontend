@@ -13,6 +13,8 @@ const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
  * @param {String} [target] target id
  */
 export function loadForTarget({ target }) {
+    dispatch(C.ISSUES_FETCH_START, { target });
+
     issues.list({ target })
         .then(dispatchFetch);
 }

@@ -11,6 +11,7 @@ describe('issuesActions', function() {
             { id: 'id1', desc: 'desc 1' }
         ]
     };
+    const targetId = 'targetId1';
 
     let actions = null;
     let loadForTarget = null;
@@ -50,12 +51,17 @@ describe('issuesActions', function() {
     //TODO test fetchOne
 
     describe('loadForTarget', function() {
+        it('should dispatch ISSUES_FETCH_START', function() {
+            loadForTarget({ target: targetId });
+
+            dispatch.firstCall.calledWith(C.ISSUES_FETCH_START, { targetId });
+        });
         it('should dispatch new issues from api', function() {
             const target = 'targetId1';
 
             loadForTarget({ target });
 
-            dispatch.should.have.been.calledWith(C.ISSUES_FETCH_SUCCESS, data);
+            dispatch.secondCall.calledWith(C.ISSUES_FETCH_SUCCESS, data);
 
             apiMock.verify();
         });

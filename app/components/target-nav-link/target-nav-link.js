@@ -2,7 +2,6 @@ import { Map } from 'immutable';
 
 var React = require('react'),
     { PropTypes } = React,
-    Router = require('react-router'),
     actions = require('../../actions/app.actions'),
     _ = require('lodash');
 
@@ -11,10 +10,12 @@ var Link = require('react-router').Link,
     Fa = require('../fa');
 
 module.exports = React.createClass({
-    mixins: [Router.State],
-
     propTypes: {
         target: PropTypes.instanceOf(Map).isRequired
+    },
+
+    contextTypes: {
+        router: PropTypes.func
     },
 
     onClick: function() {
@@ -81,10 +82,12 @@ module.exports = React.createClass({
         return <Label bsStyle={labelStyle} style={style}>{count}</Label>;
     },
 
-    isActiveState: function() {
+    isActiveState() {
+        const { router } = this.context;
+
         var targetId = this.props.target.toJS().id;
 
-        return this.isActive('target', { targetId }) ||
-            this.isActive('report') && this.getQuery().target === targetId;
+        return router.isActive('target', { targetId }) ||
+            router.getCurrentQuery().target === targetId;
     }
 });

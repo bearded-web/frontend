@@ -30,6 +30,7 @@ export default class IssuePage extends Component {
         fetchOne(issueId);
     }
 
+
     componentWillUnmount() {
         issuesStore.offChange(this.onStoreChange);
     }

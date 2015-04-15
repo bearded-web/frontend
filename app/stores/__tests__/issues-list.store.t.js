@@ -9,6 +9,8 @@ import moment from 'moment';
 import { zipObject, pluck } from 'lodash';
 
 describe('issuesListStore', function() {
+    const targetId = 'target tId';
+
     let filter = null;
     let createStore = null;
     let store = null;
@@ -76,6 +78,7 @@ describe('issuesListStore', function() {
     describe('initial state', function() {
         it('should contain sortBy=severity', function() {
             initalState.toObject().sortBy.should.be.eql('severity');
+            initalState.toObject().loading.should.be.false;
         });
     });
 
@@ -106,6 +109,53 @@ describe('issuesListStore', function() {
 
                 issues.size.should.be.eql(1);
                 issues.first().should.be.eql(id);
+            });
+
+            it('should set loading to false', function() {
+                const id = 'testId';
+
+                state = issueFetchSuccess(state, { results: [{ id }] });
+
+                state.get('loading').should.be.false;
+            });
+        });
+
+        describe('ISSUES_FETCH_START', () => {
+            let handler = null;
+            let state = null;
+
+            before(() => {
+                handler = handlers[C.ISSUES_FETCH_START];
+            });
+
+            beforeEach(() => {
+                state = fromJS({
+                    issues: [1, 2, 3],
+                    targetId: null
+                });
+            });
+
+            it('should clear list', function() {
+                const targetId = 'target tId';
+
+                state = handler(state, { target: targetId });
+
+                const issues = state.get('issues');
+
+                issues.size.should.be.eql(0);
+            });
+
+            it('should set targetId', function() {
+                const targetId = 'target tId';
+
+                state = handler(state, { target: targetId });
+
+                state.get('targetId').should.be.eql(targetId);
+            });
+
+            it('should set loading to true', function() {
+                handler(state, { targetId }).get('loading')
+                    .should.be.eql(true);
             });
         });
 

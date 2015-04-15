@@ -71,7 +71,7 @@ describe('IssuesPage', function() {
 
     describe('.componentDidMount()', function() {
         it('should call issues action loadForTarget', function() {
-            loadForTarget.should.be.calledOnce;
+            loadForTarget.should.be.calledWith({ target });
         });
     });
 

@@ -4,7 +4,7 @@
 
 'use strict';
 
-import { fromJS } from 'immutable';
+import { fromJS, List, OrderedMap } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
 import { pluck } from 'lodash';
@@ -13,13 +13,15 @@ import { weight, HIGH, MEDIUM, LOW } from '../lib/severities';
 import moment from 'moment';
 
 const initialState = fromJS({
+    targetId: null, // current target list
     filter: {
         severity: 'all',
         type: 'all',
         search: ''
     },
     sortBy: 'severity',
-    issues: [] // issues ids
+    issues: [], // issues ids
+    loading: false
 });
 
 const api = {
@@ -62,10 +64,25 @@ const api = {
 };
 
 const handlers = {
+    [C.ISSUES_FETCH_START](state, payload) {
+        return state
+            .set('issues', List())
+            .set('targetId', payload.target)
+            .set('loading', true);
+    },
+
     [C.ISSUES_FETCH_SUCCESS](state, data) {
         const issues = data.results;
+        const target = state.get('targetId');
 
-        return state.set('issues', fromJS(pluck(issues, 'id')));
+        //TODO use api token or api query for check request
+        if (target && issues.length && issues[0].target !== target) {
+            return state;
+        }
+
+        return state
+            .set('issues', fromJS(pluck(issues, 'id')))
+            .set('loading', false);
     },
 
     [C.ISSUES_UPDATE_FILTER](state, filter) {

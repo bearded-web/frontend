@@ -7,9 +7,12 @@ let { PureRenderMixin, classSet } = addons;
 
 export default React.createClass({
     mixins: [
-        PureRenderMixin,
-        State
+        PureRenderMixin
     ],
+
+    contextTypes: {
+        router: PropTypes.func
+    },
 
     propTypes: {
         children: PropTypes.node,
@@ -18,7 +21,7 @@ export default React.createClass({
 
     render() {
         let { route, children } = this.props,
-            cName = classSet({ active: this.isActive(route) });
+            cName = classSet({ active: this.context.router.isActive(route) });
 
         return <li className={cName}>
             <Link to={route}>

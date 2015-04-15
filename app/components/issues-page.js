@@ -12,6 +12,7 @@ import { Row, Col } from 'react-bootstrap';
 import IssuesList from './issues-list';
 import IssuesListFilter from './issues-list-filter';
 import IssuesListSort from './issues-list-sort';
+import Fa from './fa';
 
 let targetId = null;
 
@@ -21,7 +22,8 @@ export default class IssuesPage extends Component {
 
         bindAll(this, [
             'onStoreChange',
-            'onFilterChange'
+            'onFilterChange',
+            'renderLoading'
         ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
@@ -37,6 +39,15 @@ export default class IssuesPage extends Component {
         loadForTarget({ target });
 
         targetId = target;
+    }
+
+    componentWillReceiveProps(newProps) {
+        const newTarget = newProps.routeQuery && newProps.routeQuery.target;
+        const target = this.props.routeQuery && this.props.routeQuery.target;
+
+        if (newTarget !== target) {
+            loadForTarget({ target: newTarget });
+        }
     }
 
     componentWillUnmount() {
@@ -55,7 +66,6 @@ export default class IssuesPage extends Component {
 
     getState() {
         const state = issuesListStore.getState();
-
         state.issues = issuesListStore.getIssues();
 
         return state;
@@ -66,7 +76,7 @@ export default class IssuesPage extends Component {
     }
 
     render() {
-        const { issues, filter, sortBy } = this.state;
+        const { issues, filter, sortBy, loading } = this.state;
 
         return <Row>
             <br/>
@@ -77,9 +87,19 @@ export default class IssuesPage extends Component {
                 <IssuesListSort sortBy={sortBy}/>
             </Col>
             <Col xs={12}>
-                <IssuesList issues={issues}/>
+                {loading ?
+                    this.renderLoading() :
+                    <IssuesList issues={issues}/>
+                }
             </Col>
         </Row>;
+    }
+
+    renderLoading() {
+        return <h1 className="text-center">
+            <Fa icon="refresh" spin fw/>
+            {iget('Loading')}
+        </h1>;
     }
 }
 

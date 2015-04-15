@@ -32,8 +32,6 @@ const api = {
     getIssues(...ids) {
         let allIssues = this.getState();
 
-        if (!ids.length) return new OrderedMap(allIssues);
-
         let issues = new OrderedMap();
 
         issues = issues.asMutable();
