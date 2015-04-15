@@ -18,6 +18,7 @@
     "Simulate": true,
     "byClass": true,
     "findDOMNode": true,
+    "should": true,
     "byType": true,
     "it": true,
     "expect": true,

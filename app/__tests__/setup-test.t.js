@@ -39,7 +39,7 @@ afterEach(() => {
 
 
 global.iget = a => a;
-
+global.should = chai.should;
 global.React = require('react/addons');
 global.TestUtils = React.addons.TestUtils;
 global.byType = global.TestUtils.scryRenderedComponentsWithType;

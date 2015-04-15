@@ -13,6 +13,7 @@ describe('ProfileNav', function() {
     let instance = null;
     let user = null;
     let logOut = null;
+    let transitionTo = null;
 
     beforeEach(function() {
         user = Map({
@@ -29,9 +30,14 @@ describe('ProfileNav', function() {
         mockery.registerAllowable('../profile-nav', true);
         Component = require('../profile-nav');
 
+        transitionTo = spy();
+        const Subject = stubRouterContext(Component, { user }, {
+            transitionTo: transitionTo
+        });
         instance = TestUtils.renderIntoDocument(
-            <Component user={user}/>
+            <Subject/>
         );
+        instance = byType(instance, Component)[0];
     });
 
     describe('render', function() {
@@ -50,6 +56,25 @@ describe('ProfileNav', function() {
             instance.onLogoutClick();
 
             logOut.should.have.been.calledOnce;
+        });
+    });
+
+    describe('.onSettingsClick()', function() {
+        it('should transit user to settings page', function() {
+            const isSettings = el => {
+                const node = findDOMNode(el);
+
+                return node &&
+                    (node.tagName === 'A') &&
+                    (node.textContent === 'Settings');
+            };
+            const el = TestUtils.findAllInRenderedTree(instance, isSettings)[0];
+
+            const node = findDOMNode(el);
+
+            Simulate.click(node);
+
+            transitionTo.should.have.been.calledWith('user-settings');
         });
     });
 });

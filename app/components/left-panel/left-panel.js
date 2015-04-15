@@ -38,6 +38,10 @@ var LeftPanel = React.createClass({
         show: PropTypes.bool
     },
 
+    contextTypes: {
+        router: PropTypes.func
+    },
+
     addTarget: function() {
         this.getFlux().actions.target.openAddTargetModal();
     },
@@ -82,7 +86,7 @@ var LeftPanel = React.createClass({
                         <ProjectInfo projects={app.projects} currentProject={currentProject}/>
                     </li>
 
-                    <li className={this.isActive('overview') ? 'active' : ''}>
+                    <li className={this.context.router.isActive('overview') ? 'active' : ''}>
                         <Link to="/">
                             <span className="nav-label">
                                 <Fa icon="th-large" />
@@ -106,9 +110,9 @@ var LeftPanel = React.createClass({
                         </a>
                     </li> : ''}
 
-                    {$targets && $targets.toArray().map(function(target) {
+                    {$targets && $targets.toArray().map(function(target, i) {
                         return (
-                            <TargetNavLink  key={target.id} target={target} />
+                            <TargetNavLink key={target.id || i} target={target} />
                         );
                     })}
 
@@ -117,7 +121,7 @@ var LeftPanel = React.createClass({
                         {iget('Settings')}
                     </li>
 
-                    <li className={this.isActive('agents') ? 'active' : ''}>
+                    <li className={this.context.router.isActive('agents') ? 'active' : ''}>
                         <Link to="agents">
                             <span className="nav-label">
                                 <Fa icon="cube" />

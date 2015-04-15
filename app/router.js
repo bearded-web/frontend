@@ -1,3 +1,5 @@
+import UserSettingsPage from './components/user-settings-page';
+
 require('react');
 
 var router = null,
@@ -43,6 +45,8 @@ module.exports.create = function buildRouter() {
                 <Route name="issue" path="issues/:issueId" handler={IssuePage}/>
                 <Redirect from="issues/:issueId/" to="issue"/>
 
+                <Route name="user-settings" path="settings" handler={UserSettingsPage}/>
+                <Redirect from="settings/" to="user-settings"/>
 
                 <Route name="plans" path="plans" handler={PlansPage}/>
                 <Redirect from="plans/" to="plans"/>

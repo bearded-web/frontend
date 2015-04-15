@@ -5,7 +5,7 @@
  * (logout, go to settings, etc.)
  */
 
-import { Component } from 'react/addons';
+import { Component, PropTypes } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
 import { bindAll } from 'lodash';
@@ -20,7 +20,8 @@ export default class ProfileNav extends Component {
         super(props, context);
 
         bindAll(this, [
-            'onLogoutClick'
+            'onLogoutClick',
+            'onSettingsClick'
         ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
@@ -28,6 +29,12 @@ export default class ProfileNav extends Component {
 
     onLogoutClick() {
         logOut();
+    }
+
+    onSettingsClick(e) {
+        e.preventDefault();
+
+        this.context.router.transitionTo('user-settings', {});
     }
 
     render() {
@@ -38,6 +45,11 @@ export default class ProfileNav extends Component {
         return <div>
             <Avatar avatar={avatar} style={avStyle}/>
             <DropdownButton bsStyle="link" title={nickname}>
+                <MenuItem onClick={this.onSettingsClick}>
+                    <Fa icon="cog" fw/>
+                    {iget('Settings')}
+                </MenuItem>
+                <MenuItem divider />
                 <MenuItem onClick={this.onLogoutClick}>
                     <Fa icon="sign-out" fw/>
                     {iget('Logout')}
@@ -51,3 +63,6 @@ ProfileNav.propTypes = {
     user: Model
 };
 
+ProfileNav.contextTypes = {
+    router: PropTypes.func
+};

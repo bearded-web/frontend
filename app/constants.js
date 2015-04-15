@@ -74,6 +74,12 @@ var constants = {
 
     USERS_FETCH_SUCCESS: '--',
 
+    US_PASSWORD_FIELD_CHANGE: '--',
+    US_OLD_PASSWORD_FIELD_CHANGE: 'Change old password in change password field',
+    US_PASSWORD_CHANGE_START: 'Start changing password with backend',
+    US_PASSWORD_CHANGE_SUCCESS: 'Success changing password with backend',
+    US_PASSWORD_CHANGE_FAIL: 'Fail changing password with backend, param: error message',
+
 
     PROJECT_ADD_MEMBER: '--',
     PROJECT_REMOVE_MEMBER: '--',
