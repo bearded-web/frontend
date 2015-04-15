@@ -17,7 +17,7 @@ import Header from './header';
 import SeverityIcon from './severity-icon';
 import CommentForm from './comment-form';
 import Comments from './comments';
-import Markdown from 'react-markdown-el';
+import Markdown from './markdown';
 
 export default class Issue extends Component {
     constructor(props, context) {

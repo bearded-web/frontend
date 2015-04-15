@@ -7,7 +7,7 @@ import { List } from 'immutable';
 import Comments from './comments';
 import Fa from './fa';
 import FeedItem from './f-item';
-import Markdown from 'react-markdown-el';
+import Markdown from './markdown';
 
 export default React.createClass({
     propTypes: {
@@ -26,7 +26,7 @@ export default React.createClass({
         let { created, owner, text } = $comment.toObject(),
             actionText = iget('commented');
 
-        return <FeedItem 
+        return <FeedItem
             key={key}
             time={created}
             action={actionText}

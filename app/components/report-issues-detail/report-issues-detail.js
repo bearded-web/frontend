@@ -1,8 +1,11 @@
+import Markdown from '../markdown';
+
 var React = require('react'),
     _ = require('lodash');
 
 var { Row, Col, Table, Panel, Accordion } = require('react-bootstrap'),
     PanelHeader = require('../panel-header');
+
 
 var ReportIssuesDetail = React.createClass({
     propTypes: {
@@ -35,16 +38,16 @@ var ReportIssuesDetail = React.createClass({
 
     renderDetail: function(issue) {
         return <div>
-                {this.renderDetailHeader(issue)}
-                <p>{issue.desc}</p>
-                {issue.references ? this.renderReferencesTable(issue.references) : ''}
+            {this.renderDetailHeader(issue)}
+            <Markdown text={issue.desc}/>
+            {issue.references ? this.renderReferencesTable(issue.references) : ''}
         </div>;
     },
 
     renderDetailHeader: function(issue) {
         if (!issue.vector || !issue.vector.url) {
             return <span></span>;
-        } 
+        }
 
         return (
             <h4>Found on {issue.vector.url}</h4>
