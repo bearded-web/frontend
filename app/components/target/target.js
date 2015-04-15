@@ -53,6 +53,8 @@ var Target = React.createClass({
             </div>;
         }
 
+        let issues = target.summaryReport && target.summaryReport.issues;
+        issues = issues || {};
 
         return (
             <div className="c-target">
@@ -63,6 +65,17 @@ var Target = React.createClass({
                         <Row>
                             <Col md={6}>
                                 {this.renderStartScanButton()}
+                            </Col>
+                            <Col md={6}>
+                                <Ibox><IboxTitle>
+                                    {iget('Total issues')}
+                                </IboxTitle><IboxContent>
+                                    <ul>
+                                        <li className="text-danger">{issues.high || 0} high</li>
+                                        <li className="text-warning">{issues.medium || 0} medium</li>
+                                        <li className="text-info">{issues.low || 0} low</li>
+                                    </ul>
+                                </IboxContent></Ibox>
                             </Col>
                         </Row>
                         <Ibox>

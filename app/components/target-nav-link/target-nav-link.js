@@ -56,8 +56,8 @@ module.exports = React.createClass({
             count = 0,
             labelStyle;
 
-        if (issues.info) {
-            count = issues.info;
+        if (issues.low) {
+            count = issues.low;
             labelStyle = 'info';
         }
 
