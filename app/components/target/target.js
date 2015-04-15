@@ -68,7 +68,7 @@ var Target = React.createClass({
                             </Col>
                             <Col md={6}>
                                 <Ibox><IboxTitle>
-                                    {iget('Total issues')}
+                                    <h5>{iget('Total issues')}</h5>
                                 </IboxTitle><IboxContent>
                                     <ul>
                                         <li className="text-danger">{issues.high || 0} high</li>
