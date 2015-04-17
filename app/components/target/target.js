@@ -1,12 +1,13 @@
 'use strict';
 
 var React = require('react'),
-    Router = require('react-router'),
     flux = require('../../flux');
 
+import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
 import { Button } from 'react-bootstrap';
+
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -34,8 +35,14 @@ var Target = React.createClass({
         }
     },
 
-    getStateFromFlux: function() {
+    getStateFromFlux() {
         return flux.store('TargetStore').getState();
+    },
+
+    onTotalsClick() {
+        const target = this.state.target.id;
+
+        this.context.router.transitionTo('issues', {}, { target });
     },
 
     render: function() {
@@ -67,7 +74,7 @@ var Target = React.createClass({
                                 {this.renderStartScanButton()}
                             </Col>
                             <Col md={6}>
-                                <Ibox><IboxTitle>
+                                <Ibox onClick={this.onTotalsClick} style={{cursor: 'pointer'}}><IboxTitle>
                                     <h5>{iget('Total issues')}</h5>
                                 </IboxTitle><IboxContent>
                                     <ul>
