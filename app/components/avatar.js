@@ -22,7 +22,7 @@ export default class Avatar extends Component {
             width: size,
             borderRadius: size
         }, style);
-        console.log('### is', imgStyle);
+
         return <img src={avatar} style={imgStyle}/>;
     }
 }

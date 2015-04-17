@@ -11,6 +11,10 @@ import mockery from 'mockery';
 import { spy } from 'sinon';
 import { assign } from 'lodash';
 
+require.extensions['.png'] = function(m, filename) {
+    return m._compile('1', filename);
+};
+
 chai.should();
 chai.use(sinonChai);
 
@@ -48,9 +52,15 @@ global.byClass = global.TestUtils.scryRenderedDOMComponentsWithClass;
 global.findDOMNode = React.findDOMNode;
 global.Simulate = global.TestUtils.Simulate;
 
+const nodeExtractor = (foo) => (i, param) => foo(i, param).map(global.findDOMNode);
+global.nodeByType = nodeExtractor(global.byType);
+global.nodeByTag = nodeExtractor(global.byTag);
+global.nodeByClass = nodeExtractor(global.byClass);
+
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {
     }
+
     assign(RouterStub, {
         makePath: spy(),
         makeHref: spy(),
@@ -81,3 +91,23 @@ global.stubRouterContext = (Component, props, stubs) => {
         }
     });
 };
+
+global.storeMock = {
+    getState: spy(() => ({})),
+    onChange: spy(),
+    offChange: spy()
+};
+
+class MockComponent extends React.Component {
+    render() {
+        const { children } = this.props;
+
+        return <div {...this.props}>
+            {children}
+        </div>;
+    }
+}
+MockComponent.propTypes = {
+    children: React.PropTypes.node
+};
+global.MockComponent = MockComponent;

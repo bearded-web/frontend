@@ -1,3 +1,4 @@
+'use strict';
 describe('ReportIssuesTotal', function() {
     var componentPath = '../report-issues-total';
 

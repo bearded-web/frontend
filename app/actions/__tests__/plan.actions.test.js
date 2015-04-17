@@ -1,3 +1,4 @@
+'use strict';
 describe('plan.actions', function() {
     jest.dontMock('../../constants');
     jest.dontMock('../../lib/helpers');

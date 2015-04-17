@@ -1,3 +1,4 @@
+'use strict';
 var Fluxxor = require('fluxxor'),
     _ = require('lodash'),
     constants = require('../constants'),

@@ -1,3 +1,4 @@
+'use strict';
 import { Grid, Row, Button, Col } from 'react-bootstrap';
 
 module.exports = React.createClass({

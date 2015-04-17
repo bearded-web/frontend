@@ -1,3 +1,4 @@
+'use strict';
 import { dispatch } from '../lib/dispatcher';
 import consts from '../constants';
 import { projects, targets, users } from '../lib/api3';

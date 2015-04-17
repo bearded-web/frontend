@@ -1,9 +1,10 @@
+'use strict';
 var React = require('react');
 
 var { Row, Col, Panel } = require('react-bootstrap');
 
 var ReportTechs = React.createClass({
-    propsTypes: {
+    propTypes: {
         reports: React.PropTypes.array.isRequired
     },
 

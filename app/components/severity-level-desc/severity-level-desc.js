@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react'),
     i18n = require('../../lib/i18n'),
     { PropTypes } = React;

@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react'),
     feedActions = require('../../actions/feed.actions'),
     flux = require('../../flux');

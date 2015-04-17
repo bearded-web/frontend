@@ -1,12 +1,15 @@
 'use strict';
 
+import React, { PropTypes } from 'react/addons';
 import flux from '../flux';
 import { setCurrentProject } from '../actions/project.actions';
+import authStore from '../stores/auth.store';
+import setTitle from '../lib/set-title';
 
 import ModalManager from './modal-manager';
+import LockScreenContainer from './lock-screen-container';
 
-var React = require('react/addons'),
-    Router = require('react-router'),
+var Router = require('react-router'),
     AppStore = require('../stores/app.store'),
     RouteHandler = Router.RouteHandler,
     AddTargetModal = require('./add-target-modal'),
@@ -25,12 +28,18 @@ var Dashboard = React.createClass({
         router: React.PropTypes.func
     },
 
+    propTypes: {
+        routeQuery: PropTypes.object,
+        app: PropTypes.object,
+        targets: PropTypes.array
+    },
 
     statics: {
         willTransitionTo: function(transition, a, c, callback) {
             let app = flux.store('AppStore'),
                 initInterval;
 
+            //TODO refactor
             initInterval = setInterval(function() {
                 if (!app.inited) return;
 
@@ -38,8 +47,6 @@ var Dashboard = React.createClass({
 
                 if (!app.isLogedIn) {
                     callback();
-                    transition.redirect('/');
-                    flux.actions.app.showLogin();
                 }
                 else {
                     let interval = setInterval(function() {
@@ -58,6 +65,30 @@ var Dashboard = React.createClass({
         }
     },
 
+    componentWillMount() {
+        setTitle(iget('Dashboard'));
+
+        if (!authStore.getState().user) {
+            this.context.router.transitionTo('login');
+        }
+    },
+
+    componentDidMount() {
+        authStore.onChange(this._onStoreChange);
+    },
+
+    componentWillUnmount() {
+        authStore.offChange(this._onStoreChange);
+    },
+
+    onStoreChange() {
+        const { user, isLogedIn } = authStore.getState();
+
+        this.setState({
+            lock: user && !isLogedIn
+        });
+    },
+
     getStateFromFlux() {
         return {
             app: flux.store('Store').getState()
@@ -66,6 +97,7 @@ var Dashboard = React.createClass({
 
     render() {
         const { routeQuery } = this.props;
+        const { lock } = this.state;
         let appStore = this.state.app;
 
         var app = this.props.app,
@@ -89,6 +121,8 @@ var Dashboard = React.createClass({
 
         return (
             <div className="c-dashboard">
+                {lock && <LockScreenContainer/>}
+
                 <LeftPanel app={appStore}
                            targets={targets}
                            show={app.leftPanelVisible}

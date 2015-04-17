@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name='viewport' content='width=device-width initial-scale=1.0'/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=1">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=1">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=1">
@@ -21,15 +28,28 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=1">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Dasboard • Bearded</title>
+    <title>Bearded</title>
+
     <style type="text/css">
         body {
-            background-color: #2F4050;;
+            background-color: #2F4050;
+        }
+
+        .app-pre-init {
+            font-family: Arial, sans-serif!important;
+            font-size: 32px!important;
+            font-weight: normal!important;
+            color: #FFF!important;
+            text-align: center!important;
+            margin-top: 40px!important;
         }
     </style>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <h1 class="app-pre-init">Loading</h1>
+    </div>
+    <script src=""></script>
     <script src="http://localhost:8080/bundle.js"></script>
 </body>
 </html>

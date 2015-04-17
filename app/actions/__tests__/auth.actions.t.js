@@ -7,23 +7,44 @@ import { Map } from 'immutable';
 
 describe('authActions', function() {
     let actions = null;
-    let apiMock = null;
+    let api = null;
+    let apiMe = null;
     let dispatch = null;
+    let token = null;
+    let password = null;
 
     beforeEach(() => {
-        const authApi = {
-            logout: () => false
+        token = 'some nice token';
+        password = 'secure password';
+
+        api = {
+            logout: () => new Promise(r => r()),
+            resetPassword: () => new Promise((r, e) => {
+                r();
+            })
         };
 
-        apiMock = mock(authApi);
-        apiMock.expects('logout').once().returns(new Promise(r => r()));
+        apiMe = {
+            changePassword: () => new Promise(r => r())
+        };
+
+        spy(api, 'logout');
+        spy(api, 'resetPassword');
+        spy(apiMe, 'changePassword');
         mockery.registerMock('../lib/api3', {
-            auth: apiMock.object
+            auth: api,
+            me: apiMe
         });
 
         dispatch = spy();
         mockery.registerMock('../lib/disp', {
             dispatch: dispatch
+        });
+
+        mockery.registerMock('../router', {
+            get: () => ({
+                transitionTo: spy()
+            })
         });
 
         mockery.registerAllowable('../auth.actions', true);
@@ -34,7 +55,7 @@ describe('authActions', function() {
         it('should call logout', function() {
             actions.logOut();
 
-            apiMock.verify();
+            api.logout.should.have.been.calledOnce;
         });
     });
 
@@ -43,6 +64,102 @@ describe('authActions', function() {
             actions.lostAuth();
 
             dispatch.should.have.been.calledWith(C.USER_LOST_AUTH);
+        });
+    });
+
+    describe('resetPassword', () => {
+        let email = null;
+
+        beforeEach(() => {
+            email = 'test@email.com';
+        });
+
+        it('should dispatch AUTH_RESET_PASSWORD_START', () => {
+            actions.resetPassword({ email });
+
+            dispatch.should.have.been.calledWith(C.AUTH_RESET_PASSWORD_START);
+        });
+        it('should dispatch AUTH_RESET_PASSWORD_SUCCESS', (done) => {
+            actions.resetPassword({ email });
+
+            setTimeout(() => {
+                dispatch.should.have.been.calledWith(C.AUTH_RESET_PASSWORD_SUCCESS);
+                done();
+            }, 1);
+        });
+        it('should dispatch AUTH_RESET_PASSWORD_FAIL with error', (done) => {
+            mockery.deregisterAll();
+
+            const message = 'error message';
+            const resetPassword = () => new Promise((r, e) => e({ Message: message }));
+
+            const auth = { resetPassword };
+
+            spy(auth, 'resetPassword');
+            mockery.registerMock('../lib/api3', { auth });
+
+            dispatch = spy();
+            mockery.registerMock('../lib/disp', { dispatch });
+
+            mockery.registerAllowable('../auth.actions', true);
+            actions = require('../auth.actions');
+
+            actions.resetPassword({ email });
+
+            setTimeout(() => {
+                dispatch.should.have.been.calledWith(C.AUTH_RESET_PASSWORD_FAIL, { message });
+                done();
+            }, 1);
+        });
+    });
+
+    describe('setNewPassword', () => {
+        it('should dispatch AUTH_NEW_PASSWORD_START', () => {
+            actions.setNewPassword(token, password);
+            dispatch.should.have.been.calledWith(C.AUTH_NEW_PASSWORD_START);
+        });
+
+        it('should call api.me.passwordChange with token and password', () => {
+            actions.setNewPassword(token, password);
+
+            apiMe.changePassword.should.be.calledWith({
+                token,
+                password
+            });
+        });
+
+        it('should dispatch AUTH_NEW_PASSWORD_SUCCESS', (done) => {
+            actions.setNewPassword(token, password);
+
+            setTimeout(() => {
+                dispatch.should.have.been.calledWith(C.AUTH_NEW_PASSWORD_SUCCESS);
+                done();
+            }, 1);
+        });
+
+        it('should dispatch error', (done) => {
+            mockery.deregisterAll();
+
+            const message = 'error message';
+            const changePassword = () => new Promise((r, e) => e({ Message: message }));
+
+            const me = { changePassword };
+
+            spy(me, 'changePassword');
+            mockery.registerMock('../lib/api3', { me });
+
+            dispatch = spy();
+            mockery.registerMock('../lib/disp', { dispatch });
+
+            mockery.registerAllowable('../auth.actions', true);
+            actions = require('../auth.actions');
+
+            actions.setNewPassword(token, password);
+
+            setTimeout(() => {
+                dispatch.should.have.been.calledWith(C.AUTH_NEW_PASSWORD_FAIL, { message });
+                done();
+            }, 1);
         });
     });
 });

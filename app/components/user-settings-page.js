@@ -8,6 +8,7 @@ import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import settingsStore from '../stores/user-settings.store';
 import { bindAll } from 'lodash';
+import setTitle from '../lib/set-title';
 
 import Header from './header';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -28,9 +29,10 @@ export default class UserSettingsPage extends Component {
     }
 
     componentDidMount() {
+        setTitle(iget('Plans'));
+
         settingsStore.onChange(this.onStoreChange);
     }
-
 
     componentWillUnmount() {
         settingsStore.offChange(this.onStoreChange);

@@ -7,7 +7,7 @@ import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
 import { Button } from 'react-bootstrap';
-
+import setTitle from '../../lib/set-title';
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -33,6 +33,18 @@ var Target = React.createClass({
         willTransitionFrom: function() {
             flux.actions.target.unsetCurrentTarget();
         }
+    },
+
+    componentDidMount() {
+        const { target, loading } = this.state;
+
+        let title = iget('Target');
+
+        if (!loading && target) {
+            title = target.web.domain;
+        }
+
+        setTitle(title);
     },
 
     getStateFromFlux() {

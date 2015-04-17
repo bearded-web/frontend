@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react'),
     { State, Navigation } = require('react-router'),
     reportActions = require('../../actions/report.actions');

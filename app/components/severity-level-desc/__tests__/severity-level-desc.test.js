@@ -1,3 +1,4 @@
+'use strict';
 describe('SeverityLevelDesc', function() {
     var componentPath = '../severity-level-desc';
 

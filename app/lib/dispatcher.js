@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Dispatch event to stores
  * @param {String} type event type

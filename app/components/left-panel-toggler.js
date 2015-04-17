@@ -1,3 +1,4 @@
+'use strict';
 import { Button } from 'react-bootstrap';
 
 var LeftPanelToggler = React.createClass({

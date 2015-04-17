@@ -1,3 +1,4 @@
+'use strict';
 describe('TargetScan', function() {
     jest.dontMock('../target-scan');
     jest.dontMock('react-router');

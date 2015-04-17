@@ -1,3 +1,4 @@
+'use strict';
 import { Map } from 'immutable';
 
 var React = require('react'),

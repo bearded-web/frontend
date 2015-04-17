@@ -2,12 +2,16 @@
 //TODO refactor
 'use strict';
 
-import { lostAuth } from '../actions/auth.actions';
+//import { lostAuth } from '../actions/auth.actions';
 
 var schema = require('./swagger.json'),
     clientGenerator,
     api,
     __auth;
+
+const statusHandlers = {
+
+};
 
 schema.apis.forEach(function(endpoint) {
     endpoint.apiDeclaration.basePath = '';
@@ -43,6 +47,14 @@ api.resultExtractor = function resultsExtractor(callback, self) {
  */
 api.extractor = function extractor(data) {
     return data.results ? data.results : [data];
+};
+
+api.onStatus = (status, handler) => {
+    if (!statusHandlers[status]) {
+        statusHandlers[status] = [];
+    }
+
+    statusHandlers[status].push(handler);
 };
 
 module.exports = api;
@@ -87,6 +99,10 @@ function requestHandler(error, request) {
             var data = this.response;
             var contentType = this.getResponseHeader('Content-Type');
 
+            const handlers = statusHandlers[this.status] || [];
+            handlers.forEach(h => h(data));
+
+
             if (contentType && contentType.indexOf('application/json') !== -1) {
                 try {
                     data = JSON.parse(data);
@@ -100,11 +116,6 @@ function requestHandler(error, request) {
             }
 
             if (this.status < 200 || this.status >= 300) {
-                if (this.status === 401) {
-                    // user was loged out somewhere
-                    lostAuth();
-                }
-
                 reject({
                     error: error,
                     status: this.status,

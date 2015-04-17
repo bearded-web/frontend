@@ -1,3 +1,4 @@
+'use strict';
 var Stores = {
     TargetsStore: require('./targets.store'),
     Store: require('./store'),

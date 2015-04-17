@@ -24,6 +24,8 @@ describe('UserSettingsForm', function() {
         createStore = spy();
         mockery.registerMock('../lib/create-store', createStore);
 
+        mockery.registerMock('../router', {});
+
         mockery.registerAllowable('../user-settings.store', true);
         store = require('../user-settings.store');
 

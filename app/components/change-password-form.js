@@ -77,11 +77,13 @@ export default class ChangePasswordForm extends Component {
 ChangePasswordForm.propTypes = {
     password: PropTypes.string,
     oldPassword: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    error: PropTypes.string
 };
 ChangePasswordForm.defaultProps = {
     password: '',
     oldPassword: '',
-    disabled: false
+    disabled: false,
+    error: ''
 };
 

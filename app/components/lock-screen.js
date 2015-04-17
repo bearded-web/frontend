@@ -7,7 +7,7 @@
 import React, { PropTypes, Component, createClass } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
-import { logIn, logOut } from '../actions/app.actions';
+import { unlock, logOut } from '../actions/auth.actions';
 import cName from 'classnames';
 import { bindAll } from 'lodash';
 import { grayColor } from '../style';
@@ -24,11 +24,13 @@ export default class LockScreen extends Component {
         this.shouldComponentUpdate = shouldComponentUpdate;
     }
 
-    onSubmit() {
+    onSubmit(e) {
+        e.preventDefault();
+
         const password = this.refs.pwd.getDOMNode().value;
         const email = this.props.user.get('email');
 
-        logIn(email, password);
+        unlock(email, password);
     }
 
     onLoginLinkClick() {

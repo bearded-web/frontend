@@ -1,4 +1,10 @@
+'use strict';
 import UserSettingsPage from './components/user-settings-page';
+import PasswordResetPage from './components/password-reset-page';
+import PasswordResetOkPage from './components/password-reset-ok-page';
+import PasswordResetEndPage from './components/password-reset-end-page';
+import LoginPage from './components/login-page';
+import SignupPage from './components/signup-page';
 
 require('react');
 
@@ -32,9 +38,25 @@ module.exports.create = function buildRouter() {
         Target = require('./components/target/');
 
     var routes = (
+        <Route flux={flux}>
+            <Route name="password-reset" path="/reset" handler={PasswordResetPage}/>
+            <Redirect from="/reset/" to="password-reset"/>
 
-        <Route flux={flux} handler={App}>
-            <Route handler={Dashboard}>
+            <Route name="password-reset-ok" path="/reset-ok" handler={PasswordResetOkPage}/>
+            <Redirect from="/reset-ok/" to="password-reset-ok"/>
+
+            <Route name="password-reset-end" path="/reset-end" handler={PasswordResetEndPage}/>
+            <Redirect from="/reset-end/" to="password-reset-end"/>
+
+            <Route name="login" path="/login" handler={LoginPage}/>
+            <Redirect from="/login/" to="login"/>
+
+            <Route name="signup" path="/signup" handler={SignupPage}/>
+            <Redirect from="/signup/" to="signup"/>
+
+            <Route path="/" handler={Dashboard}>
+                <DefaultRoute name="overview" handler={Overview}/>
+
                 <Route name="target" path="target/:targetId" handler={Target}/>
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
@@ -54,10 +76,9 @@ module.exports.create = function buildRouter() {
                 <Redirect from="plans/:planId/" to="plan"/>
 
                 <Route name="report" path="report" handler={ReportPage}/>
-                <DefaultRoute name="overview" path="/" handler={Overview}/>
-
-                <NotFoundRoute handler={NotFound}/>
             </Route>
+
+            <NotFoundRoute handler={NotFound}/>
         </Route>
     );
 

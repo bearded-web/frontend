@@ -34,18 +34,27 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=1">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Dasboard • Bearded</title>
+    <title>Bearded</title>
 
     <style type="text/css">
         body {
             background-color: #2F4050;
         }
+
+        .app-pre-init {
+            font-family: Arial, sans-serif!important;
+            font-size: 32px!important;
+            font-weight: normal!important;
+            color: #FFF!important;
+            text-align: center!important;
+            margin-top: 40px!important;
+        }
     </style>
-
-
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <h1 class="app-pre-init">Loading</h1>
+    </div>
     <script src="{%=o.htmlWebpackPlugin.assets.modules%}"></script>
     <script src="{%=o.htmlWebpackPlugin.assets.app%}"></script>
 </body>

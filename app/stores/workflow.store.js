@@ -1,3 +1,4 @@
+'use strict';
 import { createStore } from 'fluxxor';
 import { fromJS, is } from 'immutable';
 import C from '../constants';

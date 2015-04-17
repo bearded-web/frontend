@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React, { PropTypes, addons } from 'react/addons';
 import { Navigation } from 'react-router';
@@ -6,6 +6,8 @@ import { fetchPlans, selectPlans } from '../actions/plan.actions';
 import { fetch as fetchPlugins } from '../actions/plugins.actions';
 import flux from '../flux';
 import { defaults } from 'lodash';
+import setTitle from '../lib/set-title';
+
 
 import { Row, Col } from 'react-bootstrap';
 import Ibox, { IboxContent } from './ibox';
@@ -31,6 +33,10 @@ export default React.createClass({
         willTransitionTo: function() {
             prefetch();
         }
+    },
+
+    componentDidMount() {
+        setTitle(iget('Plans'));
     },
 
     onPlanSelect($plan) {

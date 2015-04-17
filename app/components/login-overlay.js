@@ -35,7 +35,7 @@ var LoginOverlay = React.createClass({
                         </div>
                         <br/>
                         <br/>
-                        <p>{iget('Greate system to protect your business')}</p>
+                        <p>{iget('Great system to protect your business')}</p>
                         <p>{isSignUp ? iget('Create account') : iget('Log in')}. {iget('To see it in action.')}</p>
                         <form className="m-t" role="form" onSubmit={this.onSubmit}>
                             <div className="form-group">

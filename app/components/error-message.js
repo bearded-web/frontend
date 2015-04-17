@@ -1,3 +1,4 @@
+'use strict';
 module.exports = React.createClass({
     propTypes: {
         text: React.PropTypes.string.isRequired

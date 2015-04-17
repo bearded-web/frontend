@@ -5,6 +5,8 @@ import { fromJS } from 'immutable';
 import flux from '../../flux';
 import { State } from 'react-router';
 import { assign } from 'lodash';
+import setTitle from '../../lib/set-title';
+
 
 import Ibox, { IboxContent } from '../ibox';
 import { Row, Col, Input } from 'react-bootstrap';
@@ -16,6 +18,10 @@ var Scan = createClass({
         FluxMixin,
         createStoreWatchMixin('PlansStore')
     ],
+
+    componentDidMount() {
+        setTitle(iget('New scan'));
+    },
 
     getStateFromFlux: function() {
         let state = {};

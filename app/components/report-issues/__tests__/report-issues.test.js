@@ -1,3 +1,4 @@
+'use strict';
 describe('ReportIssues', function() {
     jest.dontMock('../report-issues');
     jest.dontMock('react/addons');

@@ -1,3 +1,4 @@
+'use strict';
 import React, { addons, PropTypes, Component } from 'react/addons';
 import classSet from 'classnames';
 

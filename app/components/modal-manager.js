@@ -1,3 +1,4 @@
+'use strict';
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
 import { closeModal } from '../actions/app.actions.js';

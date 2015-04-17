@@ -7,6 +7,20 @@ var constants = {
     APP_LIFT_SUCCESS: '--',
     APP_LOGIN_PAGE_STATE: '--',
 
+    AUTH_RESET_PASSWORD_START: 'User send to server reset password request',
+    AUTH_RESET_PASSWORD_SUCCESS: 'Password reset request success',
+    AUTH_RESET_PASSWORD_FAIL: 'Password reset request fail',
+
+    AUTH_NEW_PASSWORD_START: 'User send to server new password',
+    AUTH_NEW_PASSWORD_SUCCESS: 'Password reset request success',
+    AUTH_NEW_PASSWORD_FAIL: 'Password reset request fail',
+
+    AUTH_UNLOCK_START: 'Start unlock process',
+    AUTH_UNLOCK_SUCCESS: 'Unlock success',
+    AUTH_UNLOCK_FAIL: 'Unlock fail',
+
+
+
     SHOW_TARGET_MODAL: '--',
     HIDE_TARGET_MODAL: '--',
     ADD_TARGET: 'ADD_TARGET',

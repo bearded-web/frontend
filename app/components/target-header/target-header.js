@@ -1,3 +1,4 @@
+'use strict';
 var Bootstrap = require('react-bootstrap'),
     flux = require('../../flux');
 

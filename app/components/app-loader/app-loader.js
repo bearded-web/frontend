@@ -1,3 +1,4 @@
+'use strict';
 var AppLoader = React.createClass({
     render: function() {
         return (

@@ -1,3 +1,4 @@
+'use strict';
 describe('StartScanButton', function() {
     jest.dontMock('../start-scan-button');
     jest.dontMock('react/addons');

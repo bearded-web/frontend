@@ -1,3 +1,4 @@
+'use strict';
 import React, { PropTypes } from 'react/addons';
 import { Map } from 'immutable';
 

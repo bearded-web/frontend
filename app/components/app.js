@@ -9,7 +9,6 @@ import LoginOverlay from './login-overlay';
 import AppLoader from './app-loader/index';
 import Toast from './toast';
 import Dashboard from './dashboard';
-import LockScreenContainer from './lock-screen-container';
 
 
 export default createClass({
@@ -26,12 +25,12 @@ export default createClass({
     },
 
     componentDidMount() {
-        authStore.onChange(this.onStoreChange);
+        authStore.onChange(this._onStoreChange);
     },
 
 
     componentWillUnmount() {
-        authStore.offChange(this.onStoreChange);
+        authStore.offChange(this._onStoreChange);
     },
 
     onStoreChange() {
@@ -53,18 +52,7 @@ export default createClass({
         const { app, isLogedIn, user } = this.state;
         const { routeQuery } = this.props;
 
-        if (!app.inited) {
-            return <AppLoader/>;
-        }
-
-        if (!isLogedIn && !user) {
-            return (
-                <LoginOverlay/>
-            );
-        }
-
         return <div>
-            {(user && !isLogedIn) ? <LockScreenContainer/> : ''}
             <RouteHandler routeQuery={routeQuery}/>
             <Toast/>
         </div>;

@@ -1,3 +1,4 @@
+'use strict';
 import { PropTypes, addons, createClass } from 'react/addons';
 import { List, Map } from 'immutable';
 import { setCurrentProject } from '../actions/project.actions';

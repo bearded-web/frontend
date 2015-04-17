@@ -2,12 +2,11 @@
   // I want to use babel-eslint for parsing!
   "parser": "babel-eslint",
   "env": {
-    // I write for browser
-    "jasmine": true,
-    // in CommonJS
+    "mocha": true,
     "node": true
   },
   "ecmaFeatures": {
+    "no-unused-expressions": 0,
     "jsx": true
   },
   "globals": {

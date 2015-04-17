@@ -1,5 +1,8 @@
+'use strict';
+
 import { Navigation } from 'react-router';
 import { setCurrentProject } from '../actions/project.actions';
+import setTitle from '../lib/set-title';
 
 import Fa from './fa';
 import Members from './project-members';
@@ -21,8 +24,12 @@ var Overview = React.createClass({
 
     statics: {
         willTransitionTo: function(transition, params, query) {
-            
+
         }
+    },
+
+    componentDidMount() {
+        setTitle(iget('Dashboard'));
     },
 
 

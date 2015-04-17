@@ -1,3 +1,4 @@
+'use strict';
 var dispatcher = require('../lib/dispatcher'),
     { scans } = require('../lib/api3'),
     { extractor } = require('../lib/helpers'),

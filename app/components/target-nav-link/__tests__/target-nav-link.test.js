@@ -1,3 +1,4 @@
+'use strict';
 xdescribe('TargetNavLink', function() {
     var componentPath = '../target-nav-link';
 

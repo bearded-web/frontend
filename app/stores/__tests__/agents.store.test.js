@@ -1,3 +1,4 @@
+'use strict';
 describe('AgentsStore', function() {
     var FluxxorTestUtils, fakeFlux, agentsStore, agentsStoreSpy, C;
 

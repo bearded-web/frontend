@@ -1,6 +1,5 @@
 'use strict';
 
-import { spy } from 'sinon';
 import mockery from 'mockery';
 
 describe('Issue_', function() {
@@ -21,6 +20,15 @@ describe('Issue_', function() {
             );
 
             findDOMNode(instance).innerHTML.should.contain('<strong>hello</strong>');
+        });
+        it('should render empty', function() {
+            const md = '';
+
+            instance = TestUtils.renderIntoDocument(
+                <Component text={md}/>
+            );
+
+            findDOMNode(instance).innerHTML.should.be.eql('');
         });
     });
 });

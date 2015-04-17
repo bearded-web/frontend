@@ -1,3 +1,4 @@
+'use strict';
 describe('ReportIssues', function() {
 
     var React,

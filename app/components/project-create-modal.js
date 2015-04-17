@@ -1,3 +1,4 @@
+'use strict';
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
 import { create } from '../actions/project.actions.js';

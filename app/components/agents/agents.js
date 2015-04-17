@@ -1,3 +1,7 @@
+'use strict';
+
+import setTitle from '../../lib/set-title';
+
 var React = require('react'),
     Router = require('react-router'),
     flux = require('../../flux');
@@ -17,6 +21,10 @@ var Agents = React.createClass({
         willTransitionTo: function() {
             flux.actions.agent.fetch();
         }
+    },
+
+    componentDidMount() {
+        setTitle(iget('Agents'));
     },
 
     getStateFromFlux: function() {

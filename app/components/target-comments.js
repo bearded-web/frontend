@@ -1,3 +1,4 @@
+'use strict';
 import React, { PropTypes, addons } from 'react/addons';
 import flux, { createStoreWatchMixin } from '../flux';
 

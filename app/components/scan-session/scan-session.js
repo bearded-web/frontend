@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react'),
     _ = require('lodash'),
     moment = require('moment');

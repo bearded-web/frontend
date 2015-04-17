@@ -12,7 +12,7 @@ describe('LockScreen', function() {
         id: '324324'
     };
     const user = Map(userData);
-    const logIn = spy();
+    const unlock = spy();
     const logOut = spy();
 
     var lockScreen = null;
@@ -25,8 +25,8 @@ describe('LockScreen', function() {
             useCleanCache: false
         });
 
-        mockery.registerMock('../actions/app.actions', {
-            logIn,
+        mockery.registerMock('../actions/auth.actions', {
+            unlock,
             logOut
         });
 
@@ -88,7 +88,7 @@ describe('LockScreen', function() {
 
             TestUtils.Simulate.submit(form);
 
-            logIn.should.have.been.calledWith(userData.email, pwd);
+            unlock.should.have.been.calledWith(userData.email, pwd);
         });
     });
 

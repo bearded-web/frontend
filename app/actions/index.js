@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
     target: require('./target.actions'),
     scan: require('./scan.actions'),

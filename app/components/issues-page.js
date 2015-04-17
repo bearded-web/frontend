@@ -7,6 +7,7 @@ import issuesListStore from '../stores/issues-list.store';
 import { loadForTarget, updateFilter } from '../actions/issues.actions';
 import { bindAll, filter as lFilter } from 'lodash';
 import { Map } from 'immutable';
+import setTitle from '../lib/set-title';
 
 import { Row, Col } from 'react-bootstrap';
 import IssuesList from './issues-list';
@@ -32,6 +33,8 @@ export default class IssuesPage extends Component {
     }
 
     componentDidMount() {
+        setTitle(iget('Issues'));
+
         issuesStore.onChange(this.onStoreChange);
         issuesListStore.onChange(this.onStoreChange);
 
@@ -103,7 +106,9 @@ export default class IssuesPage extends Component {
     }
 }
 
-IssuesPage.propTypes = {};
+IssuesPage.propTypes = {
+    routeQuery: PropTypes.object
+};
 IssuesPage.contextTypes = {
     router: PropTypes.func
 };

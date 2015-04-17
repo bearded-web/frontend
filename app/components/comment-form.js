@@ -1,3 +1,4 @@
+'use strict';
 import React, { addons, PropTypes } from 'react/addons';
 
 import { Input, Button } from 'react-bootstrap';

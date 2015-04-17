@@ -1,3 +1,4 @@
+'use strict';
 var actions = require('./actions'),
     stores = require('./stores'),
     Fluxxor = require('fluxxor'),

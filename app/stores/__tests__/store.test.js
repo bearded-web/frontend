@@ -1,3 +1,4 @@
+'use strict';
 describe('Store', function() {
     var FluxxorTestUtils, fakeFlux, store,
         appStoreSpy, constants, Immutable;

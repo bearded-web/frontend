@@ -1,4 +1,3 @@
-// spec.js
 describe('Login page', function() {
 
     function getCmp(name) {
@@ -7,47 +6,62 @@ describe('Login page', function() {
 
     function byCss(css) {
         return element(By.css(css));
-
     }
 
-    beforeEach(function() {
+    beforeEach(() => {
         browser.get('http://localhost:3003/');
     });
 
-    it('must show login form', function() {
-        expect(getCmp('auth-overlay').isDisplayed()).toBeTruthy();
+    it('should show email input', () => {
+        var email = element(By.css('input[type=email]'));
+
+        return email.isDisplayed().should.eventually.equal(true);
+    });
+    it('should show password input', () => {
+        var password = element(By.css('input[type=password]'));
+
+        return password.isDisplayed().should.eventually.equal(true);
     });
 
-    it('must show error if wrongs data', function() {
+    it('should show error if wrongs data', () => {
         var email = element(By.css('input[type=email]')),
             password = element(By.css('input[type=password]')),
             btn = byCss('button[type=submit]');
 
-
-        email
+        return email
             .sendKeys(browser.params.login.email)
-            .then(function() {
-                password.sendKeys(browser.params.login.password);
+            .then(() => {
+                password.sendKeys(browser.params.login.password + '1');
             })
-            .then(function() {
+            .then(() => {
                 return btn.click();
             })
-            .then(function() {
+            .then(() => {
                 browser.sleep(200);
-                expect(getCmp('c-dashboard').isDisplayed()).toBeTruthy();
+
+                return byCss('.text-danger').getText()
+                    .should.eventually.equal('Wrong email or password');
             });
     });
 
-    it('must logout', function() {
-        var logoutBtn = byCss('.navbar--logout');
+    it('should login', () => {
+        var email = element(By.css('input[type=email]')),
+            password = element(By.css('input[type=password]')),
+            btn = byCss('button[type=submit]');
 
-        logoutBtn
-            .click()
-            .then(function() {
-                browser.sleep(200)
+        return email
+            .sendKeys(browser.params.login.email)
+            .then(() => {
+                password.sendKeys(browser.params.login.password);
             })
-            .then(function() {
-                expect(getCmp('auth-overlay').isDisplayed()).toBeTruthy();
+            .then(() => {
+                return btn.click();
             })
+            .then(() => {
+                browser.sleep(200);
+
+                return byCss('.c-dashboard').isDisplayed()
+                    .should.eventually.be.true;
+            });
     });
 });

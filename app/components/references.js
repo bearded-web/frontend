@@ -22,10 +22,11 @@ export default class References extends Component {
     renderRef(ref, i) {
         const { url, title } = ref.toObject();
         const style = {
-            marginBottom: '10px'
+            marginBottom: '10px',
+            wordBreak: 'break-all'
         };
 
-        return <li ley={i} style={style}>
+        return <li key={i} style={style}>
             <a href={url} target="_blank">{title || url}</a>
         </li>;
     }
