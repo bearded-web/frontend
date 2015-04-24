@@ -57,6 +57,11 @@ const handlers = {
 
     [C.ISSUE_UPDATE_START](state, update) {
         return state.mergeIn([update.id], update);
+    },
+
+    //TODO tests
+    [C.ISSUE_UPDATE_FAIL](state, update) {
+        return state.mergeIn([update.id], update);
     }
 };
 
