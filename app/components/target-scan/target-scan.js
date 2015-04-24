@@ -1,29 +1,38 @@
+/**
+ * Scan info
+ * Contain progress
+ */
+
 'use strict';
 
-import React, { PropTypes } from 'react/addons';
-import moment from 'moment';
+import { PropTypes, Component } from 'react/addons';
 import { contains } from 'lodash';
 import flux from '../../flux';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { bindAll } from 'lodash';
 
-import { Row, Col } from 'react-bootstrap';
-import TargetStatus from '../target-status';
 import Fa from '../fa';
 import { Link } from 'react-router';
 import ScanSession from '../scan-session';
+import { Button } from 'react-bootstrap';
 
-var TargetScan = React.createClass({
-    propTypes: {
-        scan: PropTypes.object.isRequired
-    },
-    contextTypes: {
-        router: PropTypes.func
-    },
+export default class TargetScan extends Component {
+    constructor() {
+        super();
 
-    updateInterval: 2000,
+        bindAll(this, [
+            'onRepeatClick'
+        ]);
 
+        this.updateInterval = 2000;
 
-    componentDidMount: function() {
-        var isEnded = this.isEnded(this.props.scan);
+        this.shouldComponentUpdate = shouldComponentUpdate;
+    }
+
+    //region life cycle
+
+    componentDidMount() {
+        var isEnded = this._isEnded(this.props.scan);
 
         if (!isEnded) {
 
@@ -31,24 +40,40 @@ var TargetScan = React.createClass({
                 flux.actions.scan.fetchScans(this.props.scan);
             }, this.updateInterval);
         }
-    },
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         clearInterval(this.intervalId);
-    },
+    }
 
-    componentWillReceiveProps: function(nextProps) {
-        var isEnded = this.isEnded(nextProps.scan);
+    componentWillReceiveProps(nextProps) {
+        var isEnded = this._isEnded(nextProps.scan);
 
         if (isEnded) {
             clearInterval(this.intervalId);
         }
-    },
+    }
 
-    render: function() {
+    //endregion life cycle
+
+    //region handlers
+
+    onRepeatClick(e) {
+        e.preventDefault();
+
+        const { scan } = this.props;
+
+        flux.actions.scan.createScan(scan.target, scan.project, scan.plan.id);
+    }
+
+    //endregion handlers
+
+
+    //region render
+    render() {
         var { scan } = this.props,
             { sessions } = scan,
-            isEnded = this.isEnded(scan) || '';
+            isEnded = this._isEnded(scan) || '';
 
         return (
             <div className="c-target-scan">
@@ -61,37 +86,61 @@ var TargetScan = React.createClass({
                     );
                 })}
                 {this.renderLink()}
+                {isEnded && this.renderRepeatBtn()}
             </div>
         );
-    },
+    }
 
-    renderLink: function() {
+    renderLink() {
         var { scan } = this.props,
-            isEnded = this.isEnded(scan);
+            isEnded = this._isEnded(scan);
 
-        if (this.isFailed(scan)) {
-            return (<div className="c-target-scan--fail">
+        if (this._isFailed(scan)) {
+            return <span className="c-target-scan--fail">
                 <Fa icon="frown-o" fw size="lg"/>
                 {iget('Scan failed')}
-            </div>);
+            </span>;
         }
 
-        return (
-            <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs"
-                  to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
-                  query={{ scan: scan.id, target: scan.target }}>
-                {isEnded ? iget('Show report') : iget('Show progress')}
-            </Link>
-        );
-    },
+        return <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs"
+                     to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
+                     query={{ scan: scan.id, target: scan.target }}>
+            {isEnded ? iget('Show report') : iget('Show progress')}
+        </Link>;
+    }
 
-    isEnded: function(scan) {
+    renderRepeatBtn() {
+        const style = {
+            marginLeft: '1rem'
+        };
+
+        return <a onClick={this.onRepeatClick}
+                  style={style}
+                  className="btn btn-outline btn-default btn-xs">
+            {iget('Repeat scan')}
+        </a>;
+    }
+
+    //endregion
+
+    //region private
+
+    _isEnded(scan) {
         return contains(['finished', 'failed'], scan.status);
-    },
+    }
 
-    isFailed: function(scan) {
+    _isFailed(scan) {
         return scan.status === 'failed';
     }
-});
 
-module.exports = TargetScan;
+    //endregion private
+
+}
+
+TargetScan.propTypes = {
+    scan: PropTypes.object.isRequired
+};
+TargetScan.contextTypes = {
+    router: PropTypes.func
+};
+

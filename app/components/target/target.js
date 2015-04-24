@@ -83,7 +83,11 @@ var Target = React.createClass({
                     <Col xs={12} md={6}>
                         <Row>
                             <Col md={6}>
-                                {this.renderStartScanButton()}
+                                <Ibox><IboxTitle>
+                                    <h5>{iget('Actions')}</h5>
+                                </IboxTitle><IboxContent style={{minHeight: '100px'}}>
+                                    {this.renderStartScanButton()}
+                                </IboxContent></Ibox>
                             </Col>
                             <Col md={6}>
                                 <Ibox onClick={this.onTotalsClick} style={{cursor: 'pointer'}}><IboxTitle>
@@ -126,20 +130,10 @@ var Target = React.createClass({
             projectId = target.project,
             planId = detectPlan.id;
 
-        return (
-            <Row>
-                <Col xs={12}>
-                    <Ibox>
-                        <IboxContent>
-                            <StartScanButton
-                                project={projectId}
-                                target={targetId}
-                                plan={planId}/>
-                        </IboxContent>
-                    </Ibox>
-                </Col>
-            </Row>
-        );
+        return <StartScanButton
+            project={projectId}
+            target={targetId}
+            plan={planId}/>;
     }
 });
 
