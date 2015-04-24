@@ -1,6 +1,6 @@
 # Fronted for bearded-web
-[![Build Status](https://travis-ci.org/bearded-web/frontend.svg?branch=master)](https://travis-ci.org/bearded-web/frontend)
-[![Coverage Status](https://coveralls.io/repos/slonoed/frontend/badge.svg?branch=master&1)](https://coveralls.io/r/slonoed/frontend?branch=master)
+[![Build Status](https://travis-ci.org/bearded-web/frontend.svg?branch=dev)](https://travis-ci.org/bearded-web/frontend)
+[![Coverage Status](https://coveralls.io/repos/slonoed/frontend/badge.svg?branch=dev&1)](https://coveralls.io/r/slonoed/frontend?branch=dev)
 
 ### How to use
 
