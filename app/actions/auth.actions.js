@@ -82,7 +82,7 @@ export function resetPassword({ email }) {
 
     const goToOkPage = () => require('../router').get().transitionTo('password-reset-ok');
 
-    auth.resetPassword(email)
+    auth.resetPassword({ email })
         .then(() => dispatch(C.AUTH_RESET_PASSWORD_SUCCESS))
         .then(goToOkPage)
         .catch(e => dispatch(C.AUTH_RESET_PASSWORD_FAIL, buildError(e)));
@@ -98,7 +98,7 @@ export function setNewPassword(token, password) {
 
     const goToLoginPage = () => require('../router').get().transitionTo('login');
 
-    me.changePassword({ token, password })
+    me.changePassword({ token: token, "new": password })
         .then(() => dispatch(C.AUTH_NEW_PASSWORD_SUCCESS))
         .then(goToLoginPage)
         .catch(e => dispatch(C.AUTH_NEW_PASSWORD_FAIL, buildError(e)));
