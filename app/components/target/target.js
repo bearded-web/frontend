@@ -8,6 +8,7 @@ import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../target-comments';
 import { Button } from 'react-bootstrap';
 import setTitle from '../../lib/set-title';
+import SeverityWidget from '../severity-widget';
 
 
 var { Row, Col } = require('react-bootstrap'),
@@ -16,8 +17,7 @@ var { Row, Col } = require('react-bootstrap'),
     Fa = require('../fa'),
     StartScanButton = require('../start-scan-button'),
     TargetScan = require('../target-scan'),
-    TargetStatus = require('../target-status'),
-    Widget = require('../widget');
+    TargetStatus = require('../target-status');
 
 var Target = React.createClass({
     mixins: [
@@ -81,23 +81,19 @@ var Target = React.createClass({
                 <br/>
                 <Row>
                     <Col xs={12} md={6}>
+                        <Row style={{marginTop: '-10px'}}>
+                            <Link to="issues" query={{target: target.id}}>
+                                <Col xs={4}><SeverityWidget severity="high" count={issues.high}/></Col>
+                                <Col xs={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
+                                <Col xs={4}><SeverityWidget severity="low" count={issues.low}/></Col>
+                            </Link>
+                        </Row>
                         <Row>
-                            <Col md={6}>
+                            <Col xs={12}>
                                 <Ibox><IboxTitle>
                                     <h5>{iget('Actions')}</h5>
                                 </IboxTitle><IboxContent style={{minHeight: '100px'}}>
                                     {this.renderStartScanButton()}
-                                </IboxContent></Ibox>
-                            </Col>
-                            <Col md={6}>
-                                <Ibox onClick={this.onTotalsClick} style={{cursor: 'pointer'}}><IboxTitle>
-                                    <h5>{iget('Total issues')}</h5>
-                                </IboxTitle><IboxContent>
-                                    <ul>
-                                        <li className="text-danger">{issues.high || 0} high</li>
-                                        <li className="text-warning">{issues.medium || 0} medium</li>
-                                        <li className="text-info">{issues.low || 0} low</li>
-                                    </ul>
                                 </IboxContent></Ibox>
                             </Col>
                         </Row>

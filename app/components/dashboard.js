@@ -12,7 +12,6 @@ import LockScreenContainer from './lock-screen-container';
 var Router = require('react-router'),
     AppStore = require('../stores/app.store'),
     RouteHandler = Router.RouteHandler,
-    AddTargetModal = require('./add-target-modal'),
     LeftPanel = require('./left-panel'),
     LeftPanelCover = require('./left-panel-cover');
 
@@ -110,10 +109,6 @@ var Dashboard = React.createClass({
 
         if (app.leftPanelVisible) {
             leftPanelCover = <LeftPanelCover />;
-        }
-
-        if (targets.modalIsVisible) {
-            targetModal = <AddTargetModal targetsStore={targets}/>;
         }
 
         const routes = this.context.router.getCurrentRoutes();
