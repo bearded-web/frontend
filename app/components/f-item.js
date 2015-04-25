@@ -8,7 +8,7 @@ import React, { addons, PropTypes } from 'react/addons';
 import { $Model } from '../lib/types';
 import moment from 'moment';
 
-let { PureRenderMixin, classSet } = addons;
+let { PureRenderMixin } = addons;
 
 export default React.createClass({
     mixins: [PureRenderMixin],

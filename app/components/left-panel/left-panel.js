@@ -1,6 +1,7 @@
 'use strict';
 import React, { PropTypes } from 'react/addons';
 import { Map } from 'immutable';
+import cx from 'classnames';
 
 import ProjectInfo from '../project-info';
 import NavListItem from '../../components/navigation-list-item';
@@ -9,8 +10,7 @@ import ProfileNavContainer from '../profile-nav-container';
 var Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
-    Fa = require('../fa'),
-    cx = React.addons.classSet;
+    Fa = require('../fa');
 
 class CName {
     constructor(componentName) {
@@ -42,11 +42,6 @@ var LeftPanel = React.createClass({
     contextTypes: {
         router: PropTypes.func
     },
-
-    addTarget: function() {
-        this.getFlux().actions.target.openAddTargetModal();
-    },
-
 
     render() {
         let { app } = this.props,
@@ -90,30 +85,30 @@ var LeftPanel = React.createClass({
                     <li className={this.context.router.isActive('overview') ? 'active' : ''}>
                         <Link to="/">
                             <span className="nav-label">
-                                <Fa icon="th-large" />
+                                <Fa icon="th-large"/>
                                 Overview
                             </span>
                         </Link>
                     </li>
 
                     <li className="c-left-panel--subheader">
-                        <a onClick={this.addTarget} className={el('add-link')}>
+                        <Link to="target-create" className={el('add-link')}>
                             <Fa icon="plus"/>
                             {iget('add')}
-                        </a>
+                        </Link>
                         {iget('Targets')}
                     </li>
 
                     {!$targets || !$targets.size ? <li className="c-left-panel--button">
-                        <a onClick={this.addTarget}>
+                        <Link to="target-create">
                             <Fa icon="plus"/>
                             {iget('Add target')}
-                        </a>
+                        </Link>
                     </li> : ''}
 
                     {$targets && $targets.toArray().map(function(target, i) {
                         return (
-                            <TargetNavLink key={target.id || i} target={target} />
+                            <TargetNavLink key={target.id || i} target={target}/>
                         );
                     })}
 
@@ -125,7 +120,7 @@ var LeftPanel = React.createClass({
                     <li className={this.context.router.isActive('agents') ? 'active' : ''}>
                         <Link to="agents">
                             <span className="nav-label">
-                                <Fa icon="cube" />
+                                <Fa icon="cube"/>
                                 Agents
                             </span>
                         </Link>
@@ -133,7 +128,7 @@ var LeftPanel = React.createClass({
 
                     <NavListItem route="plans">
                         <span className="nav-label">
-                            <Fa icon="tasks" />
+                            <Fa icon="tasks"/>
                             Plans
                         </span>
                     </NavListItem>

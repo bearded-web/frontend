@@ -2,8 +2,9 @@
 
 import React, { PropTypes, addons } from 'react/addons';
 import { State, Link } from 'react-router';
+import classSet from 'classnames';
 
-let { PureRenderMixin, classSet } = addons;
+let { PureRenderMixin } = addons;
 
 export default React.createClass({
     mixins: [

@@ -4,10 +4,12 @@ import { Component, PropTypes } from 'react/addons';
 
 export default class IboxTitle extends Component {
     render() {
-        let style = { display: 'none' };
+        const { children, title } = this.props;
+        const style = { display: 'none' };
 
         return <div className="ibox-title">
-            {this.props.children}
+            {title && <h5>{title}</h5>}
+            {children}
             <div className="ibox-tools" style={style}>
                 <a className="collapse-link">
                     <i className="fa fa-chevron-up"></i>
@@ -32,5 +34,6 @@ export default class IboxTitle extends Component {
 }
 
 IboxTitle.propTypes = {
+    title: PropTypes.string,
     children: PropTypes.node
 };

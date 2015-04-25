@@ -4,11 +4,12 @@ import React, { PropTypes, addons } from 'react/addons';
 import { $Model } from '../lib/types';
 import { defaults } from 'lodash';
 import { remove } from '../actions/plan.actions';
+import classSet from 'classnames';
 
 import { Label } from 'react-bootstrap';
 import RemoveLink from './remove-link';
 
-let { PureRenderMixin, classSet } = addons;
+let { PureRenderMixin } = addons;
 
 export default React.createClass({
     mixins: [PureRenderMixin],

@@ -1,4 +1,6 @@
 'use strict';
+import cx from 'classnames';
+
 var React = require('react'),
     { PropTypes } = React,
     actions = require('../../actions/report.actions');
@@ -34,7 +36,7 @@ var ReportIssuesTotal = React.createClass({
         cls['c-report-issues-total--' + severity] = true;
 
         return (
-            <div className={React.addons.classSet(cls)} onClick={this.onClick}>
+            <div className={cx(cls)} onClick={this.onClick}>
                 <h1 className="m-xs">
                     {count}
                 </h1>

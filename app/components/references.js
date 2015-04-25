@@ -2,7 +2,8 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import List from 'immutable';
+import { listOf, shape } from 'react-immutable-proptypes';
+
 
 export default class References extends Component {
     constructor(props, context) {
@@ -33,6 +34,9 @@ export default class References extends Component {
 }
 
 References.propTypes = {
-    references: PropTypes.instanceOf(List)
+    references: listOf(shape({
+        url: PropTypes.string.isRequired,
+        title: PropTypes.string
+    })).isRequired
 };
 

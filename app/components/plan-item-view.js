@@ -7,7 +7,7 @@ import { remove } from '../actions/plan.actions';
 
 import { Label } from 'react-bootstrap';
 
-let { PureRenderMixin, classSet } = addons;
+let { PureRenderMixin } = addons;
 
 export default React.createClass({
     mixins: [PureRenderMixin],

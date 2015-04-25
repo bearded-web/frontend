@@ -15,7 +15,7 @@ require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
 };
 
-chai.should();
+global.should = chai.should();
 chai.use(sinonChai);
 
 jsdom();
@@ -43,7 +43,6 @@ afterEach(() => {
 
 
 global.iget = a => a;
-global.should = chai.should;
 global.React = require('react/addons');
 global.TestUtils = React.addons.TestUtils;
 global.byType = global.TestUtils.scryRenderedComponentsWithType;
@@ -97,6 +96,13 @@ global.storeMock = {
     onChange: spy(),
     offChange: spy()
 };
+global.createStoreMock = function(state) {
+    return {
+        getState: spy(() => state),
+        onChange: spy(),
+        offChange: spy()
+    };
+}
 
 class MockComponent extends React.Component {
     render() {

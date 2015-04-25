@@ -5,6 +5,7 @@ import PasswordResetOkPage from './components/password-reset-ok-page';
 import PasswordResetEndPage from './components/password-reset-end-page';
 import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
+import TargetCreatePage from './components/target-create-page';
 
 require('react');
 
@@ -57,7 +58,12 @@ module.exports.create = function buildRouter() {
             <Route path="/" handler={Dashboard}>
                 <DefaultRoute name="overview" handler={Overview}/>
 
+                <Route name="target-create" path="target/new" handler={TargetCreatePage}/>
+                <Redirect from="target/new/" to="target-create"/>
                 <Route name="target" path="target/:targetId" handler={Target}/>
+                <Redirect from="target/" to="target"/>
+
+
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
                 <Route name="agents" path="agents" handler={Agents}/>

@@ -4,6 +4,7 @@ import { setCurrentProject } from './project.actions';
 import _, { pluck, unique, find } from 'lodash';
 import { users, targets, resultExtractor } from '../lib/api3';
 import { dispatchBuilder, extractor } from '../lib/helpers';
+import { dispatch as disp } from '../lib/disp';
 
 var C = require('../constants'),
     router = require('../router');
@@ -14,16 +15,23 @@ module.exports = {
         let dispatch = this.dispatch.bind(this, C.TARGETS_FETCH_SUCCESS);
 
         return targets
-            .list({project: projectId})
+            .list({ project: projectId })
             .then((data) => data.results)
             .then(dispatch);
     },
 
     addTarget: function(type, domain, projectId) {
         this.dispatch(C.ADD_TARGET);
+        disp(C.ADD_TARGET, {
+            type,
+            domain,
+            project: projectId
+        });
 
         if (!domain) {
-            this.dispatch(C.ADD_TARGET_FAIL, iget('Target domain can\'t be empty'));
+            const message = iget('Target domain can\'t be empty');
+            this.dispatch(C.ADD_TARGET_FAIL, message);
+            disp(C.ADD_TARGET_FAIL, { message: message });
             return;
         }
 
@@ -37,11 +45,15 @@ module.exports = {
 
 
         targets.create(target)
-            .then((target) => {
+            .then(target => {
                 router.get().transitionTo('target', { targetId: target.id });
                 this.dispatch(C.ADD_TARGET_SUCCESS, target);
+                disp(C.ADD_TARGET_SUCCESS, { target });
             })
-            .catch((e) => this.dispatch(C.ADD_TARGET_FAIL, e.data.Message));
+            .catch((e) => {
+                this.dispatch(C.ADD_TARGET_FAIL, e.data.Message);
+                disp(C.ADD_TARGET_FAIL, { message: e.data.Message });
+            });
     },
 
     removeTarget: function(target) {
