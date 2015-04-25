@@ -1,10 +1,6 @@
 language: node_js
 node_js:
 - "iojs-v1.8.1"
-env:
-  global:
-  - COVERALLS_SERVICE_NAME="travis-ci"
-  - COVERALLS_REPO_TOKEN="2vmMsfQIGRDVJLmpTOmgPicnnG2rHqZy3"
 install: npm install --production
 script: npm run travis
 notifications:

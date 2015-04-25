@@ -1,6 +1,6 @@
 {
   "name": "bearded-web-frontend",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bearded web frontend application",
   "main": "app/main.js",
   "repository": {
