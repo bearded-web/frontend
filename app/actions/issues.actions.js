@@ -5,6 +5,7 @@ import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/disp';
 import C from '../constants';
 import { cloneDeep } from 'lodash';
+import { HIGH, MEDIUM, LOW } from '../lib/severities';
 
 const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
 
@@ -14,7 +15,6 @@ const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
  */
 export function loadForTarget({ target }) {
     dispatch(C.ISSUES_FETCH_START, { target });
-
     issues.list({ target })
         .then(dispatchFetch);
 }
@@ -75,13 +75,81 @@ export function toggleStatus(issue, statusName) {
             issueId,
             body: issue
         })
-        .catch(() => {
+        .catch(e => {
+            showError(e);
+
             dispatch(C.ISSUE_UPDATE_FAIL, {
                 id: issueId,
                 [statusName]: !status
             });
         });
 }
+
+/**
+ * Increase issue severity
+ * @param {Model} issue
+ */
+export function increaseSeverity(issue) {
+    let severity = issue.get('severity');
+
+    if (severity === HIGH) return;
+
+    if (severity === LOW) {
+        severity = MEDIUM;
+    }
+    else if (severity === MEDIUM) {
+        severity = HIGH;
+    }
+
+    changeSeverity(issue, severity);
+}
+
+/**
+ * Decrease issue severity
+ * @param {Model} issue
+ */
+export function decreaseSeverity(issue) {
+    let severity = issue.get('severity');
+
+    if (severity === LOW) return;
+
+    if (severity === MEDIUM) {
+        severity = LOW;
+    }
+    else if (severity === HIGH) {
+        severity = MEDIUM;
+    }
+
+    changeSeverity(issue, severity);
+}
+
+//region locals
+function changeSeverity(issue, severity) {
+    const oldSeverity = issue.get('severity');
+    const issueId = issue.get('id');
+
+    dispatch(C.ISSUE_UPDATE_START, {
+        severity,
+        id: issueId
+    });
+
+    issues
+        .update({
+            issueId,
+            body: { severity }
+        })
+        .catch(e => {
+            showError(e);
+
+            dispatch(C.ISSUE_UPDATE_FAIL, {
+                id: issueId,
+                severity: oldSeverity
+            });
+        });
+}
+
+
+//endregion privates
 
 
 //TODO delete, used for dev

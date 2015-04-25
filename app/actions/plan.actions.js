@@ -15,7 +15,7 @@ export function fetchPlans(planId) {
     var request = planId ? plans.get(planId) : plans.list();
 
     return request
-        .then((data) =>  data.results ? data.results : [data])
+        .then((data) => data.results ? data.results : [data])
         .then(dispatchPlans.bind(this));
 }
 

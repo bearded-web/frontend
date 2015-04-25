@@ -5,17 +5,17 @@ import { spy, stub } from 'sinon';
 import mockery from 'mockery';
 import { Component } from 'react/addons';
 import { HIGH, MEDIUM, LOW } from '../../lib/severities';
-import Issue from '../issue';
 
 describe('IssuePage', function() {
     const issueId = 'seom issue id';
     const issues = fromJS([
-        { severity: HIGH },
-        { severity: MEDIUM },
-        { severity: LOW }
+        { vector: {}, severity: HIGH },
+        { vector: {}, severity: MEDIUM },
+        { vector: {}, severity: LOW }
     ]);
     const issue = fromJS({
         id: 'some id',
+        vector: {},
         severity: HIGH
     });
 
@@ -53,7 +53,7 @@ describe('IssuePage', function() {
 
     describe('render', function() {
         it('should contain Issue', function() {
-            byType(instance, Issue).should.have.length(1);
+            byType(instance, require('../issue')).should.have.length(1);
         });
     });
 

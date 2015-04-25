@@ -8,7 +8,6 @@ export const HIGH = 'high';
 export const MEDIUM = 'medium';
 export const LOW = 'low';
 
-
 /**
  * Return severity weight. Bigger -> more danger
  * @param {String} severity severity

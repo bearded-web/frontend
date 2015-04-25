@@ -2,8 +2,11 @@
 
 import { spy } from 'sinon';
 import mockery from 'mockery';
+import { Map } from 'immutable';
 
 describe('Vector', function() {
+    const vector = Map();
+
     let Component = null;
     let instance = null;
 
@@ -12,7 +15,7 @@ describe('Vector', function() {
         Component = require('../vector');
 
         instance = TestUtils.renderIntoDocument(
-            <Component/>
+            <Component vector={vector}/>
         );
     });
 

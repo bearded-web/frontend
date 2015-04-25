@@ -51,7 +51,7 @@ export default React.createClass({
     addMember($user) {
         let { params } = this.props,
             $project = params.project;
-            
+
         addMember($project.get('id'), $user);
         this.refs.email.getDOMNode().childNodes[1].value = '';
         fillMembersSuggest('');
@@ -69,17 +69,17 @@ export default React.createClass({
             { onRequestHide, params } = this.props,
             $project = params.project,
             title = __('Add member to project');
-            
+
         $project = this.state.$projects.get($project.get('id'));
 
         let { $membersSuggest } = this.state;
 
-        console.log('suggest',$membersSuggest.toJS());
+        console.log('suggest', $membersSuggest.toJS());
 
-        
+
         let $members = $project.get('members');
 
-        return <Modal title={title} onRequestHide={onRequestHide}  animation={true}>
+        return <Modal title={title} onRequestHide={onRequestHide} animation={true}>
             <div className="modal-body">
                 <div>
                     <label>{__('Members')}</label>
@@ -88,18 +88,18 @@ export default React.createClass({
                     </Row>
                     <br style={{clear: 'both'}}/>
                     <br/>
-                    <Input 
+                    <Input
                         ref="email"
                         onChange={this.onEmailChange}
                         required
-                        label={__('User email')} 
+                        label={__('User email')}
                         type="email"
                         placeholder={__('User email')}/>
 
                     <div>
                         <SuggestUsers $users={$membersSuggest} onSelect={this.addMember}/>
                     </div>
-                   
+
                     <ErrorMessage text={error} />
                 </div>
             </div>

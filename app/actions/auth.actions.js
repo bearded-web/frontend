@@ -46,7 +46,7 @@ export function signUp(email, password) {
     dispatch(C.USER_LOGIN_START);
 
     auth.register({ body: { email, password } })
-        .then(() =>  window.location = '/')
+        .then(() => window.location = '/')
         .catch(err => {
             dispatch(C.USER_LOGIN_FAIL, err.data.Message);
         });
@@ -65,7 +65,7 @@ export function lostAuth() {
 export function logOut() {
     dispatch(C.USER_LOGOUT_START);
 
-    const reloadPage = () =>  window.location = '/';
+    const reloadPage = () => window.location = '/';
 
     //TODO find circular deps
     require('../lib/api3').auth.logout()

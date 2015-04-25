@@ -45,7 +45,7 @@ export default createClass({
 
     renderAdd() {
         return <li className="list-group-item">
-            <Button  bsStyle="primary"  block onClick={this.onAddNew}>
+            <Button bsStyle="primary" block onClick={this.onAddNew}>
                 {iget('Add new plan')}
             </Button>
         </li>;

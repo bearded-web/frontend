@@ -34,7 +34,7 @@ export default React.createClass({
 	},
 
 	renderAddBtn() {
-		return <a  onClick={this.onAddMemberClick}>
+		return <a onClick={this.onAddMemberClick}>
 			<Fa icon="plus" fw size="lg"/>
 			Add member
 		</a>;

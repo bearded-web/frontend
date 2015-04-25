@@ -38,7 +38,7 @@ export default class LoginForm extends Component {
                    autoFocus={true}
                    placeholder="Email"
                    required/>
-            <Input disabled={disabled} ref="password" type="password"  placeholder="Password" required/>
+            <Input disabled={disabled} ref="password" type="password" placeholder="Password" required/>
             <button disabled={disabled} type="submit" className="btn btn-primary block full-width m-b">
                 {submitLabel}
             </button>

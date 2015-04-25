@@ -4,8 +4,11 @@ import { stub, spy, mock, match } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 import { Map, fromJS } from 'immutable';
+import { HIGH, MEDIUM, LOW } from '../../lib/severities';
 
 describe('issuesActions', function() {
+    const statusName = 'confirmed';
+    const id = 'some id';
     const data = {
         results: [
             { id: 'id1', desc: 'desc 1' }
@@ -89,8 +92,7 @@ describe('issuesActions', function() {
     });
 
     describe('toggleStatus', function() {
-        const statusName = 'confirmed';
-        const id = 'some id';
+
         const issue = fromJS({
             id,
             [statusName]: false
@@ -121,6 +123,119 @@ describe('issuesActions', function() {
                     [statusName]: false
                 }
             ]);
+        });
+    });
+
+    describe('increaseSeverity', () => {
+        const issue = fromJS({
+            id,
+            severity: MEDIUM
+        });
+        it('should call api.issues.update with new severity', () => {
+            actions.increaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: HIGH }
+            });
+        });
+        it('should call api.issues.update with new severity', () => {
+            const issue = fromJS({
+                id,
+                severity: LOW
+            });
+            actions.increaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: MEDIUM }
+            });
+        });
+        it('should not call api.issues.update if HIGH severity', () => {
+            const issue = fromJS({
+                id,
+                severity: HIGH
+            });
+            actions.increaseSeverity(issue);
+
+            issuesApi.update.should.have.not.been.called;
+        });
+
+        it('should dispatch ISSUE_UPDATE_START', function() {
+            actions.increaseSeverity(issue);
+
+            dispatch.should.have.been.calledWith(C.ISSUE_UPDATE_START, {
+                id,
+                severity: HIGH
+            });
+        });
+
+        it('should dispatch ISSUE_UPDATE_FAIL on api error', function() {
+            actions.increaseSeverity(issue);
+            dispatch.secondCall.should.have.been.calledWith(
+                C.ISSUE_UPDATE_FAIL,
+                {
+                    id,
+                    severity: MEDIUM
+                }
+            );
+        });
+
+    });
+    describe('decreaseSeverity', () => {
+        const issue = fromJS({
+            id,
+            severity: MEDIUM
+        });
+        it('should call api.issues.update with new severity', () => {
+            actions.decreaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: LOW }
+            });
+        });
+
+        it('should call api.issues.update with new severity', () => {
+            const issue = fromJS({
+                id,
+                severity: HIGH
+            });
+            actions.decreaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: MEDIUM }
+            });
+        });
+        it('should not call api.issues.update if LOW severity', () => {
+            const issue = fromJS({
+                id,
+                severity: LOW
+            });
+            actions.decreaseSeverity(issue);
+
+            issuesApi.update.should.have.not.been.called;
+        });
+
+        it('should dispatch ISSUE_UPDATE_START', function() {
+            actions.decreaseSeverity(issue);
+
+            dispatch.should.have.been.calledWith(C.ISSUE_UPDATE_START, {
+                id,
+                severity: LOW
+            });
+        });
+
+        it('should dispatch ISSUE_UPDATE_FAIL on api error', function() {
+            actions.decreaseSeverity(issue);
+            dispatch.secondCall.should.have.been.calledWith(
+                C.ISSUE_UPDATE_FAIL,
+                {
+                    id,
+                    severity: MEDIUM
+                }
+            );
         });
     });
 });

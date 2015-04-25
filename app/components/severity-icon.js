@@ -3,8 +3,10 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { HIGH, MEDIUM, LOW } from '../lib/severities';
-import { greenColor, grayColor, orangeColor, redColor } from '../style';
+import { greenColor, orangeColor, redColor } from '../style';
 import { assign } from 'lodash';
+
+import Fa from './fa';
 
 export default class SeverityIcon extends Component {
     constructor(props, context) {
@@ -23,15 +25,12 @@ export default class SeverityIcon extends Component {
             height: size,
             width: size,
             borderRadius: size,
-            overflow: 'hidden',
             textAlign: 'center',
             lineHeight: size + 'px',
-            fontSize: size - 10 + 'px',
-            color: '#FFF',
-            textTransform: 'uppercase'
+            fontSize: size + 'px'
         };
 
-        iconStyle.backgroundColor = {
+        iconStyle.color = {
             [HIGH]: redColor,
             [MEDIUM]: orangeColor,
             [LOW]: greenColor
@@ -39,10 +38,14 @@ export default class SeverityIcon extends Component {
 
         assign(iconStyle, style);
 
-        const letter = severity.charAt(0);
+        const icon = {
+            high: 'bomb',
+            medium: 'exclamation-circle',
+            low: 'eye'
+        }[severity];
 
         return <div style={iconStyle}>
-            {letter}
+            <Fa icon={icon} size="lg"/>
         </div>;
     }
 }

@@ -16,6 +16,7 @@ describe('Issue_', function() {
     beforeEach(function() {
         issue = fromJS({
             summary,
+            vector: {},
             activities: [{}]
         });
 

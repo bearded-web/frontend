@@ -14,16 +14,11 @@ import { Model } from '../lib/types';
 import { bindAll } from 'lodash';
 import { greenColor, grayColor } from '../style';
 import { toggleStatus } from '../actions/issues.actions';
+import { icons } from '../lib/issue-controls-icons';
 
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Fa from './fa';
 
-const icons = {
-    confirmed: 'thumbs-up',
-    'false': 'ban',
-    muted: 'volume-off',
-    resolved: 'check'
-};
 const controls = Object.keys(icons);
 
 export default class IssueListItemsControls extends Component {

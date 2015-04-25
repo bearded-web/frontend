@@ -4,6 +4,8 @@
 
 'use strict';
 
+/*eslint react/no-multi-comp:0*/
+
 import jsdom from 'mocha-jsdom';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
@@ -55,6 +57,9 @@ const nodeExtractor = (foo) => (i, param) => foo(i, param).map(global.findDOMNod
 global.nodeByType = nodeExtractor(global.byType);
 global.nodeByTag = nodeExtractor(global.byTag);
 global.nodeByClass = nodeExtractor(global.byClass);
+global.showError = function() {
+    console.error(...arguments);
+};
 
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {

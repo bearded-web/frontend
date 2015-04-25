@@ -46,10 +46,10 @@ export default createClass({
     },
 
     render() {
-        let { $plugins, $step } = this.props,
-            { name, desc, plugin } = $step.toJS(),
-            combineName = $pl =>  $pl.get('name') + ':' + $pl.get('version'),
-            $plugin = $plugins.find($pl => combineName($pl) === plugin);
+        let { $plugins, $step } = this.props;
+        let { name, desc, plugin } = $step.toJS();
+        let combineName = $pl => $pl.get('name') + ':' + $pl.get('version');
+        let $plugin = $plugins.find($pl => combineName($pl) === plugin);
 
         if (!$plugin) {
             return <span>No plugin</span>;
@@ -61,6 +61,7 @@ export default createClass({
             <form className="form-horizontal">
                 <div className="form-group">
                     <label className="col-sm-2 control-label">{iget('Plugin')}</label>
+
                     <p className="form-control-static col-sm-9">
                         {pluginName}
                     </p>

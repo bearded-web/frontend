@@ -1,6 +1,9 @@
 'use strict';
 
+import { PropTypes } from 'react/addons';
 import { Map, OrderedMap } from 'immutable';
+import { HIGH, MEDIUM, LOW } from './severities';
+
 /*eslint-disable*/
 export function $Model(props, propName, componentName) {
     let prop = props[propName];
@@ -21,4 +24,6 @@ export function $Models(props, propName, componentName) {
     }
 }
 export const Models = $Models;
+
+export const Severity = PropTypes.oneOf([HIGH, MEDIUM, LOW]);
 /*eslint-enable*/
