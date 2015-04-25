@@ -12,7 +12,7 @@ module.exports = {
 
     approve: function(agentId) {
 
-        return agents.approve(agentId).then(fetchDispatcher(this));
+        return agents.approve({'agent-id': agentId, body: {}}).then(fetchDispatcher(this));
     }
 };
 
