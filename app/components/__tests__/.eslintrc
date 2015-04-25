@@ -25,6 +25,7 @@
     "nodeByType": true,
     "storeMock": true,
     "MockComponent": true,
+    "createStoreMock": true,
     "it": true,
     "expect": true,
     "stubRouterContext": true,

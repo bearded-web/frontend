@@ -102,7 +102,7 @@ global.createStoreMock = function(state) {
         onChange: spy(),
         offChange: spy()
     };
-}
+};
 
 class MockComponent extends React.Component {
     render() {
