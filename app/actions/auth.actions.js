@@ -98,7 +98,7 @@ export function setNewPassword(token, password) {
 
     const goToLoginPage = () => require('../router').get().transitionTo('login');
 
-    me.changePassword({ token: token, "new": password })
+    me.changePassword({ token: token, new: password })
         .then(() => dispatch(C.AUTH_NEW_PASSWORD_SUCCESS))
         .then(goToLoginPage)
         .catch(e => dispatch(C.AUTH_NEW_PASSWORD_FAIL, buildError(e)));

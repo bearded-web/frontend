@@ -124,7 +124,7 @@ describe('authActions', function() {
 
             apiMe.changePassword.should.be.calledWith({
                 token,
-                password
+                new: password
             });
         });
 
