@@ -91,7 +91,7 @@ describe('authActions', function() {
             mockery.deregisterAll();
 
             const message = 'error message';
-            const resetPassword = () => new Promise((r, e) => e({ Message: message }));
+            const resetPassword = () => new Promise((r, e) => e({ data: { Message: message } }));
 
             const auth = { resetPassword };
 
@@ -141,7 +141,7 @@ describe('authActions', function() {
             mockery.deregisterAll();
 
             const message = 'error message';
-            const changePassword = () => new Promise((r, e) => e({ Message: message }));
+            const changePassword = () => new Promise((r, e) => e({ data: { Message: message } }));
 
             const me = { changePassword };
 

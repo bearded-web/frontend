@@ -104,8 +104,8 @@ export function setNewPassword(token, password) {
         .catch(e => dispatch(C.AUTH_NEW_PASSWORD_FAIL, buildError(e)));
 }
 
-function buildError(e) {
-    e = e || {};
+function buildError({ data, message }) {
+    data = data || {};
 
-    return { message: e.Message || e.message || iget('Server error') };
+    return { message: data.Message || message || iget('Server error') };
 }
