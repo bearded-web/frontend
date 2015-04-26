@@ -14,13 +14,20 @@ import { fromJS } from 'immutable';
 import { Row, Col, Input, Button } from 'react-bootstrap';
 
 const Form = t.form.Form;
+const VulnType = t.enums({
+    0: 'Not selected',
+    1: 'Cool type',
+    2: 'Wow!',
+    3: 'Piy'
+});
 const Issue = t.struct({
     summary: t.Str,
     desc: t.maybe(t.Str),
     references: t.maybe(t.list(t.struct({
         url: t.Str,
-        title: t.Str
-    })))
+        title: t.maybe(t.Str)
+    }))),
+    vulnType: VulnType
 });
 
 export default class IssueCreateForm extends Component {
@@ -51,14 +58,17 @@ export default class IssueCreateForm extends Component {
 
     //region render
     render() {
-        const { summary, desc } = this.props.issue.toObject();
+        const { summary } = this.props.issue.toObject();
         const values = this.props.issue.toJS();
         const formOptions = {
-            order: ['summary', 'desc', 'references'],
+            order: ['vulnType', 'summary', 'desc', 'references'],
             fields: {
                 summary: {
                     label: iget('Summary'),
                     error: iget('Summary is required')
+                },
+                vulnType: {
+                    nullOption: false
                 },
                 desc: {
                     type: 'textarea',
@@ -67,15 +77,14 @@ export default class IssueCreateForm extends Component {
                 references: {
                     disableOrder: true,
                     item: {
+                        order: ['title', 'url'],
                         auto: 'placeholders'
                     }
                 }
             }
         };
 
-
         formOptions.fields.summary.hasError = !summary.length;
-        console.log('### summary', summary, formOptions.fields.summary.hasError);
 
         return <div>
             <Row>
