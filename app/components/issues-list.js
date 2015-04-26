@@ -1,24 +1,21 @@
-'use strict';
+/**
+ * IssuesList
+ */
 
-import { PropTypes, Component } from 'react/addons';
+import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { Models } from '../lib/types';
-import { bindAll } from 'lodash';
+import { Model } from '../lib/types';
+import { listOf } from 'react-immutable-proptypes';
+import bind from '../lib/bind-react';
 
 import IssuesListItem from './issues-list-item';
-import Ibox, { IboxContent } from './ibox';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 export default class IssuesList extends Component {
-    constructor(props, context) {
-        super(props, context);
+    static propTypes = {
+        issues: listOf(Model)
+    };
 
-        bindAll(this, [
-            'renderIssue'
-        ]);
-
-        this.shouldComponentUpdate = shouldComponentUpdate;
-    }
+    shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
         const { issues } = this.props;
@@ -30,14 +27,11 @@ export default class IssuesList extends Component {
         </div>;
     }
 
+    @bind
     renderIssue(issue) {
         const id = issue.get('id');
 
         return <IssuesListItem issue={issue} key={id}/>;
     }
 }
-
-IssuesList.propTypes = {
-    issues: Models
-};
 

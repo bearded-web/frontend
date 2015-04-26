@@ -32,7 +32,7 @@ export default class IssuesListItem extends Component {
     render() {
         const { issue } = this.props;
         const { summary, severity, created } = issue.toObject();
-        const createdAt = moment(created).calendar();
+        const createdAt = moment(created).format('YYYY-MM-DD HH:mm');
         const style = {
             padding: '10px',
             background: '#FFF',

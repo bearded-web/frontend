@@ -1,12 +1,14 @@
 'use strict';
 
-import { stub, spy, mock, match } from 'sinon';
+import { spy, mock } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 import { Map, fromJS } from 'immutable';
-import { HIGH, MEDIUM, LOW } from '../../lib/severities';
+import { HIGH, MEDIUM, LOW, INFO } from '../../lib/severities';
 
 describe('issuesActions', function() {
+    const summary = 'summary text';
+    const target = 'targetId';
     const statusName = 'confirmed';
     const id = 'some id';
     const data = {
@@ -15,6 +17,11 @@ describe('issuesActions', function() {
         ]
     };
     const targetId = 'targetId1';
+    const editedIssue = fromJS({
+        summary: 'test summary',
+        vulnType: 0
+    });
+    const errorMessage = 'error message';
 
     let actions = null;
     let loadForTarget = null;
@@ -30,10 +37,14 @@ describe('issuesActions', function() {
             list: () => false,
             update: () => ({
                 catch: a => a()
+            }),
+            create: (i) => new FakePromise(true, true, i.body, {
+                data: { Message: errorMessage }
             })
         };
 
         spy(issuesApi, 'update');
+        spy(issuesApi, 'create');
 
         apiMock = mock(issuesApi);
         apiMock.expects('list').once().returns(issues);
@@ -41,9 +52,21 @@ describe('issuesActions', function() {
             issues: apiMock.object
         });
 
+        mockery.registerMock('../router', {
+            get: () => ({
+                transitionTo: spy()
+            })
+        });
+
         dispatch = spy();
         mockery.registerMock('../lib/disp', {
             dispatch: dispatch
+        });
+
+        mockery.registerMock('../stores/issue-create.store', {
+            getState: () => ({
+                issue: editedIssue
+            })
         });
 
         mockery.registerAllowable('../issues.actions', true);
@@ -126,34 +149,55 @@ describe('issuesActions', function() {
         });
     });
 
+
     describe('increaseSeverity', () => {
         const issue = fromJS({
             id,
+            summary,
+            target,
             severity: MEDIUM
         });
-        it('should call api.issues.update with new severity', () => {
+        it('should call api.issues.update with new HIGH severity', () => {
             actions.increaseSeverity(issue);
 
             issuesApi.update.should.have.been.calledWithMatch({
                 issueId: id,
-                body: { severity: HIGH }
+                body: { severity: HIGH, summary, target }
             });
         });
-        it('should call api.issues.update with new severity', () => {
+        it('should call api.issues.update with new MEDIUM severity', () => {
             const issue = fromJS({
                 id,
+                summary,
+                target,
                 severity: LOW
             });
             actions.increaseSeverity(issue);
 
             issuesApi.update.should.have.been.calledWithMatch({
                 issueId: id,
-                body: { severity: MEDIUM }
+                body: { severity: MEDIUM, summary, target }
+            });
+        });
+        it('should call api.issues.update with new LOW severity', () => {
+            const issue = fromJS({
+                id,
+                summary,
+                target,
+                severity: INFO
+            });
+            actions.increaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: LOW, summary, target }
             });
         });
         it('should not call api.issues.update if HIGH severity', () => {
             const issue = fromJS({
                 id,
+                summary,
+                target,
                 severity: HIGH
             });
             actions.increaseSeverity(issue);
@@ -208,10 +252,24 @@ describe('issuesActions', function() {
                 body: { severity: MEDIUM }
             });
         });
-        it('should not call api.issues.update if LOW severity', () => {
+
+        it('should call api.issues.update with new severity', () => {
             const issue = fromJS({
                 id,
                 severity: LOW
+            });
+            actions.decreaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: INFO }
+            });
+        });
+
+        it('should not call api.issues.update if LOW severity', () => {
+            const issue = fromJS({
+                id,
+                severity: INFO
             });
             actions.decreaseSeverity(issue);
 
@@ -236,6 +294,99 @@ describe('issuesActions', function() {
                     severity: MEDIUM
                 }
             );
+        });
+    });
+
+    describe('changeEditableIssue', () => {
+        it('should dispatch ISSUE_EDIT_CHANGE when called', () => {
+            const issue = fromJS({
+                summary: '1'
+            });
+            actions.changeEditableIssue(issue);
+            dispatch.should.have.been.calledWith(C.ISSUE_EDIT_CHANGE, { issue });
+        });
+    });
+
+    describe('saveEditableIssue', () => {
+        const target = 'some target id';
+
+        it('should dispatch ISSUE_CREATE_START', () => {
+            actions.saveEditableIssue();
+
+            dispatch.should.have.been.calledWith(C.ISSUE_CREATE_START);
+        });
+
+        it('should call api.issues.create with issue from store', () => {
+            actions.saveEditableIssue();
+
+            issuesApi.create.should.have.been.calledWith({ body: editedIssue.toJS() });
+        });
+
+        it('should dispatch ISSUE_CREATE_SUCCESS when server respond ok', async function() {
+            await actions.saveEditableIssue();
+
+            dispatch.secondCall.args.should.be.eql([C.ISSUE_CREATE_SUCCESS, {
+                issue: editedIssue.toJS()
+            }]);
+        });
+
+        it('should dispatch ISSUE_CREATE_FAIL with error message', async function() {
+            mockery.deregisterAllowable('../issues.actions');
+            mockery.deregisterMock('../lib/api3');
+            const api = {
+                create: () => Promise.reject({
+                    data: { Message: errorMessage }
+                })
+            };
+            spy(api, 'create');
+            mockery.registerMock('../lib/api3', {
+                issues: api
+            });
+            mockery.registerAllowable('../issues.actions', true);
+            actions = require('../issues.actions');
+
+            await actions.saveEditableIssue();
+
+            dispatch.secondCall.args.should.be.eql([C.ISSUE_CREATE_FAIL, {
+                message: errorMessage
+            }]);
+        });
+
+        it('should merge target before save', async function() {
+
+            await actions.saveEditableIssue({ target });
+
+            const issue = editedIssue.toJS();
+            issue.target = target;
+            issuesApi.create.should.have.been.calledWith({ body: issue });
+        });
+
+
+        it('should convert vulnType from string', () => {
+            const summary = 'some summary';
+
+            mockery.deregisterMock('../stores/issue-create.store');
+            mockery.registerMock('../stores/issue-create.store', {
+                getState: () => ({
+                    issue: fromJS({
+                        summary,
+                        vulnType: '12'
+                    })
+                })
+            });
+
+            mockery.deregisterAllowable('../issues.actions');
+            mockery.registerAllowable('../issues.actions', true);
+            actions = require('../issues.actions');
+
+            actions.saveEditableIssue({ target });
+            issuesApi.create.should.have.been.calledWith({
+                body: {
+                    target,
+                    summary,
+                    vulnType: 12
+                }
+            });
         });
     });
 });

@@ -10,7 +10,7 @@ describe('UserSettingsForm', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
     let handler = null;
     let state = null;
 
@@ -31,7 +31,7 @@ describe('UserSettingsForm', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
     it('must call createStore', () => {
@@ -40,7 +40,7 @@ describe('UserSettingsForm', function() {
 
     it('should populate initial state', () => {
 
-        initalState.toJS().should.be.eql({
+        initialState.toJS().should.be.eql({
             success: false,
             password: '',
             oldPassword: '',

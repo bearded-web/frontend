@@ -1,12 +1,8 @@
 'use strict';
+
+import React, { PropTypes } from 'react/addons';
+import actions from '../../actions/report.actions';
 import cx from 'classnames';
-
-var React = require('react'),
-    { PropTypes } = React,
-    actions = require('../../actions/report.actions');
-
-var Fa = require('../fa');
-
 
 var ReportIssuesTotal = React.createClass({
     propTypes: {
@@ -24,8 +20,6 @@ var ReportIssuesTotal = React.createClass({
 
     render: function() {
         var { count, severity, selected, short } = this.props,
-            icon = { high: 'bomb', medium: 'exclamation-circle', low: 'eye' }[severity],
-
             cls = {
                 'c-report-issues-total': true,
                 'c-report-issues-total--disabled': !count,

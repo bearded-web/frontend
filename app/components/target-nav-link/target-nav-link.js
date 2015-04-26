@@ -1,15 +1,13 @@
 'use strict';
 import { Map } from 'immutable';
 import { WEB, ANDROID } from '../../lib/target-types';
+import React, { PropTypes } from 'react/addons';
+import actions from '../../actions/app.actions';
+import _ from 'lodash';
 
-var React = require('react'),
-    { PropTypes } = React,
-    actions = require('../../actions/app.actions'),
-    _ = require('lodash');
-
-var Link = require('react-router').Link,
-    { Label } = require('react-bootstrap'),
-    Fa = require('../fa');
+import { Link } from 'react-router';
+import { Label } from 'react-bootstrap';
+import Fa from '../fa';
 
 module.exports = React.createClass({
     propTypes: {

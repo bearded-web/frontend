@@ -29,7 +29,6 @@ export default class Widget extends Component {
             {children}
         </div>;
     }
-
     //endregion
 }
 

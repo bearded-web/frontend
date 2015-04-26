@@ -1,7 +1,6 @@
 'use strict';
-var React = require('react'),
-    Router = require('react-router'),
-    RouteHandler = Router.RouteHandler;
+
+import { RouteHandler } from 'react-router';
 
 var Page = React.createClass({
     statics: {

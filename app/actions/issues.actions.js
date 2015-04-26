@@ -4,8 +4,10 @@ import { issues } from '../lib/api3';
 import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/disp';
 import C from '../constants';
-import { cloneDeep } from 'lodash';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import { cloneDeep, merge, isNaN } from 'lodash';
+import { HIGH, MEDIUM, LOW, INFO } from '../lib/severities';
+import issueCreateStore from '../stores/issue-create.store';
+import router from '../router';
 
 const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
 
@@ -94,7 +96,10 @@ export function increaseSeverity(issue) {
 
     if (severity === HIGH) return;
 
-    if (severity === LOW) {
+    if (severity === INFO) {
+        severity = LOW;
+    }
+    else if (severity === LOW) {
         severity = MEDIUM;
     }
     else if (severity === MEDIUM) {
@@ -111,9 +116,12 @@ export function increaseSeverity(issue) {
 export function decreaseSeverity(issue) {
     let severity = issue.get('severity');
 
-    if (severity === LOW) return;
+    if (severity === INFO) return;
 
-    if (severity === MEDIUM) {
+    if (severity === LOW) {
+        severity = INFO;
+    }
+    else if (severity === MEDIUM) {
         severity = LOW;
     }
     else if (severity === HIGH) {
@@ -123,9 +131,49 @@ export function decreaseSeverity(issue) {
     changeSeverity(issue, severity);
 }
 
+/**
+ * Change current edit issue (or new issue)
+ * @param {Map} issue new issue
+ */
+export function changeEditableIssue(issue) {
+    dispatch(C.ISSUE_EDIT_CHANGE, { issue });
+}
+
+/**
+ * Save edit issue (is new - create)
+ * @param {Object} mergeData data to merge to issue
+ *
+ */
+export async function saveEditableIssue(mergeData) {
+    let { issue } = issueCreateStore.getState();
+
+    //TODO check issue data
+
+    dispatch(C.ISSUE_CREATE_START);
+
+    issue = issue.toJS();
+    issue.vulnType = parseInt(issue.vulnType, 10);
+    if (isNaN(issue.vulnType)) issue.vulnType = 0;
+    issue = merge(issue, mergeData);
+
+    try {
+        let data = await issues.create({ body: issue });
+
+        dispatch(C.ISSUE_CREATE_SUCCESS, { issue: data });
+        router.get().transitionTo('issue', { issueId: data.id });
+    }
+    catch (e) {
+        const message = e.message || e.data && e.data.Message || iget('Server error');
+
+        dispatch(C.ISSUE_CREATE_FAIL, { message });
+    }
+}
+
 //region locals
 function changeSeverity(issue, severity) {
     const oldSeverity = issue.get('severity');
+    const summary = issue.get('summary');
+    const target = issue.get('target');
     const issueId = issue.get('id');
 
     dispatch(C.ISSUE_UPDATE_START, {
@@ -136,7 +184,8 @@ function changeSeverity(issue, severity) {
     issues
         .update({
             issueId,
-            body: { severity }
+            //TODO remove summary https://github.com/bearded-web/bearded/issues/74
+            body: { severity, summary, target }
         })
         .catch(e => {
             showError(e);

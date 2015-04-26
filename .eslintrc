@@ -1,67 +1,80 @@
-
 {
-  // I want to use babel-eslint for parsing!
-  "parser": "babel-eslint",
-  "env": {
-    // I write for browser
-    "browser": true,
-    // in CommonJS
-    "node": true,
-    "mocha": true
-  },
-  "ecmaFeatures": {
-    "jsx": true
-  },
-  "plugins": [
-    "react"
-  ],
-  // To give you an idea how to override rule options:
-  "rules": {
-    "strict": 2,
-    "semi": 2,
-    "camelcase": 1,
-    "no-use-before-define": [1, "nofunc"],
-    "comma-spacing": 1,
-    "no-multi-spaces": 2,
-    "curly": [2, "multi-line"],
-    "no-shadow": 1,
-    "quotes": [
-      1,
-      "single"
+    // I want to use babel-eslint for parsing!
+    "parser": "babel-eslint",
+    "env": {
+        // I write for browser
+        "browser": true,
+        // in CommonJS
+        "node": true,
+        "mocha": true
+    },
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "plugins": [
+        "react"
     ],
-    "eol-last": [0],
-    "no-mixed-requires": [1],
-    "no-underscore-dangle": [0],
-    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
-    "new-cap": 0,
-    "no-trailing-spaces": 1,
-    "react/display-name": 0,
-    "react/jsx-boolean-value": 2,
-    "react/jsx-quotes": 2,
-    "react/jsx-no-undef": 2,
-    "react/jsx-sort-props": 0,
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/no-did-mount-set-state": 2,
-    "react/no-did-update-set-state": 2,
-    "react/no-multi-comp": 2,
-    "react/no-unknown-property": 2,
-    "react/prop-types": 2,
-    "react/react-in-jsx-scope": 2,
-    "react/self-closing-comp": 2,
-    "react/wrap-multilines": 0
-  },
-  "globals": {
-    "jest": true,
-    "iget": true,
-    "createStoreWatchMixin": true,
-    "nextTick": true,
-    "React": true,
-    "flux": true,
-    "i18n": true,
-    "showError": true,
-    "jasmine": true,
-    "__": true,
-    "FluxMixin": true
-  }
+    // To give you an idea how to override rule options:
+    "rules": {
+        "no-alert": true,
+        "no-console": true,
+        "strict": [1, "global"],
+        "semi": 2,
+        "camelcase": 1,
+        "no-use-before-define": [
+            2,
+            "nofunc"
+        ],
+        "comma-spacing": 1,
+        "no-multi-spaces": 2,
+        "curly": [
+            2,
+            "multi-line"
+        ],
+        "no-shadow": 1,
+        "quotes": [
+            2,
+            "single"
+        ],
+        "eol-last": [0],
+        "no-mixed-requires": [2],
+        "no-underscore-dangle": [0],
+        "no-unused-vars": [
+            1,
+            {
+                "vars": "all",
+                "args": "after-used"
+            }
+        ],
+        "new-cap": 0,
+        "no-trailing-spaces": 2,
+        "react/display-name": 0,
+        "react/jsx-boolean-value": 2,
+        "react/jsx-quotes": 2,
+        "react/jsx-no-undef": 2,
+        "react/jsx-sort-props": 0,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/no-did-mount-set-state": 2,
+        "react/no-did-update-set-state": 2,
+        "react/no-multi-comp": 2,
+        "react/no-unknown-property": 2,
+        "react/prop-types": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/self-closing-comp": 2,
+        "react/wrap-multilines": 0
+    },
+    "globals": {
+        "jest": true,
+        "iget": true,
+        "createStoreWatchMixin": true,
+        "nextTick": true,
+        "React": true,
+        "flux": true,
+        "i18n": true,
+        "showError": true,
+        "jasmine": true,
+        "__": true,
+        "FluxMixin": true
+    }
 }

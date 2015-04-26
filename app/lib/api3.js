@@ -4,8 +4,9 @@
 
 //import { lostAuth } from '../actions/auth.actions';
 
-var schema = require('./swagger.json'),
-    clientGenerator,
+import schema from './swagger.json';
+
+var clientGenerator,
     api,
     __auth;
 

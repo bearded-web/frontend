@@ -10,7 +10,7 @@ describe('targetCreate', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
     let state = null;
 
     beforeEach(() => {
@@ -22,16 +22,16 @@ describe('targetCreate', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
 
     describe('initial state', function() {
         it('should contain loading field', function() {
-            initalState.get('loading').should.be.false;
+            initialState.get('loading').should.be.false;
         });
         it('shouldcontain empty error', () => {
-            initalState.get('error').should.be.empty;
+            initialState.get('error').should.be.empty;
         });
     });
 

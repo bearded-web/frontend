@@ -1,9 +1,8 @@
 'use strict';
 var React = require('react');
 
-var { Panel, Table, Accordion } = require('react-bootstrap'),
-    PanelHeader = require('../panel-header'),
-    Domify = require('react-domify');
+import { Panel, Table } from 'react-bootstrap';
+import Domify from 'react-domify';
 
 var RawReports = React.createClass({
     propTypes: {
@@ -37,7 +36,7 @@ var RawReports = React.createClass({
                 return (
                     <Panel key={i}>
                         {this.renderReportData(report)}
-                        {report.files ? this.renderFilesTable(report.files) : ""}
+                        {report.files ? this.renderFilesTable(report.files) : ''}
                     </Panel>
                 );
             })}
@@ -45,7 +44,7 @@ var RawReports = React.createClass({
     },
 
 
-    renderPanelHeader: function(sessionId) {
+    renderPanelHeader: function(/*sessionId*/) {
         return 'Header';
 
         //var scan = this.props.scan,
@@ -128,8 +127,8 @@ var RawReports = React.createClass({
         return (
             <tr key={file.id}>
                 <td className="c-report-issues-detail--file">
-                    <a href={'api/v1/files/' + file.id + "/download"}>{file.name}</a> - <span
-                    className="small">{file.size + iget("b")}</span>
+                    <a href={'api/v1/files/' + file.id + '/download'}>{file.name}</a> - <span
+                    className="small">{file.size + iget('b')}</span>
                 </td>
             </tr>
         );

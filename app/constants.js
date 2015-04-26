@@ -36,6 +36,10 @@ var constants = {
     ISSUE_UPDATE_START: '--',
     ISSUE_UPDATE_SUCCESS: '--',
     ISSUE_UPDATE_FAIL: '--',
+    ISSUE_EDIT_CHANGE: 'When issue in form changed',
+    ISSUE_CREATE_START: 'Start issue creating',
+    ISSUE_CREATE_SUCCESS: 'New issue created',
+    ISSUE_CREATE_FAIL: 'Issue create fail',
 
     MODAL_OPEN: '--',
     MODAL_CLOSE: '--',
@@ -103,6 +107,9 @@ var constants = {
 
     PROJECTS_FETCH_SUCCESS: '--',
     PROJECTS_SET_CURRENT: '--',
+
+    VULNS_FETCH_START: 'Start fetching vulns list',
+    VULNS_FETCH_SUCCESS: 'Success fetching vulns list',
 
     ________: false // dont want delete "," after duplicate line
 };

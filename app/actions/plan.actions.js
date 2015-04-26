@@ -28,8 +28,9 @@ export function selectPlans($plan) {
  * Save current editing plan
  */
 export function saveEdit() {
-    let flux = require('../flux'),
-        $plan = flux.store('PlansStore').getState().$edit,
+    const flux = require('../flux');
+
+    let $plan = flux.store('PlansStore').getState().$edit,
         plan = $plan.toJS(),
         promise;
 
@@ -95,8 +96,9 @@ export function remove($plan) {
  * @param {String} planId plan id
  */
 export function startPlanEdit(planId) {
-    let flux = require('../flux'),
-        plansStore = flux.store('PlansStore'),
+    const flux = require('../flux');
+
+    let plansStore = flux.store('PlansStore'),
         plan;
 
     if (planId === 'new') {

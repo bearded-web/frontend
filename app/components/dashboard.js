@@ -5,16 +5,13 @@ import flux from '../flux';
 import { setCurrentProject } from '../actions/project.actions';
 import authStore from '../stores/auth.store';
 import setTitle from '../lib/set-title';
+import Router, { RouteHandler } from 'react-router';
+import AppStore from '../stores/app.store';
+import LeftPanel from './left-panel';
+import LeftPanelCover from './left-panel-cover';
 
 import ModalManager from './modal-manager';
 import LockScreenContainer from './lock-screen-container';
-
-var Router = require('react-router'),
-    AppStore = require('../stores/app.store'),
-    RouteHandler = Router.RouteHandler,
-    LeftPanel = require('./left-panel'),
-    LeftPanelCover = require('./left-panel-cover');
-
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 var Dashboard = React.createClass({

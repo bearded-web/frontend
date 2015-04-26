@@ -93,7 +93,9 @@ var Target = React.createClass({
                                 <Ibox><IboxTitle>
                                     <h5>{iget('Actions')}</h5>
                                 </IboxTitle><IboxContent style={{minHeight: '100px'}}>
-                                    {this.renderStartScanButton()}
+                                    <Link className="btn btn-primary" to="issue-create" query={{target: target.id}}>
+                                        {iget('Add issue')}
+                                    </Link>
                                 </IboxContent></Ibox>
                             </Col>
                         </Row>

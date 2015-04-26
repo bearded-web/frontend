@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, addons, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';

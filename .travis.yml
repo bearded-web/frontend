@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - "iojs-v1.8.1"
 install: npm install --production
-script: npm run travis
+script: make travis-build
 notifications:
   slack:
     secure: f23z5nlDa6Feh8wtuD9DnVUHys06R6NJBM7P0i2B2unho0aLHkJ+rzRJ2FM+7yDEW5FfKI4kNCFd58ZB4lAqZ86h9hvTkPjAAq4wUJWAUlxok+WI5ldhvntzGIRv9BSb2eKqgrUtHYptjMSaBOjXEXgA8YXDPYATnZT4nd8oGY8=

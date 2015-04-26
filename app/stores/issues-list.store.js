@@ -2,15 +2,12 @@
  * Issues list store, store issues for issues list page.
  */
 
-'use strict';
-
-import { fromJS, List, OrderedMap } from 'immutable';
+import { fromJS, List } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
 import { pluck } from 'lodash';
 import issuesStore from './issues.store';
-import { weight, HIGH, MEDIUM, LOW } from '../lib/severities';
-import moment from 'moment';
+import { weight } from '../lib/severities';
 
 const initialState = fromJS({
     targetId: null, // current target list
@@ -29,7 +26,7 @@ const api = {
      * Return issues with current filter and sort
      * @returns {OrderedMap} map with issues
      */
-    getIssues() {
+        getIssues() {
         const state = this.getState();
         const ids = state.issues.toArray();
 
@@ -57,7 +54,7 @@ const api = {
 
         // sort
         const comparator = buildSortComparator(state.sortBy);
-        issues = issues.sort(comparator);
+        issues = issues.toList().sort(comparator);
 
         return issues;
     }
@@ -100,9 +97,9 @@ export default createStore(api, handlers, initialState);
 
 function buildSortComparator(sortBy) {
     if (sortBy === 'created') {
-        const toMoment = a => moment(a.get('created'));
+        const toTime = a => (new Date(a.get('created'))).getTime();
 
-        return (a, b) => toMoment(a).isBefore(toMoment(b));
+        return (a, b) => toTime(b) - toTime(a);
     }
 
     return (a, b) => weight(a.get('severity')) < weight(b.get('severity'));

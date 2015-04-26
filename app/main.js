@@ -1,5 +1,4 @@
 'use strict';
-
 import 'babel/polyfill';
 import './lib/globals';
 
@@ -8,6 +7,7 @@ import { dispatch as nDispatch } from './lib/disp';
 import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
+import { fetchVulnsCompact } from './actions/vulns.actions';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -57,9 +57,11 @@ me.info()
         dispatch(C.APP_LIFT_SUCCESS);
         handleMeData(data);
 
+        fetchVulnsCompact();
+
         return plans;
     })
-    .then(startRouting)
+    .then(() => startRouting())
     .catch(() => {
         dispatch(C.APP_LIFT_SUCCESS);
 

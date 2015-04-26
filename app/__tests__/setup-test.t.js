@@ -5,6 +5,8 @@
 'use strict';
 
 /*eslint react/no-multi-comp:0*/
+import 'babel/polyfill';
+import 'mochawait';
 
 import jsdom from 'mocha-jsdom';
 import chai from 'chai';
@@ -32,7 +34,7 @@ before(function() {
 
 beforeEach(() => {
     mockery.enable({
-        warnOnReplace: false,
+        warnOnReplace: true,
         warnOnUnregistered: false,
         useCleanCache: false
     });
@@ -60,6 +62,7 @@ global.nodeByClass = nodeExtractor(global.byClass);
 global.showError = function() {
     console.error(...arguments);
 };
+
 
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {
@@ -140,3 +143,37 @@ MockComponent.propTypes = {
     children: React.PropTypes.node
 };
 global.MockComponent = MockComponent;
+
+class FakePromise {
+    /**
+     * New FakePromise
+     * @param {Boolean} resolve call then
+     * @param {Boolean} reject call catch
+     * @param {*} value resolve value
+     * @param {*} error reject value
+     */
+    constructor(resolve, reject, value, error) {
+        this.resolve = resolve;
+        this.reject = reject;
+
+        this.value = value;
+        this.error = error;
+    }
+
+    then(handler) {
+        if (this.resolve) {
+            this.value = handler(this.value);
+        }
+
+        return this;
+    }
+
+    'catch'(handler) {
+        if (this.reject) {
+            handler(this.error);
+        }
+
+        return this;
+    }
+}
+global.FakePromise = FakePromise;

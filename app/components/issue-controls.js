@@ -8,11 +8,10 @@ import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { shape } from 'react-immutable-proptypes';
 import { Severity } from '../lib/types';
-import { greenColor } from '../style';
-import { bindAll, capitalize, defaults } from 'lodash';
+import { bindAll, capitalize } from 'lodash';
 import { increaseSeverity, decreaseSeverity, toggleStatus } from '../actions/issues.actions';
 import { icons } from '../lib/issue-controls-icons';
-import { HIGH, LOW } from '../lib/severities';
+import { HIGH, INFO } from '../lib/severities';
 
 import { Button } from 'react-bootstrap';
 import Fa from './fa';
@@ -75,7 +74,7 @@ export default class IssueControls extends Component {
             &nbsp;
             <Button bsStyle="info"
                     bsSize="small"
-                    disabled={severity === LOW}
+                    disabled={severity === INFO}
                     onClick={this.decrease}>
                 <Fa icon="minus" fw/>
                 {iget('Decrease')}

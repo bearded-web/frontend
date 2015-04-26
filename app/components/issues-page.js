@@ -5,9 +5,9 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import issuesStore from '../stores/issues.store';
 import issuesListStore from '../stores/issues-list.store';
 import { loadForTarget, updateFilter } from '../actions/issues.actions';
-import { bindAll, filter as lFilter } from 'lodash';
 import { Map } from 'immutable';
 import setTitle from '../lib/set-title';
+import bind from '../lib/bind-react';
 
 import { Row, Col } from 'react-bootstrap';
 import IssuesList from './issues-list';
@@ -18,16 +18,10 @@ import Fa from './fa';
 let targetId = null;
 
 export default class IssuesPage extends Component {
+    shouldComponentUpdate = shouldComponentUpdate;
+
     constructor(props, context) {
         super(props, context);
-
-        bindAll(this, [
-            'onStoreChange',
-            'onFilterChange',
-            'renderLoading'
-        ]);
-
-        this.shouldComponentUpdate = shouldComponentUpdate;
 
         this.state = this.getState();
     }
@@ -63,6 +57,7 @@ export default class IssuesPage extends Component {
         }));
     }
 
+    @bind
     onStoreChange() {
         this.setState(this.getState());
     }
@@ -74,12 +69,14 @@ export default class IssuesPage extends Component {
         return state;
     }
 
+    @bind
     onFilterChange(filter) {
         updateFilter(filter);
     }
 
     render() {
         const { issues, filter, sortBy, loading } = this.state;
+
 
         return <Row>
             <br/>
@@ -98,6 +95,7 @@ export default class IssuesPage extends Component {
         </Row>;
     }
 
+    @bind
     renderLoading() {
         return <h1 className="text-center">
             <Fa icon="refresh" spin fw/>

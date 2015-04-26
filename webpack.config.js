@@ -25,7 +25,7 @@ var config = {
     module: {
         noParse: [],
         loaders: [
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
             {
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'url-loader?limit=50000&minetype=application/font-woff'
@@ -36,9 +36,8 @@ var config = {
             },
             {
                 test: /\.js$/,
-                loaders: ['react-hot', 'babel-loader'],
+                loaders: ['react-hot', 'babel-loader?stage=0'],
                 exclude: [
-                    bower_dir,
                     node_modules_dir
                 ]
             },

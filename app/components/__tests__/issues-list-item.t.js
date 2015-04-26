@@ -19,6 +19,10 @@ describe('IssuesListItem', function() {
     beforeEach(function() {
         transitionTo = spy();
 
+        mockery.registerMock('../actions/issues.actions', {
+            toggleStatus: spy()
+        });
+
         mockery.registerAllowable('../issues-list-item', true);
         IssuesListItem = require('../issues-list-item');
 

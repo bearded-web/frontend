@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React, { PropTypes, addons } from 'react/addons';
 import { $Model } from '../lib/types';

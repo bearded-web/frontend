@@ -19,7 +19,22 @@ export const register = dispatcher.register.bind(dispatcher);
  * @param {*} [payload] data to dispatch
  */
 export function dispatch(type, payload) {
-    console.log('Dispatch ' + type, payload);
+    let cloned;
+
+    if (payload) {
+        cloned = {};
+        Object.keys(payload).forEach(k => {
+            const v = payload[k];
+            if (v && v._root) {
+                cloned[k] = v.toJS();
+            }
+            else {
+                cloned[k] = v;
+            }
+        });
+    }
+
+    console.log('Dispatch ' + type, cloned);
     if (!type) {
         throw new Error(`Trying to dispatch undefined type (payload ${payload})`);
     }

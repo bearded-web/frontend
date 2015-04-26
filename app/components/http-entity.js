@@ -6,7 +6,7 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { shape } from 'react-immutable-proptypes';
 
 import HttpHeader from './http-header';
@@ -22,16 +22,19 @@ export default class HttpEntity extends Component {
     //region render
     render() {
         const { status, body, header } = this.props.entity.toObject();
+
         const headerStyle = {
             marginTop: '1.5rem'
         };
+
+        const hasHeaders = header && header.size;
 
         return <div>
             <h3>{iget('Status')}</h3>
             {status}
 
-            <h3 style={headerStyle}>{iget('Headers')}</h3>
-            <HttpHeader header={header}/>
+            {hasHeaders && <h3 style={headerStyle}>{iget('Headers')}</h3>}
+            {hasHeaders && <HttpHeader header={header}/>}
 
             {body && <h3 style={headerStyle}>{iget('Body')}</h3>}
             {body && <HttpBody body={body}/>}
@@ -43,7 +46,7 @@ export default class HttpEntity extends Component {
 HttpEntity.propTypes = {
     entity: shape({
         status: PropTypes.string,
-        header: PropTypes.instanceOf(Map),
+        header: PropTypes.instanceOf(List),
         body: PropTypes.instanceOf(Map)
     })
 };

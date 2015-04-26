@@ -16,7 +16,7 @@ describe('issuesListStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
 
     beforeEach(() => {
         filter = Map({ severity: 'all' });
@@ -41,7 +41,8 @@ describe('issuesListStore', function() {
                 ];
 
                 allIssues.map((issue, i) => {
-                    issue.created = moment().subtract(100 - i, 'day').format();
+                    // first - old
+                    issue.created = moment().add(i, 'day').format();
                 });
 
                 allIssues = zipObject(pluck(allIssues, 'id'), allIssues);
@@ -66,7 +67,7 @@ describe('issuesListStore', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
 
@@ -77,8 +78,8 @@ describe('issuesListStore', function() {
 
     describe('initial state', function() {
         it('should contain sortBy=severity', function() {
-            initalState.toObject().sortBy.should.be.eql('severity');
-            initalState.toObject().loading.should.be.false;
+            initialState.toObject().sortBy.should.be.eql('severity');
+            initialState.toObject().loading.should.be.false;
         });
     });
 
@@ -267,7 +268,7 @@ describe('issuesListStore', function() {
                     .should.be.eql(['i2', 'i3', 'i1']);
             });
 
-            it('should return issues sorted by created', function() {
+            it('should return issues sorted by created (new first)', function() {
                 store.getState = () => ({
                     filter,
                     sortBy: 'created',

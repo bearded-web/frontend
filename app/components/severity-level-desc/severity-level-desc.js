@@ -1,7 +1,7 @@
 'use strict';
-var React = require('react'),
-    i18n = require('../../lib/i18n'),
-    { PropTypes } = React;
+
+import React, { PropTypes } from 'react/addons';
+import i18n from '../../lib/i18n';
 
 var SeverityLevelDesc = React.createClass({
     propTypes: {

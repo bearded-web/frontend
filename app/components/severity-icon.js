@@ -2,7 +2,7 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import { icon, color, HIGH, MEDIUM, LOW } from '../lib/severities';
 import { greenColor, orangeColor, redColor } from '../style';
 import { assign } from 'lodash';
 
@@ -22,31 +22,16 @@ export default class SeverityIcon extends Component {
 
         const iconStyle = {
             display: 'inline-block',
-            height: size,
-            width: size,
-            borderRadius: size,
             textAlign: 'center',
             lineHeight: size + 'px',
-            fontSize: size + 'px'
+            fontSize: size + 'px',
+            color: color(severity)
         };
-
-        iconStyle.color = {
-            [HIGH]: redColor,
-            [MEDIUM]: orangeColor,
-            [LOW]: greenColor
-        }[severity];
 
         assign(iconStyle, style);
 
-        const icon = {
-            high: 'bomb',
-            medium: 'exclamation-circle',
-            low: 'eye',
-            error: 'medkit'
-        }[severity];
-
         return <div style={iconStyle}>
-            <Fa icon={icon} size="lg"/>
+            <Fa icon={icon(severity)} size="lg" fw/>
         </div>;
     }
 }

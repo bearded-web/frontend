@@ -6,6 +6,7 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { icon, bsStyle, HIGH, LOW, MEDIUM } from '../lib/severities';
 
 import Widget from './widget';
 import Fa from './fa';
@@ -35,21 +36,12 @@ export default class SeverityWidget extends Component {
             textAlign: 'center',
             fontSize: '30px'
         };
-        const type = {
-            high: 'danger',
-            medium: 'warning',
-            low: 'info'
-        }[severity];
-        const icon = {
-            high: 'bomb',
-            medium: 'exclamation-circle',
-            low: 'eye'
-        }[severity];
+        const type = bsStyle(severity);
 
         return <Widget type={type} style={style}>
             <span style={S.count}>{count}</span>
             <span style={S.icon} className="severity-widget-icon">
-                <Fa icon={icon} fw/>
+                <Fa icon={icon(severity)} fw/>
             </span>
         </Widget>;
     }
@@ -58,7 +50,7 @@ export default class SeverityWidget extends Component {
 }
 
 SeverityWidget.propTypes = {
-    severity: PropTypes.oneOf(['high', 'medium', 'low']).isRequired,
+    severity: PropTypes.oneOf([HIGH, MEDIUM, LOW]).isRequired,
     count: PropTypes.number
 };
 SeverityWidget.defaultProps = {
