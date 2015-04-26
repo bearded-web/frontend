@@ -21,6 +21,9 @@ const controls = Object.keys(icons);
 const statusStyle = {
     marginBottom: '0.5rem'
 };
+const btnStyle = {
+    minWidth: '120px'
+};
 
 export default class IssueControls extends Component {
     constructor(props, context) {
@@ -89,10 +92,11 @@ export default class IssueControls extends Component {
         const handler = e => this.onStatusToggle(e, status);
         const type = active ? 'primary' : 'default';
 
-        return <div style={statusStyle}>
+        return <div style={statusStyle} key={status}>
             <Button bsStyle={type}
                     onClick={handler}
                     bsSize="small"
+                    style={btnStyle}
                     active={active}>
 
                 <Fa icon={icons[status]} fw/>

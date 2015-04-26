@@ -48,7 +48,7 @@ export default class Plans extends Component {
             editParams = { planId: id };
 
         return <Ibox key={id}>
-            <IboxTitle>
+            <IboxTitle noControls>
                 <PlanRemoveLink className="pull-right" plan={$plan}/>
                 <Link to="plan" params={editParams}>
                     <h5>{name}</h5>

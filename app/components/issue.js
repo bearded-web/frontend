@@ -82,20 +82,20 @@ export default class Issue extends Component {
                             <Markdown text={desc}/>
                         </IboxContent>
                     </Ibox>}
-                    <Ibox style={aStyle}>
+                    {hasReferences && <Ibox style={aStyle}>
                         <IboxTitle>
                             {iget('References')}
                         </IboxTitle>
-                        {hasReferences && <IboxContent>
+                        <IboxContent>
                             <References references={references}/>
-                        </IboxContent>}
-                    </Ibox>
-                    <Ibox style={aStyle}>
+                        </IboxContent>
+                    </Ibox>}
+                    {vector && <Ibox style={aStyle}>
                         <IboxTitle title={iget('Vector data')}/>
                         <IboxContent>
                             <Vector vector={vector}/>
                         </IboxContent>
-                    </Ibox>
+                    </Ibox>}
                 </Col>
                 <Col xs={12} md={4}>
                     <Ibox style={aStyle}>

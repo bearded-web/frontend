@@ -46,6 +46,7 @@ export default class IssuesListItem extends Component {
         };
         const iconStyle = {
             display: 'block',
+            marginRight: '1rem',
             float: 'left'
         };
         const controlsStyle = { display: 'inline', marginLeft: '2rem' };

@@ -41,7 +41,8 @@ export default class SeverityIcon extends Component {
         const icon = {
             high: 'bomb',
             medium: 'exclamation-circle',
-            low: 'eye'
+            low: 'eye',
+            error: 'medkit'
         }[severity];
 
         return <div style={iconStyle}>

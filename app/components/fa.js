@@ -3,7 +3,7 @@
 import { PropTypes, Component } from 'react/addons';
 import cNames from 'classnames';
 
-export default class Fa2 extends Component {
+export default class Fa extends Component {
     render() {
         var props = this.props,
             style = {
@@ -28,7 +28,7 @@ export default class Fa2 extends Component {
     }
 }
 
-Fa2.propTypes = {
+Fa.propTypes = {
     icon: PropTypes.string.isRequired,
     fw: PropTypes.bool,
     spin: PropTypes.bool,
