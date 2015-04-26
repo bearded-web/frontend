@@ -6,6 +6,7 @@ import PasswordResetEndPage from './components/password-reset-end-page';
 import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
 import TargetCreatePage from './components/target-create-page';
+import IssueCreatePage from './components/issue-create-page';
 
 require('react');
 
@@ -70,6 +71,8 @@ module.exports.create = function buildRouter() {
 
                 <Route name="issues" path="issues" handler={IssuesPage}/>
                 <Redirect from="issues/" to="issues"/>
+                <Route name="issue-create" path="issues/new" handler={IssueCreatePage}/>
+                <Redirect from="issues/new/" to="issue-create"/>
                 <Route name="issue" path="issues/:issueId" handler={IssuePage}/>
                 <Redirect from="issues/:issueId/" to="issue"/>
 

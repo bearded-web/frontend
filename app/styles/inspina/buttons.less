@@ -181,25 +181,29 @@
   color: #cacaca;
 }
 
-.btn-white {
+.btn-white, .btn-default {
   color: inherit;
   background: white;
   border: 1px solid @border-color;
 }
 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default,
 .btn-white:hover, .btn-white:focus, .btn-white:active, .btn-white.active, .open .dropdown-toggle.btn-white {
   color: inherit;
   border: 1px solid #d2d2d2;
 }
 
+.btn-default:active, .btn-default.active,
 .btn-white:active, .btn-white.active {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) inset;
 }
 
+.btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default,
 .btn-white:active, .btn-white.active, .open .dropdown-toggle.btn-white {
   background-image: none;
 }
 
+.btn-default.disabled, .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled:active, .btn-default.disabled.active, .btn-default[disabled], .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled]:active, .btn-default.active[disabled], fieldset[disabled] .btn-default, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active,
 .btn-white.disabled, .btn-white.disabled:hover, .btn-white.disabled:focus, .btn-white.disabled:active, .btn-white.disabled.active, .btn-white[disabled], .btn-white[disabled]:hover, .btn-white[disabled]:focus, .btn-white[disabled]:active, .btn-white.active[disabled], fieldset[disabled] .btn-white, fieldset[disabled] .btn-white:hover, fieldset[disabled] .btn-white:focus, fieldset[disabled] .btn-white:active, fieldset[disabled] .btn-white.active {
   color: #cacaca;
 }

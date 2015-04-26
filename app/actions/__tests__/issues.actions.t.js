@@ -238,4 +238,14 @@ describe('issuesActions', function() {
             );
         });
     });
+
+    describe('changeEditableIssue', () => {
+        it('should dispatch ISSUE_EDIT_CHANGE when called', () => {
+            const issue = fromJS({
+                summary: '1'
+            });
+            actions.changeEditableIssue(issue);
+            dispatch.should.have.been.calledWith(C.ISSUE_EDIT_CHANGE, { issue });
+        });
+    });
 });

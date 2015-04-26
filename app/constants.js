@@ -36,6 +36,7 @@ var constants = {
     ISSUE_UPDATE_START: '--',
     ISSUE_UPDATE_SUCCESS: '--',
     ISSUE_UPDATE_FAIL: '--',
+    ISSUE_EDIT_CHANGE: 'When issue in form changed',
 
     MODAL_OPEN: '--',
     MODAL_CLOSE: '--',

@@ -8,9 +8,7 @@ import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
 
-window.showError = function() {
-    console.error(...arguments);
-};
+window.showError = console.error.bind(console);
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');

@@ -123,6 +123,22 @@ export function decreaseSeverity(issue) {
     changeSeverity(issue, severity);
 }
 
+/**
+ * Change current edit issue (or new issue)
+ * @param {Map} issue new issue
+ */
+export function changeEditableIssue(issue) {
+    dispatch(C.ISSUE_EDIT_CHANGE, { issue });
+}
+
+/**
+ * Save edit issue (is new - create)
+ * @param {Model} issue
+ */
+export function saveEditableIssue(issue) {
+    showError('Implement me', issue);
+}
+
 //region locals
 function changeSeverity(issue, severity) {
     const oldSeverity = issue.get('severity');
