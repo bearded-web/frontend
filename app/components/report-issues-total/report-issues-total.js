@@ -24,8 +24,6 @@ var ReportIssuesTotal = React.createClass({
 
     render: function() {
         var { count, severity, selected, short } = this.props,
-            icon = { high: 'bomb', medium: 'exclamation-circle', low: 'eye' }[severity],
-
             cls = {
                 'c-report-issues-total': true,
                 'c-report-issues-total--disabled': !count,
