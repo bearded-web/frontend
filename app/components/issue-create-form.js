@@ -11,7 +11,8 @@ import { bindAll } from 'lodash';
 import t from 'tcomb-form';
 import { fromJS } from 'immutable';
 
-import { Row, Col, Input, Button } from 'react-bootstrap';
+import { Row, Col, Input, Button, TabPane, TabbedArea } from 'react-bootstrap';
+import VectorForm from './vector-form';
 
 const Form = t.form.Form;
 const VulnType = t.enums({
@@ -30,13 +31,18 @@ const Issue = t.struct({
     vulnType: VulnType
 });
 
+const S = {
+    error: { marginLeft: '1rem' }
+};
+
 export default class IssueCreateForm extends Component {
     constructor(props, context) {
         super(props, context);
 
         bindAll(this, [
             'onSubmit',
-            'onFormChange'
+            'onFormChange',
+            'addVector'
         ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
@@ -56,9 +62,24 @@ export default class IssueCreateForm extends Component {
         this.props.onChange(this.props.issue.merge(value));
     }
 
+    addVector() {
+        this.props.onChange(this.props.issue.set('vector', fromJS({
+            httpTransactions: [{
+                url: '',
+                method: 'GET'
+
+            }]
+        })));
+    }
+
+    onVectorChange(vector) {
+        this.props.onChange(this.props.issue.set('vector', vector));
+    }
+
     //region render
     render() {
-        const { summary } = this.props.issue.toObject();
+        const { loading, issue, error } = this.props;
+        const { summary, desc, vector } = issue.toObject();
         const values = this.props.issue.toJS();
         const formOptions = {
             order: ['vulnType', 'summary', 'desc', 'references'],
@@ -87,24 +108,53 @@ export default class IssueCreateForm extends Component {
         formOptions.fields.summary.hasError = !summary.length;
 
         return <div>
-            <Row>
-                <Col xs={12} md={6}>
-                    <Form type={Issue}
-                          ref="form"
-                          options={formOptions}
-                          onChange={this.onFormChange}
-                          value={values}/>
+            <TabbedArea defaultActiveKey={1}>
+                <TabPane eventKey={1} tab={iget('Description')}>
+                    <br/>
+                    <Row>
+                        <Col xs={12} md={6}>
+                            <Input type="text"
+                                   onChange={e => this.onFieldChange(e, 'summary')}
+                                   value={summary}
+                                   disabled={loading}
+                                   label={iget('Summary')}
+                                   placeholder={iget('Summary')}/>
+                            <Input type="textarea"
+                                   onChange={e => this.onFieldChange(e, 'desc')}
+                                   disabled={loading}
+                                   value={desc}
+                                   label={iget('Description')}
+                                   placeholder={iget('Description')}/>
+                            {/* <Form type={Issue}
+                             ref="form"
+                             options={formOptions}
+                             onChange={this.onFormChange}
+                             value={values}/> */}
+                        </Col>
+                    </Row>
 
-                    <Button onClick={this.onSubmit}
-                            bsStyle="primary"
-                            bsSize="large">
-                        {iget('Save new issue')}
-                    </Button>
-                </Col>
-                <Col xs={12} md={6}>
-                    <h2>Vector</h2>
-                </Col>
-            </Row>
+
+                </TabPane>
+                {/* <TabPane eventKey={2} tab={iget('Vector')}>
+                 <br/>
+                 {vector || <Button bsStyle="primary" onClick={this.addVector}>
+                 {iget('Add vector')}
+                 </Button>}
+                 {vector && <VectorForm vector={vector} onChange={this.onVectorChange}/>}
+                 </TabPane> */}
+            </TabbedArea>
+
+            <hr/>
+            <Button onClick={this.onSubmit}
+                    bsStyle="primary"
+                    disabled={loading}
+                    bsSize="large">
+                {iget('Save new issue')}
+            </Button>
+
+            <span className="text-danger" style={S.error}>
+                {error}
+            </span>
         </div>;
     }
 
@@ -113,14 +163,12 @@ export default class IssueCreateForm extends Component {
 
 IssueCreateForm.propTypes = {
     issue: Model,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
 };
-/**
- * summary
- * desc
- * references
- * vulnType
- * target
- * vector
- */
+IssueCreateForm.defaultProps = {
+    loading: true,
+    error: ''
+};

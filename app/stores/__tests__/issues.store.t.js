@@ -6,11 +6,16 @@ import mockery from 'mockery';
 import C from '../../constants';
 
 describe('issuesStore', function() {
+    const id = 'some id';
+    const summary = 'test semmary';
+
     let createStore = null;
     let store = null;
     let api = null;
     let handlers = null;
     let initalState = null;
+    let handler = null;
+    let state = null;
 
     beforeEach(() => {
         mockery.enable({
@@ -82,10 +87,6 @@ describe('issuesStore', function() {
         });
 
         describe('ISSUE_UPDATE_START', function() {
-            const id = 'some id';
-
-            let handler = null;
-            let state = null;
 
             before(() => {
                 handler = handlers[C.ISSUE_UPDATE_START];
@@ -110,6 +111,24 @@ describe('issuesStore', function() {
             });
         });
 
+        describe('ISSUE_CREATE_SUCCESS', () => {
+            let issue = null;
+
+            beforeEach(() => {
+                issue = {
+                    id,
+                    summary
+                };
+                handler = handlers[C.ISSUE_CREATE_SUCCESS];
+                state = fromJS({});
+            });
+
+            it('should add new issue', () => {
+                state = handler(state, { issue });
+                state.get(id).get('summary')
+                    .should.be.eql(summary);
+            });
+        });
     });
 
     describe('api', function() {

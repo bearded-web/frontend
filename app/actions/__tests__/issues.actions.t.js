@@ -15,6 +15,10 @@ describe('issuesActions', function() {
         ]
     };
     const targetId = 'targetId1';
+    const editedIssue = fromJS({
+        summary: 'test summary'
+    });
+    const errorMessage = 'error message';
 
     let actions = null;
     let loadForTarget = null;
@@ -30,10 +34,14 @@ describe('issuesActions', function() {
             list: () => false,
             update: () => ({
                 catch: a => a()
+            }),
+            create: (i) => new FakePromise(true, true, i.body, {
+                data: { Message: errorMessage }
             })
         };
 
         spy(issuesApi, 'update');
+        spy(issuesApi, 'create');
 
         apiMock = mock(issuesApi);
         apiMock.expects('list').once().returns(issues);
@@ -41,9 +49,21 @@ describe('issuesActions', function() {
             issues: apiMock.object
         });
 
+        mockery.registerMock('../router', {
+            get: () => ({
+                transitionTo: spy()
+            })
+        });
+
         dispatch = spy();
         mockery.registerMock('../lib/disp', {
             dispatch: dispatch
+        });
+
+        mockery.registerMock('../stores/issue-create.store', {
+            getState: () => ({
+                issue: editedIssue
+            })
         });
 
         mockery.registerAllowable('../issues.actions', true);
@@ -246,6 +266,46 @@ describe('issuesActions', function() {
             });
             actions.changeEditableIssue(issue);
             dispatch.should.have.been.calledWith(C.ISSUE_EDIT_CHANGE, { issue });
+        });
+    });
+
+    describe('saveEditableIssue', () => {
+        it('should dispatch ISSUE_CREATE_START', () => {
+            actions.saveEditableIssue();
+
+            dispatch.should.have.been.calledWith(C.ISSUE_CREATE_START);
+        });
+
+        it('should call api.issues.create with issue from store', () => {
+            actions.saveEditableIssue();
+
+            issuesApi.create.should.have.been.calledWith({ body: editedIssue.toJS() });
+        });
+
+        it('should dispatch ISSUE_CREATE_SUCCESS when server respond ok', () => {
+            actions.saveEditableIssue();
+
+            dispatch.secondCall.args.should.be.eql([C.ISSUE_CREATE_SUCCESS, {
+                issue: editedIssue.toJS()
+            }]);
+        });
+
+        it('should dispatch ISSUE_CREATE_FAIL with error message', () => {
+            actions.saveEditableIssue();
+
+            dispatch.thirdCall.args.should.be.eql([C.ISSUE_CREATE_FAIL, {
+                message: errorMessage
+            }]);
+        });
+
+        it('should merge target before save', () => {
+            const target = 'some target id';
+
+            actions.saveEditableIssue({ target });
+
+            const issue = editedIssue.toJS();
+            issue.target = target;
+            issuesApi.create.should.have.been.calledWith({ body: issue });
         });
     });
 });

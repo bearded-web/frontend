@@ -4,8 +4,10 @@ import { issues } from '../lib/api3';
 import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/disp';
 import C from '../constants';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, merge } from 'lodash';
 import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import issueCreateStore from '../stores/issue-create.store';
+import router from '../router';
 
 const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
 
@@ -133,10 +135,29 @@ export function changeEditableIssue(issue) {
 
 /**
  * Save edit issue (is new - create)
- * @param {Model} issue
+ * @param {Object} mergeData data to merge to issue
+ *
  */
-export function saveEditableIssue(issue) {
-    showError('Implement me', issue);
+export function saveEditableIssue(mergeData) {
+    const { issue } = issueCreateStore.getState();
+
+    //TODO check issue data
+
+    dispatch(C.ISSUE_CREATE_START);
+
+    issues
+        .create({ body: merge(issue.toJS(), mergeData) })
+        .then(data => {
+            dispatch(C.ISSUE_CREATE_SUCCESS, { issue: data });
+
+            router.get().transitionTo('issue', { issueId: data.id });
+        })
+        .catch(e => {
+            const message = e.data && e.data.Message || iget('Server error');
+
+            dispatch(C.ISSUE_CREATE_FAIL, { message });
+        });
+    //TODO add catch
 }
 
 //region locals

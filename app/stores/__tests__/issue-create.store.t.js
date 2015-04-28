@@ -5,15 +5,33 @@ import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('issueCreate', function() {
+describe('issueCreateStore', function() {
+    const initialStateData = {
+        loading: false,
+        error: '',
+        issue: {
+            summary: '',
+            desc: '',
+            references: [],
+            vulnType: 0,
+            confirmed: true,
+            false: false,
+            muted: false,
+            resolved: false
+        }
+    };
+
     let createStore = null;
     let store = null;
     let api = null;
     let handlers = null;
     let initalState = null;
+    let handler = null;
+    let state = null;
 
     beforeEach(() => {
         createStore = spy();
+        mockery.resetCache();
         mockery.registerMock('../lib/create-store', createStore);
 
         mockery.registerAllowable('../issue-create.store', true);
@@ -25,24 +43,12 @@ describe('issueCreate', function() {
 
     describe('initial state', function() {
         it('should contain issue', function() {
-            initalState.get('issue').toJS().should.be.eql({
-                summary: '',
-                desc: '',
-                references: [],
-                vulnType: 0,
-                confirmed: true,
-                false: false,
-                muted: false,
-                resolved: false
-            });
+            initalState.toJS().should.be.eql(initialStateData);
         });
     });
 
     describe('handlers', () => {
-        let handler = null;
-
         describe('ISSUE_EDIT_CHANGE', () => {
-            let state = null;
 
             beforeEach(() => {
                 handler = handlers[C.ISSUE_EDIT_CHANGE];
@@ -60,6 +66,49 @@ describe('issueCreate', function() {
                 state = handler(state, { issue: fromJS({ summary: '2' }) });
 
                 state.getIn(['issue', 'summary']).should.be.eql('2');
+            });
+        });
+
+        describe('ISSUE_CREATE_START', () => {
+            beforeEach(() => {
+                handler = handlers[C.ISSUE_CREATE_START];
+                state = fromJS({ loading: false });
+            });
+
+            it('should set loading to true', () => {
+                handler(state).get('loading').should.be.eql.true;
+            });
+        });
+
+        describe('ISSUE_CREATE_SUCCESS', () => {
+            beforeEach(() => {
+                handler = handlers[C.ISSUE_CREATE_SUCCESS];
+                state = fromJS({ loading: true, summary: 'hello' });
+            });
+
+            it('should set loading to false', () => {
+                handler(state).get('loading').should.be.eql.false;
+            });
+
+            it('should set state to initial', () => {
+                handler(state).toJS().should.be.eql(initialStateData);
+            });
+        });
+
+        describe('ISSUE_CREATE_FAIL', () => {
+            const message = 'error message';
+
+            beforeEach(() => {
+                handler = handlers[C.ISSUE_CREATE_FAIL];
+                state = fromJS({ error: '' });
+            });
+
+            it('should set loading to false', () => {
+                handler(state, { message }).get('loading').should.be.eql.false;
+            });
+
+            it('should set error message', () => {
+                handler(state, { message }).get('error').should.be.eql(message);
             });
         });
 

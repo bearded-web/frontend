@@ -22,7 +22,8 @@ describe('IssueCreatePage', function() {
         });
 
         mockery.registerMock('../stores/issue-create.store', createStoreMock({
-            issue: issue
+            issue: issue,
+            loading: false
         }));
 
         mockery.registerMock('./issue-create-form', MockComponent);
@@ -30,15 +31,23 @@ describe('IssueCreatePage', function() {
         mockery.registerAllowable('../issue-create-page', true);
         Component = require('../issue-create-page');
 
+        const Stub = stubRouterContext(Component, {}, {
+            getCurrentQuery: () => ({ target: 't' })
+        });
         instance = TestUtils.renderIntoDocument(
-            <Component/>
+            <Stub/>
         );
+        instance = byType(instance, Component)[0];
     });
 
     describe('render', () => {
         it('should pass issue to form', () => {
             byType(instance, MockComponent)[0].props.issue
                 .should.be.eql(issue);
+        });
+        it('should pass loading to form', () => {
+            byType(instance, MockComponent)[0].props.loading
+                .should.be.eql.false;
         });
     });
 

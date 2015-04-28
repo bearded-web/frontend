@@ -17,6 +17,7 @@
     "byTag": true,
     "byClass": true,
     "findDOMNode": true,
+    "FakePromise": true,
     "it": true,
     "expect": true,
     "describe": true

@@ -19,6 +19,7 @@ export default class IssueCreatePage extends Component {
         super(props, context);
 
         bindAll(this, [
+            'onSave',
             '_getState',
             '_onStoreChanged'
         ]);
@@ -36,9 +37,16 @@ export default class IssueCreatePage extends Component {
         issueCreateStore.offChange(this._onStoreChanged);
     }
 
+    onSave() {
+        const { issue } = this._getState();
+        const target = this.context.router.getCurrentQuery().target;
+
+        saveEditableIssue({ target });
+    }
+
     //region render
     render() {
-        const { issue } = this.state;
+        const { issue, loading, error } = this.state;
         const title = iget('Create issue');
 
         return <div>
@@ -46,7 +54,9 @@ export default class IssueCreatePage extends Component {
 
             <Ibox><IboxContent>
                 <IssueCreateForm issue={issue}
-                                 onSubmit={saveEditableIssue}
+                                 loading={loading}
+                                 error={error}
+                                 onSubmit={this.onSave}
                                  onChange={changeEditableIssue}/>
             </IboxContent></Ibox>
         </div>;
@@ -63,6 +73,6 @@ export default class IssueCreatePage extends Component {
 }
 
 IssueCreatePage.propTypes = {};
-IssueCreatePage.func = {
-    router: PropTypes.object.isRequired
+IssueCreatePage.contextTypes = {
+    router: PropTypes.func.isRequired
 };

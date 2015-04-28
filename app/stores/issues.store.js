@@ -62,6 +62,10 @@ const handlers = {
     //TODO tests
     [C.ISSUE_UPDATE_FAIL](state, update) {
         return state.mergeIn([update.id], update);
+    },
+
+    [C.ISSUE_CREATE_SUCCESS](state, { issue }) {
+        return state.set(issue.id, fromJS(issue));
     }
 };
 
