@@ -10,7 +10,7 @@ describe('AuthStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
 
     beforeEach(() => {
         mockery.enable({
@@ -27,7 +27,7 @@ describe('AuthStore', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
     it('should call createStore', () => {
@@ -36,11 +36,11 @@ describe('AuthStore', function() {
 
     describe('initial state', () => {
         it('should have loading=true', () => {
-            initalState.toObject().loading.should.be.false;
+            initialState.toObject().loading.should.be.false;
         });
 
         it('should have empty resetPasswordError', () => {
-            initalState.toObject().resetPasswordError.should.be.empty;
+            initialState.toObject().resetPasswordError.should.be.empty;
         });
     });
 

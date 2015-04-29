@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
@@ -20,15 +20,15 @@ export default createClass({
         let args = this.refs.args.getValue(),
             $conf = Map({
                 commandArgs: args,
-                Target: ""
+                Target: ''
             });
 
         this.props.onChange(this.props.step.set('conf', $conf));
     },
 
     render() {
-        let { plugin, step } = this.props,
-            cmdArgs = step.getIn(['conf', 'commandArgs']);
+        const { step } = this.props;
+        const cmdArgs = step.getIn(['conf', 'commandArgs']);
 
         return <form className="form-horizontal">
             <Input type="text"

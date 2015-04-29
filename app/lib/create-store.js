@@ -30,6 +30,10 @@ export default function createStore(api, handlers, initialState) {
             return state.toObject();
         },
 
+        getRawState() {
+            return state;
+        },
+
         onChange(func) {
             listeners.push(func);
         },

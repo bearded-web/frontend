@@ -29,7 +29,7 @@ describe('SeverityWidget', function() {
 
         it('should use bomb icon', () => {
             byType(instance, Fa)[0].props.icon
-                .should.be.eql('bomb');
+                .should.be.eql('exclamation-circle');
         });
 
         it('should use danger type', () => {

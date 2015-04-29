@@ -20,13 +20,13 @@
     "strict": 2,
     "semi": 2,
     "camelcase": 1,
-    "no-use-before-define": [1, "nofunc"],
+    "no-use-before-define": [2, "nofunc"],
     "comma-spacing": 1,
     "no-multi-spaces": 2,
     "curly": [2, "multi-line"],
     "no-shadow": 1,
     "quotes": [
-      1,
+      2,
       "single"
     ],
     "eol-last": [0],

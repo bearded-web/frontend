@@ -36,7 +36,7 @@ export default createClass({
         const { step } = this.props;
         const formData = step.getIn(['conf', 'formData']);
 
-        let w3afData = {data: '', type: "plan"};
+        let w3afData = {data: '', type: 'plan'};
 
         if (formData !== undefined) {
             try {
@@ -80,7 +80,7 @@ export default createClass({
 
     renderTypeButton(type) {
         let active = this.state.type === type;
-        let className = "btn-white" + (active? " active": "");
+        let className = 'btn-white' + (active? ' active': '');
         return <Button className={className} onClick={this.onTypeClick.bind(this, type)}>{iget(type)}</Button>;
     },
 
@@ -117,7 +117,7 @@ export default createClass({
     },
 
     renderCustomForm(w3afData) {
-        return <div className="col-md-offset-2"><h2>{iget("Coming soon")}</h2></div>;
+        return <div className="col-md-offset-2"><h2>{iget('Coming soon')}</h2></div>;
     }
 
 

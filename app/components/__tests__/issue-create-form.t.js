@@ -15,6 +15,8 @@ describe('IssueCreateForm', function() {
     let onChange = null;
 
     beforeEach(function() {
+        mockery.registerMock('./vulns-select-container', MockComponent);
+
         mockery.registerAllowable('../issue-create-form', true);
         Component = require('../issue-create-form');
 

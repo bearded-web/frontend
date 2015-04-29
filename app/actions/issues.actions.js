@@ -4,7 +4,7 @@ import { issues } from '../lib/api3';
 import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/disp';
 import C from '../constants';
-import { cloneDeep, merge } from 'lodash';
+import { cloneDeep, merge, isNaN } from 'lodash';
 import { HIGH, MEDIUM, LOW } from '../lib/severities';
 import issueCreateStore from '../stores/issue-create.store';
 import router from '../router';
@@ -139,21 +139,26 @@ export function changeEditableIssue(issue) {
  *
  */
 export function saveEditableIssue(mergeData) {
-    const { issue } = issueCreateStore.getState();
+    let { issue } = issueCreateStore.getState();
 
     //TODO check issue data
 
     dispatch(C.ISSUE_CREATE_START);
 
+    issue = issue.toJS();
+    issue.vulnType = parseInt(issue.vulnType, 10);
+    if (isNaN(issue.vulnType)) issue.vulnType = 0;
+    issue = merge(issue, mergeData);
+
     issues
-        .create({ body: merge(issue.toJS(), mergeData) })
+        .create({ body: issue })
         .then(data => {
             dispatch(C.ISSUE_CREATE_SUCCESS, { issue: data });
 
             router.get().transitionTo('issue', { issueId: data.id });
         })
         .catch(e => {
-            const message = e.data && e.data.Message || iget('Server error');
+            const message = e.message || e.data && e.data.Message || iget('Server error');
 
             dispatch(C.ISSUE_CREATE_FAIL, { message });
         });

@@ -25,7 +25,7 @@ describe('issueCreateStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
     let handler = null;
     let state = null;
 
@@ -38,12 +38,12 @@ describe('issueCreateStore', function() {
         store = require('../issue-create.store');
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
     describe('initial state', function() {
         it('should contain issue', function() {
-            initalState.toJS().should.be.eql(initialStateData);
+            initialState.toJS().should.be.eql(initialStateData);
         });
     });
 

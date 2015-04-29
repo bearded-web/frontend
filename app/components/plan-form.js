@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
@@ -28,8 +28,6 @@ export default createClass({
 
 
     onChange() {
-        let { $plan } = this.props;
-
         change(this.getValues());
     },
 

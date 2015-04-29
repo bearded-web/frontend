@@ -108,6 +108,9 @@ var constants = {
     PROJECTS_FETCH_SUCCESS: '--',
     PROJECTS_SET_CURRENT: '--',
 
+    VULNS_FETCH_START: 'Start fetching vulns list',
+    VULNS_FETCH_SUCCESS: 'Success fetching vulns list',
+
     ________: false // dont want delete "," after duplicate line
 };
 

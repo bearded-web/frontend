@@ -1,15 +1,16 @@
 'use strict';
 var actions = require('./actions'),
     stores = require('./stores'),
-    Fluxxor = require('fluxxor'),
-    flux = new Fluxxor.Flux(stores, actions);
+    Fluxxor = require('fluxxor');
+
+const flux = new Fluxxor.Flux(stores, actions);
 
 flux.on('dispatch', function(type, payload) {
     if (console && console.log) {
-        console.log("[Dispatch]", type, payload);
+        console.log('[Dispatch]', type, payload);
 
         if (payload && payload.error) {
-            console.log("[Dispatch error]", payload.error.stack); // jshint ignore:line
+            console.log('[Dispatch error]', payload.error.stack); // jshint ignore:line
         }
     }
 });

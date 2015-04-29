@@ -13,7 +13,7 @@ describe('issuesStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
     let handler = null;
     let state = null;
 
@@ -32,7 +32,7 @@ describe('issuesStore', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
     it('must call createStore', () => {

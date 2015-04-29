@@ -16,7 +16,7 @@ describe('issuesListStore', function() {
     let store = null;
     let api = null;
     let handlers = null;
-    let initalState = null;
+    let initialState = null;
 
     beforeEach(() => {
         filter = Map({ severity: 'all' });
@@ -66,7 +66,7 @@ describe('issuesListStore', function() {
 
         api = createStore.firstCall.args[0];
         handlers = createStore.firstCall.args[1];
-        initalState = createStore.firstCall.args[2];
+        initialState = createStore.firstCall.args[2];
     });
 
 
@@ -77,8 +77,8 @@ describe('issuesListStore', function() {
 
     describe('initial state', function() {
         it('should contain sortBy=severity', function() {
-            initalState.toObject().sortBy.should.be.eql('severity');
-            initalState.toObject().loading.should.be.false;
+            initialState.toObject().sortBy.should.be.eql('severity');
+            initialState.toObject().loading.should.be.false;
         });
     });
 

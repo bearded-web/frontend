@@ -143,6 +143,13 @@ MockComponent.propTypes = {
 global.MockComponent = MockComponent;
 
 class FakePromise {
+    /**
+     * New FakePromise
+     * @param {Boolean} resolve call then
+     * @param {Boolean} reject call catch
+     * @param {*} value resolve value
+     * @param {*} error reject value
+     */
     constructor(resolve, reject, value, error) {
         this.resolve = resolve;
         this.reject = reject;

@@ -13,23 +13,7 @@ import { fromJS } from 'immutable';
 
 import { Row, Col, Input, Button, TabPane, TabbedArea } from 'react-bootstrap';
 import VectorForm from './vector-form';
-
-const Form = t.form.Form;
-const VulnType = t.enums({
-    0: 'Not selected',
-    1: 'Cool type',
-    2: 'Wow!',
-    3: 'Piy'
-});
-const Issue = t.struct({
-    summary: t.Str,
-    desc: t.maybe(t.Str),
-    references: t.maybe(t.list(t.struct({
-        url: t.Str,
-        title: t.maybe(t.Str)
-    }))),
-    vulnType: VulnType
-});
+import VulnsSelect from './vulns-select-container';
 
 const S = {
     error: { marginLeft: '1rem' }
@@ -79,33 +63,7 @@ export default class IssueCreateForm extends Component {
     //region render
     render() {
         const { loading, issue, error } = this.props;
-        const { summary, desc, vector } = issue.toObject();
-        const values = this.props.issue.toJS();
-        const formOptions = {
-            order: ['vulnType', 'summary', 'desc', 'references'],
-            fields: {
-                summary: {
-                    label: iget('Summary'),
-                    error: iget('Summary is required')
-                },
-                vulnType: {
-                    nullOption: false
-                },
-                desc: {
-                    type: 'textarea',
-                    label: iget('Description')
-                },
-                references: {
-                    disableOrder: true,
-                    item: {
-                        order: ['title', 'url'],
-                        auto: 'placeholders'
-                    }
-                }
-            }
-        };
-
-        formOptions.fields.summary.hasError = !summary.length;
+        const { summary, desc, vector, vulnType } = issue.toObject();
 
         return <div>
             <TabbedArea defaultActiveKey={1}>
@@ -113,6 +71,8 @@ export default class IssueCreateForm extends Component {
                     <br/>
                     <Row>
                         <Col xs={12} md={6}>
+                            <VulnsSelect onChange={e => this.onFieldChange(e, 'vulnType')}
+                                         value={vulnType}/>
                             <Input type="text"
                                    onChange={e => this.onFieldChange(e, 'summary')}
                                    value={summary}
@@ -125,11 +85,6 @@ export default class IssueCreateForm extends Component {
                                    value={desc}
                                    label={iget('Description')}
                                    placeholder={iget('Description')}/>
-                            {/* <Form type={Issue}
-                             ref="form"
-                             options={formOptions}
-                             onChange={this.onFormChange}
-                             value={values}/> */}
                         </Col>
                     </Row>
 

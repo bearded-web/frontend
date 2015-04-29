@@ -16,7 +16,8 @@ describe('issuesActions', function() {
     };
     const targetId = 'targetId1';
     const editedIssue = fromJS({
-        summary: 'test summary'
+        summary: 'test summary',
+        vulnType: 0
     });
     const errorMessage = 'error message';
 
@@ -270,6 +271,8 @@ describe('issuesActions', function() {
     });
 
     describe('saveEditableIssue', () => {
+        const target = 'some target id';
+
         it('should dispatch ISSUE_CREATE_START', () => {
             actions.saveEditableIssue();
 
@@ -299,13 +302,40 @@ describe('issuesActions', function() {
         });
 
         it('should merge target before save', () => {
-            const target = 'some target id';
 
             actions.saveEditableIssue({ target });
 
             const issue = editedIssue.toJS();
             issue.target = target;
             issuesApi.create.should.have.been.calledWith({ body: issue });
+        });
+
+
+        it('should convert vulnType from string', () => {
+            const summary = 'some summary';
+
+            mockery.deregisterMock('../stores/issue-create.store');
+            mockery.registerMock('../stores/issue-create.store', {
+                getState: () => ({
+                    issue: fromJS({
+                        summary,
+                        vulnType: '12'
+                    })
+                })
+            });
+
+            mockery.deregisterAllowable('../issues.actions');
+            mockery.registerAllowable('../issues.actions', true);
+            actions = require('../issues.actions');
+
+            actions.saveEditableIssue({ target });
+            issuesApi.create.should.have.been.calledWith({
+                body: {
+                    target,
+                    summary,
+                    vulnType: 12
+                }
+            });
         });
     });
 });

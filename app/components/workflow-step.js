@@ -1,13 +1,12 @@
-"use strict";
+'use strict';
 
 import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
-import { $Model, $Models } from '../lib/types';
+import { $Models } from '../lib/types';
 import { Map } from 'immutable';
 
 import RemoveLink from './remove-link';
 import StepForm from './step-form';
-import { Input } from 'react-bootstrap';
 
 export default createClass({
     mixins: [ImMixin],
