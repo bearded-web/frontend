@@ -40,7 +40,8 @@ export default createClass({
     //TODO add component for 2 columns
     render() {
         let { $plugins, $plan } = this.props,
-            { name, desc, dirty, isNew } = $plan ? $plan.toObject() : {},
+            { name, desc, targetType, dirty, isNew } = $plan ? $plan.toObject() : {},
+            $targetPlugins = $plugins.filter(function(plugin){return plugin.get("targetType") === targetType}),
             $steps = $plan.get('workflow');
 
         return <Row>
@@ -53,6 +54,21 @@ export default createClass({
                         required
                         onChange={this.onChange}
                         label={iget('Plan name')}/>
+
+                    <Input
+                        type='select'
+                        ref="targetType"
+                        value={targetType}
+                        required
+                        onChange={this.onChange}
+                        label={iget("Select target type")}
+                        disabled={$steps.size !== 0}
+                        placeholder='select'>
+
+                        <option value='web'>web</option>
+                        <option value='android'>android</option>
+                    </Input>
+
 
                     <Input
                         ref="desc"
@@ -68,7 +84,7 @@ export default createClass({
             </Col>
             <Col xs={12} md={8}>
                 <h2 className="text-center">{iget('Workflow')}</h2>
-                <Workflow $steps={$steps} $plugins={$plugins}/>
+                <Workflow $steps={$steps} $plugins={$targetPlugins}/>
             </Col>
         </Row>;
     }
