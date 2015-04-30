@@ -3,13 +3,13 @@
 import { spy } from 'sinon';
 import mockery from 'mockery';
 
-describe.skip('VectorForm', function() {
+describe('TransactionForm', function() {
     let Component = null;
     let instance = null;
 
     beforeEach(function() {
-        mockery.registerAllowable('../vector-form', true);
-        Component = require('../vector-form');
+        mockery.registerAllowable('../transaction-form', true);
+        Component = require('../transaction-form');
 
         instance = TestUtils.renderIntoDocument(
             <Component/>
@@ -17,7 +17,7 @@ describe.skip('VectorForm', function() {
     });
 
     describe('render', function() {
-        it('should fail', function() {
+        it.skip('should fail', function() {
             true.should.be.false;
         });
     });

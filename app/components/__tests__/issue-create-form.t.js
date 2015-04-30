@@ -33,7 +33,7 @@ describe('IssueCreateForm', function() {
                 .should.be.eql(issue.get('summary'));
         });
 
-        describe('loading', () => {
+        describe.skip('loading', () => {
             beforeEach(function() {
                 instance = TestUtils.renderIntoDocument(
                     <Component loading issue={issue} onChange={onChange}/>

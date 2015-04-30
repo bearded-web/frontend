@@ -116,9 +116,12 @@ export function increaseSeverity(issue) {
 export function decreaseSeverity(issue) {
     let severity = issue.get('severity');
 
-    if (severity === LOW) return;
+    if (severity === INFO) return;
 
-    if (severity === MEDIUM) {
+    if (severity === LOW) {
+        severity = INFO;
+    }
+    else if (severity === MEDIUM) {
         severity = LOW;
     }
     else if (severity === HIGH) {

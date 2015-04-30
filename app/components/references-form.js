@@ -14,8 +14,7 @@ import {
     Tooltip,
     Input,
     Button,
-    Row,
-    Col } from 'react-bootstrap';
+    Row } from 'react-bootstrap';
 import Fa from './fa';
 
 const S = {

@@ -9,6 +9,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import issueCreateStore from '../stores/issue-create.store';
 import { bindAll } from 'lodash';
 import { changeEditableIssue, saveEditableIssue } from '../actions/issues.actions';
+import setTitle from '../lib/set-title';
 
 import Header from './header';
 import Ibox, { IboxContent } from './ibox';
@@ -30,6 +31,8 @@ export default class IssueCreatePage extends Component {
     }
 
     componentDidMount() {
+        setTitle(iget('Create issue'));
+
         issueCreateStore.onChange(this._onStoreChanged);
     }
 

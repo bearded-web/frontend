@@ -1,5 +1,6 @@
 # Fronted for bearded-web
 [![Build Status](https://travis-ci.org/bearded-web/frontend.svg?branch=master)](https://travis-ci.org/bearded-web/frontend)
+[![Dependencies](https://david-dm.org/bearded-web/frontend.svg)](https://david-dm.org/bearded-web/frontend)
 [![Coverage status](http://codecov.io/github/bearded-web/frontend/coverage.svg?branch=master)](http://codecov.io/github/bearded-web/frontend?branch=master)
 
 ### How to use

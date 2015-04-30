@@ -8,18 +8,20 @@ import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
 import { bindAll } from 'lodash';
-import t from 'tcomb-form';
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 
-import { Row, Col, Input, Button, TabPane, TabbedArea } from 'react-bootstrap';
+import { Row, Col, Button, TabPane, TabbedArea } from 'react-bootstrap';
 import VectorForm from './vector-form';
-import VulnsSelect from './vulns-select-container';
-import SeveritySelect from './severity-select';
 import ReferencesForm from './references-form';
+import Fa from './fa';
+import IssueGeneralForm from './issue-general-form';
 
 const S = {
     error: { marginLeft: '1rem' }
 };
+const VECTOR = 'vector';
+const DESC = 'desc';
+const REFS = 'refs';
 
 export default class IssueCreateForm extends Component {
     constructor(props, context) {
@@ -27,11 +29,14 @@ export default class IssueCreateForm extends Component {
 
         bindAll(this, [
             'onSubmit',
-            'onFormChange',
-            'addVector',
-            'onVulnChange',
-            'onRefsChange'
+            'onRefsChange',
+            'onVectorChange',
+            'renderVectorTab',
+            'renderRefsTab',
+            'onTabSelect'
         ]);
+
+        this.state = { tab: DESC };
 
         this.shouldComponentUpdate = shouldComponentUpdate;
     }
@@ -42,96 +47,50 @@ export default class IssueCreateForm extends Component {
         this.props.onSubmit();
     }
 
-    onFieldChange({ target, value }, field) {
-        this.props.onChange(this.props.issue.set(field, value || target.value));
-    }
-
-    onFormChange(value) {
-        this.props.onChange(this.props.issue.merge(value));
-    }
-
-    addVector() {
-        this.props.onChange(this.props.issue.set('vector', fromJS({
-            httpTransactions: [{
-                url: '',
-                method: 'GET'
-
-            }]
-        })));
-    }
-
     onVectorChange(vector) {
         this.props.onChange(this.props.issue.set('vector', vector));
-    }
-
-    onVulnChange(vuln) {
-        this.props.onChange(this.props.issue.merge({
-            vulnType: vuln.get('id'),
-            severity: vuln.get('severity')
-        }));
     }
 
     onRefsChange(refs) {
         this.props.onChange(this.props.issue.set('references', refs));
     }
 
+    onTabSelect(tab) {
+        if (tab === VECTOR && !this.props.issue.get('vector')) {
+            this.props.onChange(this.props.issue.set('vector', Map()));
+        }
+        if (tab === REFS && !this.props.issue.get('references')) {
+            const refs = fromJS([{
+                title: '',
+                url: ''
+            }]);
+
+            this.props.onChange(this.props.issue.set('references', refs));
+        }
+
+        this.setState({ tab });
+    }
+
     //region render
     render() {
-        const { loading, issue, error } = this.props;
-        const {
-            summary,
-            desc,
-            vulnType,
-            severity,
-            references } = issue.toObject();
+        const { tab } = this.state;
+        const { loading, issue, error, onChange } = this.props;
+        const { vector, references } = issue.toObject();
 
         return <div>
-            <TabbedArea defaultActiveKey={1}>
-                <TabPane eventKey={1} tab={iget('Description')}>
+            <TabbedArea activeKey={tab} onSelect={this.onTabSelect}>
+                <TabPane eventKey={DESC} tab={iget('Description')}>
                     <br/>
-                    <Row> <Col xs={12} md={6}>
-                        <VulnsSelect
-                            onChange={this.onVulnChange}
-                            value={vulnType}/>
-                        <br/>
+                    <Row><Col xs={12} md={6} mdOffset={3}>
 
-                        <label>{iget('Severity')}</label>
-                        <SeveritySelect
-                            onChange={e => this.onFieldChange(e, 'severity')}
-                            value={severity}/>
+                        <IssueGeneralForm
+                            issue={issue}
+                            onChange={onChange}/>
 
-                        <br/>
-
-                        <Input
-                            type="text"
-                            onChange={e => this.onFieldChange(e, 'summary')}
-                            value={summary}
-                            disabled={loading}
-                            label={iget('Summary (required)')}
-                            placeholder={iget('Summary')}/>
-                        <Input
-                            type="textarea"
-                            onChange={e => this.onFieldChange(e, 'desc')}
-                            disabled={loading}
-                            value={desc}
-                            label={iget('Description')}
-                            placeholder={iget('Description')}/>
-                    </Col> <Col xs={12} md={6}>
-                        <h3 className="text-center">References</h3>
-                        <ReferencesForm
-                            references={references}
-                            onChange={this.onRefsChange}/>
                     </Col></Row>
-
-
                 </TabPane>
-                {/* <TabPane eventKey={2} tab={iget('Vector')}>
-                 <br/>
-                 {vector || <Button bsStyle="primary" onClick={this.addVector}>
-                 {iget('Add vector')}
-                 </Button>}
-                 {vector && <VectorForm vector={vector} onChange={this.onVectorChange}/>}
-                 </TabPane> */}
+                {this.renderRefsTab(references)}
+                {this.renderVectorTab(vector)}
             </TabbedArea>
 
             <hr/>
@@ -148,6 +107,32 @@ export default class IssueCreateForm extends Component {
         </div>;
     }
 
+    renderVectorTab(vector) {
+        const title = vector ?
+            <span>{iget('Vector')}</span> :
+            <span><Fa icon="plus"/>{iget('Add vector')}</span>;
+
+        return <TabPane eventKey={VECTOR} tab={title}>
+            <br/>
+            {vector && <VectorForm vector={vector} onChange={this.onVectorChange}/>}
+        </TabPane>;
+    }
+
+    renderRefsTab(references) {
+        const title = references ?
+            <span>{iget('References')}</span> :
+            <span><Fa icon="plus"/>{iget('Add references')}</span>;
+
+        return <TabPane eventKey={REFS} tab={title}>
+            <Row><Col xs={12} md={6} mdOffset={3}>
+                <br/>
+                {references && <ReferencesForm
+                    references={references}
+                    onChange={this.onRefsChange}/>}
+            </Col></Row>
+        </TabPane>;
+    }
+
     //endregion
 }
 
@@ -159,6 +144,6 @@ IssueCreateForm.propTypes = {
     onSubmit: PropTypes.func.isRequired
 };
 IssueCreateForm.defaultProps = {
-    loading: true,
+    loading: false,
     error: ''
 };

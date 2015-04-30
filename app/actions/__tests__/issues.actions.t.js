@@ -252,10 +252,24 @@ describe('issuesActions', function() {
                 body: { severity: MEDIUM }
             });
         });
-        it('should not call api.issues.update if LOW severity', () => {
+
+        it('should call api.issues.update with new severity', () => {
             const issue = fromJS({
                 id,
                 severity: LOW
+            });
+            actions.decreaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: INFO }
+            });
+        });
+
+        it('should not call api.issues.update if LOW severity', () => {
+            const issue = fromJS({
+                id,
+                severity: INFO
             });
             actions.decreaseSeverity(issue);
 

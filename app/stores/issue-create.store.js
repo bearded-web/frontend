@@ -16,10 +16,6 @@ const initialState = fromJS({
         summary: '',
         severity: HIGH,
         desc: '',
-        references: [{
-            url: '',
-            title: ''
-        }],
         vulnType: 0,
         confirmed: true,
         false: false,

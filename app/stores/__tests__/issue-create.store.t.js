@@ -13,10 +13,6 @@ describe('issueCreateStore', function() {
             summary: '',
             desc: '',
             severity: 'high',
-            references: [{
-                url: '',
-                title: ''
-            }],
             vulnType: 0,
             confirmed: true,
             false: false,
