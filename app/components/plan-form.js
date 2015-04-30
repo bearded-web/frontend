@@ -41,7 +41,7 @@ export default createClass({
     render() {
         let { $plugins, $plan } = this.props,
             { name, desc, targetType, dirty, isNew } = $plan ? $plan.toObject() : {},
-            $targetPlugins = $plugins.filter(function(plugin){return plugin.get("targetType") === targetType}),
+            $targetPlugins = $plugins.filter(function(plugin){return plugin.get("targetType") === targetType; }),
             $steps = $plan.get('workflow');
 
         return <Row>
