@@ -7,7 +7,8 @@ import { last } from 'lodash';
 
 describe('IssueCreateForm', function() {
     const issue = fromJS({
-        summary: 'issue summary'
+        summary: 'issue summary',
+        references: []
     });
 
     let Component = null;

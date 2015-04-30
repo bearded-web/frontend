@@ -1,14 +1,12 @@
 'use strict';
 
 import { WEB, ANDROID } from '../../lib/target-types';
+import flux from'../../flux';
 
-var Bootstrap = require('react-bootstrap'),
-    flux = require('../../flux');
-
-var { Row, Col } = Bootstrap,
-    { Link } = require('react-router'),
-    Header = require('../header'),
-    Fa = require('../fa');
+import { Col } from 'react-bootstrap';
+import { Link } from 'react-router';
+import Header from '../header';
+import Fa from '../fa';
 
 var TargetHeader = React.createClass({
     propTypes: {

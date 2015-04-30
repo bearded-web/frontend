@@ -4,9 +4,11 @@ import { stub, spy, mock, match } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 import { Map, fromJS } from 'immutable';
-import { HIGH, MEDIUM, LOW } from '../../lib/severities';
+import { HIGH, MEDIUM, LOW, INFO } from '../../lib/severities';
 
 describe('issuesActions', function() {
+    const summary = 'summary text';
+    const target = 'targetId';
     const statusName = 'confirmed';
     const id = 'some id';
     const data = {
@@ -147,34 +149,55 @@ describe('issuesActions', function() {
         });
     });
 
+
     describe('increaseSeverity', () => {
         const issue = fromJS({
             id,
+            summary,
+            target,
             severity: MEDIUM
         });
-        it('should call api.issues.update with new severity', () => {
+        it('should call api.issues.update with new HIGH severity', () => {
             actions.increaseSeverity(issue);
 
             issuesApi.update.should.have.been.calledWithMatch({
                 issueId: id,
-                body: { severity: HIGH }
+                body: { severity: HIGH, summary, target }
             });
         });
-        it('should call api.issues.update with new severity', () => {
+        it('should call api.issues.update with new MEDIUM severity', () => {
             const issue = fromJS({
                 id,
+                summary,
+                target,
                 severity: LOW
             });
             actions.increaseSeverity(issue);
 
             issuesApi.update.should.have.been.calledWithMatch({
                 issueId: id,
-                body: { severity: MEDIUM }
+                body: { severity: MEDIUM, summary, target }
+            });
+        });
+        it('should call api.issues.update with new LOW severity', () => {
+            const issue = fromJS({
+                id,
+                summary,
+                target,
+                severity: INFO
+            });
+            actions.increaseSeverity(issue);
+
+            issuesApi.update.should.have.been.calledWithMatch({
+                issueId: id,
+                body: { severity: LOW, summary, target }
             });
         });
         it('should not call api.issues.update if HIGH severity', () => {
             const issue = fromJS({
                 id,
+                summary,
+                target,
                 severity: HIGH
             });
             actions.increaseSeverity(issue);

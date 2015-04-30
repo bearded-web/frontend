@@ -6,7 +6,7 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { List } from 'immutable';
+import { Map } from 'immutable';
 
 export default class VulnsSelect extends Component {
     constructor(props, context) {
@@ -15,11 +15,17 @@ export default class VulnsSelect extends Component {
         this.shouldComponentUpdate = shouldComponentUpdate;
     }
 
+    onChange(e) {
+        const id = parseInt(e.target.value, 10);
+
+        this.props.onChange(this.props.vulns.get(id));
+    }
+
     //region render
     render() {
-        const { vulns, value, onChange } = this.props;
+        const { vulns, value } = this.props;
 
-        return <select onChange={onChange}
+        return <select onChange={e => this.onChange(e)}
                        value={value}
                        className="form-control">
             <option value="0">{iget('Select type')}</option>
@@ -39,11 +45,11 @@ export default class VulnsSelect extends Component {
 }
 
 VulnsSelect.propTypes = {
-    vulns: PropTypes.instanceOf(List),
+    vulns: PropTypes.instanceOf(Map),
     value: PropTypes.number,
     onChange: PropTypes.func.isRequired
 };
 VulnsSelect.defaultProps = {
     value: 0,
-    vulns: List()
+    vulns: Map()
 };

@@ -41,7 +41,7 @@ export default class VulnsSelectContainer extends Component {
         this.setState(this._getState());
     }
     _getState() {
-        return { vulns: vulnsStore.asList() };
+        return { vulns: vulnsStore.getRawState() };
     }
 
     //region render

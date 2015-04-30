@@ -1,4 +1,8 @@
 'use strict';
+
+import Router, { Route, DefaultRoute, NotFoundRoute, Redirect } from 'react-router';
+import flux from './flux';
+
 import UserSettingsPage from './components/user-settings-page';
 import PasswordResetPage from './components/password-reset-page';
 import PasswordResetOkPage from './components/password-reset-ok-page';
@@ -7,11 +11,24 @@ import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
 import TargetCreatePage from './components/target-create-page';
 import IssueCreatePage from './components/issue-create-page';
+import App from './components/app.js';
+import Agents from './components/agents';
+import PlansPage from './components/plans-page';
+import PlanPage from './components/plan-page';
+import Dashboard from './components/dashboard';
+import ReportPage from './components/report-page';
+import Scan from './components/scan';
+import ScanReport from './components/scan-report';
+import Overview from './components/overview';
+import NotFound from './components/not-found';
+import LoginOverlay from './components/login-overlay';
+import IssuesPage from './components/issues-page';
+import IssuePage from './components/issue-page';
+import Target from './components/target/';
 
 require('react');
 
-var router = null,
-    flux = require('./flux');
+let router = null;
 
 module.exports.get = function getRouter() {
     return router;
@@ -19,27 +36,7 @@ module.exports.get = function getRouter() {
 
 module.exports.create = function buildRouter() {
 
-    var Router = require('react-router'),
-        Route = Router.Route,
-        DefaultRoute = Router.DefaultRoute,
-        NotFoundRoute = Router.NotFoundRoute,
-        Redirect = Router.Redirect,
-        App = require('./components/app.js'),
-        Agents = require('./components/agents'),
-        PlansPage = require('./components/plans-page'),
-        PlanPage = require('./components/plan-page'),
-        Dashboard = require('./components/dashboard'),
-        ReportPage = require('./components/report-page'),
-        Scan = require('./components/scan'),
-        ScanReport = require('./components/scan-report'),
-        Overview = require('./components/overview'),
-        NotFound = require('./components/not-found'),
-        LoginOverlay = require('./components/login-overlay'),
-        IssuesPage = require('./components/issues-page'),
-        IssuePage = require('./components/issue-page'),
-        Target = require('./components/target/');
-
-    var routes = (
+    const routes = (
         <Route flux={flux}>
             <Route name="password-reset" path="/reset" handler={PasswordResetPage}/>
             <Redirect from="/reset/" to="password-reset"/>

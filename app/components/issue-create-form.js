@@ -14,6 +14,8 @@ import { fromJS } from 'immutable';
 import { Row, Col, Input, Button, TabPane, TabbedArea } from 'react-bootstrap';
 import VectorForm from './vector-form';
 import VulnsSelect from './vulns-select-container';
+import SeveritySelect from './severity-select';
+import ReferencesForm from './references-form';
 
 const S = {
     error: { marginLeft: '1rem' }
@@ -26,7 +28,9 @@ export default class IssueCreateForm extends Component {
         bindAll(this, [
             'onSubmit',
             'onFormChange',
-            'addVector'
+            'addVector',
+            'onVulnChange',
+            'onRefsChange'
         ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
@@ -38,8 +42,8 @@ export default class IssueCreateForm extends Component {
         this.props.onSubmit();
     }
 
-    onFieldChange(e, field) {
-        this.props.onChange(this.props.issue.set(field, e.target.value));
+    onFieldChange({ target, value }, field) {
+        this.props.onChange(this.props.issue.set(field, value || target.value));
     }
 
     onFormChange(value) {
@@ -60,33 +64,64 @@ export default class IssueCreateForm extends Component {
         this.props.onChange(this.props.issue.set('vector', vector));
     }
 
+    onVulnChange(vuln) {
+        this.props.onChange(this.props.issue.merge({
+            vulnType: vuln.get('id'),
+            severity: vuln.get('severity')
+        }));
+    }
+
+    onRefsChange(refs) {
+        this.props.onChange(this.props.issue.set('references', refs));
+    }
+
     //region render
     render() {
         const { loading, issue, error } = this.props;
-        const { summary, desc, vector, vulnType } = issue.toObject();
+        const {
+            summary,
+            desc,
+            vulnType,
+            severity,
+            references } = issue.toObject();
 
         return <div>
             <TabbedArea defaultActiveKey={1}>
                 <TabPane eventKey={1} tab={iget('Description')}>
                     <br/>
-                    <Row>
-                        <Col xs={12} md={6}>
-                            <VulnsSelect onChange={e => this.onFieldChange(e, 'vulnType')}
-                                         value={vulnType}/>
-                            <Input type="text"
-                                   onChange={e => this.onFieldChange(e, 'summary')}
-                                   value={summary}
-                                   disabled={loading}
-                                   label={iget('Summary')}
-                                   placeholder={iget('Summary')}/>
-                            <Input type="textarea"
-                                   onChange={e => this.onFieldChange(e, 'desc')}
-                                   disabled={loading}
-                                   value={desc}
-                                   label={iget('Description')}
-                                   placeholder={iget('Description')}/>
-                        </Col>
-                    </Row>
+                    <Row> <Col xs={12} md={6}>
+                        <VulnsSelect
+                            onChange={this.onVulnChange}
+                            value={vulnType}/>
+                        <br/>
+
+                        <label>{iget('Severity')}</label>
+                        <SeveritySelect
+                            onChange={e => this.onFieldChange(e, 'severity')}
+                            value={severity}/>
+
+                        <br/>
+
+                        <Input
+                            type="text"
+                            onChange={e => this.onFieldChange(e, 'summary')}
+                            value={summary}
+                            disabled={loading}
+                            label={iget('Summary (required)')}
+                            placeholder={iget('Summary')}/>
+                        <Input
+                            type="textarea"
+                            onChange={e => this.onFieldChange(e, 'desc')}
+                            disabled={loading}
+                            value={desc}
+                            label={iget('Description')}
+                            placeholder={iget('Description')}/>
+                    </Col> <Col xs={12} md={6}>
+                        <h3 className="text-center">References</h3>
+                        <ReferencesForm
+                            references={references}
+                            onChange={this.onRefsChange}/>
+                    </Col></Row>
 
 
                 </TabPane>

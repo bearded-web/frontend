@@ -2,10 +2,9 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import { icon, color, HIGH, MEDIUM, LOW } from '../lib/severities';
 import { greenColor, orangeColor, redColor } from '../style';
 import { assign } from 'lodash';
-import { icon } from '../lib/severities';
 
 import Fa from './fa';
 
@@ -25,14 +24,9 @@ export default class SeverityIcon extends Component {
             display: 'inline-block',
             textAlign: 'center',
             lineHeight: size + 'px',
-            fontSize: size + 'px'
+            fontSize: size + 'px',
+            color: color(severity)
         };
-
-        iconStyle.color = {
-            [HIGH]: redColor,
-            [MEDIUM]: orangeColor,
-            [LOW]: greenColor
-        }[severity];
 
         assign(iconStyle, style);
 

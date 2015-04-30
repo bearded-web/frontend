@@ -7,14 +7,19 @@
 import { fromJS } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
+import { HIGH } from '../lib/severities';
 
 const initialState = fromJS({
     loading: false,
     error: '',
     issue: {
         summary: '',
+        severity: HIGH,
         desc: '',
-        references: [],
+        references: [{
+            url: '',
+            title: ''
+        }],
         vulnType: 0,
         confirmed: true,
         false: false,
@@ -32,7 +37,7 @@ const handlers = {
     [C.ISSUE_CREATE_START](state) {
         return state.set('loading', true);
     },
-    [C.ISSUE_CREATE_SUCCESS](state) {
+    [C.ISSUE_CREATE_SUCCESS]() {
         return initialState;
     },
     [C.ISSUE_CREATE_FAIL](state, { message }) {

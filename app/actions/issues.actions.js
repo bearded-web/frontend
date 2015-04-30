@@ -5,7 +5,7 @@ import { extractor } from '../lib/helpers';
 import { dispatch } from '../lib/disp';
 import C from '../constants';
 import { cloneDeep, merge, isNaN } from 'lodash';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import { HIGH, MEDIUM, LOW, INFO } from '../lib/severities';
 import issueCreateStore from '../stores/issue-create.store';
 import router from '../router';
 
@@ -96,7 +96,10 @@ export function increaseSeverity(issue) {
 
     if (severity === HIGH) return;
 
-    if (severity === LOW) {
+    if (severity === INFO) {
+        severity = LOW;
+    }
+    else if (severity === LOW) {
         severity = MEDIUM;
     }
     else if (severity === MEDIUM) {
@@ -168,6 +171,8 @@ export function saveEditableIssue(mergeData) {
 //region locals
 function changeSeverity(issue, severity) {
     const oldSeverity = issue.get('severity');
+    const summary = issue.get('summary');
+    const target = issue.get('target');
     const issueId = issue.get('id');
 
     dispatch(C.ISSUE_UPDATE_START, {
@@ -178,7 +183,8 @@ function changeSeverity(issue, severity) {
     issues
         .update({
             issueId,
-            body: { severity }
+            //TODO remove summary https://github.com/bearded-web/bearded/issues/74
+            body: { severity, summary, target }
         })
         .catch(e => {
             showError(e);

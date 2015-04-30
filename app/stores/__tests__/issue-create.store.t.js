@@ -1,6 +1,6 @@
 'use strict';
 
-import { is, Map, List, OrderedMap, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
@@ -12,7 +12,11 @@ describe('issueCreateStore', function() {
         issue: {
             summary: '',
             desc: '',
-            references: [],
+            severity: 'high',
+            references: [{
+                url: '',
+                title: ''
+            }],
             vulnType: 0,
             confirmed: true,
             false: false,

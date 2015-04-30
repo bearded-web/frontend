@@ -1,8 +1,7 @@
 'use strict';
-var React = require('react'),
-    { PropTypes } = React,
-    _ = require('lodash'),
-    actions = require('../../actions/report.actions');
+import React, { PropTypes } from 'react/addons';
+import _ from 'lodash';
+import actions from '../../actions/report.actions';
 
 var ReportIssuesTotal = require('../report-issues-total'),
     SeverityLevelDesc = require('../severity-level-desc'),

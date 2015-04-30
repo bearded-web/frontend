@@ -19,7 +19,7 @@ export default class Widget extends Component {
     render() {
         const { children, type, style } = this.props;
         const classes = cn('widget', {
-            'navy-bg': type === 'success',
+            'blue-bg': type === 'success',
             'red-bg': type === 'danger',
             'yellow-bg': type === 'warning',
             'lazur-bg': type === 'info'

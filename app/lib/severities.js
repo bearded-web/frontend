@@ -4,6 +4,8 @@
 
 'use strict';
 
+import { red, orange, blue, lazur, gray } from '../style';
+
 export const HIGH = 'high';
 export const MEDIUM = 'medium';
 export const LOW = 'low';
@@ -39,5 +41,34 @@ export function icon(severity) {
         [LOW]: 'eye',
         [INFO]: 'info',
         [ERROR]: 'medkit'
+    }[severity];
+}
+
+/**
+ * Return HEX code for severity color (like #FFDD33)
+ * @param {String} severity
+ * @return {String} color
+ */
+export function color(severity) {
+    return {
+        [HIGH]: red,
+        [MEDIUM]: orange,
+        [LOW]: blue,
+        [INFO]: lazur,
+        [ERROR]: gray
+    }[severity];
+}
+
+/**
+ * Return bootstrap bsStyle code
+ * @param {String} severity
+ * @return {String} color
+ */
+export function bsStyle(severity) {
+    return {
+        [HIGH]: 'danger',
+        [MEDIUM]: 'warning',
+        [LOW]: 'success',
+        [INFO]: 'info'
     }[severity];
 }

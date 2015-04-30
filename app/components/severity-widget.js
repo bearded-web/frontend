@@ -6,7 +6,7 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { icon, HIGH, LOW, MEDIUM } from '../lib/severities';
+import { icon, bsStyle, HIGH, LOW, MEDIUM } from '../lib/severities';
 
 import Widget from './widget';
 import Fa from './fa';
@@ -24,11 +24,7 @@ export default class SeverityWidget extends Component {
         const style = {
             opacity: count ? 1 : 0.4
         };
-        const type = {
-            high: 'danger',
-            medium: 'warning',
-            low: 'info'
-        }[severity];
+        const type = bsStyle(severity);
 
         const countStyle = { fontSize: '30px' };
 

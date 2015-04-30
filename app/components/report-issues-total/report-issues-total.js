@@ -1,12 +1,8 @@
 'use strict';
+
+import React, { PropTypes } from 'react/addons';
+import actions from '../../actions/report.actions';
 import cx from 'classnames';
-
-var React = require('react'),
-    { PropTypes } = React,
-    actions = require('../../actions/report.actions');
-
-var Fa = require('../fa');
-
 
 var ReportIssuesTotal = React.createClass({
     propTypes: {
