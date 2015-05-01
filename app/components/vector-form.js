@@ -8,7 +8,6 @@ import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Map } from 'immutable';
 
-import HeadersForm from './headers-form';
 import { Input } from 'react-bootstrap';
 import TransactionsForm from './transactions-form';
 
@@ -46,6 +45,7 @@ export default class VectorForm extends Component {
             <h3 className="text-center">
                 {iget('Transactions')}
             </h3>
+            <br/>
 
             <TransactionsForm
                 onChange={t => this.onTransactionsChange(t)}
