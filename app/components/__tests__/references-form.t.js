@@ -4,7 +4,7 @@ import { spy } from 'sinon';
 import mockery from 'mockery';
 import { fromJS } from 'immutable';
 
-describe('ReferencesForm', function() {
+describe.skip('ReferencesForm', function() {
     const url = 'http://google.com';
     const title = 'Cool ref';
     const references = fromJS([

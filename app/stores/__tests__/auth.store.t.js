@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('AuthStore', function() {
+describe.only('AuthStore', function() {
     let createStore = null;
     let store = null;
     let api = null;

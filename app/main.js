@@ -1,5 +1,5 @@
 'use strict';
-
+import 'babel/polyfill';
 import './lib/globals';
 
 import { me, onStatus } from './lib/api3.js';

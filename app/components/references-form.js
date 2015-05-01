@@ -7,15 +7,16 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { List, Map } from 'immutable';
+import bindThis from '../lib/bind-react';
 import { bindAll } from 'lodash';
 
+import Fa from './fa';
 import {
     OverlayTrigger,
     Tooltip,
     Input,
     Button,
     Row } from 'react-bootstrap';
-import Fa from './fa';
 
 const S = {
     row: {
@@ -33,18 +34,12 @@ export default class ReferencesForm extends Component {
     constructor(props, context) {
         super(props, context);
 
-        bindAll(this, [
-            'renderRef',
-            'renderRemoveButton',
-            '_onAddClick',
-            '_onRemoveClick'
-        ]);
-
         this.shouldComponentUpdate = shouldComponentUpdate;
     }
 
 
     //region handlers
+    @bindThis
     _onAddClick() {
         this.props.onChange(this.props.references.push(Map({
             url: '',
@@ -63,6 +58,7 @@ export default class ReferencesForm extends Component {
      * @param {Object} e event
      * @private
      */
+    @bindThis
     _onFieldChange(field, i, e) {
         const { references } = this.props;
         const { value } = e.target;
@@ -79,6 +75,7 @@ export default class ReferencesForm extends Component {
     render() {
         const { references } = this.props;
 
+
         return <form className="form-horizontal">
             {references.toArray().map(this.renderRef)}
 
@@ -93,6 +90,7 @@ export default class ReferencesForm extends Component {
         </form>;
     }
 
+    @bindThis
     renderRef(ref, i) {
         const { url, title } = ref.toObject();
         const onUrlChange = this._onFieldChange.bind(this, 'url', i);
