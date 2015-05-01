@@ -1,4 +1,7 @@
 'use strict';
+
+import { WEB, ANDROID } from '../../lib/target-types';
+
 var Bootstrap = require('react-bootstrap'),
     flux = require('../../flux');
 
@@ -19,8 +22,11 @@ var TargetHeader = React.createClass({
 
 
     render: function() {
-        var target = this.props.target,
-            title = target.web.domain;
+        const { target } = this.props;
+        const title = target.type === ANDROID ?
+            target.android.name :
+            target.web.domain;
+
 
         return (
             <Header>
@@ -33,7 +39,7 @@ var TargetHeader = React.createClass({
                             <Link
                                 to="issues"
                                 query={{ target: target.id }}>
-                            Issues
+                                Issues
                             </Link>
                             <span>&nbsp;</span>
                             <Link
@@ -41,12 +47,12 @@ var TargetHeader = React.createClass({
                                 params={{ targetId: target.id }}
                                 query={{ project: target.project }}>
                                 <Fa icon="plus" fw/>
-                            Create scan
+                                Create scan
                             </Link>
                             <span>&nbsp;</span>
                             <a onClick={this.removeTarget}>
                                 <Fa icon="remove" fw/>
-                            Delete
+                                Delete
                             </a>
                         </small>
                     </h2>

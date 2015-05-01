@@ -1,5 +1,6 @@
 'use strict';
 import { Map } from 'immutable';
+import { WEB, ANDROID } from '../../lib/target-types';
 
 var React = require('react'),
     { PropTypes } = React,
@@ -27,25 +28,32 @@ module.exports = React.createClass({
         var target = this.props.target.toJS(),
             targetId = target.id,
             isActiveLink = this.isActiveState(),
-            isHttps = false,
-            domain = target.web.domain;
+            isHttps = false;
 
-        if (_.startsWith(domain, 'http://')) {
-            domain = domain.slice(7);
+        const icon = target.type === ANDROID ?
+            'android' :
+            isHttps ? 'lock' : 'globe';
+
+        let title = target.type === ANDROID ?
+            target.android.name :
+            target.web.domain;
+
+        if (_.startsWith(title, 'http://')) {
+            title = title.slice(7);
         }
 
-        if (_.startsWith(domain, 'https://')) {
-            domain = domain.slice(8);
+        if (_.startsWith(title, 'https://')) {
+            title = title.slice(8);
             isHttps = true;
         }
 
         return (
             <li className={isActiveLink ? 'active' : ''}>
-                <Link onClick={this.onClick} to="target" params={{ targetId: targetId }} title={target.web.domain}>
+                <Link onClick={this.onClick} to="target" params={{ targetId: targetId }} title={title}>
                     {this.renderIssuesLabel()}
                     <span className="nav-label">
-                        <Fa icon={isHttps ? 'lock' : 'globe'}/>
-                        {domain}
+                        <Fa icon={icon}/>
+                        {title}
                     </span>
                 </Link>
             </li>

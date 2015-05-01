@@ -73,6 +73,7 @@ var constants = {
     TARGETS_SET_CURRENT: '--',
     TARGETS_UNSET_CURRENT: '--',
     TARGETS_COMMENTS_FETCH_SUCCESS: '--',
+    TARGETS_CHANGE_EDITABLE: 'Change current edited (created) target',
 
     TOAST_ADD: '--',
 

@@ -11,6 +11,7 @@ describe('targetCreate', function() {
     let api = null;
     let handlers = null;
     let initalState = null;
+    let state = null;
 
     beforeEach(() => {
         createStore = spy();
@@ -105,6 +106,27 @@ describe('targetCreate', function() {
             });
         });
 
+        describe('TARGETS_CHANGE_EDITABLE', () => {
+            beforeEach(() => {
+                handler = handlers[C.TARGETS_CHANGE_EDITABLE];
+                state = fromJS({
+                    target: fromJS({
+                        type: 'web'
+                    })
+                });
+            });
+
+            it('should merge target', () => {
+                state = handler(state, {
+                    target: fromJS({
+                        type: 'android'
+                    })
+                });
+
+                state.getIn(['target', 'type']).should.be.eql('android');
+            });
+
+        });
     });
 
     describe('api', function() {

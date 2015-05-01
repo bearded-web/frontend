@@ -73,11 +73,11 @@ var Dashboard = React.createClass({
     },
 
     componentDidMount() {
-        authStore.onChange(this._onStoreChange);
+        authStore.onChange(this.onStoreChange);
     },
 
     componentWillUnmount() {
-        authStore.offChange(this._onStoreChange);
+        authStore.offChange(this.onStoreChange);
     },
 
     onStoreChange() {

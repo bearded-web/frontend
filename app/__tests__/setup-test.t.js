@@ -11,7 +11,7 @@ import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import mockery from 'mockery';
 import { spy } from 'sinon';
-import { assign } from 'lodash';
+import { assign, mapValues, isObject, isString } from 'lodash';
 
 require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
@@ -88,6 +88,24 @@ global.stubRouterContext = (Component, props, stubs) => {
             return {
                 router: RouterStub
             };
+        },
+
+        render () {
+            return <Component {...props} />;
+        }
+    });
+};
+
+global.stubContext = (Component, props, context) => {
+    const types = mapValues(context, v => {
+        if (isObject(v)) return React.PropTypes.object;
+    });
+
+    return React.createClass({
+        childContextTypes: types,
+
+        getChildContext () {
+            return context;
         },
 
         render () {

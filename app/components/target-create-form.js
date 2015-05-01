@@ -8,9 +8,13 @@ import { PropTypes, Component, findDOMNode } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import cn from 'classnames';
 import { bindAll } from 'lodash';
+import { WEB, ANDROID } from '../lib/target-types';
+import { Model } from '../lib/types';
 
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Fa from './fa';
+import WebForm from './target-web-form';
+import AndroidForm from './target-android-form';
 
 export default class TargetCreateForm extends Component {
     constructor(props, context) {
@@ -38,59 +42,62 @@ export default class TargetCreateForm extends Component {
         this.props.onSubmit({ url: this.state.url });
     }
 
+    onTabSelect(type) {
+        this.props.onChange(this.props.target.set('type', type));
+    }
+
     //region render
     render() {
         const { url } = this.state;
-        const { error, disabled } = this.props;
-        const controlClasses = cn('form-group', {
-            'has-error': error
-        });
-        const btnDisabled = !url.length || disabled || !url.match(/^https?:\/\/.+/gi);
+        const { error, disabled, target, onSubmit, onChange, invalid } = this.props;
+        const type = target.get('type');
+
+        const Form = type === ANDROID ?
+            AndroidForm :
+            WebForm;
 
         return <div>
             <Row>
-                {this.renderButton('globe', iget('Web'), true)}
-                {this.renderButton('mobile', iget('Mobile'))}
-                {this.renderButton('code', iget('Code'))}
+                {this.renderButton('globe', iget('Web'), WEB)}
+                {this.renderButton('android', iget('Android'), ANDROID)}
+                {this.renderButton('apple', iget('IOS'))}
             </Row>
 
             <br/>
+            <Form
+                target={target}
+                onChange={onChange}/>
 
-            <form onSubmit={this.onSubmit}>
-                <div className={controlClasses}>
-                    <label htmlFor="create-target-url">
-                        {iget('Enter target url')}
-                    </label>
-                    <input type="text"
-                           ref="url"
-                           value={url}
-                           onChange={this.onUrlChange}
-                           id="create-target-url"
-                           disabled={disabled}
-                           placeholder={iget('http://example.com')}
-                           className="form-control input-lg"/>
-                </div>
+            <p className="text-danger">
+                {error}
+            </p>
 
-                <p className="text-danger">
-                    {error}
-                </p>
+            <Button
+                onClick={onSubmit}
+                bsStyle="primary" disabled={invalid || disabled}>
+                {iget('Create target')}
+            </Button>
 
-                <Button type="submit" bsStyle="primary" disabled={btnDisabled}>
-                    {iget('Create target')}
-                </Button>
-            </form>
+            <span>&nbsp;&nbsp;{invalid}</span>
         </div>;
     }
 
-    renderButton(icon, text, enabled) {
+    renderButton(icon, text, type) {
+        const targetType = this.props.target.get('type');
         const buttonStyle = {
             fontSize: '1.6rem'
         };
+        const handler = () => this.onTabSelect(type);
+        const className = cn('btn btn-primary btn-outline btn-block', {
+            active: targetType === type
+        });
 
         return <Col xs={4}>
-            <button style={buttonStyle}
-                    disabled={!enabled}
-                    className="btn btn-primary btn-outline btn-block">
+            <button
+                onClick={type && handler}
+                style={buttonStyle}
+                disabled={!type}
+                className={className}>
                 <Fa icon={icon} fw size="2x" align="sub"/>
                 {text}
             </button>
@@ -102,11 +109,15 @@ export default class TargetCreateForm extends Component {
 }
 
 TargetCreateForm.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    target: Model,
     error: PropTypes.string,
     disabled: PropTypes.bool,
+    invalid: PropTypes.bool,
     onSubmit: PropTypes.func.isRequired
 };
 TargetCreateForm.defaultProps = {
+    invalid: true,
     error: '',
     disabled: false
 };

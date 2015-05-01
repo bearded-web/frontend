@@ -9,6 +9,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import targetCreateStore from '../stores/target-create.store';
 import setTitle from '../lib/set-title';
 import { bindAll } from 'lodash';
+import { changeEditable, saveEditable } from '../actions/targ.actions';
 
 import Header from './header';
 import TargetCreateForm from './target-create-form';
@@ -20,11 +21,12 @@ export default class TargetCreatePage extends Component {
         super(props, context);
 
         bindAll(this, [
-            '_onStoreChange',
+            'onStoreChange',
+            'onTargetChange',
             'onFormSubmit'
         ]);
 
-        this.state = this._getState();
+        this.state = this.getState();
 
         this.shouldComponentUpdate = shouldComponentUpdate;
     }
@@ -33,64 +35,72 @@ export default class TargetCreatePage extends Component {
     componentDidMount() {
         setTitle(iget('New target'));
 
-        targetCreateStore.onChange(this._onStoreChange);
+        targetCreateStore.onChange(this.onStoreChange);
+
+        const projectId = flux.store('Store').getState().currentProject.get('id');
+        changeEditable(this.getState().target.set('project', projectId));
     }
 
     componentWillUnmount() {
-        targetCreateStore.offChange(this._onStoreChange);
+        targetCreateStore.offChange(this.onStoreChange);
     }
 
     //endregion
 
-    onFormSubmit({ url }) {
-        const projectId = flux.store('Store').getState().currentProject.get('id');
+    //region handlers
 
-        this.context.flux.actions.target.addTarget(
-            'web',
-            url,
-            projectId
-        );
+    onFormSubmit() {
+        saveEditable();
     }
+
+    onTargetChange(target) {
+        changeEditable(target);
+    }
+
+    //endregion handlers
+
 
     //region render
 
     render() {
-        const { loading } = this.state;
+        const { loading, error, target, invalid } = this.state;
 
         return <div>
             <Header>
                 <h2>{iget('Create new target')}</h2>
             </Header>
 
-            <Row>
-                <Col xs={12} md={8} mdOffset={2}>
-                    <Ibox>
-                        <IboxTitle>
-                            <h5>
-                                {iget('Fill the form to create target')}
-                            </h5>
-                        </IboxTitle>
-                        <IboxContent>
-                            <TargetCreateForm
-                                onSubmit={this.onFormSubmit}
-                                disabled={loading}/>
-                        </IboxContent>
-                    </Ibox>
-                </Col>
-            </Row>
+            <Row><Col xs={12} md={8} mdOffset={2}>
+                <Ibox><IboxTitle>
+
+                    <h5>{iget('Fill the form to create target')}</h5>
+
+                </IboxTitle><IboxContent>
+
+                    <TargetCreateForm
+                        target={target}
+                        onChange={this.onTargetChange}
+                        onSubmit={this.onFormSubmit}
+                        error={error}
+                        invalid={invalid}
+                        disabled={loading}/>
+
+                </IboxContent></Ibox>
+            </Col></Row>
         </div>;
     }
+
     //endregion render
 
-     //region Private methods
-    _onStoreChange() {
-        console.log('### st', this._getState());
-        this.setState(this._getState());
+    //region Private methods
+    onStoreChange() {
+        this.setState(this.getState());
     }
 
-    _getState() {
+    getState() {
         return targetCreateStore.getState();
     }
+
     //endregion
 }
 
