@@ -1,6 +1,6 @@
 {
   "name": "bearded-web-frontend",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Bearded web frontend application",
   "main": "app/main.js",
   "repository": {
@@ -18,7 +18,7 @@
     "test-e2e": "./node_modules/.bin/protractor protractor.js",
     "test": "npm run test-unit",
     "pretest": "npm run lint",
-    "travis": "npm run lint && (cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources cover ../node_modules/mocha/bin/_mocha --report lcovonly -- -t 5000 -R spec \"./**/*.t.js\"  && cat ./coverage/lcov.info | ../node_modules/coveralls/bin/coveralls.js)"
+    "travis": "npm run lint && (cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources cover ../node_modules/mocha/bin/_mocha --report lcovonly -- -t 5000 -R spec \"./**/*.t.js\"  && cat ./coverage/coverage.json | ../node_modules/codecov.io/bin/codecov.io.js)"
   },
   "author": "Dmitry Manannikov <slonoed@gmail.com>",
   "license": "MIT",
@@ -32,6 +32,7 @@
     "bootstrap": "^3.3.4",
     "chai": "^2.2.0",
     "classnames": "^1.2.0",
+    "codecov.io": "^0.1.0",
     "coveralls": "^2.11.2",
     "es6-promise": "^2.0.1",
     "eslint": "*",
