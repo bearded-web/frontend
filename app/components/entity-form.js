@@ -56,7 +56,7 @@ export default class EntityForm extends Component {
         const content = body && body.get('content') || '';
 
         return <div>
-            <h4>{iget('Status')}</h4>
+            <h4>{iget('Status (required)')}</h4>
             <Input
                 value={status}
                 onChange={e => this.onStatusChange(e)}
