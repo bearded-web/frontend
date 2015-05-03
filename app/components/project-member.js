@@ -23,8 +23,8 @@ export default React.createClass({
             color: 'red'
         };
 
-        return <a 
-            className="c-project-member" 
+        return <a
+            className="c-project-member"
             style={style}
             title={user.email}></a>;
     }

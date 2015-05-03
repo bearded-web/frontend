@@ -67,6 +67,17 @@ describe('issueCreateStore', function() {
 
                 state.getIn(['issue', 'summary']).should.be.eql('2');
             });
+
+            it('should clear error field', () => {
+                state = fromJS({
+                    error: 'Some error',
+                    issue: {
+                        summary: '1'
+                    }
+                });
+                state = handler(state, { issue: fromJS({ summary: '2' }) });
+                state.get('error').should.be.empty;
+            });
         });
 
         describe('ISSUE_CREATE_START', () => {

@@ -3,7 +3,7 @@
 import bind from '../bind-react';
 
 describe('bindThis', () => {
-    let Compoent = null;
+    let Component = null;
     let instance = null;
 
     beforeEach(() => {
@@ -12,14 +12,14 @@ describe('bindThis', () => {
                 this.value = 1;
             }
 
-           // @bind
+            @bind
             method() {
                 return this.value;
             }
         }
 
-        Compoent = Test;
-        instance = new Compoent();
+        Component = Test;
+        instance = new Component();
     });
 
     it('should bind method', () => {

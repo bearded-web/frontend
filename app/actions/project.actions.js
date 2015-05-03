@@ -11,7 +11,7 @@ import { nextTick } from '../lib/helpers';
  */
 export function create(name) {
     return projects.create({ name }).then(function(project) {
-        dispatch(consts.PROJECTS_FETCH_SUCCESS, [project]);   
+        dispatch(consts.PROJECTS_FETCH_SUCCESS, [project]);
 
         nextTick(() => setCurrentProject(project.id));
     });
@@ -24,7 +24,7 @@ export function setCurrentProject(projectId, noTransition) {
     dispatch(consts.PROJECTS_SET_CURRENT, projectId);
 
     let pPromise = projects.get(projectId)
-        .then(function (project) {
+        .then(function(project) {
             let usersIds = project.members.map((member) => member.user);
 
             return users.list({ id_in: usersIds.join(',') });
@@ -40,7 +40,7 @@ export function setCurrentProject(projectId, noTransition) {
 
             if (!noTransition) {
                 nextTick(() => {
-                    let router = require('../router.js').get(); 
+                    let router = require('../router.js').get();
                     router.transitionTo('overview');
                 });
             }
@@ -65,8 +65,8 @@ export function openCreateModal() {
 }
 
 export function openAddMemberModal(project) {
-    dispatch(consts.MODAL_OPEN, { 
-        name: 'project-add-member',  
+    dispatch(consts.MODAL_OPEN, {
+        name: 'project-add-member',
         project
     });
 }

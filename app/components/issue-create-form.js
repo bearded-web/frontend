@@ -102,7 +102,7 @@ export default class IssueCreateForm extends Component {
             </Button>
 
             <span className="text-danger" style={S.error}>
-                {error}
+                    {error}
             </span>
         </div>;
     }

@@ -14,7 +14,7 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            expanded: false 
+            expanded: false
         };
     },
 
@@ -36,7 +36,7 @@ export default React.createClass({
     onSubmit(event) {
         let input = this.refs.text.getDOMNode(),
             text = input.value;
-        
+
         event.preventDefault();
 
         if (!text) return;
@@ -48,23 +48,23 @@ export default React.createClass({
     render: function() {
         let { onNewComment } = this.props,
             { expanded } = this.state,
-            style = {overflow: 'hidden'};
+            style = { overflow: 'hidden' };
 
-        if (!expanded) { 
+        if (!expanded) {
             style.height = '0px';
             style.margin = '0';
         }
-            
+
         return <form onSubmit={this.onSubmit}>
             {expanded || <input
-                ref="fake" 
+                ref="fake"
                 type="text"
-                className="form-control" 
+                className="form-control"
                 onFocus={this.expand}
                 placeholder="Enter comment"/>}
 
             <div className="form-group" style={style}>
-                <textarea 
+                <textarea
                     autoFocus
                     ref="text"
                     onBlur={this.collapse}
@@ -73,11 +73,11 @@ export default React.createClass({
                 </textarea>
             </div>
 
-            {expanded && <Button 
+            {expanded && <Button
                 type="submit"
                 bsSize="small"
                 bsStyle="primary">
-            
+
                 {iget('Add comment')}
             </Button>}
         </form>;

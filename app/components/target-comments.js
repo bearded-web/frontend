@@ -19,7 +19,7 @@ export default React.createClass({
 
     getStateFromFlux() {
         return {
-            $comments: flux.store('TargetStore').getState().$comments 
+            $comments: flux.store('TargetStore').getState().$comments
         };
     },
 

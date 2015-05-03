@@ -1,16 +1,13 @@
 'use strict';
 import { PropTypes, addons, createClass } from 'react/addons';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 import { setCurrentProject } from '../actions/project.actions';
 import ImMixin from 'react-immutable-render-mixin';
 
 
 import Fa from './fa';
 import Members from './project-members';
-import { Input } from 'react-bootstrap';
 import ProjectCreateBtn from './project-create-btn';
-
-let { ReactCSSTransitionGroup } = addons;
 
 export default createClass({
     mixins: [ImMixin],
@@ -22,7 +19,7 @@ export default createClass({
 
     getInitialState() {
         return {
-            settingsOpen: false 
+            settingsOpen: false
         };
     },
 
@@ -47,14 +44,14 @@ export default createClass({
         let projectId = this.refs.project.getDOMNode().value;
 
         this.setState({ settingsOpen: false });
-        
+
         setCurrentProject(projectId);
     },
 
 
     render() {
-        let { settingsOpen } = this.state,
-            props = this.props,
+        const { settingsOpen } = this.state;
+        let props = this.props,
             projects = props.projects.toArray(),
             current = props.currentProject.toObject(),
             headerStyle = {
@@ -65,7 +62,7 @@ export default createClass({
             },
             settingsStyle = {
                 display: settingsOpen ? 'block' : 'none'
-            }, 
+            },
             selectStyle = {
                 border: 'none',
                 width: '150px',
@@ -86,10 +83,11 @@ export default createClass({
                 </span>
                 {current.name}
             </h3>
+
             <div style={settingsStyle}>
                 <select
                     ref="project"
-                    style={selectStyle} 
+                    style={selectStyle}
                     defaultValue={current.id}
                     onChange={this.onProjectSelect}>
                     {projects.map(function(project) {

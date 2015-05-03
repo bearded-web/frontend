@@ -28,7 +28,9 @@ const api = {};
 
 const handlers = {
     [C.ISSUE_EDIT_CHANGE](state, { issue }) {
-        return state.mergeIn(['issue'], issue);
+        return state
+            .mergeIn(['issue'], issue)
+            .set('error', '');
     },
     [C.ISSUE_CREATE_START](state) {
         return state.set('loading', true);
