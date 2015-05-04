@@ -83,9 +83,9 @@ var Target = React.createClass({
                     <Col xs={12} md={6}>
                         <Row style={{marginTop: '-10px'}}>
                             <Link to="issues" query={{target: target.id}}>
-                                <Col xs={4}><SeverityWidget severity="high" count={issues.high}/></Col>
-                                <Col xs={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
-                                <Col xs={4}><SeverityWidget severity="low" count={issues.low}/></Col>
+                                <Col xs={12} sm={4}><SeverityWidget severity="high" count={issues.high}/></Col>
+                                <Col xs={12} sm={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
+                                <Col xs={12} sm={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
                         </Row>
                         <Row>

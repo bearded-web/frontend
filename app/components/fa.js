@@ -2,13 +2,14 @@
 
 import { PropTypes, Component } from 'react/addons';
 import cNames from 'classnames';
+import { defaults } from 'lodash';
 
 export default class Fa extends Component {
     render() {
         var props = this.props,
-            style = {
+            style = defaults(props.style, {
                 verticalAlign: this.props.align || 'inherit'
-            },
+            }),
             cls = {
                 fa: true,
                 'fa-spin': props.spin,
@@ -23,12 +24,13 @@ export default class Fa extends Component {
         const className = cNames(cls) + ' ' + (props.className || '');
 
         return (
-            <i className={className} style={style}></i>
+            <i className={className} styles={style}></i>
         );
     }
 }
 
 Fa.propTypes = {
+    style: PropTypes.object,
     icon: PropTypes.string.isRequired,
     fw: PropTypes.bool,
     spin: PropTypes.bool,

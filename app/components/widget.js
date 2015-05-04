@@ -18,7 +18,7 @@ export default class Widget extends Component {
     //region render
     render() {
         const { children, type, style } = this.props;
-        const classes = cn('widget', {
+        const classes = cn('widget', 'clearfix', {
             'navy-bg': type === 'success',
             'red-bg': type === 'danger',
             'yellow-bg': type === 'warning',
@@ -29,6 +29,7 @@ export default class Widget extends Component {
             {children}
         </div>;
     }
+
     //endregion
 }
 

@@ -271,4 +271,13 @@ body.sidebar-enabled .page-wrapper {
     }
 }
 
-button { outline:none!important; }
+button {
+    outline: none !important;
+}
+
+//ugly hack
+@media screen and(max-width: 1100px) and (min-width: @screen-sm-max) {
+    .severity-widget-icon {
+        display: none;
+    }
+}

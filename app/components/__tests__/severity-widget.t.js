@@ -23,7 +23,7 @@ describe('SeverityWidget', function() {
 
     describe('render', function() {
         it('should render count', function() {
-            nodeByClass(instance, 'font-bold')[0].innerHTML
+            nodeByTag(instance, 'span')[0].innerHTML
                 .should.be.eql(count.toString());
         });
 

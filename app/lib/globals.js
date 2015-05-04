@@ -4,6 +4,9 @@ import { FluxMixin, StoreWatchMixin } from 'fluxxor';
 import React from 'react/addons';
 
 // Some globals   (>.<)  t(*_*)t
+window.showError = function() {
+    console.error(...arguments);
+};
 window.i18n = new Jed({});
 window.__ = window.iget = i18n.sprintf.bind(i18n);
 window.React = React;

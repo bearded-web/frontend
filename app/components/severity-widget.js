@@ -10,6 +10,16 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Widget from './widget';
 import Fa from './fa';
 
+const S = {
+    icon: {
+        float: 'left'
+    },
+    count: {
+        float: 'right',
+        fontWeight: 'bold'
+    }
+};
+
 export default class SeverityWidget extends Component {
     constructor(props, context) {
         super(props, context);
@@ -21,7 +31,9 @@ export default class SeverityWidget extends Component {
     render() {
         const { severity, count } = this.props;
         const style = {
-            opacity: count ? 1 : 0.4
+            opacity: count ? 1 : 0.4,
+            textAlign: 'center',
+            fontSize: '30px'
         };
         const type = {
             high: 'danger',
@@ -33,17 +45,12 @@ export default class SeverityWidget extends Component {
             medium: 'exclamation-circle',
             low: 'eye'
         }[severity];
-        const countStyle = { fontSize: '30px' };
 
         return <Widget type={type} style={style}>
-            <div className="row vertical-align">
-                <div className="col-xs-3">
-                    <Fa icon={icon} size="3x"/>
-                </div>
-                <div className="col-xs-9 text-right">
-                    <h2 className="font-bold" style={countStyle}>{count}</h2>
-                </div>
-            </div>
+            <span style={S.count}>{count}</span>
+            <span style={S.icon} className="severity-widget-icon">
+                <Fa icon={icon} fw/>
+            </span>
         </Widget>;
     }
 
