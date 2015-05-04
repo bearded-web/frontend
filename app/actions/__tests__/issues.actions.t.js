@@ -1,6 +1,6 @@
 'use strict';
 
-import { stub, spy, mock, match } from 'sinon';
+import { spy, mock } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 import { Map, fromJS } from 'immutable';
@@ -322,25 +322,39 @@ describe('issuesActions', function() {
             issuesApi.create.should.have.been.calledWith({ body: editedIssue.toJS() });
         });
 
-        it('should dispatch ISSUE_CREATE_SUCCESS when server respond ok', () => {
-            actions.saveEditableIssue();
+        it('should dispatch ISSUE_CREATE_SUCCESS when server respond ok', async function() {
+            await actions.saveEditableIssue();
 
             dispatch.secondCall.args.should.be.eql([C.ISSUE_CREATE_SUCCESS, {
                 issue: editedIssue.toJS()
             }]);
         });
 
-        it('should dispatch ISSUE_CREATE_FAIL with error message', () => {
-            actions.saveEditableIssue();
+        it('should dispatch ISSUE_CREATE_FAIL with error message', async function() {
+            mockery.deregisterAllowable('../issues.actions');
+            mockery.deregisterMock('../lib/api3');
+            const api = {
+                create: () => Promise.reject({
+                    data: { Message: errorMessage }
+                })
+            };
+            spy(api, 'create');
+            mockery.registerMock('../lib/api3', {
+                issues: api
+            });
+            mockery.registerAllowable('../issues.actions', true);
+            actions = require('../issues.actions');
 
-            dispatch.thirdCall.args.should.be.eql([C.ISSUE_CREATE_FAIL, {
+            await actions.saveEditableIssue();
+
+            dispatch.secondCall.args.should.be.eql([C.ISSUE_CREATE_FAIL, {
                 message: errorMessage
             }]);
         });
 
-        it('should merge target before save', () => {
+        it('should merge target before save', async function() {
 
-            actions.saveEditableIssue({ target });
+            await actions.saveEditableIssue({ target });
 
             const issue = editedIssue.toJS();
             issue.target = target;

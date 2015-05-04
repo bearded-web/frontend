@@ -144,7 +144,7 @@ export function changeEditableIssue(issue) {
  * @param {Object} mergeData data to merge to issue
  *
  */
-export function saveEditableIssue(mergeData) {
+export async function saveEditableIssue(mergeData) {
     let { issue } = issueCreateStore.getState();
 
     //TODO check issue data
@@ -156,19 +156,17 @@ export function saveEditableIssue(mergeData) {
     if (isNaN(issue.vulnType)) issue.vulnType = 0;
     issue = merge(issue, mergeData);
 
-    issues
-        .create({ body: issue })
-        .then(data => {
-            dispatch(C.ISSUE_CREATE_SUCCESS, { issue: data });
+    try {
+        let data = await issues.create({ body: issue });
 
-            router.get().transitionTo('issue', { issueId: data.id });
-        })
-        .catch(e => {
-            const message = e.message || e.data && e.data.Message || iget('Server error');
+        dispatch(C.ISSUE_CREATE_SUCCESS, { issue: data });
+        router.get().transitionTo('issue', { issueId: data.id });
+    }
+    catch (e) {
+        const message = e.message || e.data && e.data.Message || iget('Server error');
 
-            dispatch(C.ISSUE_CREATE_FAIL, { message });
-        });
-    //TODO add catch
+        dispatch(C.ISSUE_CREATE_FAIL, { message });
+    }
 }
 
 //region locals

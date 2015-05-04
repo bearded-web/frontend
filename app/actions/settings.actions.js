@@ -23,15 +23,16 @@ export function updateSettings({ password, oldPassword }) {
 /**
  * Start password changing
  */
-export function changePassword() {
+export async function changePassword() {
     dispatch(C.US_PASSWORD_CHANGE_START);
 
     const { password, oldPassword } = settingsStore.getState();
-    const dispatchSuccess = dispatch.bind(null, C.US_PASSWORD_CHANGE_SUCCESS);
 
-    me.changePassword({ old: oldPassword, 'new': password })
-        .then(dispatchSuccess)
-        .catch(e => {
-            dispatch(C.US_PASSWORD_CHANGE_FAIL, { message: e.data && e.data.Message });
-        });
+    try {
+        await me.changePassword({ old: oldPassword, 'new': password });
+        dispatch(C.US_PASSWORD_CHANGE_SUCCESS);
+    }
+    catch(e) {
+        dispatch(C.US_PASSWORD_CHANGE_FAIL, { message: e.data && e.data.Message });
+    }
 }

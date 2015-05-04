@@ -8,24 +8,15 @@
     "url": "https://github.com/bearded-web/frontend.git"
   },
   "scripts": {
-    "install-webdriver": "./node_modules/.bin/webdriver-manager update --standalone",
-    "lint": "node_modules/.bin/eslint app/ --quiet",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline",
-    "deploy": "rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p",
-    "test-server": "./node_modules/.bin/webdriver-manager start",
-    "test-unit": "./node_modules/.bin/mocha --require pretest.js -R spec \"app/**/*.t.js\"",
-    "coverage": "(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 cover ../node_modules/mocha/bin/_mocha -- -t 5000  -R spec \"./**/*.t.js\")",
-    "test-e2e": "./node_modules/.bin/protractor protractor.js",
-    "test": "npm run test-unit",
-    "pretest": "npm run lint",
-    "travis": "npm run lint && (cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources cover ../node_modules/mocha/bin/_mocha --report lcovonly -- -t 5000 -R spec \"./**/*.t.js\"  && cat ./coverage/coverage.json | ../node_modules/codecov.io/bin/codecov.io.js)"
+    "test": "make test",
+    "pretest": "make lint"
   },
   "author": "Dmitry Manannikov <slonoed@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "autobind-decorator": "^1.1.0",
-    "babel": "5.2.6",
-    "babel-core": "5.2.6",
+    "babel": "5.2.9",
+    "babel-core": "5.2.9",
     "babel-eslint": "*",
     "babel-istanbul": "0.1.8",
     "babel-loader": "^5.0.0",
@@ -50,6 +41,7 @@
     "markdown": "^0.5.0",
     "mocha": "^2.2.4",
     "mocha-jsdom": "^0.3.0",
+    "mochawait": "^2.0.0",
     "mockery": "^1.4.0",
     "moment": "^2.10.0",
     "normalizr": "^0.1.3",
