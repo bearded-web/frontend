@@ -38,7 +38,7 @@ export default class ChangePasswordForm extends Component {
     }
 
     render() {
-        const { password, oldPassword, disabled, error } = this.props;
+        const { password, oldPassword, disabled, error, success } = this.props;
         const btnDisabled = disabled ||
             !password ||
             password.length < 6;
@@ -65,8 +65,15 @@ export default class ChangePasswordForm extends Component {
                 {iget('Change password')}
             </Button>
 
+            {success && this.renderSuccess()}
             {error && this.renderError(error)}
         </form>;
+    }
+
+    renderSuccess() {
+        return <p>
+            {iget('Your password was successfully changed')}
+        </p>;
     }
 
     renderError(message) {

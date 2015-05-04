@@ -41,6 +41,7 @@ describe('UserSettingsForm', function() {
     it('should populate initial state', () => {
 
         initalState.toJS().should.be.eql({
+            success: false,
             password: '',
             oldPassword: '',
             loading: false,

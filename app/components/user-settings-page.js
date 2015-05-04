@@ -29,7 +29,7 @@ export default class UserSettingsPage extends Component {
     }
 
     componentDidMount() {
-        setTitle(iget('Plans'));
+        setTitle(iget('Settings'));
 
         settingsStore.onChange(this.onStoreChange);
     }
@@ -47,7 +47,7 @@ export default class UserSettingsPage extends Component {
     }
 
     render() {
-        const { password, oldPassword, loading, error } = this.state;
+        const { password, oldPassword, loading, error, success } = this.state;
 
         return <div>
             <Header>
@@ -60,6 +60,7 @@ export default class UserSettingsPage extends Component {
                 <Col xs={12} sm={6} md={4}>
                     <Ibox><IboxTitle><h5>{iget('Set new password')}</h5></IboxTitle><IboxContent>
                         <ChangePasswordForm
+                            success={success}
                             disabled={loading}
                             error={error}
                             password={password}
