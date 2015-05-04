@@ -27,7 +27,7 @@
     "babel": "5.2.6",
     "babel-core": "5.2.6",
     "babel-eslint": "*",
-    "babel-istanbul": "https://github.com/slonoed/babel-istanbul.git",
+    "babel-istanbul": "0.1.8",
     "babel-loader": "^5.0.0",
     "blanket": "^1.1.6",
     "bootstrap": "^3.3.4",

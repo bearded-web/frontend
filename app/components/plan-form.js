@@ -39,7 +39,7 @@ export default createClass({
     render() {
         let { $plugins, $plan } = this.props,
             { name, desc, targetType, dirty, isNew } = $plan ? $plan.toObject() : {},
-            $targetPlugins = $plugins.filter(function(plugin){return plugin.get("targetType") === targetType; }),
+            $targetPlugins = $plugins.filter(function(plugin){return plugin.get('targetType') === targetType; }),
             $steps = $plan.get('workflow');
 
         return <Row>
@@ -59,7 +59,7 @@ export default createClass({
                         value={targetType}
                         required
                         onChange={this.onChange}
-                        label={iget("Select target type")}
+                        label={iget('Select target type')}
                         disabled={$steps.size !== 0}
                         placeholder='select'>
 
