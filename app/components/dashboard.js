@@ -61,6 +61,10 @@ var Dashboard = React.createClass({
         }
     },
 
+    getInitialState() {
+        return this.getState();
+    },
+
     componentWillMount() {
         setTitle(iget('Dashboard'));
 
@@ -78,11 +82,16 @@ var Dashboard = React.createClass({
     },
 
     onStoreChange() {
+        this.setState(this.getState);
+    },
+
+    getState() {
         const { user, isLogedIn } = authStore.getState();
 
-        this.setState({
-            lock: user && !isLogedIn
-        });
+        return {
+            lock: user && !isLogedIn,
+            isAdmin: authStore.isAdmin()
+        };
     },
 
     getStateFromFlux() {
@@ -93,7 +102,7 @@ var Dashboard = React.createClass({
 
     render() {
         const { routeQuery } = this.props;
-        const { lock } = this.state;
+        const { lock, isAdmin } = this.state;
         let appStore = this.state.app;
 
         var app = this.props.app,
@@ -117,6 +126,7 @@ var Dashboard = React.createClass({
 
                 <LeftPanel app={appStore}
                            targets={targets}
+                           isAdmin={isAdmin}
                            show={app.leftPanelVisible}
                            user={app.user}/>
 

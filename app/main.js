@@ -8,6 +8,7 @@ import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
 import { fetchVulnsCompact } from './actions/vulns.actions';
+import { handleMeData } from './actions/app.actions';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -22,15 +23,6 @@ require('./styles/transitions.less');
 
 
 var flux = window.flux = require('./flux');
-
-function handleMeData(data) {
-    dispatch(C.USER_LOGIN_SUCCESS, data.user);
-    nDispatch(C.USER_LOGIN_SUCCESS, data.user);
-
-    if (data.projects.length) {
-        dispatch(C.PROJECTS_FETCH_SUCCESS, data.projects);
-    }
-}
 
 const router = createRouter();
 const plans = flux.actions.plan.fetchPlans();

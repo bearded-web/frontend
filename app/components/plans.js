@@ -1,69 +1,94 @@
-'use strict';
+/**
+ * Plans render plans list according to filter
+ */
 
 import { PropTypes, Component } from 'react/addons';
-import ImMixin from 'react-immutable-render-mixin';
-import { $Models } from '../lib/types';
-import { chunk, bindAll } from 'lodash';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { Models } from '../lib/types';
+import bindReact from '../lib/bind-react.js';  // eslint-disable-line no-unused-vars
+import connectToStores from '../lib/connectToStores';  // eslint-disable-line no-unused-vars
+import authStore from '../stores/auth.store';
 
 import Tiles from './tiles';
 import Ibox, { IboxTitle, IboxContent } from './ibox';
-import { Row, Col, Input, Button, ButtonToolbar } from 'react-bootstrap';
-import Fa from './fa';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 import PlanItemView from './plan-item-view';
 import { Link } from 'react-router';
 import PlanRemoveLink from './plan-remove-link';
 
+/**
+ * Retrieves state from stores for current props.
+ */
+function getState() { // eslint-disable-line no-unused-vars
+    return {
+        canEdit: authStore.isAdmin()
+    };
+}
+
+@connectToStores([authStore], getState)
 export default class Plans extends Component {
-    constructor() {
-        super();
+    static propTypes = {
+        canEdit: PropTypes.bool,
+        plans: Models,
+        search: PropTypes.string,
+        onStartScan: PropTypes.func
+    };
+    static defaultProps = {
+        canEdit: false,
+        search: ''
+    };
 
-        bindAll(this, [
-            'renderPlan',
-            'isPlanMatch',
-            'renderToolbar'
-        ]);
-    }
+    shouldComponentUpdate = shouldComponentUpdate;
 
-    onStartScan($plan) {
+    onStartScan(plan) {
         if (this.props.onStartScan) {
-            this.props.onStartScan($plan);
+            this.props.onStartScan(plan);
         }
     }
 
     render() {
-        let { $plans, search } = this.props;
+        let { plans, search } = this.props;
 
         if (search) {
-            $plans = $plans.filter($p => this.isPlanMatch(search, $p));
+            plans = plans.filter($p => this.isPlanMatch(search, $p));
         }
         //TODO if plans not fount add message "Not found, change search settings"
         //If no plans add message, "No plans, create new (link)"
         return <Tiles>
-            {$plans.toArray().map(this.renderPlan)}
+            {plans.toArray().map(this.renderPlan)}
         </Tiles>;
     }
 
-    renderPlan($plan) {
-        let { name, id } = $plan.toObject(),
-            editParams = { planId: id };
+    @bindReact
+    renderPlan(plan) {
+        const { canEdit } = this.props;
+        const { name, id } = plan.toObject();
+        const editParams = { planId: id };
+
+        let title = <h5>{name}</h5>;
+
+        if (canEdit) {
+            title = <Link to="plan" params={editParams}>
+                {title}
+            </Link>;
+        }
 
         return <Ibox key={id}>
             <IboxTitle noControls>
-                <PlanRemoveLink className="pull-right" plan={$plan}/>
-                <Link to="plan" params={editParams}>
-                    <h5>{name}</h5>
-                </Link>
+                {canEdit && <PlanRemoveLink className="pull-right" plan={plan}/>}
+                {title}
             </IboxTitle>
             <IboxContent>
-                <PlanItemView $plan={$plan}/>
+                <PlanItemView $plan={plan}/>
                 <br/>
-                {this.renderToolbar($plan)}
+                {this.renderToolbar(plan)}
             </IboxContent>
         </Ibox>;
     }
 
-    renderToolbar($plan) {
-        let scanHandler = this.onStartScan.bind(this, $plan),
+    @bindReact
+    renderToolbar(plan) {
+        let scanHandler = this.onStartScan.bind(this, plan),
             withStartScanButton = !!this.props.onStartScan;
 
         return <ButtonToolbar className="pull-right">
@@ -76,8 +101,9 @@ export default class Plans extends Component {
         </ButtonToolbar>;
     }
 
-    isPlanMatch(search, $p) {
-        let { name, desc } = $p.toObject();
+    @bindReact
+    isPlanMatch(search, plan) {
+        let { name, desc } = plan.toObject();
 
         search = search.toLowerCase();
 
@@ -88,10 +114,4 @@ export default class Plans extends Component {
     }
 }
 
-Plans.mixins = [ImMixin];
-Plans.propTypes = {
-    $plans: $Models,
-    search: PropTypes.string,
-    onStartScan: PropTypes.func
-};
 

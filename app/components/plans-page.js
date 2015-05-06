@@ -1,20 +1,16 @@
-'use strict';
-
-import React, { PropTypes, addons } from 'react/addons';
+import React, { addons } from 'react/addons';
 import { Navigation } from 'react-router';
 import { fetchPlans, selectPlans } from '../actions/plan.actions';
 import { fetch as fetchPlugins } from '../actions/plugins.actions';
 import flux from '../flux';
 import { defaults } from 'lodash';
 import setTitle from '../lib/set-title';
+import authStore from '../stores/auth.store';
 
 
-import { Row, Col } from 'react-bootstrap';
-import Ibox, { IboxContent } from './ibox';
+import { Col } from 'react-bootstrap';
 import Header from './header';
 import Plans from './plans-with-search';
-import PlansList from '../components/plans-list';
-import PlanForm from '../components/plan-form';
 
 function prefetch() {
     fetchPlans();
@@ -35,12 +31,32 @@ export default React.createClass({
         }
     },
 
+    getInitialState() {
+        return this.getState();
+    },
+
     componentDidMount() {
         setTitle(iget('Plans'));
+
+        authStore.onChange(this.onStoreChange);
     },
 
     onPlanSelect($plan) {
         selectPlans($plan);
+    },
+
+    componentWillUnmount() {
+        authStore.offChange(this.onStoreChange);
+    },
+
+    onStoreChange() {
+        this.setState(this.getState);
+    },
+
+    getState() {
+        return {
+            canAdd: authStore.isAdmin()
+        };
     },
 
     getStateFromFlux() {
@@ -58,21 +74,20 @@ export default React.createClass({
     },
 
     render() {
-        let { $plans, $edit, $plugins, $steps } = this.state,
-            selectedId = $edit && $edit.get('id');
+        const { $plans, canAdd } = this.state;
 
         return <div>
             <Header>
                 <Col xs={12}>
                     <h2>
-                        <a onClick={this.addNewPlan} className="pull-right">Create new plan</a>
+                        {canAdd && <a onClick={this.addNewPlan} className="pull-right">Create new plan</a>}
 
                         {iget('Plans')}
                     </h2>
                 </Col>
             </Header>
 
-            <Plans $plans={$plans}/>
+            <Plans plans={$plans}/>
         </div>;
     }
 });

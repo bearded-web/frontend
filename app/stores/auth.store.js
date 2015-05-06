@@ -17,7 +17,15 @@ const initialState = fromJS({
     resetPasswordError: ''
 });
 
-const api = {};
+const api = {
+    /**
+     * Check is user admin
+     * @return {Boolean} true if user admin
+     */
+    isAdmin() {
+        return !!this.getRawState().getIn(['user', 'admin']);
+    }
+};
 
 const handlers = {
     [C.AUTH_UNLOCK_START](state) {

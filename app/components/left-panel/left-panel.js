@@ -1,4 +1,4 @@
-'use strict';
+//TODO refactor
 import React, { PropTypes } from 'react/addons';
 import { Map } from 'immutable';
 import cx from 'classnames';
@@ -36,7 +36,8 @@ var LeftPanel = React.createClass({
         }).isRequired,
         targets: PropTypes.object.isRequired,
         user: PropTypes.object.isRequired,
-        show: PropTypes.bool
+        show: PropTypes.bool,
+        isAdmin: PropTypes.bool
     },
 
     contextTypes: {
@@ -44,7 +45,7 @@ var LeftPanel = React.createClass({
     },
 
     render() {
-        let { app } = this.props,
+        let { app, isAdmin } = this.props,
             { currentProject } = app;
 
         if (!currentProject) return <div></div>;
@@ -117,14 +118,14 @@ var LeftPanel = React.createClass({
                         {iget('Settings')}
                     </li>
 
-                    <li className={this.context.router.isActive('agents') ? 'active' : ''}>
+                    {isAdmin && <li className={this.context.router.isActive('agents') ? 'active' : ''}>
                         <Link to="agents">
                             <span className="nav-label">
                                 <Fa icon="cube"/>
                                 Agents
                             </span>
                         </Link>
-                    </li>
+                    </li>}
 
                     <NavListItem route="plans">
                         <span className="nav-label">

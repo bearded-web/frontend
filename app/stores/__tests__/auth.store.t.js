@@ -163,48 +163,40 @@ describe('AuthStore', function() {
 
     });
 
-    describe.skip('api', function() {
-        describe('.getIssues()', function() {
-            const id = 'someId';
-            const desc = 'desc 1';
-            const id2 = 'someId2';
-            const desc2 = 'desc 2';
-            const id3 = 'someId3';
-            const desc3 = 'desc 3';
-            const store = {
-                getState() {
-                    return {
-                        [id]: Map({ id, desc }),
-                        [id2]: Map({ id: id2, desc: desc2 }),
-                        [id3]: Map({ id: id3, desc: desc3 })
-                    };
-                }
-            };
-
-            it('should return issues array', function() {
-                const id = 'someId';
-                const desc = 'desc 1';
+    describe('api', function() {
+        describe('.isAdmin()', function() {
+            it('should return true if user has admin flag', function() {
                 const store = {
-                    getState() {
-                        return {
-                            [id]: Map({ id, desc })
-                        };
+                    getRawState() {
+                        return fromJS({
+                            user: { admin: true }
+                        });
                     }
                 };
 
-                api.getIssues.bind(store)(id).first().get('desc')
-                    .should.be.eql(desc);
+                api.isAdmin.call(store).should.be.eql.true;
             });
+            it('should return false if user has no admin flag', function() {
+                const store = {
+                    getRawState() {
+                        return fromJS({
+                            user: { admin: false }
+                        });
+                    }
+                };
 
-
-            it('should return 2 of 3', function() {
-                api.getIssues.bind(store)(id, id3).size
-                    .should.be.eql(2);
+                api.isAdmin.call(store).should.be.eql.false;
             });
+            it('should return false if no user', function() {
+                const store = {
+                    getRawState() {
+                        return fromJS({
+                            user: null
+                        });
+                    }
+                };
 
-            it('should return 3 and 2', function() {
-                api.getIssues.bind(store)(id3, id2).first().get('desc')
-                    .should.be.eql(desc3);
+                api.isAdmin.call(store).should.be.eql.false;
             });
         });
     });
