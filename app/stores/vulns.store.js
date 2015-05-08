@@ -7,7 +7,7 @@
 import { Map } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
-import mergeToState from '../lib/merge-to-state';
+import mergeToState from '../lib/mergeToState';
 
 const initialState = Map();
 

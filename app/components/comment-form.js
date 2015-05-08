@@ -43,29 +43,28 @@ export default React.createClass({
 
         this.props.onNewComment(text);
         input.value = '';
+        this.collapse();
     },
 
     render: function() {
-        let { onNewComment } = this.props,
-            { expanded } = this.state,
-            style = { overflow: 'hidden' };
+        const { onNewComment } = this.props;
+        const { expanded } = this.state;
+        const style = { overflow: 'hidden' };
 
         if (!expanded) {
             style.height = '0px';
             style.margin = '0';
         }
-
         return <form onSubmit={this.onSubmit}>
             {expanded || <input
                 ref="fake"
                 type="text"
                 className="form-control"
                 onFocus={this.expand}
-                placeholder="Enter comment"/>}
+                placeholder={iget('Write your comment')}/>}
 
             <div className="form-group" style={style}>
                 <textarea
-                    autoFocus
                     ref="text"
                     onBlur={this.collapse}
                     placeholder={iget('Enter comment text')}
@@ -77,7 +76,6 @@ export default React.createClass({
                 type="submit"
                 bsSize="small"
                 bsStyle="primary">
-
                 {iget('Add comment')}
             </Button>}
         </form>;

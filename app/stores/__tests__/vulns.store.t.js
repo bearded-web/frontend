@@ -4,7 +4,7 @@ import { is, Map, List, OrderedMap, fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
-import mergeToState from '../../lib/merge-to-state';
+import mergeToState from '../../lib/mergeToState';
 
 describe('vulns', function() {
     let createStore = null;

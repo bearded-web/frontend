@@ -27,6 +27,8 @@ var constants = {
     ADD_TARGET_SUCCESS: 'ADD_TARGET_SUCCESS',
     ADD_TARGET_FAIL: 'ADD_TARGET_FAIL',
 
+    COMMENTS_FETCH_SUCCESS: 'New comments arrived',
+
     FEED_FETCH_SUCCESS: '--',
 
     ISSUES_FETCH_START: '--',
@@ -40,6 +42,7 @@ var constants = {
     ISSUE_CREATE_START: 'Start issue creating',
     ISSUE_CREATE_SUCCESS: 'New issue created',
     ISSUE_CREATE_FAIL: 'Issue create fail',
+    ISSUE_COMMENTS_FETCH_SUCCESS: 'Fetch comments for issue',
 
     MODAL_OPEN: '--',
     MODAL_CLOSE: '--',
@@ -79,6 +82,8 @@ var constants = {
     TARGETS_COMMENTS_FETCH_SUCCESS: '--',
     TARGETS_CHANGE_EDITABLE: 'Change current edited (created) target',
 
+    TARGET_COMMENTS_FETCH_SUCCESS: 'Comments for target received',
+
     TOAST_ADD: '--',
 
 
@@ -91,7 +96,7 @@ var constants = {
     USER_LOGOUT_FAIL: '--',
     USER_LOST_AUTH: '--',
 
-    USERS_FETCH_SUCCESS: '--',
+    USERS_FETCH_SUCCESS: 'Fetch users data',
 
     US_PASSWORD_FIELD_CHANGE: '--',
     US_OLD_PASSWORD_FIELD_CHANGE: 'Change old password in change password field',

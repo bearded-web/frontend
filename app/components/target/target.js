@@ -5,7 +5,7 @@ var React = require('react'),
 
 import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
-import TargetComments from '../target-comments';
+import TargetComments from '../TargetComments';
 import { Button } from 'react-bootstrap';
 import setTitle from '../../lib/set-title';
 import SeverityWidget from '../severity-widget';
@@ -140,7 +140,7 @@ module.exports = Target;
 if (module.hot) {
     module.hot.accept([
         '../target-status',
-        '../target-comments'
+        '../TargetComments'
     ], function() {
         //TODO flux add actions
     });

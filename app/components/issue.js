@@ -3,35 +3,29 @@
  * vector, references, etc.
  */
 
-'use strict';
-
-import { PropTypes, Component } from 'react/addons';
+import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
-import { fromJS } from 'immutable';
 
 import IssueActivities from './issue-activities';
 import References from './references';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Ibox, { IboxContent, IboxTitle } from './ibox';
 import Header from './header';
 import SeverityIcon from './severity-icon';
-import CommentForm from './comment-form';
-import Comments from './comments';
+import IssueComments from './IssueComments';
 import Markdown from './markdown';
 import Vector from './vector';
 import IssueControls from './issue-controls';
 
 export default class Issue extends Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.shouldComponentUpdate = shouldComponentUpdate;
-    }
+    shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
         const { issue } = this.props;
+
         let {
+            id,
             summary,
             activities,
             references,
@@ -96,6 +90,13 @@ export default class Issue extends Component {
                             <Vector vector={vector}/>
                         </IboxContent>
                     </Ibox>}
+
+                    <Ibox style={aStyle}>
+                        <IboxTitle title={iget('Comments')}/>
+                        <IboxContent>
+                            <IssueComments issueId={id}/>
+                        </IboxContent>
+                    </Ibox>
                 </Col>
                 <Col xs={12} md={4}>
                     <Ibox style={aStyle}>
@@ -109,12 +110,6 @@ export default class Issue extends Component {
                         {hasActivities && <IboxContent>
                             <IssueActivities activities={activities}/>
                         </IboxContent>}
-                    </Ibox>
-                    <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Comments')}/>
-                        <IboxContent>
-                            <CommentForm/>
-                        </IboxContent>
                     </Ibox>
                 </Col>
             </Row>

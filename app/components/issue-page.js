@@ -14,28 +14,32 @@ export default class IssuePage extends Component {
         super(props, context);
 
         bindAll(this, [
-            '_onStoreChange'
+            'onStoreChange'
         ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
 
-        this.state = this._getState();
+        this.state = this.getState();
 
-        this._setTitle(this.state);
+        this.setTitle(this.state);
     }
 
     //region life cycle
     componentDidMount() {
-        issuesStore.onChange(this._onStoreChange);
+        issuesStore.onChange(this.onStoreChange);
 
-        const { issueId } = this.context.router.getCurrentParams();
-
-        fetchOne(issueId);
+        this.prefetch();
     }
 
     componentWillUnmount() {
-        issuesStore.offChange(this._onStoreChange);
+        issuesStore.offChange(this.onStoreChange);
     }
+
+    componentWillReceiveProps() {
+        this.prefetch();
+        this.setState(this.getState());
+    }
+
     //endregion
 
     //region render
@@ -49,14 +53,18 @@ export default class IssuePage extends Component {
     //endregion
 
     //region Private methods
-    _onStoreChange() {
-        const state = this._getState();
-        this.setState(state);
+    prefetch() {
+        const { issueId } = this.context.router.getCurrentParams();
 
-        this._setTitle(state);
+        fetchOne(issueId);
     }
 
-    _getState() {
+    onStoreChange() {
+        const state = this.getState();
+        this.setState(state);
+    }
+
+    getState() {
         const { issueId } = this.context.router.getCurrentParams();
         const issue = issuesStore.getIssues(issueId).first();
 
@@ -65,7 +73,7 @@ export default class IssuePage extends Component {
         };
     }
 
-    _setTitle(state) {
+    setTitle(state) {
         const { issue } = state;
 
         let title = iget('Issue');

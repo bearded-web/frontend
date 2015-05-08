@@ -1,6 +1,6 @@
 'use strict';
 
-import mergeToState from '../merge-to-state';
+import mergeToState from '../mergeToState';
 import { fromJS } from 'immutable';
 
 describe('mergeToState', () => {

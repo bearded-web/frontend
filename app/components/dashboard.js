@@ -118,22 +118,26 @@ var Dashboard = React.createClass({
         }
 
         const routes = this.context.router.getCurrentRoutes();
+        const paramsJson = JSON.stringify(this.context.router.getCurrentParams());
         const name = routes[routes.length - 1].name;
+        const key = name + paramsJson;
 
+        console.log('### render dashboard', key);
         return (
             <div className="c-dashboard">
                 {lock && <LockScreenContainer/>}
 
-                <LeftPanel app={appStore}
-                           targets={targets}
-                           isAdmin={isAdmin}
-                           show={app.leftPanelVisible}
-                           user={app.user}/>
+                <LeftPanel
+                    app={appStore}
+                    targets={targets}
+                    isAdmin={isAdmin}
+                    show={app.leftPanelVisible}
+                    user={app.user}/>
 
                 <div className="page-wrapper gray-bg">
                     <div className="page-wrapper--content container-fluid">
                         <TransitionGroup component="div" transitionName="route-transition">
-                            <RouteHandler key={name} routeQuery={routeQuery}/>
+                            <RouteHandler key={key} routeQuery={routeQuery}/>
                         </TransitionGroup>
                     </div>
                 </div>

@@ -4,14 +4,14 @@
 
 'use strict';
 
-import { PropTypes, Component } from 'react/addons';
+import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import settingsStore from '../stores/user-settings.store';
 import { bindAll } from 'lodash';
 import setTitle from '../lib/set-title';
 
 import Header from './header';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import ChangePasswordForm from './change-password-form';
 import Ibox, { IboxTitle, IboxContent } from './ibox';
 

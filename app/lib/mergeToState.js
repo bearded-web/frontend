@@ -10,7 +10,7 @@ import { isArray } from 'lodash';
  * @param {Array} models models array
  * @returns {Map} changed state
  */
-export default function(state, models) {
+export default function mergeToState(state, models) {
     if (!isArray(models)) models = [models];
 
     const merge = (s, m) => s.mergeDeepIn([m.id], fromJS(m));

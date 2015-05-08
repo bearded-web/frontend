@@ -53,6 +53,10 @@ export default function createStore(api, handlers, initialState) {
         if (isFunction(handler)) {
             const newState = handler(state, payload);
 
+            if (!Map.isMap(newState)) {
+                console.warn(iget('Store handler should return Immutable.Map, return %s instead'), newState);
+            }
+
             if (!is(state, newState)) {
                 state = newState;
 
