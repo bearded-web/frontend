@@ -3,6 +3,7 @@ var React = require('react');
 
 import { Panel, Table } from 'react-bootstrap';
 import Domify from 'react-domify';
+import { captureException } from 'raven-js';
 
 var RawReports = React.createClass({
     propTypes: {
@@ -87,6 +88,8 @@ var RawReports = React.createClass({
             return <Domify value={json}/>;
         }
         catch (e) {
+            captureException(e);
+
             return <pre>{raw}</pre>;
         }
     },

@@ -1,14 +1,14 @@
-'use strict';
 import 'babel/polyfill';
 import './lib/globals';
 
-import { me, onStatus } from './lib/api3.js';
+import { me, onStatus, config } from './lib/api3.js';
 import { dispatch as nDispatch } from './lib/disp';
 import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
 import { fetchVulnsCompact } from './actions/vulns.actions';
 import { handleMeData } from './actions/app.actions';
+import Raven from 'raven-js';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -42,7 +42,15 @@ const startRouting = (isAnonym) => {
         );
     });
 };
-me.info()
+config.get()
+    .then(config => {
+        const { raven = {} } = config;
+        if (raven.enable) {
+            Raven.config(raven.address).install();
+        }
+
+        return me.info();
+    })
     .then(data => {
         onStatus(401, lostAuth);
 

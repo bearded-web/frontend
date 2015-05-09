@@ -19,6 +19,7 @@ export function fetchIssueComments(issueId) {
         .then(data => {
             dispatch(C.USERS_FETCH_SUCCESS, data.results);
         });
+    //TODO catch
 }
 
 export function fetchTargetComments(targetId) {
@@ -37,6 +38,7 @@ export function fetchTargetComments(targetId) {
         .then(data => {
             dispatch(C.USERS_FETCH_SUCCESS, data.results);
         });
+    //TODO catch
 }
 
 
@@ -49,6 +51,8 @@ export function addTargetComment(targetId, text) {
         .then(() => {
             fetchTargetComments(targetId);
         });
+
+    //TODO catch
 }
 
 export function addIssueComment(issueId, text) {
@@ -60,4 +64,5 @@ export function addIssueComment(issueId, text) {
         .then(() => {
             fetchIssueComments(issueId);
         });
+    //TODO add catch
 }

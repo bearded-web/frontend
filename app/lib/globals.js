@@ -13,3 +13,4 @@ window.createStoreWatchMixin = StoreWatchMixin;
 window.nextTick = function(fn) {
     setTimeout(fn, 0);
 };
+

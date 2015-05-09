@@ -12,6 +12,7 @@ import { bindAll } from 'lodash';
 import t from 'tcomb-form';
 import toType from 'tcomb-json-schema';
 import { Map } from 'immutable';
+import { captureException } from 'raven-js';
 
 const { Form } = t.form;
 
@@ -44,10 +45,7 @@ export default class DefaultStepForm extends Component {
             return JSON.parse(schema);
         }
         catch (e) {
-            console.error(
-                'Invalid schema in plugin %s',
-                plugin.get('name')
-            );
+            captureException(e);
 
             return null;
         }
@@ -60,10 +58,7 @@ export default class DefaultStepForm extends Component {
             return JSON.parse(step.getIn(['conf', 'formData']));
         }
         catch (e) {
-            console.error(
-                'Invalid formData in step for plugin %s',
-                plugin.get('name')
-            );
+            captureException(e);
 
             return {};
         }

@@ -4,6 +4,7 @@ import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
 import { $Model } from '../lib/types';
 import { Map } from 'immutable';
+import { captureException } from 'raven-js';
 
 import { Input, ButtonGroup, Button } from 'react-bootstrap';
 
@@ -41,8 +42,8 @@ export default createClass({
         if (formData !== undefined) {
             try {
                 w3afData = JSON.parse(formData);
-            } catch(ex) {
-                console.log(ex);
+            } catch(e) {
+                captureException(e);
             }
         }
 

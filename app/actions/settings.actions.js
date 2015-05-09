@@ -8,6 +8,7 @@ import { dispatch } from '../lib/disp';
 import C from '../constants';
 import { me } from '../lib/api3';
 import settingsStore from '../stores/user-settings.store';
+import { captureException } from 'raven-js';
 
 
 /**
@@ -34,5 +35,7 @@ export async function changePassword() {
     }
     catch(e) {
         dispatch(C.US_PASSWORD_CHANGE_FAIL, { message: e.data && e.data.Message });
+
+        captureException(e);
     }
 }

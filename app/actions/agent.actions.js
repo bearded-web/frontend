@@ -1,4 +1,6 @@
-'use strict';
+/**
+ * AgentActions
+ */
 
 var { agents, resultExtractor } = require('../lib/api3'),
     { dispatchBuilder } = require('../lib/helpers'),

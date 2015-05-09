@@ -8,6 +8,7 @@ import { cloneDeep, merge, isNaN } from 'lodash';
 import { HIGH, MEDIUM, LOW, INFO } from '../lib/severities';
 import issueCreateStore from '../stores/issue-create.store';
 import router from '../router';
+import { captureException } from 'raven-js';
 
 const dispatchFetch = res => dispatch(C.ISSUES_FETCH_SUCCESS, res);
 
@@ -84,6 +85,8 @@ export function toggleStatus(issue, statusName) {
                 id: issueId,
                 [statusName]: !status
             });
+
+            captureException(e);
         });
 }
 
@@ -166,6 +169,8 @@ export async function saveEditableIssue(mergeData) {
         const message = e.message || e.data && e.data.Message || iget('Server error');
 
         dispatch(C.ISSUE_CREATE_FAIL, { message });
+
+        captureException(e);
     }
 }
 

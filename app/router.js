@@ -1,7 +1,6 @@
-'use strict';
-
 import Router, { Route, DefaultRoute, NotFoundRoute, Redirect } from 'react-router';
 import flux from './flux';
+import { captureException } from 'raven-js';
 
 import UserSettingsPage from './components/user-settings-page';
 import PasswordResetPage from './components/password-reset-page';
@@ -11,7 +10,6 @@ import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
 import TargetCreatePage from './components/target-create-page';
 import IssueCreatePage from './components/issue-create-page';
-import App from './components/app.js';
 import Agents from './components/agents';
 import PlansPage from './components/plans-page';
 import PlanPage from './components/plan-page';
@@ -21,12 +19,9 @@ import Scan from './components/scan';
 import ScanReport from './components/scan-report';
 import Overview from './components/overview';
 import NotFound from './components/not-found';
-import LoginOverlay from './components/login-overlay';
 import IssuesPage from './components/issues-page';
 import IssuePage from './components/issue-page';
 import Target from './components/target/';
-
-require('react');
 
 let router = null;
 
@@ -92,7 +87,8 @@ module.exports.create = function buildRouter() {
         routes: routes,
 
         onError(error) {
-            console.log(error.stack);
+            captureException(error);
+            console.error(error);
 
             throw error;
         }

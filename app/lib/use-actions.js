@@ -1,4 +1,3 @@
-'use strict';
 module.exports = function useActions(store, constants, actions) {
     actions.forEach(function(action) {
         var methodName = '_on';

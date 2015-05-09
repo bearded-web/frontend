@@ -1,7 +1,7 @@
 //https://github.com/signalfx/swagger-ajax-client
 //TODO refactor
-'use strict';
 
+import { captureException } from 'raven-js';
 //import { lostAuth } from '../actions/auth.actions';
 
 import schema from './swagger.json';
@@ -10,9 +10,7 @@ var clientGenerator,
     api,
     __auth;
 
-const statusHandlers = {
-
-};
+const statusHandlers = {};
 
 schema.apis.forEach(function(endpoint) {
     endpoint.apiDeclaration.basePath = '';
@@ -63,8 +61,7 @@ module.exports = api;
 function requestHandler(error, request) {
     return new Promise(function(resolve, reject) {
         if (error) {
-            //TODO make logging
-            //console.error(error);
+            captureException(error);
 
             return reject(error);
         }
@@ -108,6 +105,7 @@ function requestHandler(error, request) {
                 try {
                     data = JSON.parse(data);
                 } catch (error) {
+                    captureException(error);
                     reject({
                         error: error,
                         status: this.status,

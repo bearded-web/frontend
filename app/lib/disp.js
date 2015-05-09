@@ -1,10 +1,8 @@
 /**
  * Facebook flux dispatcher instance
  */
-
-'use strict';
-
 import { Dispatcher } from 'flux';
+import { captureException } from 'raven-js';
 
 const dispatcher = new Dispatcher();
 
@@ -36,7 +34,11 @@ export function dispatch(type, payload) {
 
     console.log('Dispatch ' + type, cloned);
     if (!type) {
-        throw new Error(`Trying to dispatch undefined type (payload ${payload})`);
+        const error = new Error(`Trying to dispatch undefined type (payload ${payload})`);
+
+        captureException(error, { extra: { payload } });
+
+        console.error(error);
     }
 
     dispatcher.dispatch({

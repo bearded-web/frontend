@@ -1,4 +1,5 @@
-'use strict';
+import { captureException } from 'raven-js';
+
 var actions = require('./actions'),
     stores = require('./stores'),
     Fluxxor = require('fluxxor');
@@ -10,7 +11,8 @@ flux.on('dispatch', function(type, payload) {
         console.log('[Dispatch]', type, payload);
 
         if (payload && payload.error) {
-            console.log('[Dispatch error]', payload.error.stack); // jshint ignore:line
+            captureException(payload.error);
+            console.log('[Dispatch error]', payload.error.stack);
         }
     }
 });

@@ -1,6 +1,6 @@
-'use strict';
-
 import { pluck } from 'lodash';
+import { captureException } from 'raven-js';
+
 
 var { feed, users } = require('../lib/api3'),
     dispatcher = require('../lib/dispatcher'),
@@ -60,9 +60,8 @@ module.exports = {
 
                 let scans = pluck(items, 'scan');
                 dispatcher.dispatch(C.SCANS_FETCH_SUCCESS, scans);
-            });
-
-        //TODO add catch and error report
+            })
+            .catch(e => captureException(e));
     }
 };
 
