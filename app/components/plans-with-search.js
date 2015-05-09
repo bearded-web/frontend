@@ -48,7 +48,7 @@ export default class PlansWithSearch extends Component {
 }
 
 PlansWithSearch.propTypes = {
-    $plans: $Models,
+    plans: $Models,
     onStartScan: PropTypes.func
 };
 

@@ -43,7 +43,7 @@ var Scan = createClass({
         var { $plans, search } = this.state;
 
         return <div className="c-scan">
-            <Plans $plans={$plans} onStartScan={this.onStartScan}/>
+            <Plans plans={$plans} onStartScan={this.onStartScan}/>
         </div>;
     }
 });

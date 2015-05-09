@@ -92,7 +92,7 @@ export default createClass({
                     onChange={this.onProjectSelect}>
                     {projects.map(function(project) {
                         project = project.toObject();
-                        return <option value={project.id}>
+                        return <option value={project.id} key={project.id}>
                             {project.name}
                         </option>;
                     })}

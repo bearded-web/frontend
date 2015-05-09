@@ -48,8 +48,6 @@ var ScanReport = React.createClass({
             return <div>Loading</div>;
         }
 
-        var isFinished = scan.status === 'finished';
-
         return (
             <div className="c-scan-report">
                 <Header>
@@ -61,7 +59,7 @@ var ScanReport = React.createClass({
 
                 <Row>
                     <Col md={8} mdOffset={2}>
-                    {this.renderProcess()}
+                        {this.renderProcess()}
                     </Col>
                 </Row>
             </div>

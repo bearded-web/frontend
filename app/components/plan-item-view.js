@@ -14,8 +14,7 @@ export default React.createClass({
 
     propTypes: {
         $plan: $Model,
-        active: PropTypes.bool,
-        onSelect: PropTypes.func.isRequired
+        active: PropTypes.bool
     },
 
     onRemove(e) {
@@ -26,7 +25,7 @@ export default React.createClass({
 
     //TODO add icon for type
     render() {
-        let { $plan, active, onSelect } = this.props,
+        let { $plan, active } = this.props,
             { name, desc, targetType, workflow } = $plan.toObject();
 
         if (!workflow) {

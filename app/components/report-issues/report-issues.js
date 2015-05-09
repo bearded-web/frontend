@@ -19,7 +19,6 @@ var ReportIssues = React.createClass({
             issues = this.getIssuesFromReports(reports),
             selectedIssues = issues[severity] || [];
 
-        nextTick(() => this.setDefaultSeverity(severity, issues));
 
         return (
             <div className="c-report-issues">
@@ -38,13 +37,14 @@ var ReportIssues = React.createClass({
         return (
             <div className="c-report-issues--details">
                 <h3>{iget('Detailed report')}</h3>
+
                 <div classNamae="c-report-issues-desc">
                     <SeverityLevelDesc severity={severity} count={issues.length}/>
                 </div>
                 <br/>
                 <Row>
                     <Col xs={12}>
-                        <ReportIssuesDetail issues={issues} />
+                        <ReportIssuesDetail issues={issues}/>
                     </Col>
                 </Row>
             </div>
@@ -56,25 +56,8 @@ var ReportIssues = React.createClass({
             <ReportIssuesTotal
                 severity={severity}
                 selected={this.props.severity === severity}
-                count={issues[severity].length} />
+                count={issues[severity].length}/>
         );
-    },
-
-
-    setDefaultSeverity: function(severity, issues) {
-        if (severity) return;
-
-        if (issues.high.length) {
-            severity = 'high';
-        }
-        if (issues.medium.length) {
-            severity = 'medium';
-        }
-        if (issues.low.length) {
-            severity = 'low';
-        }
-
-        if (severity) actions.selectSeverity(severity);
     },
 
     getIssuesFromReports: function(reports) {
