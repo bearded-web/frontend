@@ -66,6 +66,7 @@
     },
     "globals": {
         "jest": true,
+        "ga": true,
         "iget": true,
         "createStoreWatchMixin": true,
         "nextTick": true,

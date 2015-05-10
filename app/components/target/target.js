@@ -88,7 +88,7 @@ var Target = React.createClass({
                                 <Col xs={12} sm={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
                         </Row>
-                        <Row>
+                        {false && <Row>
                             <Col xs={12}>
                                 <Ibox><IboxTitle>
                                     <h5>{iget('Actions')}</h5>
@@ -98,7 +98,7 @@ var Target = React.createClass({
                                     </Link>
                                 </IboxContent></Ibox>
                             </Col>
-                        </Row>
+                        </Row>}
                         <Ibox>
                             <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>
                             <IboxContent >

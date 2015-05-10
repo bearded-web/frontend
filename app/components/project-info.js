@@ -35,6 +35,8 @@ export default createClass({
 
 
     toggle() {
+        ga('send', 'event', 'project-info', 'toggle');
+
         this.setState({
             settingsOpen: !this.state.settingsOpen
         });

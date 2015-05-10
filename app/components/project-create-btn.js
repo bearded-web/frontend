@@ -8,6 +8,8 @@ import Fa from './fa';
 export default React.createClass({
 	onCLick() {
 		openCreateModal();
+
+        ga('send', 'event', 'project-info', 'click', 'create-btn');
 	},
 
 	render() {

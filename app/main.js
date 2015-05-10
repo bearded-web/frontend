@@ -1,5 +1,6 @@
 import 'babel/polyfill';
 import './lib/globals';
+import { init as initAnalytics } from './lib/ga';
 
 import { me, onStatus, config } from './lib/api3.js';
 import { dispatch as nDispatch } from './lib/disp';
@@ -36,12 +37,15 @@ const startRouting = (isAnonym) => {
             }
         }
 
+        ga('send', 'pageview', state.path);
+
         React.render(
             <Handler flux={flux} routeQuery={state.query}/>,
             document.getElementById('app')
         );
     });
 };
+
 config.get()
     .then(config => {
         const { raven = {} } = config;
@@ -49,23 +53,34 @@ config.get()
             Raven.config(raven.address).install();
         }
 
-        return me.info();
+        if (config.ga.enable) {
+            initAnalytics();
+            ga('create', config.ga.id, 'auto');
+        }
+        else {
+            window.ga = function() {};
+        }
+
+        me.info()
+            .then(data => {
+                onStatus(401, lostAuth);
+
+                dispatch(C.APP_LIFT_SUCCESS);
+                handleMeData(data);
+
+                fetchVulnsCompact();
+
+                return plans;
+            })
+            .then(() => startRouting())
+            .catch(() => {
+                dispatch(C.APP_LIFT_SUCCESS);
+
+                startRouting(true);
+            });
     })
-    .then(data => {
-        onStatus(401, lostAuth);
-
-        dispatch(C.APP_LIFT_SUCCESS);
-        handleMeData(data);
-
-        fetchVulnsCompact();
-
-        return plans;
-    })
-    .then(() => startRouting())
     .catch(() => {
-        dispatch(C.APP_LIFT_SUCCESS);
-
-        startRouting(true);
+        alert(iget('Application config not loaded. Please notify us with help@barbudo.net'));
     });
 
 
