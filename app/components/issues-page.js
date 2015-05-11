@@ -7,7 +7,7 @@ import issuesListStore from '../stores/issues-list.store';
 import { loadForTarget, updateFilter } from '../actions/issues.actions';
 import { Map } from 'immutable';
 import setTitle from '../lib/set-title';
-import bind from '../lib/bind-react';
+import bind from '../lib/autobind';
 
 import { Row, Col } from 'react-bootstrap';
 import IssuesList from './issues-list';

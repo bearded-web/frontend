@@ -7,7 +7,7 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Map } from 'immutable';
-import bind from '../lib/bind-react';
+import bind from '../lib/autobind';
 
 import { Input, Button } from 'react-bootstrap';
 import HeadersForm from './headers-form';

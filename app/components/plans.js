@@ -5,7 +5,7 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Models } from '../lib/types';
-import bindReact from '../lib/bind-react.js';  // eslint-disable-line no-unused-vars
+import bindReact from '../lib/autobind.js';  // eslint-disable-line no-unused-vars
 import connectToStores from '../lib/connectToStores';  // eslint-disable-line no-unused-vars
 import authStore from '../stores/auth.store';
 

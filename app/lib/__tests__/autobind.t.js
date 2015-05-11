@@ -1,6 +1,6 @@
 'use strict';
 
-import bind from '../bind-react';
+import bind from '../autobind';
 
 describe('bindThis', () => {
     let Component = null;

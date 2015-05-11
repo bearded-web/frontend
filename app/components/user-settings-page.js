@@ -2,18 +2,18 @@
  * Page for user profile, settings, etc.
  */
 
-'use strict';
-
 import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import settingsStore from '../stores/user-settings.store';
 import { bindAll } from 'lodash';
 import setTitle from '../lib/set-title';
+import autobind from '../lib/autobind';
 
 import Header from './header';
 import { Row, Col } from 'react-bootstrap';
 import ChangePasswordForm from './change-password-form';
 import Ibox, { IboxTitle, IboxContent } from './ibox';
+import Tokens from './Tokens';
 
 export default class UserSettingsPage extends Component {
     constructor(props, context) {
@@ -38,6 +38,7 @@ export default class UserSettingsPage extends Component {
         settingsStore.offChange(this.onStoreChange);
     }
 
+    @autobind
     onStoreChange() {
         this.setState(this.getState());
     }
@@ -57,7 +58,7 @@ export default class UserSettingsPage extends Component {
             </Header>
 
             <Row>
-                <Col xs={12} sm={6} md={4}>
+                <Col xs={12} lg={4}>
                     <Ibox><IboxTitle><h5>{iget('Set new password')}</h5></IboxTitle><IboxContent>
                         <ChangePasswordForm
                             success={success}
@@ -65,6 +66,11 @@ export default class UserSettingsPage extends Component {
                             error={error}
                             password={password}
                             oldPassword={oldPassword}/>
+                    </IboxContent></Ibox>
+                </Col>
+                <Col xs={12} lg={8}>
+                    <Ibox><IboxTitle><h5>{iget('Tokens')}</h5></IboxTitle><IboxContent>
+                        <Tokens/>
                     </IboxContent></Ibox>
                 </Col>
             </Row>

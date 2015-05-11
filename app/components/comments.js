@@ -5,7 +5,7 @@ import { Component } from 'react/addons';
 import { listOf } from 'react-immutable-proptypes';
 import { Model, Models } from '../lib/types';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import bindReact from '../lib/bind-react.js';
+import bindReact from '../lib/autobind.js';
 import connectToStores from '../lib/connectToStores';
 import usersStore from '../stores/usersStore';
 

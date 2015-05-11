@@ -9,7 +9,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { List, fromJS } from 'immutable';
 import StyleSheet from 'react-style';
 /*eslint-disable no-unused-vars */
-import bind from '../lib/bind-react';
+import bind from '../lib/autobind';
 /*eslint-enable no-unused-vars */
 
 import { Input, Button } from 'react-bootstrap';

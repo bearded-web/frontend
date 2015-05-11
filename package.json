@@ -63,7 +63,8 @@
     "tcomb": " 1.0.2",
     "tcomb-form": "0.4.11",
     "tcomb-json-schema": "^0.1.2",
-    "tcomb-validation": "^1.0.3"
+    "tcomb-validation": "^1.0.3",
+    "zeroclipboard": "^2.2.0"
   },
   "devDependencies": {
     "chai-as-promised": "*",

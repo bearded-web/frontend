@@ -2,13 +2,10 @@
  * ReferencesForm
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { List, Map } from 'immutable';
-import bindThis from '../lib/bind-react';
-import { bindAll } from 'lodash';
+import bindThis from '../lib/autobind';
 
 import Fa from './fa';
 import {

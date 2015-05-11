@@ -8,7 +8,7 @@ import issueCommentsStore from '../stores/issuesCommentsStore';
 import { fetchIssueComments, addIssueComment } from '../actions/commentsActions';
 import { Model } from '../lib/types';
 import { listOf } from 'react-immutable-proptypes';
-import autobind from '../lib/bind-react';
+import autobind from '../lib/autobind';
 
 import Fa from './fa';
 import CommentForm from './comment-form';

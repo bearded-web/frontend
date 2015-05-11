@@ -6,7 +6,7 @@ import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
 import { listOf } from 'react-immutable-proptypes';
-import bind from '../lib/bind-react';
+import bind from '../lib/autobind';
 
 import IssuesListItem from './issues-list-item';
 

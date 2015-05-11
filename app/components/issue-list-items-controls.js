@@ -11,7 +11,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
 import { toggleStatus } from '../actions/issues.actions';
 import { icons } from '../lib/issue-controls-icons';
-import bind from '../lib/bind-react';
+import bind from '../lib/autobind';
 
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Fa from './fa';

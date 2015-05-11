@@ -86,6 +86,14 @@ var constants = {
 
     TOAST_ADD: '--',
 
+    TOKEN_CREATE_START: 'Create new token',
+    TOKEN_CREATE_SUCCESS: 'Create new token success',
+    TOKEN_CREATE_FAIL: 'Create new token error',
+    TOKEN_REMOVE_SUCCESS: 'Token removed',
+    TOKENS_FETCH_START: 'Tokens fetch start',
+    TOKENS_FETCH_SUCCESS: 'Tokens received',
+    TOKENS_FETCH_FAIL: 'Tokens not received',
+
 
     USER_LOGIN_START: '--',
     USER_LOGIN_SUCCESS: '--',

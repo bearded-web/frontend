@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { listOf } from 'react-immutable-proptypes';
 import { Model } from '../lib/types';
 import { fetchTargetComments, addTargetComment } from '../actions/commentsActions';
-import autobind from '../lib/bind-react';
+import autobind from '../lib/autobind';
 import connectToStores from '../lib/connectToStores';
 import commentsStore from '../stores/commentsStore';
 import targetsCommentsStore from '../stores/targetsCommentsStore';

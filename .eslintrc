@@ -1,3 +1,4 @@
+//TODO update from https://github.com/airbnb/javascript/blob/master/linters/.eslintrc
 {
     // I want to use babel-eslint for parsing!
     "parser": "babel-eslint",
@@ -9,6 +10,21 @@
         "mocha": true
     },
     "ecmaFeatures": {
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "classes": true,
+        "defaultParams": true,
+        "destructuring": true,
+        "forOf": true,
+        "generators": false,
+        "modules": true,
+        "objectLiteralComputedProperties": true,
+        "objectLiteralDuplicateProperties": false,
+        "objectLiteralShorthandMethods": true,
+        "objectLiteralShorthandProperties": true,
+        "spread": true,
+        "superInFunctions": true,
+        "templateStrings": true,
         "jsx": true
     },
     "plugins": [
@@ -16,38 +32,38 @@
     ],
     // To give you an idea how to override rule options:
     "rules": {
-        "no-alert": true,
-        "no-console": true,
-        "strict": [1, "global"],
-        "semi": 2,
         "camelcase": 1,
-        "no-use-before-define": [
-            2,
-            "nofunc"
-        ],
+        "comma-dangle": [2, "never"],
         "comma-spacing": 1,
+        "curly": [2, "multi-line"],
+        "eol-last": [0],
+        "new-cap": 0,
+        "no-alert": true,
+        "no-cond-assign": [2, "always"],
+        "no-console": true,
+        "no-constant-condition": 2,
+        "no-debugger": 2,
+        "no-dupe-keys": 2,
+        "no-duplicate-case": 2,
+        "no-ex-assign": 2,
+        "no-mixed-requires": [2],
         "no-multi-spaces": 2,
-        "curly": [
-            2,
-            "multi-line"
-        ],
         "no-shadow": 1,
+        "no-shadow-restricted-names": 2,
+        "no-trailing-spaces": 2,
+        "no-underscore-dangle": [0],
+        "no-unused-vars": [1, {
+            "vars": "all",
+            "args": "after-used"
+        }],
+        "no-use-before-define": [2, "nofunc"],
+        "no-var": 1,
+        "semi": 2,
+        "strict": [1, "never"],
         "quotes": [
             2,
             "single"
         ],
-        "eol-last": [0],
-        "no-mixed-requires": [2],
-        "no-underscore-dangle": [0],
-        "no-unused-vars": [
-            1,
-            {
-                "vars": "all",
-                "args": "after-used"
-            }
-        ],
-        "new-cap": 0,
-        "no-trailing-spaces": 2,
         "react/display-name": 0,
         "react/jsx-boolean-value": 2,
         "react/jsx-quotes": 2,
