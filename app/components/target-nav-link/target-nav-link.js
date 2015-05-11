@@ -23,14 +23,11 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var target = this.props.target.toJS(),
+        const target = this.props.target.toJS(),
             targetId = target.id,
-            isActiveLink = this.isActiveState(),
-            isHttps = false;
+            isActiveLink = this.isActiveState();
+        let isHttps = false;
 
-        const icon = target.type === ANDROID ?
-            'android' :
-            isHttps ? 'lock' : 'globe';
 
         let title = target.type === ANDROID ?
             target.android.name :
@@ -44,6 +41,11 @@ module.exports = React.createClass({
             title = title.slice(8);
             isHttps = true;
         }
+
+        const icon = target.type === ANDROID ?
+            'android' :
+            isHttps ? 'lock' : 'globe';
+
 
         return (
             <li className={isActiveLink ? 'active' : ''}>
@@ -60,7 +62,7 @@ module.exports = React.createClass({
 
 
     renderIssuesLabel: function() {
-        var { issues } = this.props.target.toJS().summaryReport || { issues: {} },
+        let { issues } = this.props.target.toJS().summaryReport || { issues: {} },
             count = 0,
             labelStyle;
 
@@ -92,7 +94,7 @@ module.exports = React.createClass({
     isActiveState() {
         const { router } = this.context;
 
-        var targetId = this.props.target.toJS().id;
+        const targetId = this.props.target.toJS().id;
 
         return router.isActive('target', { targetId }) ||
             router.getCurrentQuery().target === targetId;
