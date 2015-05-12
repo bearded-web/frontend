@@ -11,6 +11,8 @@
   },
   "globals": {
     "expect": true,
+    "byCss": true,
+    "protractor": true,
     "browser": true,
     "element": true,
     "By": true,

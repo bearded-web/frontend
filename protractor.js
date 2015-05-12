@@ -1,4 +1,7 @@
-'use strict';
+require('babel/register')({
+    stage: 0
+});
+require('mochawait');
 
 exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -12,8 +15,8 @@ exports.config = {
     },
 
     mochaOpts: {
-      reporter: 'spec',
-      timeout: 4000
+        reporter: 'spec',
+        timeout: 4000
     },
 
     params: {
@@ -24,7 +27,13 @@ exports.config = {
     },
 
     beforeLaunch: function() {
-        require('babel/register');
+        global.getCmp = function(name) {
+            return element(By.className(name));
+        };
+
+        global.byCss = function(css) {
+            return element(By.css(css));
+        };
         var chai = require('chai');
         var chaiAsPromised = require('chai-as-promised');
 

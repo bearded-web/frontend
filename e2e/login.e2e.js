@@ -1,19 +1,12 @@
 describe('Login page', function() {
 
-    function getCmp(name) {
-        return element(By.className(name));
-    }
-
-    function byCss(css) {
-        return element(By.css(css));
-    }
 
     beforeEach(() => {
         browser.get('http://localhost:3003/');
     });
 
     it('should show email input', () => {
-        var email = element(By.css('input[type=email]'));
+        const email = element(By.css('input[type=email]'));
 
         return email.isDisplayed().should.eventually.equal(true);
     });
