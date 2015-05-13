@@ -1,25 +1,21 @@
-'use strict';
+import { createClass } from 'react';
+import flux from '../../flux';
+import setTitle from '../../lib/set-title';
+import authStore from '../../stores/auth.store';
 
-var React = require('react'),
-    flux = require('../../flux');
-
+import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../TargetComments';
-import { Button } from 'react-bootstrap';
-import setTitle from '../../lib/set-title';
 import SeverityWidget from '../severity-widget';
+import TargetHeader from '../target-header';
+import Feed from '../feed';
+import Fa from '../fa';
+import StartScanButton from '../start-scan-button';
+import TargetScan from '../target-scan';
+import TargetStatus from '../target-status';
 
-
-var { Row, Col } = require('react-bootstrap'),
-    TargetHeader = require('../target-header'),
-    Feed = require('../feed'),
-    Fa = require('../fa'),
-    StartScanButton = require('../start-scan-button'),
-    TargetScan = require('../target-scan'),
-    TargetStatus = require('../target-status');
-
-var Target = React.createClass({
+var Target = createClass({
     mixins: [
         Router.Navigation,
         FluxMixin,
@@ -35,6 +31,10 @@ var Target = React.createClass({
         }
     },
 
+    getInitialState() {
+        return { isAdmin: authStore.getRawState().getIn(['user', 'admin']) };
+    },
+
     componentDidMount() {
         const { target, loading } = this.state;
 
@@ -44,7 +44,17 @@ var Target = React.createClass({
             title = target.web.domain;
         }
 
+        authStore.onChange(this.onAuthChange);
+
         setTitle(title);
+    },
+
+    componentWillUnmount(){
+        authStore.offChange(this.onAuthChange);
+    },
+
+    onAuthChange() {
+        this.setState({ isAdmin: authStore.getRawState().getIn(['user', 'admin']) });
     },
 
     getStateFromFlux() {
@@ -58,7 +68,7 @@ var Target = React.createClass({
     },
 
     render: function() {
-        var { target, loading } = this.state;
+        const { target, loading, isAdmin } = this.state;
 
         if (loading || !target) {
             return <div className="c-target">
@@ -88,7 +98,7 @@ var Target = React.createClass({
                                 <Col xs={12} sm={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
                         </Row>
-                        {false && <Row>
+                        {isAdmin && <Row>
                             <Col xs={12}>
                                 <Ibox><IboxTitle>
                                     <h5>{iget('Actions')}</h5>
