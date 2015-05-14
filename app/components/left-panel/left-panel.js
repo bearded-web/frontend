@@ -7,7 +7,7 @@ import ProjectInfo from '../project-info';
 import NavListItem from '../../components/navigation-list-item';
 import ProfileNavContainer from '../profile-nav-container';
 
-var Router = require('react-router'),
+let Router = require('react-router'),
     Link = require('react-router').Link,
     TargetNavLink = require('../target-nav-link'),
     Fa = require('../fa');
@@ -26,7 +26,7 @@ class CName {
 let { el } = new CName('left-panel');
 
 
-var LeftPanel = React.createClass({
+let LeftPanel = React.createClass({
     mixins: [Router.State, FluxMixin],
 
     propTypes: {
@@ -53,10 +53,10 @@ var LeftPanel = React.createClass({
         let $targets = currentProject.get('targets');
 
 
-        var targetsStore = this.props.targets,
+        let targetsStore = this.props.targets,
             { project } = targetsStore;
 
-        var addingStateShow;
+        let addingStateShow;
 
         if (targetsStore.targetAddInProcess) {
             addingStateShow = (
@@ -64,11 +64,11 @@ var LeftPanel = React.createClass({
             );
         }
 
-        var className = 'c-left-panel sidebar';
+        let className = 'c-left-panel sidebar';
         if (this.props.show) {
             className += ' c-left-panel--opened';
         }
-        var classes = cx({
+        let classes = cx({
             'c-left-panel sidebar': true,
             'c-left-panel--opened': this.props.show,
             'navbar-default': true
@@ -93,14 +93,14 @@ var LeftPanel = React.createClass({
                     </li>
 
                     <li className="c-left-panel--subheader">
-                        <Link to="target-create" className={el('add-link')}>
+                        {isAdmin && <Link to="target-create" className={el('add-link')}>
                             <Fa icon="plus"/>
                             {iget('add')}
-                        </Link>
+                        </Link>}
                         {iget('Targets')}
                     </li>
 
-                    {!$targets || !$targets.size ? <li className="c-left-panel--button">
+                    {!$targets || !$targets.size && isAdmin ? <li className="c-left-panel--button">
                         <Link to="target-create">
                             <Fa icon="plus"/>
                             {iget('Add target')}
