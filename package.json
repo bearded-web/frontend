@@ -64,22 +64,21 @@
     "tcomb-form": "0.4.11",
     "tcomb-json-schema": "^0.1.2",
     "tcomb-validation": "^1.0.3",
-    "zeroclipboard": "^2.2.0"
-  },
-  "devDependencies": {
-    "chai-as-promised": "*",
+    "zeroclipboard": "^2.2.0",
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "0.7.0",
-    "fetch-swagger-schema": "^0.1.2",
     "html-webpack-plugin": "1.3.0",
     "json-loader": "^0.5.1",
     "less-loader": "^2.2.0",
-    "protractor": "^2.0.0",
-    "react-hot-loader": "^1.2.4",
     "split-webpack-plugin": "https://github.com/slonoed/split-webpack-plugin.git",
     "style-loader": "0.12.1",
     "url-loader": "^0.5.5",
     "webpack": "1.8.10",
+  },
+  "devDependencies": {
+    "fetch-swagger-schema": "^0.1.2",
+    "react-hot-loader": "^1.2.4",
+    "protractor": "^2.0.0",
     "webpack-dev-server": "*"
   }
 }
