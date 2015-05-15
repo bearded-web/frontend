@@ -2,7 +2,6 @@ import 'babel/polyfill';
 import './lib/globals';
 import { init as initAnalytics } from './lib/ga';
 import { me, onStatus, config } from './lib/api3.js';
-import { dispatch as nDispatch } from './lib/disp';
 import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
@@ -23,7 +22,7 @@ require('./styles/dashboard.less');
 require('./styles/transitions.less');
 
 
-var flux = window.flux = require('./flux');
+const flux = window.flux = require('./flux');
 
 const startRouting = (isAnonym) => {
     const router = createRouter();

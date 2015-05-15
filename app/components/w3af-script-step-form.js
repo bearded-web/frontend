@@ -81,7 +81,7 @@ export default createClass({
 
     renderTypeButton(type) {
         let active = this.state.type === type;
-        let className = 'btn-white' + (active? ' active': '');
+        let className = 'btn-white' + (active ? ' active' : '');
         return <Button className={className} onClick={this.onTypeClick.bind(this, type)}>{iget(type)}</Button>;
     },
 
@@ -106,7 +106,7 @@ export default createClass({
         return <form className="form-horizontal">
             <Input
                 ref="data"
-                value={w3afData.type === type ? w3afData.data: ''}
+                value={w3afData.type === type ? w3afData.data : ''}
                 type="textarea"
                 rows="10"
                 wrapperClassName="col-xs-10"

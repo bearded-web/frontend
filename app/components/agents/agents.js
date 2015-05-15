@@ -1,16 +1,14 @@
-'use strict';
-
 import setTitle from '../../lib/set-title';
 
-var React = require('react'),
-    Router = require('react-router'),
-    flux = require('../../flux');
+import React from 'react';
+import Router from 'react-router';
+import flux from '../../flux';
 
-var { Row, Col, Table } = require('react-bootstrap'),
-    AgentTr = require('../agent-tr'),
-    Header = require('../header');
+import { Row, Col, Table } from 'react-bootstrap';
+import AgentTr from '../agent-tr';
+import Header from '../header';
 
-var Agents = React.createClass({
+const Agents = React.createClass({
     mixins: [
         Router.Navigation,
         FluxMixin,
@@ -59,7 +57,7 @@ var Agents = React.createClass({
                             <tbody>
                             {agents.map(function(agent, i) {
                                 return (
-                                    <AgentTr key={i} agent={agent} number={i+1}/>
+                                    <AgentTr key={i} agent={agent} number={i + 1}/>
                                 );
                             })}
                             </tbody>
