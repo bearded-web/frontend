@@ -64,7 +64,8 @@ travis-build:
 	(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 cover\
 	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../precoverage.js -t 5000 -R spec "./**/*.t.js")
 	@echo "$(OK_COLOR)Upload coverage to codecov.io$(NO_COLOR)"
-	cat app/coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
+	cat app/coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
+	make release
 
 # Install project dependencies
 .PHONY: deps
