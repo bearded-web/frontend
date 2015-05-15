@@ -25,7 +25,6 @@ require('./styles/transitions.less');
 
 var flux = window.flux = require('./flux');
 
-const plans = flux.actions.plan.fetchPlans();
 const startRouting = (isAnonym) => {
     const router = createRouter();
 
@@ -65,6 +64,7 @@ config.get()
             };
         }
 
+        const plans = flux.actions.plan.fetchPlans();
         me.info()
             .then(data => {
                 onStatus(401, lostAuth);
