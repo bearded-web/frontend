@@ -11,12 +11,19 @@ run:
 	@make test
 	@make dist
 
-# Build production ready staics to dist/
+# Build production ready statics to dist/
 .PHONY: dist
 dist:
 	@echo "$(OK_COLOR)Build dist package$(NO_COLOR)"
 	@rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p
 	@echo "$(WARN_COLOR)Are you build swagger.json before build dist?$(NO_COLOR)"
+
+# Build release ZIP file with statics
+.PHONY: release
+release:
+	@echo "$(OK_COLOR)Build release package$(NO_COLOR)"
+	@rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p
+	zip -r bearded_fronted dist/
 
 # Build api description from backend to app/lib/swagge.json.
 # This file should be builded every time server API changed.
@@ -53,9 +60,11 @@ coverage:
 travis-build:
 	@echo "$(OK_COLOR)Run travis build$(NO_COLOR)"
 	make lint
+	@echo "$(OK_COLOR)Run tests + coverage$(NO_COLOR)"
 	(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 cover\
-	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../precoverage.js -t 5000 -R spec "./**/*.t.js" && \
-	 cat ./coverage/coverage.json | ../node_modules/codecov.io/bin/codecov.io.js)
+	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../precoverage.js -t 5000 -R spec "./**/*.t.js")
+	@echo "$(OK_COLOR)Upload coverage to codecov.io$(NO_COLOR)"
+	cat app/coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
 
 # Install project dependencies
 .PHONY: deps
