@@ -65,7 +65,6 @@ travis-build:
 	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../precoverage.js -t 5000 -R spec "./**/*.t.js")
 	@echo "$(OK_COLOR)Upload coverage to codecov.io$(NO_COLOR)"
 	cat app/coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
-	make release
 
 # Install project dependencies
 .PHONY: deps
