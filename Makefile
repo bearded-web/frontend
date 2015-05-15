@@ -22,7 +22,10 @@ dist:
 .PHONY: release
 release:
 	@echo "$(OK_COLOR)Build release package$(NO_COLOR)"
-	@rm -rf dist && mkdir dist && cp favicons/* dist/ && NODE_ENV=production webpack -p
+	rm -rf dist
+	mkdir dist
+	cp favicons/* dist/
+	NODE_ENV=production webpack -p
 	zip -r bearded_fronted dist/
 
 # Build api description from backend to app/lib/swagge.json.
