@@ -73,7 +73,7 @@
     "split-webpack-plugin": "https://github.com/slonoed/split-webpack-plugin.git",
     "style-loader": "0.12.1",
     "url-loader": "^0.5.5",
-    "webpack": "1.8.10",
+    "webpack": "1.8.10"
   },
   "devDependencies": {
     "fetch-swagger-schema": "^0.1.2",
