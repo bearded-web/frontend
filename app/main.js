@@ -1,7 +1,6 @@
 import 'babel/polyfill';
 import './lib/globals';
 import { init as initAnalytics } from './lib/ga';
-
 import { me, onStatus, config } from './lib/api3.js';
 import { dispatch as nDispatch } from './lib/disp';
 import { create as createRouter } from './router';
@@ -10,6 +9,7 @@ import { lostAuth } from './actions/auth.actions';
 import { fetchVulnsCompact } from './actions/vulns.actions';
 import { handleMeData } from './actions/app.actions';
 import Raven from 'raven-js';
+import { set as setConfig } from './lib/config';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -25,9 +25,10 @@ require('./styles/transitions.less');
 
 var flux = window.flux = require('./flux');
 
-const router = createRouter();
 const plans = flux.actions.plan.fetchPlans();
 const startRouting = (isAnonym) => {
+    const router = createRouter();
+
     router.run(function(Handler, state) {
         if (isAnonym) {
             const { name } = last(state.routes);
@@ -48,6 +49,8 @@ const startRouting = (isAnonym) => {
 
 config.get()
     .then(config => {
+        setConfig(config);
+
         const { raven = {} } = config;
         if (raven.enable) {
             Raven.config(raven.address).install();
@@ -58,7 +61,8 @@ config.get()
             ga('create', config.ga.id, 'auto');
         }
         else {
-            window.ga = function() {};
+            window.ga = function() {
+            };
         }
 
         me.info()

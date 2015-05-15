@@ -22,6 +22,7 @@ import NotFound from './components/not-found';
 import IssuesPage from './components/issues-page';
 import IssuePage from './components/issue-page';
 import Target from './components/target/';
+import { get as getConfig } from './lib/config';
 
 let router = null;
 
@@ -30,6 +31,7 @@ module.exports.get = function getRouter() {
 };
 
 module.exports.create = function buildRouter() {
+    const { signup: { disable = false } } = getConfig();
 
     const routes = (
         <Route flux={flux}>
@@ -45,8 +47,8 @@ module.exports.create = function buildRouter() {
             <Route name="login" path="/login" handler={LoginPage}/>
             <Redirect from="/login/" to="login"/>
 
-            <Route name="signup" path="/signup" handler={SignupPage}/>
-            <Redirect from="/signup/" to="signup"/>
+            {disable || <Route name="signup" path="/signup" handler={SignupPage}/>}
+            {disable || <Redirect from="/signup/" to="signup"/>}
 
             <Route path="/" handler={Dashboard}>
                 <DefaultRoute name="overview" handler={Overview}/>

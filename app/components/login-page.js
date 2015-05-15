@@ -6,6 +6,7 @@ import { bindAll } from 'lodash';
 import authStore from '../stores/auth.store';
 import { login } from '../actions/auth.actions';
 import setTitle from '../lib/set-title';
+import { get as getConfig } from '../lib/config';
 
 import AuthPageLayout from './auth-page-layout';
 import AuthForm from './auth-form';
@@ -47,6 +48,7 @@ export default class LoginPage extends Component {
 
     render() {
         const { loading, loginError } = this.state;
+        const { signup: { disable = false } } = getConfig();
 
         const isSignUp = false;
         //TODO mb change text?
@@ -65,9 +67,9 @@ export default class LoginPage extends Component {
             <p className="text-muted text-center">
                 <small>{iget('Don\'t have an account?')}</small>
             </p>
-            <Link to="signup" className="btn btn-sm btn-white btn-block">
+            {disable || <Link to="signup" className="btn btn-sm btn-white btn-block">
                 {iget('Sign up')}
-            </Link>
+            </Link>}
         </AuthPageLayout>;
     }
 }
