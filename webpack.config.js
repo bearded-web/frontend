@@ -4,7 +4,7 @@ var bower_dir = path.join(__dirname, 'bower_components');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var SplitPlugin = require('split-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -36,7 +36,7 @@ var config = {
             },
             {
                 test: /\.js$/,
-                loaders: ['react-hot', 'babel-loader?stage=0'],
+                loaders: isProduction ? ['babel-loader?stage=0'] : ['react-hot', 'babel-loader?stage=0'],
                 exclude: [
                     node_modules_dir
                 ]
