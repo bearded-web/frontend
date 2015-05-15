@@ -7,7 +7,7 @@ notifications:
   slack:
     secure: f23z5nlDa6Feh8wtuD9DnVUHys06R6NJBM7P0i2B2unho0aLHkJ+rzRJ2FM+7yDEW5FfKI4kNCFd58ZB4lAqZ86h9hvTkPjAAq4wUJWAUlxok+WI5ldhvntzGIRv9BSb2eKqgrUtHYptjMSaBOjXEXgA8YXDPYATnZT4nd8oGY8=
 deploy:
-  before_deploy: make release
+  before_deploy: "make release"
   provider: releases
   api_key:
     secure: Nj/uifldLQ+HGzKiV+8+EQsddW9R8bx3PD2G/ItGs7691gRj/fqzYr09MR6Uy14cYZyLoi+evArDiS2mmTYDhiXaCuDKSetSz3cQlzdX9Z+bAor57wxGnOR3W54YO/tPibqb2y10y3fC3FhTjVXSoOasxVxELg+/e3WXky4w5lY=
