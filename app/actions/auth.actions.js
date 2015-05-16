@@ -104,6 +104,10 @@ export function setNewPassword(token, password) {
         .catch(e => dispatch(C.AUTH_NEW_PASSWORD_FAIL, buildError(e)));
 }
 
+export function cleanError() {
+    dispatch(C.AUTH_CLEAN_ERROR);
+}
+
 function buildError({ data, message }) {
     data = data || {};
 

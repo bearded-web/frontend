@@ -4,7 +4,7 @@ import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
 import authStore from '../stores/auth.store';
-import { login } from '../actions/auth.actions';
+import { login, cleanError } from '../actions/auth.actions';
 import setTitle from '../lib/set-title';
 import { get as getConfig } from '../lib/config';
 
@@ -24,9 +24,9 @@ export default class LoginPage extends Component {
     }
 
     componentDidMount() {
-        setTitle(iget('Login'));
-
         authStore.onChange(this.onStoreChange);
+        setTitle(iget('Login'));
+        cleanError();
     }
 
 

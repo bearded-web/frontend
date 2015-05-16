@@ -2,8 +2,6 @@
  * Store handle all user auth
  */
 
-'use strict';
-
 import { fromJS } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
@@ -28,6 +26,9 @@ const api = {
 };
 
 const handlers = {
+    [C.AUTH_CLEAN_ERROR](state) {
+        return state.set('loginError', '');
+    },
     [C.AUTH_UNLOCK_START](state) {
         return state
             .set('loading', true);

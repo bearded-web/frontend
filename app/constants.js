@@ -1,11 +1,11 @@
-'use strict';
-
-var constants = {
+const constants = {
     AGENTS_FETCH_SUCCESS: '--',
 
     APP_TOGGLE_LEFT_PANEL: '--',
     APP_LIFT_SUCCESS: '--',
     APP_LOGIN_PAGE_STATE: '--',
+
+    AUTH_CLEAN_ERROR: 'Clean login error',
 
     AUTH_RESET_PASSWORD_START: 'User send to server reset password request',
     AUTH_RESET_PASSWORD_SUCCESS: 'Password reset request success',
@@ -129,7 +129,7 @@ var constants = {
 
 
 
-var key = '_';
+const key = '_';
 Object.keys(constants).forEach(function(c) {
     constants[c] = c + key;
 });

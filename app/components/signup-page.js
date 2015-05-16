@@ -1,10 +1,8 @@
-'use strict';
-
 import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
 import authStore from '../stores/auth.store';
-import { login, signUp } from '../actions/auth.actions';
+import { signUp, cleanError } from '../actions/auth.actions';
 import setTitle from '../lib/set-title';
 
 import AuthPageLayout from './auth-page-layout';
@@ -23,9 +21,9 @@ export default class SignupPage extends Component {
     }
 
     componentDidMount() {
-        setTitle(iget('Sign up'));
-
         authStore.onChange(this.onStoreChange);
+        setTitle(iget('Sign up'));
+        cleanError();
     }
 
 
