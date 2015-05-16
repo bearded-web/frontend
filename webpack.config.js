@@ -9,6 +9,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var isProduction = process.env.NODE_ENV === 'production';
 
 var config = {
+    devtool: isProduction ? 'source-map' : 'eval',
     context: __dirname,
     entry: {
         app: ['./app/main.js']
