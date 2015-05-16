@@ -1,8 +1,7 @@
-'use strict';
 import { Map } from 'immutable';
-import { WEB, ANDROID } from '../../lib/target-types';
+import { ANDROID } from '../../lib/target-types';
 import React, { PropTypes } from 'react/addons';
-import actions from '../../actions/app.actions';
+import { toggleLeftPanel } from '../../actions/app.actions';
 import _ from 'lodash';
 
 import { Link } from 'react-router';
@@ -19,7 +18,7 @@ module.exports = React.createClass({
     },
 
     onClick: function() {
-        actions.toggleLeftPanel();
+        toggleLeftPanel();
     },
 
     render: function() {
