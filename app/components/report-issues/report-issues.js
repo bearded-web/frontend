@@ -1,39 +1,40 @@
-'use strict';
-import React, { PropTypes } from 'react/addons';
-import _ from 'lodash';
-import actions from '../../actions/report.actions';
+import { PropTypes, Component } from 'react/addons';
+import { isArray, isUndefined, assign, capitalize } from 'lodash';
+import { selectSeverity } from '../../actions/report.actions';
+import { HIGH, MEDIUM, LOW, INFO } from '../../lib/severities';
 
-var ReportIssuesTotal = require('../report-issues-total'),
-    SeverityLevelDesc = require('../severity-level-desc'),
-    ReportIssuesDetail = require('../report-issues-detail'),
-    { Row, Col, Panel } = require('react-bootstrap');
+import SeverityWidget from '../SeverityWidget';
+import SeverityLevelDesc from '../severity-level-desc';
+import ReportIssuesDetail from '../report-issues-detail';
+import { Row, Col } from 'react-bootstrap';
 
-var ReportIssues = React.createClass({
-    propTypes: {
+export default class ReportIssues extends Component {
+    static propTypes = {
         severity: PropTypes.string,
         reports: PropTypes.array.isRequired
-    },
+    }
 
-    render: function() {
-        var { severity, reports } = this.props,
-            issues = this.getIssuesFromReports(reports),
-            selectedIssues = issues[severity] || [];
+    render() {
+        const { severity, reports } = this.props;
+        const issues = this.getIssuesFromReports(reports);
+        const selectedIssues = issues[severity] || [];
 
-
+        const renderColumn = s => <Col xs={3}>
+            {this.renderTotal(s, issues)}
+        </Col>;
         return (
             <div className="c-report-issues">
-                <div>
-                    {this.renderTotal('high', issues)}
-                    {this.renderTotal('medium', issues)}
-                    {this.renderTotal('low', issues)}
-                    <div style={{ clear: 'both' }}></div>
-                </div>
+                <Row>
+                    {[HIGH, MEDIUM, LOW, INFO].map(renderColumn)}
+                </Row>
+
+                <h2 className="c-report-issues--details">{capitalize(severity) + ' severity'}</h2>
                 {selectedIssues.length ? this.renderDetails(selectedIssues, severity) : <span></span>}
             </div>
         );
-    },
+    }
 
-    renderDetails: function(issues, severity) {
+    renderDetails(issues, severity) {
         return (
             <div className="c-report-issues--details">
                 <h3>{iget('Detailed report')}</h3>
@@ -49,19 +50,28 @@ var ReportIssues = React.createClass({
                 </Row>
             </div>
         );
-    },
+    }
 
-    renderTotal: function(severity, issues) {
-        return (
-            <ReportIssuesTotal
+    renderTotal(severity, issues) {
+        const count = issues[severity].length;
+        const props = {};
+
+        if (count) {
+            props.onClick = () => {
+                if (count) selectSeverity(severity);
+            };
+            props.style = { cursor: 'pointer' };
+        }
+
+        return <div {...props}>
+            <SeverityWidget
                 severity={severity}
-                selected={this.props.severity === severity}
-                count={issues[severity].length}/>
-        );
-    },
+                count={count}/>
+        </div>;
+    }
 
-    getIssuesFromReports: function(reports) {
-        var issues = {
+    getIssuesFromReports(reports) {
+        const issues = {
             info: [],
             low: [],
             medium: [],
@@ -78,7 +88,7 @@ var ReportIssues = React.createClass({
             }
 
             if (report.type === 'multi') {
-                var subIssues = this.getIssuesFromReports(report.multi);
+                const subIssues = this.getIssuesFromReports(report.multi);
 
                 this.mergeIssues(issues, subIssues);
             }
@@ -86,23 +96,20 @@ var ReportIssues = React.createClass({
         });
 
         return issues;
-    },
+    }
 
-    mergeIssues: function(target, source) {
-        return _.assign(target, source, function(a, b) {
-            if (_.isUndefined(a)) return b;
+    mergeIssues(target, source) {
+        return assign(target, source, function(a, b) {
+            if (isUndefined(a)) return b;
 
-            return _.isArray(a) ? a.concat(b) : undefined;
+            return isArray(a) ? a.concat(b) : undefined;
         });
     }
-});
-
-module.exports = ReportIssues;
-
+}
 
 if (module.hot) {
     module.hot.accept([
-        '../report-issues-total',
+        '../SeverityWidget',
         '../report-issues-detail'
     ], function() {
         //TODO flux add actions

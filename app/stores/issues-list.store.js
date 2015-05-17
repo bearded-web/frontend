@@ -7,7 +7,7 @@ import C from '../constants';
 import createStore from '../lib/create-store';
 import { pluck } from 'lodash';
 import issuesStore from './issues.store';
-import { weight } from '../lib/severities';
+import { weight, ERROR } from '../lib/severities';
 
 const initialState = fromJS({
     targetId: null, // current target list
@@ -33,6 +33,8 @@ const api = {
         let issues = issuesStore.getIssues(...ids);
 
         const filter = state.filter.toObject();
+
+        issues = issues.filterNot(i => i.get('severity') === ERROR);
 
         if (filter.severity !== 'all') {
             const severityFilter = i => {

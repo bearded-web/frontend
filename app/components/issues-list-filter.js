@@ -1,9 +1,7 @@
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { capitalize, bindAll } from 'lodash';
-import { HIGH, MEDIUM, LOW } from '../lib/severities';
+import { HIGH, MEDIUM, LOW, INFO } from '../lib/severities';
 import { Map } from 'immutable';
 
 import { Row, Col, Input } from 'react-bootstrap';
@@ -32,7 +30,7 @@ export default class IssuesListFilter extends Component {
     render() {
         const { severity, type, search } = this.props.filter.toObject();
 
-        const severities = [HIGH, MEDIUM, LOW];
+        const severities = [HIGH, MEDIUM, LOW, INFO];
         const types = [
             { id: 1, name: 'Xss super attack' },
             { id: 2, name: 'SQL injection' },
@@ -41,28 +39,31 @@ export default class IssuesListFilter extends Component {
 
         return <Row>
             <Col xs={12} sm={6} md={4} lg={3}>
-                <Input type="select"
-                       ref="severity"
-                       value={severity}
-                       onChange={this.onChange}>
+                <Input
+                    type="select"
+                    ref="severity"
+                    value={severity}
+                    onChange={this.onChange}>
                     <option value="all">All severities</option>
                     {severities.map(this.renderSeverityOption)}
                 </Input>
             </Col>
             <Col xs={12} sm={6} md={4} lg={3}>
-                <Input type="select"
-                       ref="type"
-                       value={type}
-                       onChange={this.onChange}>
+                <Input
+                    type="select"
+                    ref="type"
+                    value={type}
+                    onChange={this.onChange}>
                     <option value="all">All types</option>
                     {types.map(this.renderTypesOption)}
                 </Input>
             </Col>
             <Col xs={12} sm={6} md={4} lg={3}>
-                <Input type="text"
-                       ref="search"
-                       value={search}
-                       onChange={this.onChange}/>
+                <Input
+                    type="text"
+                    ref="search"
+                    value={search}
+                    onChange={this.onChange}/>
             </Col>
         </Row>;
     }

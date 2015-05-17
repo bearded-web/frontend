@@ -7,13 +7,12 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../TargetComments';
-import SeverityWidget from '../severity-widget';
+import SeverityWidget from '../SeverityWidget';
 import TargetHeader from '../target-header';
 import Feed from '../feed';
 import Fa from '../fa';
 import StartScanButton from '../start-scan-button';
 import TargetScan from '../target-scan';
-import TargetStatus from '../target-status';
 
 var Target = createClass({
     mixins: [
@@ -93,9 +92,9 @@ var Target = createClass({
                     <Col xs={12} md={6}>
                         <Row style={{marginTop: '-10px'}}>
                             <Link to="issues" query={{target: target.id}}>
-                                <Col xs={12} sm={4}><SeverityWidget severity="high" count={issues.high}/></Col>
-                                <Col xs={12} sm={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
-                                <Col xs={12} sm={4}><SeverityWidget severity="low" count={issues.low}/></Col>
+                                <Col xs={4}><SeverityWidget severity="high" count={issues.high}/></Col>
+                                <Col xs={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
+                                <Col xs={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
                         </Row>
                         {isAdmin && <Row>
@@ -149,7 +148,6 @@ module.exports = Target;
 
 if (module.hot) {
     module.hot.accept([
-        '../target-status',
         '../TargetComments'
     ], function() {
         //TODO flux add actions

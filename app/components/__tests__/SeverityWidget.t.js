@@ -13,8 +13,8 @@ describe('SeverityWidget', function() {
     let instance = null;
 
     beforeEach(function() {
-        mockery.registerAllowable('../severity-widget', true);
-        Component = require('../severity-widget');
+        mockery.registerAllowable('../SeverityWidget', true);
+        Component = require('../SeverityWidget');
 
         instance = TestUtils.renderIntoDocument(
             <Component count={count} severity={severity}/>
@@ -23,7 +23,7 @@ describe('SeverityWidget', function() {
 
     describe('render', function() {
         it('should render count', function() {
-            nodeByTag(instance, 'span')[0].innerHTML
+            nodeByTag(instance, 'h1')[0].innerHTML
                 .should.be.eql(count.toString());
         });
 

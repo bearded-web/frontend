@@ -1,21 +1,15 @@
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { bindAll } from 'lodash';
 import { fetchOne } from '../actions/issues.actions';
 import issuesStore from '../stores/issues.store';
 import setTitle from '../lib/set-title';
+import autobind from '../lib/autobind';
 
 import Issue from './issue';
 
 export default class IssuePage extends Component {
     constructor(props, context) {
         super(props, context);
-
-        bindAll(this, [
-            'onStoreChange'
-        ]);
 
         this.shouldComponentUpdate = shouldComponentUpdate;
 
@@ -59,6 +53,7 @@ export default class IssuePage extends Component {
         fetchOne(issueId);
     }
 
+    @autobind
     onStoreChange() {
         const state = this.getState();
         this.setState(state);

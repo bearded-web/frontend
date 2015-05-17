@@ -1,5 +1,3 @@
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import issuesStore from '../stores/issues.store';

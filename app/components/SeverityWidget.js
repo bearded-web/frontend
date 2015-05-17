@@ -2,11 +2,9 @@
  * SeverityWidget
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { icon, bsStyle, HIGH, LOW, MEDIUM } from '../lib/severities';
+import { icon, bsStyle, HIGH, LOW, MEDIUM, INFO } from '../lib/severities';
 
 import Widget from './widget';
 import Fa from './fa';
@@ -22,6 +20,15 @@ const S = {
 };
 
 export default class SeverityWidget extends Component {
+    static propTypes = {
+        severity: PropTypes.oneOf([HIGH, MEDIUM, LOW, INFO]).isRequired,
+        count: PropTypes.number
+    };
+
+    static defaultProps = {
+        count: 0
+    };
+
     constructor(props, context) {
         super(props, context);
 
@@ -39,20 +46,17 @@ export default class SeverityWidget extends Component {
         const type = bsStyle(severity);
 
         return <Widget type={type} style={style}>
-            <span style={S.count}>{count}</span>
-            <span style={S.icon} className="severity-widget-icon">
-                <Fa icon={icon(severity)} fw/>
-            </span>
+            <div className="m-b-md">
+                <Fa icon={icon(severity)} size="lg"/>
+
+                <h1>{count}</h1>
+
+                <h3 className="font-bold no-margins">
+                    {severity}
+                </h3>
+            </div>
         </Widget>;
     }
 
     //endregion
 }
-
-SeverityWidget.propTypes = {
-    severity: PropTypes.oneOf([HIGH, MEDIUM, LOW]).isRequired,
-    count: PropTypes.number
-};
-SeverityWidget.defaultProps = {
-    count: 0
-};
