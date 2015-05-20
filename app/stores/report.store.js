@@ -33,11 +33,8 @@ module.exports = Fluxxor.createStore({
 
     _onReportsFetch: function(payload) {
         if (payload.status === 'success') {
-            var newReports = flattenReports(payload.reports);
+            const newReports = flattenReports(payload.reports);
 
-            if (newReports[0].scan === '554e890bc168ae418a00000f') {
-                newReports[0].issues[0].severity = 'high';
-            }
             merge(reports, newReports);
             severity = getSeverity(reports);
 

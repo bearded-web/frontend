@@ -7,13 +7,9 @@ import { captureException } from '../lib/raven';
 
 export async function fetchScanReports(scan) {
     try {
-        let reports = await scans.reports(scan);
+        const reports = await scans.reports(scan);
 
-        reports = extractor(reports);
-
-        reports[1].multi[0].issues[0].severity = 'info';
-
-        dispatchReports(reports);
+        dispatchReports(extractor(reports));
     }
     catch(e) {
         captureException(e);
