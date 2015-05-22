@@ -10,7 +10,7 @@ import { Model } from '../lib/types';
 import { bindAll } from 'lodash';
 
 import { Input } from 'react-bootstrap';
-import VulnsSelect from './vulns-select-container';
+import VulnsSelect from './VulnsSelect';
 import SeveritySelect from './severity-select';
 
 export default class IssueGeneralForm extends Component {
@@ -60,6 +60,7 @@ export default class IssueGeneralForm extends Component {
                 value={summary}
                 disabled={loading}
                 label={iget('Summary (required)')}
+                maxlength={120}
                 placeholder={iget('Summary')}/>
             <Input
                 type="textarea"

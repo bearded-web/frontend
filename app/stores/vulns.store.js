@@ -2,8 +2,6 @@
  * vulns
  */
 
-'use strict';
-
 import { Map } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';

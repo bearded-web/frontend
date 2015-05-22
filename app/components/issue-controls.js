@@ -9,7 +9,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { shape } from 'react-immutable-proptypes';
 import { Severity } from '../lib/types';
 import { bindAll, capitalize } from 'lodash';
-import { increaseSeverity, decreaseSeverity, toggleStatus } from '../actions/issues.actions';
+import { increaseSeverity, decreaseSeverity, toggleStatus } from '../actions/issuesActions';
 import { icons } from '../lib/issue-controls-icons';
 import { HIGH, INFO } from '../lib/severities';
 

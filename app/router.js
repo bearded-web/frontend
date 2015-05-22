@@ -19,7 +19,7 @@ import Scan from './components/scan';
 import ScanReport from './components/scan-report';
 import Overview from './components/overview';
 import NotFound from './components/not-found';
-import IssuesPage from './components/issues-page';
+import IssuesPage from './components/IssuesPage';
 import IssuePage from './components/issue-page';
 import Target from './components/target/';
 import { get as getConfig } from './lib/config';

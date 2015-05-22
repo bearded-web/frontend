@@ -57,7 +57,7 @@ export default function connectToStores(stores, getState) {
             }
 
             render() {
-                return <DecoratedComponent {...this.props} {...this.state} />;
+                return <DecoratedComponent {...this.state} {...this.props}/>;
             }
         };
     };

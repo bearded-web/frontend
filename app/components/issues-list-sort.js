@@ -3,7 +3,7 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
-import { updateSort } from '../actions/issues.actions';
+import { updateSort } from '../actions/issuesActions';
 
 import { Input } from 'react-bootstrap';
 
@@ -28,10 +28,11 @@ export default class IssuesListSort extends Component {
     render() {
         const { sortBy } = this.props;
 
-        return <Input ref="select"
-                      type="select"
-                      value={sortBy}
-                      onChange={this.onChange}>
+        return <Input
+            ref="select"
+            type="select"
+            value={sortBy}
+            onChange={this.onChange}>
             {sortTypes.map(this.renderType)}
         </Input>;
     }

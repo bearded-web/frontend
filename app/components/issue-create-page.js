@@ -2,13 +2,11 @@
  * IssueCreatePage
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import issueCreateStore from '../stores/issue-create.store';
 import { bindAll } from 'lodash';
-import { changeEditableIssue, saveEditableIssue } from '../actions/issues.actions';
+import { changeEditableIssue, saveEditableIssue } from '../actions/issuesActions';
 import setTitle from '../lib/set-title';
 
 import Header from './header';

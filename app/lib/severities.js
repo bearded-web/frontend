@@ -2,8 +2,6 @@
  * Severities types
  */
 
-'use strict';
-
 import { red, orange, blue, lazur, gray } from '../style';
 
 export const HIGH = 'high';
@@ -12,6 +10,8 @@ export const LOW = 'low';
 export const INFO = 'info';
 
 export const ERROR = 'error';
+
+export const all = [HIGH, MEDIUM, LOW, INFO];
 
 /**
  * Return severity weight. Bigger -> more danger

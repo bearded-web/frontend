@@ -21,7 +21,7 @@ describe('IssueControls', function() {
         increaseSeverity = spy();
         decreaseSeverity = spy();
         toggleStatus = spy();
-        mockery.registerMock('../actions/issues.actions', {
+        mockery.registerMock('../actions/issuesActions', {
             increaseSeverity,
             decreaseSeverity,
             toggleStatus

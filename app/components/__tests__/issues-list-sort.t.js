@@ -15,7 +15,7 @@ describe('IssuesListFilter', function() {
     beforeEach(function() {
         updateSort = spy();
 
-        mockery.registerMock('../actions/issues.actions', {
+        mockery.registerMock('../actions/issuesActions', {
             updateSort
         });
 

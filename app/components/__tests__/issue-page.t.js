@@ -26,7 +26,7 @@ describe('IssuePage', function() {
     beforeEach(function() {
         fetchOne = spy();
 
-        mockery.registerMock('../actions/issues.actions', {
+        mockery.registerMock('../actions/issuesActions', {
             fetchOne
         });
         mockery.registerMock('../stores/issues.store', {

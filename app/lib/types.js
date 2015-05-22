@@ -1,5 +1,3 @@
-'use strict';
-
 import { PropTypes } from 'react/addons';
 import { Map, OrderedMap } from 'immutable';
 import { HIGH, MEDIUM, LOW } from './severities';
@@ -15,7 +13,7 @@ export function $Model(props, propName, componentName) {
 export const Model = $Model;
 
 export function $Models(props, propName, componentName) {
-    let prop = props[propName];
+    const prop = props[propName];
 
     if (!Map.isMap(prop) && !OrderedMap.isOrderedMap(prop)) { //TODO add checking each model
         return new Error(`You must pass Models for prop ${propName},
@@ -26,4 +24,31 @@ export function $Models(props, propName, componentName) {
 export const Models = $Models;
 
 export const Severity = PropTypes.oneOf([HIGH, MEDIUM, LOW]);
+
+export function NaturalNumber(props, propsName, componentName) {
+    const value = props[propName];
+
+    if(value < 0 || value % 1) {
+        return new Error(`You must pass Natural Number for prop ${propName},
+            but you pass ${value}, chec ${componentName}`);
+    }
+}
+
+export function NaturalNumber(props, propsName, componentName) {
+    const value = props[propName];
+
+    if(value <= 0 || value % 1) {
+        return new Error(`You must pass Natural Number for prop ${propName},
+            but you pass ${value}, chec ${componentName}`);
+    }
+}
+
+export function NaturalNumberWithZero(props, propsName, componentName) {
+    const value = props[propName];
+
+    if(value < 0 || value % 1) {
+        return new Error(`You must pass Natural Number or zero for prop ${propName},
+            but you pass ${value}, chec ${componentName}`);
+    }
+}
 /*eslint-enable*/

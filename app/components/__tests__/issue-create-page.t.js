@@ -16,7 +16,7 @@ describe('IssueCreatePage', function() {
     beforeEach(function() {
         changeEditableIssue = spy();
         saveEditableIssue = spy();
-        mockery.registerMock('../actions/issues.actions', {
+        mockery.registerMock('../actions/issuesActions', {
             changeEditableIssue,
             saveEditableIssue
         });

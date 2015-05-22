@@ -2,12 +2,10 @@
  * Issues content store, store all issues.
  */
 
-'use strict';
-
 import { fromJS, OrderedMap } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
-import { pluck, zipObject, isArray } from 'lodash';
+import { isArray } from 'lodash';
 
 /**
  * Merge new issue into state. Add if new.

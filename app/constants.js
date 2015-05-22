@@ -33,6 +33,7 @@ const constants = {
 
     ISSUES_FETCH_START: '--',
     ISSUES_FETCH_SUCCESS: '--',
+    ISSUES_FETCH_FAIL: 'Issues list fetch fail',
     ISSUES_UPDATE_FILTER: '--',
     ISSUES_UPDATE_SORT: '--',
     ISSUE_UPDATE_START: '--',

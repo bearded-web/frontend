@@ -1,6 +1,6 @@
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { fetchOne } from '../actions/issues.actions';
+import { fetchOne } from '../actions/issuesActions';
 import issuesStore from '../stores/issues.store';
 import setTitle from '../lib/set-title';
 import autobind from '../lib/autobind';

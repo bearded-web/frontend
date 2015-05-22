@@ -5,7 +5,7 @@ import { me, onStatus, config } from './lib/api3.js';
 import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
-import { fetchVulnsCompact } from './actions/vulns.actions';
+import { fetchVulnsCompact } from './actions/vulnsActions';
 import { handleMeData } from './actions/app.actions';
 import Raven from 'raven-js';
 import { set as setConfig } from './lib/config';
