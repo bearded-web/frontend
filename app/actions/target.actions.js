@@ -16,6 +16,10 @@ module.exports = {
 
         return targets
             .list({ project: projectId })
+            .then(data => {
+                disp(C.TARGETS_FETCH_SUCCESS, data);
+                return data;
+            })
             .then((data) => data.results)
             .then(dispatch);
     },

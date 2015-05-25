@@ -17,6 +17,7 @@ export function handleMeData(data) {
 
     if (data.projects.length) {
         oldDispatch(C.PROJECTS_FETCH_SUCCESS, data.projects);
+        dispatch(C.PROJECTS_FETCH_SUCCESS, data.projects);
     }
 }
 

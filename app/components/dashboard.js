@@ -1,18 +1,16 @@
-'use strict';
-
 import React, { PropTypes } from 'react/addons';
 import flux from '../flux';
 import { setCurrentProject } from '../actions/project.actions';
 import authStore from '../stores/auth.store';
 import setTitle from '../lib/set-title';
-import Router, { RouteHandler } from 'react-router';
+import { RouteHandler } from 'react-router';
 import AppStore from '../stores/app.store';
-import LeftPanel from './left-panel';
-import LeftPanelCover from './left-panel-cover';
+import targetsStore from '../stores/targetsStore';
 
 import ModalManager from './modal-manager';
 import LockScreenContainer from './lock-screen-container';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import TopPanel from './TopPanel';
 
 var Dashboard = React.createClass({
     mixins: [
@@ -113,28 +111,24 @@ var Dashboard = React.createClass({
         app = this.getFlux().store('AppStore');
         targets = this.getFlux().store('TargetsStore');
 
-        if (app.leftPanelVisible) {
-            leftPanelCover = <LeftPanelCover />;
-        }
+        const { router } = this.context;
+        const targetId = router.getCurrentParams().targetId ||
+            router.getCurrentQuery().target;
+
+        const target = targetsStore.getRawState().get(targetId);
 
         const routes = this.context.router.getCurrentRoutes();
         const paramsJson = JSON.stringify(this.context.router.getCurrentParams());
         const name = routes[routes.length - 1].name;
         const key = name + paramsJson;
 
-        console.log('### render dashboard', key);
         return (
-            <div className="c-dashboard">
+            <div className=" top-navigation">
                 {lock && <LockScreenContainer/>}
 
-                <LeftPanel
-                    app={appStore}
-                    targets={targets}
-                    isAdmin={isAdmin}
-                    show={app.leftPanelVisible}
-                    user={app.user}/>
+                <div id="page-wrapper" className="page-wrapper gray-bg">
+                    <TopPanel project={appStore.currentProject} target={target}/>
 
-                <div className="page-wrapper gray-bg">
                     <div className="page-wrapper--content container-fluid">
                         <TransitionGroup component="div" transitionName="route-transition">
                             <RouteHandler key={key} routeQuery={routeQuery}/>

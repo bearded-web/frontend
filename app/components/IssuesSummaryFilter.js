@@ -22,13 +22,12 @@ export default class IssuesSummaryFilter extends Component {
     onSubmit(e) {
         e.preventDefault();
         const search = this.refs.search.getValue();
-        updateFilter(this.props.filter.set('search', search));
+        nextTick(() => updateFilter(this.props.filter.set('search', search)));
     }
 
     render() {
         const search = this.props.filter.get('search');
         const button = <Button
-            onClick={this.onClick}
             type="submit"
             bsSize="small"
             bsStyle="primary">

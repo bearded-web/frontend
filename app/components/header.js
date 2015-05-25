@@ -12,7 +12,7 @@ import { Row } from 'react-bootstrap';
 export default class Header extends Component {
     render() {
         const { title, children } = this.props;
-        const style = { marginBottom: '10px' };
+        const style = { margin: '0 -30px 10px' };
 
         return <Row style={style} className="border-bottom white-bg page-heading">
             {title && <h2>{title}</h2>}

@@ -38,6 +38,9 @@ export async function fetchPage({ target, page = 1 } = {}) {
     const severity = filter.get('severity');
     if (includes(severities, severity)) query.severity = severity;
 
+    const search = filter.get('search');
+    if (search) query.search = search;
+
     const vulnType = filter.get('vulnType');
     if (vulnType) query.vulnType = vulnType;
 

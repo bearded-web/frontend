@@ -21,6 +21,7 @@ import Overview from './components/overview';
 import NotFound from './components/not-found';
 import IssuesPage from './components/IssuesPage';
 import IssuePage from './components/issue-page';
+import ControlPanelPage from './components/ControlPanelPage';
 import Target from './components/target/';
 import { get as getConfig } from './lib/config';
 
@@ -72,6 +73,9 @@ module.exports.create = function buildRouter() {
 
                 <Route name="user-settings" path="settings" handler={UserSettingsPage}/>
                 <Redirect from="settings/" to="user-settings"/>
+
+                <Route name="control-panel" path="control-panel" handler={ControlPanelPage}/>
+                <Redirect from="control-panel/" to="control-panel"/>
 
                 <Route name="plans" path="plans" handler={PlansPage}/>
                 <Redirect from="plans/" to="plans"/>

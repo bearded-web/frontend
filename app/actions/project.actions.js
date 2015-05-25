@@ -1,8 +1,8 @@
-'use strict';
 import { dispatch } from '../lib/dispatcher';
 import consts from '../constants';
 import { projects, targets, users } from '../lib/api3';
 import { nextTick } from '../lib/helpers';
+import { dispatch as disp } from '../lib/disp';
 
 /**
  * Create new project
@@ -37,6 +37,7 @@ export function setCurrentProject(projectId, noTransition) {
     let tPromise = targets.list({ project: projectId })
         .then(function(data) {
             dispatch(consts.TARGETS_FETCH_SUCCESS, data.results);
+            disp(consts.TARGETS_FETCH_SUCCESS, data);
 
             if (!noTransition) {
                 nextTick(() => {

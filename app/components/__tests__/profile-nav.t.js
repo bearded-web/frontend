@@ -52,8 +52,10 @@ describe('ProfileNav', function() {
     });
 
     describe('.onLogoutClick()', function() {
-        it('should call logOut action', function() {
+        it.skip('should call logOut action', function() {
             instance.onLogoutClick();
+
+
 
             logOut.should.have.been.calledOnce;
         });
