@@ -1,7 +1,7 @@
-'use strict';
 /*
 File with style constants
  */
+export const highlightColor = '#1AB394';
 
 export const grayColor = '#F3F3F4';
 export const greenColor = '#18A689';

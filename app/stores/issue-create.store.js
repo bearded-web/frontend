@@ -2,8 +2,6 @@
  * issueCreate
  */
 
-'use strict';
-
 import { fromJS } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';

@@ -23,6 +23,8 @@ import IssuesPage from './components/IssuesPage';
 import IssuePage from './components/issue-page';
 import ControlPanelPage from './components/ControlPanelPage';
 import Target from './components/target/';
+import UsersPage from './components/UsersPage';
+import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
 
 let router = null;
@@ -76,6 +78,11 @@ module.exports.create = function buildRouter() {
 
                 <Route name="control-panel" path="control-panel" handler={ControlPanelPage}/>
                 <Redirect from="control-panel/" to="control-panel"/>
+
+                <Route name="users" path="users" handler={UsersPage}/>
+                <Redirect from="users/" to="users"/>
+                <Route name="user" path="users/:userId" handler={UserPage}/>
+                <Redirect from="users/:userId/" to="user"/>
 
                 <Route name="plans" path="plans" handler={PlansPage}/>
                 <Redirect from="plans/" to="plans"/>

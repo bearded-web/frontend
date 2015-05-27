@@ -8,9 +8,8 @@ import setTitle from '../lib/set-title';
 import bind from '../lib/autobind';
 import connectToStores from '../lib/connectToStores';
 
-import { Row, Col, Panel } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import IssuesList from './IssuesList';
-import IssuesListSort from './issues-list-sort';
 import Fa from './fa';
 import IssuesPagination from './IssuesPagination';
 import IssuesStatusFilter from './IssuesStatusFilter';

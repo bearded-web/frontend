@@ -1,6 +1,4 @@
-'use strict';
-
-import { is, Map, List, OrderedMap, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';

@@ -95,6 +95,10 @@ const constants = {
     TOKENS_FETCH_SUCCESS: 'Tokens received',
     TOKENS_FETCH_FAIL: 'Tokens not received',
 
+    USER_NEW_CHANGE: 'Change new user data',
+    USER_CREATE_START: 'Start add new user',
+    USER_CREATE_SUCCESS: 'user created',
+    USER_CREATE_FAIL: 'Cant add new user',
 
     USER_LOGIN_START: '--',
     USER_LOGIN_SUCCESS: '--',
@@ -106,6 +110,9 @@ const constants = {
     USER_LOST_AUTH: '--',
 
     USERS_FETCH_SUCCESS: 'Fetch users data',
+    USERS_SET_PASSWORD_START: 'Start set user password by admin',
+    USERS_SET_PASSWORD_SUCCESS: 'User password changed',
+    USERS_SET_PASSWORD_FAIL: 'Set password fail',
 
     US_PASSWORD_FIELD_CHANGE: '--',
     US_OLD_PASSWORD_FIELD_CHANGE: 'Change old password in change password field',

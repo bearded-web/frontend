@@ -13,6 +13,7 @@ export default class ControlPanelPage extends Component {
 
     render() {
         return <div>
+            <br/>
             <ul className="nav nav-pills">
                 <li role="presentation">
                     <Link to="agents">
@@ -22,6 +23,11 @@ export default class ControlPanelPage extends Component {
                 <li role="presentation">
                     <Link to="plans">
                         {iget('Plans')}
+                    </Link>
+                </li>
+                <li role="presentation">
+                    <Link to="users">
+                        {iget('Users')}
                     </Link>
                 </li>
             </ul>
