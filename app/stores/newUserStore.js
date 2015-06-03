@@ -5,7 +5,11 @@
 import { fromJS } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
-import isEmail from 'isemail';
+
+function isEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
 
 const initialState = fromJS({
     loading: false,
