@@ -1,4 +1,5 @@
-//.shrink-transition {
+@import "inspina/variables";
+
 @time: 0.5s;
 @size: 300px;
 @type: cubic-bezier(0.02, 1.14, 0.77, 0.98);
@@ -56,3 +57,25 @@
         opacity: 0.01;
     }
 }
+
+
+.tr-transition {
+    @time: 1s;
+
+    &-enter {
+        background: @yellow;
+        transition: background @time ease-in;
+    }
+
+    &-enter&-enter-active {
+        background: none;
+    }
+
+    &-leave {
+    }
+
+    &-leave&-leave-active {
+    }
+}
+
+

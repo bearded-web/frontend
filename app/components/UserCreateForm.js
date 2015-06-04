@@ -41,6 +41,7 @@ export default class UserCreateForm extends Component {
     render() {
         const { user, disabled, loading, error } = this.props;
         const { email, password, admin } = user.toObject();
+        const btnDisabled = !!(disabled || loading || error);
 
         return <form onSubmit={this.onSubmit}>
             <Input
@@ -72,7 +73,7 @@ export default class UserCreateForm extends Component {
                 {error}
             </p>
             <Button
-                disabled={disabled || loading || error}
+                disabled={btnDisabled}
                 type="submit"
                 bsStyle="primary">
                 {iget('Create user')}

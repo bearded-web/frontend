@@ -12,9 +12,9 @@ const initialState = fromJS({});
 const api = {};
 
 const handlers = {
-    [C.USER_CREATE_START](state, { user, randomId }) {
-        return state.set(randomId, fromJS(user));
-    },
+    //[C.USER_CREATE_START](state, { user, randomId }) {
+    //    return state.set(randomId, fromJS(user));
+    //},
     [C.USER_CREATE_SUCCESS](state, { user, randomId }) {
         return mergeToState(state, [user])
             .delete(randomId);
