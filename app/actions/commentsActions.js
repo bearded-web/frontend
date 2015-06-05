@@ -17,7 +17,7 @@ export function fetchIssueComments(issueId) {
             return users.list({ 'id_in': usersId.join(',') });
         })
         .then(data => {
-            dispatch(C.USERS_FETCH_SUCCESS, data.results);
+            dispatch(C.USERS_FETCH_SUCCESS, data);
         });
     //TODO catch
 }
@@ -36,7 +36,7 @@ export function fetchTargetComments(targetId) {
             return users.list({ 'id_in': usersId.join(',') });
         })
         .then(data => {
-            dispatch(C.USERS_FETCH_SUCCESS, data.results);
+            dispatch(C.USERS_FETCH_SUCCESS, data);
         });
     //TODO catch
 }

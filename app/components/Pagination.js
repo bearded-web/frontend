@@ -9,6 +9,8 @@ import { noop } from 'lodash';
 import classnames from 'classnames';
 import { create as createStyle } from 'react-style';
 
+import Fa from './fa';
+
 const S = createStyle({
     ul: { margin: 0 }
 });
@@ -25,7 +27,7 @@ export default class Pagination extends Component {
     static defaultProps = {
         size: '',
         onPageSelect: noop,
-        maxLinks: 5,
+        maxLinks: 10,
         page: 1
     };
 
@@ -34,9 +36,8 @@ export default class Pagination extends Component {
     render() {
         const { count, pageSize, page, maxLinks } = this.props;
         const maxPages = pageSize ? Math.ceil(count / pageSize) : 1;
-        const middle = page;
 
-        let first = Math.ceil(middle - maxLinks / 2);
+        let first = Math.ceil(page - maxLinks / 2);
         first = Math.max(1, first);
 
         let last = first + maxLinks - 1;
@@ -55,6 +56,26 @@ export default class Pagination extends Component {
         }
         else {
             links.push(this.renderLink(1, true));
+        }
+
+        if(first > 1) {
+            links.unshift(<li>
+                <a ref="goToFirst"
+                   onClick={() => this.props.onPageSelect(1)}
+                   title={iget('Go to first page')}>
+                    <Fa icon="angle-double-left"/>
+                </a>
+            </li>);
+        }
+
+        if(last < maxPages) {
+            links.push(<li>
+                <a ref="goToLast"
+                   onClick={() => this.props.onPageSelect(maxPages)}
+                   title={iget('Go to last page')}>
+                    <Fa icon="angle-double-right"/>
+                </a>
+            </li>);
         }
 
         return <nav>
@@ -76,20 +97,3 @@ export default class Pagination extends Component {
         </li>;
     }
 }
-
-//<li>
-//                    <a href="#" aria-label="Previous">
-//                        <span aria-hidden="true">&laquo;</span>
-//                    </a>
-//                </li>
-//
-//                <li><a href="#">1</a></li>
-//                <li><a href="#">2</a></li>
-//                <li><a href="#">3</a></li>
-//                <li><a href="#">4</a></li>
-//                <li><a href="#">5</a></li>
-//                <li>
-//                    <a href="#" aria-label="Next">
-//                        <span aria-hidden="true">&raquo;</span>
-//                    </a>
-//                </li>

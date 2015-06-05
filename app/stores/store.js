@@ -139,8 +139,8 @@ export default Fluxxor.createStore({
         this._emitChange();
     },
 
-    _onUsersFetch(users) {
-        users.forEach(function(user) {
+    _onUsersFetch({ results }) {
+        results.forEach(function(user) {
             var projects = state.get('projects').toJS();
 
             values(projects).forEach(function(project) {

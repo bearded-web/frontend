@@ -109,7 +109,12 @@ const constants = {
     USER_LOGOUT_FAIL: '--',
     USER_LOST_AUTH: '--',
 
+    USERS_FETCH_START: 'Fetch users data start',
     USERS_FETCH_SUCCESS: 'Fetch users data',
+    USERS_FETCH_FAIL: 'Fetch users data fail',
+    USERS_PAGE_FETCH_START: 'Fetch users data start',
+    USERS_PAGE_FETCH_SUCCESS: 'Fetch users data',
+    USERS_PAGE_FETCH_FAIL: 'Fetch users data fail',
     USERS_SET_PASSWORD_START: 'Start set user password by admin',
     USERS_SET_PASSWORD_SUCCESS: 'User password changed',
     USERS_SET_PASSWORD_FAIL: 'Set password fail',

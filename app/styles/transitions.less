@@ -72,9 +72,12 @@
     }
 
     &-leave {
+        opacity: 1;
+        transition: opacity @time ease-in;
     }
 
     &-leave&-leave-active {
+        opacity: 0.01;
     }
 }
 

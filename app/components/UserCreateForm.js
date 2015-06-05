@@ -20,13 +20,16 @@ export default class UserCreateForm extends Component {
         user: map,
         error: PropTypes.string
     };
+    static contextTypes = {
+        router: PropTypes.func.isRequired
+    };
     shouldComponentUpdate = shouldComponentUpdate;
 
     @autobind
     onSubmit(e) {
         e.preventDefault();
 
-        if (!this.props.disabled) createUser(this.props.user);
+        if (!this.props.disabled) createUser(this.props.user, this.context.router);
     }
 
     @autobind

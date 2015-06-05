@@ -6,7 +6,6 @@ import { PropTypes, Component, addons } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { listOf, map } from 'react-immutable-proptypes';
 import { Model } from '../lib/types'; // change to User
-import connectToStores from '../lib/connectToStores';
 import usersStore from '../stores/usersStore';
 import moment from 'moment';
 import autobind from '../lib/autobind';
@@ -14,20 +13,14 @@ import { create as createStyle } from 'react-style';
 
 import { Table } from 'react-bootstrap';
 import Avatar from './avatar';
+import Loading from './Loading';
 
 const { CSSTransitionGroup } = addons;
 
-const toMs = str => (new Date(str)).getTime();
-const sortByCreated = (b, a) => toMs(a.get('created')) - toMs(b.get('created'));
-const getState = () => ({
-    users: usersStore.getRawState().toList().sort(sortByCreated)
-});
 const S = createStyle({
     row: { cursor: 'pointer' }
 });
 
-
-@connectToStores([usersStore], getState)
 export default class UsersList extends Component {
     static propTypes = {
         users: listOf(PropTypes.oneOfType([Model, map]))
@@ -43,7 +36,9 @@ export default class UsersList extends Component {
 
     render() {
         const { users } = this.props;
-        const hasUsers = !!users.size;
+        const hasUsers = users.size > 0;
+
+        if (!hasUsers) return <h2><Loading/></h2>;
 
         return <Table hover>
             <thead>
@@ -54,9 +49,9 @@ export default class UsersList extends Component {
                 <th>IsAdmin</th>
             </tr>
             </thead>
-            {hasUsers && <CSSTransitionGroup component="tbody" transitionName="tr-transition">
+            <tbody>
                 {users.toArray().map(this.renderRow)}
-            </CSSTransitionGroup>}
+            </tbody>
         </Table>;
     }
 

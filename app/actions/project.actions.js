@@ -30,7 +30,7 @@ export function setCurrentProject(projectId, noTransition) {
             return users.list({ id_in: usersIds.join(',') });
         })
         .then(function(data) {
-            dispatch(consts.USERS_FETCH_SUCCESS, data.results);
+            dispatch(consts.USERS_FETCH_SUCCESS, data);
         });
 
     // call target actions
@@ -56,7 +56,7 @@ export function fetchProjectMembers(membersIds) {
 
     return users.list({ id_in: membersIds.join(',') })
         .then(function(data) {
-            dispatch(consts.USERS_FETCH_SUCCESS, data.results);
+            dispatch(consts.USERS_FETCH_SUCCESS, data);
         });
 }
 

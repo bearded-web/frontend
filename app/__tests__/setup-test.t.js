@@ -2,8 +2,6 @@
  * Mocha env setup
  */
 
-'use strict';
-
 /*eslint react/no-multi-comp:0*/
 import 'babel/polyfill';
 import 'mochawait';

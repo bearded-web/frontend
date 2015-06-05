@@ -2,8 +2,6 @@
  * Create store helper. Work with facebook dispatcher
  */
 
-'use strict';
-
 import { assign, forOwn, isFunction, without } from 'lodash';
 import { register } from './disp';
 import { is, Map } from 'immutable';
@@ -43,7 +41,7 @@ export default function createStore(api, handlers, initialState) {
         }
     });
 
-    var store = new Store();
+    const store = new Store();
 
     register(function(data) {
         const { payload, actionType } = data;

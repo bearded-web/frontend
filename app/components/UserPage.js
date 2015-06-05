@@ -6,7 +6,7 @@ import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import usersStore from '../stores/usersStore';
 import { create as createStyle } from 'react-style';
-import { fetchUsers } from '../actions/usersActions';
+import { fetchUser } from '../actions/usersActions';
 import connectToStores from '../lib/connectToStores';
 import { listOf } from 'react-immutable-proptypes';
 import { Model } from '../lib/types';
@@ -37,7 +37,8 @@ export default class UserPage extends Component {
     shouldComponentUpdate = shouldComponentUpdate;
 
     componentDidMount() {
-        fetchUsers({ id: this.getUserId() });
+        //TODO replace to separate method
+        fetchUser({ id: this.getUserId() });
     }
 
     render() {

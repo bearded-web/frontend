@@ -6,14 +6,23 @@ import { captureException } from '../lib/raven';
 /**
  * Load all users
  */
-export async function fetchUsers(query = {}) {
+export async function fetchPage({ page = 1, pageSize = 20 } = {}) {
+    dispatch(C.USERS_PAGE_FETCH_START, { page });
+
+    const skip = (page - 1) * pageSize;
+    const query = {
+        skip,
+        limit: pageSize,
+        sort: '-created'
+    };
+
     try {
-        const { results } = await users.list(query);
-        dispatch(C.USERS_FETCH_SUCCESS, results);
+        const result = await users.list(query);
+        dispatch(C.USERS_PAGE_FETCH_SUCCESS, result);
     }
     catch (error) {
         captureException(error);
-        dispatch(C.USERS_FETCH_FAIL, { error });
+        dispatch(C.USERS_PAGE_FETCH_FAIL, { error });
     }
 }
 
@@ -40,7 +49,7 @@ export function changeNewUser(user) {
  * Create new user
  * @param {Map} userp new user model
  */
-export async function createUser(userp) {
+export async function createUser(userp, router) {
     const user = userp.toJS();
     const randomId = 'new_user_' + Math.random();
     dispatch(C.USER_CREATE_START, { user, randomId });
@@ -55,8 +64,20 @@ export async function createUser(userp) {
         const data = await users.create({ body: user });
 
         dispatch(C.USER_CREATE_SUCCESS, { user: data, randomId });
+
+        router.transitionTo('user', { userId: data.id });
     }
     catch (error) {
         dispatch(C.USER_CREATE_FAIL, { error, user, randomId });
+    }
+}
+
+export async function fetchUser({ id }) {
+    try {
+        const data = await users.list({ id });
+        dispatch(C.USERS_FETCH_SUCCESS, data);
+    }
+    catch (error) {
+        captureException(error);
     }
 }
