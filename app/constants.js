@@ -20,7 +20,6 @@ const constants = {
     AUTH_UNLOCK_FAIL: 'Unlock fail',
 
 
-
     SHOW_TARGET_MODAL: '--',
     HIDE_TARGET_MODAL: '--',
     ADD_TARGET: 'ADD_TARGET',
@@ -85,6 +84,8 @@ const constants = {
 
     TARGET_COMMENTS_FETCH_SUCCESS: 'Comments for target received',
 
+    TECHS_FETCH_SUCCESS: 'Technologies fetch success',
+
     TOAST_ADD: '--',
 
     TOKEN_CREATE_START: 'Create new token',
@@ -139,7 +140,6 @@ const constants = {
 
     ________: false // dont want delete "," after duplicate line
 };
-
 
 
 const key = '_';

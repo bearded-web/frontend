@@ -2,6 +2,7 @@ import { createClass } from 'react';
 import flux from '../../flux';
 import setTitle from '../../lib/set-title';
 import authStore from '../../stores/auth.store';
+import { fromJS } from 'immutable';
 
 import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
@@ -13,6 +14,7 @@ import Feed from '../feed';
 import Fa from '../fa';
 import StartScanButton from '../start-scan-button';
 import TargetScan from '../target-scan';
+import TargetTechs from '../TargetTechs';
 
 var Target = createClass({
     mixins: [
@@ -68,6 +70,7 @@ var Target = createClass({
 
     render: function() {
         const { target, loading, isAdmin } = this.state;
+        const targetImmutable = fromJS(target);
 
         if (loading || !target) {
             return <div className="c-target">
@@ -96,6 +99,15 @@ var Target = createClass({
                                 <Col xs={4}><SeverityWidget severity="medium" count={issues.medium}/></Col>
                                 <Col xs={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <Ibox><IboxTitle>
+                                    <h5>{iget('Technologies')}</h5>
+                                </IboxTitle><IboxContent>
+                                    <TargetTechs target={targetImmutable}/>
+                                </IboxContent></Ibox>
+                            </Col>
                         </Row>
                         {isAdmin && <Row>
                             <Col xs={12}>
