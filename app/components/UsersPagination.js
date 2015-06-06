@@ -7,6 +7,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import connectToStores from '../lib/connectToStores';
 import usersListStore from '../stores/usersListStore';
 import autobind from '../lib/autobind';
+import { cloneDeep } from 'lodash';
 
 import Pagination from './Pagination';
 
@@ -30,7 +31,9 @@ export default class IssuesPagination extends Component {
 
     @autobind
     onPageSelect(page) {
-        this.context.router.transitionTo('users', {}, { page });
+        const query = cloneDeep(this.context.router.getCurrentQuery());
+        query.page = page;
+        this.context.router.transitionTo('users', {}, query);
     }
 
     render() {

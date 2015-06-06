@@ -6,14 +6,14 @@ import { captureException } from '../lib/raven';
 /**
  * Load all users
  */
-export async function fetchPage({ page = 1, pageSize = 20 } = {}) {
+export async function fetchPage({ page = 1, pageSize = 20, sortBy = '-created' } = {}) {
     dispatch(C.USERS_PAGE_FETCH_START, { page });
 
     const skip = (page - 1) * pageSize;
     const query = {
         skip,
         limit: pageSize,
-        sort: '-created'
+        sort: sortBy
     };
 
     try {
@@ -48,6 +48,7 @@ export function changeNewUser(user) {
 /**
  * Create new user
  * @param {Map} userp new user model
+ * @param {Object} router react-router instance
  */
 export async function createUser(userp, router) {
     const user = userp.toJS();

@@ -1,4 +1,3 @@
-'use strict';
 
 import { PropTypes, Component } from 'react/addons';
 import cNames from 'classnames';
@@ -6,7 +5,7 @@ import { defaults } from 'lodash';
 
 export default class Fa extends Component {
     render() {
-        var props = this.props,
+        const props = this.props,
             style = defaults(props.style, {
                 verticalAlign: this.props.align || 'inherit'
             }),

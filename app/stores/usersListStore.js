@@ -6,12 +6,15 @@ import { fromJS, List } from 'immutable';
 import C from '../constants';
 import createStore from '../lib/create-store';
 import { pluck } from 'lodash';
+import { BY_CREATED, DESC } from '../lib/sortConstants';
 
 const initialState = fromJS({
     count: 0,
     pageSize: 15,
     users: [], // users ids
-    loading: false
+    loading: false,
+    sortBy: BY_CREATED,
+    sortDirection: DESC
 });
 
 const api = {

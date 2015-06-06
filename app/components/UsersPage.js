@@ -10,6 +10,7 @@ import usersStore from '../stores/usersStore';
 import usersListStore from '../stores/usersListStore';
 import { listOf } from 'react-immutable-proptypes';
 import { Model } from '../lib/types';
+import setTitle from '../lib/set-title';
 
 import { Row, Col } from 'react-bootstrap';
 import Ibox, { IboxContent, IboxTitle } from './ibox';
@@ -31,7 +32,8 @@ function getState() {
 export default class UsersPage extends Component {
     static propTypes = {
         query: PropTypes.shape({
-            page: PropTypes.string
+            page: PropTypes.string,
+            sortBy: PropTypes.string
         }),
         loading: PropTypes.bool.isRequired,
         users: listOf(Model),
@@ -40,6 +42,7 @@ export default class UsersPage extends Component {
     shouldComponentUpdate = shouldComponentUpdate;
 
     componentDidMount() {
+        setTitle(iget('Users'));
         fetchPage({
             page: this.props.query.page,
             pageSize: this.props.pageSize
@@ -47,19 +50,19 @@ export default class UsersPage extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (this.props.query.page !== newProps.query.page) {
+        if (this.props.query.page !== newProps.query.page ||
+            this.props.query.sortBy !== newProps.query.sortBy) {
             fetchPage({
                 page: newProps.query.page,
-                pageSize: newProps.pageSize
+                pageSize: newProps.pageSize,
+                sortBy: newProps.query.sortBy
             });
         }
     }
 
     render() {
-        const { users, loading } = this.props;
-        const listStyle = { opacity: loading ? 0.5 : 1 };
-
-        let page = parseInt(this.props.query.page, 10) || 1;
+        const { users, query: { sortBy, page } } = this.props;
+        const pageNum = parseInt(page, 10) || 1;
 
         return <Row>
             <Col xs={12}>
@@ -78,8 +81,8 @@ export default class UsersPage extends Component {
             </Col>
             <Col xs={12} sm={8}>
                 <Ibox><IboxContent>
-                    <UsersList users={users}/>
-                    <UsersPagination page={page}/>
+                    <UsersList users={users} sortBy={sortBy}/>
+                    <UsersPagination page={pageNum}/>
                 </IboxContent></Ibox>
             </Col>
         </Row>;
