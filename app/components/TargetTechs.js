@@ -9,6 +9,28 @@ import connectToStores from '../lib/connectToStores';
 import techsStore from '../stores/techsStore';
 import { Model } from '../lib/types';
 import { fetchForTarget } from '../actions/techsActions';
+import { create as createStyle } from 'react-style';
+import { lazurColor } from '../style';
+
+import TechIcon from './TechIcon';
+
+const S = createStyle({
+    ul: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        margin: 0,
+        padding: 0,
+        listStyle: 'none'
+    },
+    tech: {
+        display: 'block',
+        width: 100,
+        float: 'left',
+        padding: '4px 8px',
+        textAlign: 'center',
+        marginBottom: '10px'
+    }
+});
 
 const getState = function(props) {
     return {
@@ -34,11 +56,19 @@ export default class TargetTechs extends Component {
     render() {
         const { techs } = this.props;
 
-        return <ul>
-            {techs.toArray().map(a => (<li>
-                {a.get('name')}
-            </li>))}
+        return <ul style={S.ul}>
+            {techs.toArray().map(this.renderTech)}
         </ul>;
+    }
+
+    renderTech(tech) {
+        const name = tech.get('name');
+        const id = tech.get('id');
+        return <li key={id} style={S.tech}>
+            <TechIcon tech={tech}/>
+            <br/>
+            {name}
+        </li>;
     }
 }
 
