@@ -11,8 +11,12 @@ import { Row, Col } from 'react-bootstrap';
 export default class ReportIssues extends Component {
     static propTypes = {
         severity: PropTypes.string,
-        reports: PropTypes.array.isRequired
+        reports: PropTypes.array.isRequired,
+        onSeveritySelect: PropTypes.func
     }
+    static defaultProps = {
+        onSeveritySelect: () => null
+    };
 
     render() {
         const { severity, reports } = this.props;
@@ -58,7 +62,7 @@ export default class ReportIssues extends Component {
 
         if (count) {
             props.onClick = () => {
-                if (count) selectSeverity(severity);
+                if (count) this.props.onSeveritySelect(severity);
             };
             props.style = { cursor: 'pointer' };
         }

@@ -27,20 +27,10 @@ export default class NavProjectSelect extends Component {
     };
     shouldComponentUpdate = shouldComponentUpdate;
 
-    @autobind
-    goToOverview() {
-        this.context.router.transitionTo('overview');
-    }
-
     render() {
         const { projects, project } = this.props;
-        const title = project.get('name');
 
-        return <DropdownButton navItem eventKey={3} title={title}>
-            <MenuItem onSelect={this.goToOverview}>
-                {iget('Overview')}
-            </MenuItem>
-            <MenuItem divider/>
+        return <DropdownButton navItem eventKey={3} title="">
             {projects.toArray().map(this.renderProjectLink)}
             <MenuItem divider/>
             <MenuItem onSelect={openCreateModal}>
@@ -59,4 +49,3 @@ export default class NavProjectSelect extends Component {
         </MenuItem>;
     }
 }
-

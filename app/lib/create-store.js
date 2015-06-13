@@ -5,7 +5,7 @@
 import { assign, forOwn, isFunction, without } from 'lodash';
 import { register } from './disp';
 import { is, Map } from 'immutable';
-
+// throw new Error()
 /**
  * Create new store, that work with dispatcher
  * @param {Object} api store api, must contain functions

@@ -40,6 +40,7 @@ export default class IssuesStatusFilter extends Component {
     @autobind
     renderSelect([name, label]) {
         return <IssueStatusFilterSelect
+            key={name}
             onChange={value => this.onChange(name, value)}
             labelClassName="col-xs-5"
             wrapperClassName="col-xs-7"

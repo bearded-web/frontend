@@ -3,6 +3,7 @@ import flux from '../../flux';
 import setTitle from '../../lib/set-title';
 import authStore from '../../stores/auth.store';
 import { fromJS } from 'immutable';
+import { FluxMixin } from 'fluxxor';
 
 import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
@@ -10,7 +11,7 @@ import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../TargetComments';
 import SeverityWidget from '../SeverityWidget';
 import TargetHeader from '../target-header';
-import Feed from '../feed';
+import Feed from '../FeedFlow';
 import Fa from '../fa';
 import StartScanButton from '../start-scan-button';
 import TargetScan from '../target-scan';
@@ -19,7 +20,7 @@ import TargetTechs from '../TargetTechs';
 var Target = createClass({
     mixins: [
         Router.Navigation,
-        FluxMixin,
+        FluxMixin(React),
         createStoreWatchMixin('TargetStore')
     ],
 

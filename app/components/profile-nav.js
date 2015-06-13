@@ -6,7 +6,6 @@
 import { Component, PropTypes } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
-import { bindAll } from 'lodash';
 import { logOut } from '../actions/auth.actions';
 import authStore from '../stores/auth.store';
 import connectToStores from '../lib/connectToStores';
@@ -50,18 +49,16 @@ export default class ProfileNav extends Component {
             {nickname}
         </span>;
 
-        return <div>
-            <DropdownButton bsStyle="link" title={title}>
-                <MenuItem onSelect={this.onSettingsClick}>
-                    <Fa icon="cog" fw/>
-                    {iget('Settings')}
-                </MenuItem>
-                <MenuItem divider/>
-                <MenuItem onSelect={this.onLogoutClick}>
-                    <Fa icon="sign-out" fw/>
-                    {iget('Logout')}
-                </MenuItem>
-            </DropdownButton>
-        </div>;
+        return <DropdownButton bsStyle="link" title={title}>
+            <MenuItem onSelect={this.onSettingsClick}>
+                <Fa icon="cog" fw/>
+                {iget('Settings')}
+            </MenuItem>
+            <MenuItem divider/>
+            <MenuItem onSelect={this.onLogoutClick}>
+                <Fa icon="sign-out" fw/>
+                {iget('Logout')}
+            </MenuItem>
+        </DropdownButton>;
     }
 }

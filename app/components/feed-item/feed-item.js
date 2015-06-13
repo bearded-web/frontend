@@ -1,4 +1,3 @@
-'use strict';
 
 var React = require('react'),
     _ = require('lodash'),
@@ -62,7 +61,7 @@ var FeedItem = React.createClass({
         );
     },
 
-    generateAvatar: function(identifier) {
+    generateAvatar: function(identifier = '') {
         var images = [
             require('./megusta.png'),
             require('./no.png'),

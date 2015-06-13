@@ -18,7 +18,7 @@ export default class IboxContent extends Component {
             'no-padding': noPadding
         });
 
-        return <div className={classes} style={style}>
+        return <div {...this.props} className={classes} style={style}>
             {children}
             <div className="clearfix"></div>
         </div>;

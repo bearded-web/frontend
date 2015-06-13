@@ -1,11 +1,9 @@
-'use strict';
-
 import { is, Map, List, OrderedMap, fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('targetCreate', function() {
+describe.skip('targetCreate', function() {
     let createStore = null;
     let store = null;
     let api = null;

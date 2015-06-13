@@ -1,5 +1,3 @@
-'use strict';
-
 import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
@@ -68,4 +66,3 @@ export default class PasswordResetPage extends Component {
 }
 
 PasswordResetPage.propTypes = {};
-

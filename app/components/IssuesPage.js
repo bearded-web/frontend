@@ -29,10 +29,11 @@ function getState() {
 }
 
 @connectToStores([issuesStore, issuesListStore], getState)
-export default class IssuesPage extends Component {
+export default
+class IssuesPage extends Component {
     static propTypes = {
         issues: PropTypes.object,
-        filter: PropTypes.filter,
+        filter: PropTypes.object,
         loading: PropTypes.bool,
         routeQuery: PropTypes.object
     };
@@ -47,8 +48,6 @@ export default class IssuesPage extends Component {
 
         const { target } = this.context.router.getCurrentQuery();
         fetchPage({ target });
-
-        targetId = target;
     }
 
     componentWillReceiveProps(newProps) {

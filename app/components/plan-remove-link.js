@@ -1,12 +1,17 @@
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { $Model } from '../lib/types';
 import { remove } from '../actions/plan.actions';
 import { bindAll } from 'lodash';
+import { context } from '../lib/nf';
+import { deletePlan } from '../mutators/planMutators';
 
+@context({}, { deletePlan })
 export default class PlanRemoveLink extends Component {
+    static propTypes = {
+        deletePlan: PropTypes.func.isRequired
+    };
+
     constructor(props, context) {
         super(props, context);
 
@@ -24,7 +29,7 @@ export default class PlanRemoveLink extends Component {
     }
 
     onDeleteClick() {
-        remove(this.props.plan);
+        this.props.deletePlan(this.props.plan.get('id'));
     }
 
     render() {
@@ -48,4 +53,3 @@ export default class PlanRemoveLink extends Component {
 PlanRemoveLink.propTypes = {
     plan: $Model
 };
-

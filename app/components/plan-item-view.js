@@ -1,8 +1,5 @@
-'use strict';
-
 import React, { PropTypes, addons } from 'react/addons';
 import { $Model } from '../lib/types';
-import { defaults } from 'lodash';
 import { remove } from '../actions/plan.actions';
 
 import { Label } from 'react-bootstrap';
@@ -46,4 +43,3 @@ export default React.createClass({
         return <Label key={i} style={style}>{name}</Label>;
     }
 });
-

@@ -10,6 +10,9 @@ let { PureRenderMixin } = addons;
  * Panel container
  */
 export default class Ibox extends Component {
+    static propTypes = {
+        children: PropTypes.node
+    };
     constructor() {
         super();
 
@@ -47,10 +50,6 @@ export default class Ibox extends Component {
         </div>;
     }
 }
-
-Ibox.propTypes = {
-    children: PropTypes.node
-};
 
 export const IboxTitle = Title;
 export const IboxContent = Content;

@@ -3,8 +3,6 @@
  * If schema not provided – return empty span.
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
@@ -12,7 +10,7 @@ import { bindAll } from 'lodash';
 import t from 'tcomb-form';
 import toType from 'tcomb-json-schema';
 import { Map } from 'immutable';
-import { captureException } from 'raven-js';
+import { captureException } from '../lib/raven';
 
 const { Form } = t.form;
 

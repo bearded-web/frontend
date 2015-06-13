@@ -6,6 +6,8 @@ import setTitle from '../lib/set-title';
 import { RouteHandler } from 'react-router';
 import AppStore from '../stores/app.store';
 import targetsStore from '../stores/targetsStore';
+import { FluxMixin } from 'fluxxor';
+
 
 import ModalManager from './modal-manager';
 import LockScreenContainer from './lock-screen-container';
@@ -14,12 +16,14 @@ import TopPanel from './TopPanel';
 
 var Dashboard = React.createClass({
     mixins: [
-        FluxMixin,
-        flux.createStoreWatchMixin('Store')
+        FluxMixin(React),
+        createStoreWatchMixin('Store')
     ],
 
     contextTypes: {
-        router: React.PropTypes.func
+        router: React.PropTypes.func,
+        tree: PropTypes.object,
+        api: PropTypes.object
     },
 
     propTypes: {
@@ -115,7 +119,7 @@ var Dashboard = React.createClass({
         const targetId = router.getCurrentParams().targetId ||
             router.getCurrentQuery().target;
 
-        const target = targetsStore.getRawState().get(targetId);
+        const target = this.context.tree.get('targets', targetId);
 
         const routes = this.context.router.getCurrentRoutes();
         const paramsJson = JSON.stringify(this.context.router.getCurrentParams());
@@ -136,7 +140,6 @@ var Dashboard = React.createClass({
                     </div>
                 </div>
                 {leftPanelCover}
-                {targetModal}
 
                 <ModalManager modal={appStore.modal}/>
             </div>
