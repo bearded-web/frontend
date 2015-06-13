@@ -97,7 +97,7 @@ global.stubRouterContext = (Component, props, stubs) => {
     });
 };
 
-global.stubContext = (Component, props, context) => {
+global.stubContext = (Component, context) => {
     const types = mapValues(context, v => {
         if (isObject(v)) return React.PropTypes.object;
     });
@@ -110,7 +110,9 @@ global.stubContext = (Component, props, context) => {
         },
 
         render () {
-            return <Component {...props} />;
+            console.log('### dd');
+
+            return <Component {...this.props} />;
         }
     });
 };

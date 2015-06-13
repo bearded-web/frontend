@@ -26,6 +26,7 @@ import Target from './components/target/';
 import UsersPage from './components/UsersPage';
 import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
+import TargetTechsPage from './components/TargetTechsPage';
 
 let router = null;
 
@@ -60,6 +61,9 @@ module.exports.create = function buildRouter() {
                 <Redirect from="target/new/" to="target-create"/>
                 <Route name="target" path="target/:targetId" handler={Target}/>
                 <Redirect from="target/" to="target"/>
+
+                <Route name="target-techs" path="target/:targetId/techs" handler={TargetTechsPage}/>
+                <Redirect from="target/:targetId/techs/" to="target-techs"/>
 
 
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>

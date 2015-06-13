@@ -1,8 +1,7 @@
-import Raven from 'raven-js';
-
 let inited = false;
 
 export function init(address) {
+    const Raven = require('raven-js');
     try {
         Raven.config(address).install();
 
@@ -14,5 +13,8 @@ export function init(address) {
 }
 
 export function captureException(...data) {
-    if (inited) Raven.captureException(...data);
+    const Raven = require('raven-js');
+    if (inited) {
+        Raven.captureException(...data);
+    }
 }

@@ -1,7 +1,7 @@
 import 'babel/polyfill';
 import './lib/globals';
 import { init as initAnalytics } from './lib/ga';
-import { me, onStatus, config } from './lib/api3.js';
+import api, { me, onStatus, config } from './lib/api3.js';
 import { create as createRouter } from './router';
 import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
@@ -9,6 +9,8 @@ import { fetchVulnsCompact } from './actions/vulnsActions';
 import { handleMeData } from './actions/app.actions';
 import Raven from 'raven-js';
 import { set as setConfig } from './lib/config';
+import Baobab from 'baobab';
+import dataTree from './lib/dataTree';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -24,6 +26,8 @@ require('./styles/transitions.less');
 
 const flux = window.flux = require('./flux');
 
+const tree = new Baobab(dataTree);
+
 const startRouting = (isAnonym) => {
     const router = createRouter();
 
@@ -38,8 +42,28 @@ const startRouting = (isAnonym) => {
 
         ga('send', 'pageview', state.path);
 
+        class Root extends React.Component {
+            static childContextTypes = {
+                tree: React.PropTypes.instanceOf(Baobab),
+                api: React.PropTypes.object.isRequired
+            };
+
+            // Handling child context
+            getChildContext() {
+                return {
+                    tree: tree,
+                    api: api
+                };
+            }
+
+            // Render shim
+            render() {
+                return <Handler flux={flux} routeQuery={state.query}/>;
+            }
+        }
+
         React.render(
-            <Handler flux={flux} routeQuery={state.query}/>,
+            <Root/>,
             document.getElementById('app')
         );
     });
