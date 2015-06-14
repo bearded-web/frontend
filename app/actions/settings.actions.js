@@ -8,7 +8,7 @@ import { dispatch } from '../lib/disp';
 import C from '../constants';
 import { me } from '../lib/api3';
 import settingsStore from '../stores/user-settings.store';
-import { captureException } from 'raven-js';
+import { captureException } from '../lib/raven';
 
 
 /**

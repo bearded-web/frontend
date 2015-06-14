@@ -1,8 +1,7 @@
-'use strict';
-
 import { Navigation } from 'react-router';
 import { setCurrentProject } from '../actions/project.actions';
 import setTitle from '../lib/set-title';
+import { FluxMixin } from 'fluxxor';
 
 import Fa from './fa';
 import Members from './project-members';
@@ -16,9 +15,9 @@ var Header = require('./header'),
 
 var Overview = React.createClass({
     mixins: [
-        FluxMixin,
+        FluxMixin(React),
         Navigation,
-        flux.createStoreWatchMixin('Store')
+        createStoreWatchMixin('Store')
     ],
 
 

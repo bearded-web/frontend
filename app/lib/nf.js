@@ -43,7 +43,7 @@ export function context(cursors, mutators) {
             render() {
                 const { tree, api } = this.context;
                 const ms = mapValues(mutators, m => m.bind(null, { tree, api }));
-                return <Cmp {...this.state} {...ms} {...this.props} />;
+                return <Cmp ref="cmp" {...this.state} {...ms} {...this.props} />;
             }
 
             // On component unmount

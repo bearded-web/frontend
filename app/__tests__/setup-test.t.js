@@ -1,7 +1,6 @@
 /**
  * Mocha env setup
  */
-
 /*eslint react/no-multi-comp:0*/
 import 'babel/polyfill';
 import 'mochawait';
@@ -10,11 +9,19 @@ import jsdom from 'mocha-jsdom';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import mockery from 'mockery';
+import React from 'react/addons';
 import { spy } from 'sinon';
+import { FluxMixin, StoreWatchMixin } from 'fluxxor';
 import { assign, mapValues, isObject, isString } from 'lodash';
+import Env from 'react/lib/ExecutionEnvironment';
+Env.canUseDOM = true;
 
 require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
+};
+
+require.extensions['.less'] = function(m, filename) {
+    return m._compile('2', filename);
 };
 
 global.should = chai.should();
@@ -28,6 +35,8 @@ before(function() {
             return null;
         }
     };
+
+    global.FluxMixin = FluxMixin(React);
 });
 
 beforeEach(() => {
@@ -45,7 +54,8 @@ afterEach(() => {
 
 
 global.iget = a => a;
-global.React = require('react/addons');
+global.React = React;
+global.createStoreWatchMixin = StoreWatchMixin;
 global.TestUtils = React.addons.TestUtils;
 global.byType = global.TestUtils.scryRenderedComponentsWithType;
 global.byTag = global.TestUtils.scryRenderedDOMComponentsWithTag;
@@ -97,24 +107,23 @@ global.stubRouterContext = (Component, props, stubs) => {
     });
 };
 
-global.stubContext = (Component, context) => {
+
+global.stubContext = function stubContext(Component, context) {
     const types = mapValues(context, v => {
         if (isObject(v)) return React.PropTypes.object;
     });
 
-    return React.createClass({
-        childContextTypes: types,
+    return class StubContext extends React.Component {
+        static childContextTypes = types;
 
-        getChildContext () {
+        getChildContext() {
             return context;
-        },
-
-        render () {
-            console.log('### dd');
-
-            return <Component {...this.props} />;
         }
-    });
+
+        render() {
+            return <Component ref="cmp" {...this.props} />;
+        }
+    };
 };
 
 global.storeMock = {

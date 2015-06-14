@@ -1,17 +1,18 @@
-import setTitle from '../../lib/set-title';
+import { FluxMixin } from 'fluxxor';
+import setTitle from '../lib/set-title';
 
 import React from 'react';
 import Router from 'react-router';
-import flux from '../../flux';
+import flux from '../flux';
 
 import { Row, Col, Table } from 'react-bootstrap';
-import AgentTr from '../agent-tr';
-import Header from '../header';
+import AgentTr from './agent-tr';
+import Header from './header';
 
 const Agents = React.createClass({
     mixins: [
         Router.Navigation,
-        FluxMixin,
+        FluxMixin(React),
         createStoreWatchMixin('AgentsStore')
     ],
 

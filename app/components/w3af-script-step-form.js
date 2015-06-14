@@ -4,7 +4,7 @@ import { PropTypes, createClass } from 'react/addons';
 import ImMixin from 'react-immutable-render-mixin';
 import { $Model } from '../lib/types';
 import { Map } from 'immutable';
-import { captureException } from 'raven-js';
+import { captureException } from '../lib/raven';
 
 import { Input, ButtonGroup, Button } from 'react-bootstrap';
 

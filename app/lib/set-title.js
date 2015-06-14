@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Change document title
  * @param {String} [title] new title

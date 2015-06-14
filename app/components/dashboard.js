@@ -6,6 +6,8 @@ import setTitle from '../lib/set-title';
 import { RouteHandler } from 'react-router';
 import AppStore from '../stores/app.store';
 import targetsStore from '../stores/targetsStore';
+import { FluxMixin } from 'fluxxor';
+
 
 import ModalManager from './modal-manager';
 import LockScreenContainer from './lock-screen-container';
@@ -14,8 +16,8 @@ import TopPanel from './TopPanel';
 
 var Dashboard = React.createClass({
     mixins: [
-        FluxMixin,
-        flux.createStoreWatchMixin('Store')
+        FluxMixin(React),
+        createStoreWatchMixin('Store')
     ],
 
     contextTypes: {

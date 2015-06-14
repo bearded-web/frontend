@@ -29,6 +29,7 @@
     "it": true,
     "expect": true,
     "stubRouterContext": true,
+    "stubContext": true,
     "describe": true
   }
 }

@@ -1,10 +1,10 @@
-'use strict';
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
 import { addMember, fillMembersSuggest, removeMember } from '../actions/project.actions.js';
 import { closeModal } from '../actions/app.actions.js';
 import flux from '../flux';
 import { debounce } from 'lodash';
+import { FluxMixin } from 'fluxxor';
 
 let { PureRenderMixin } = addons;
 
@@ -17,8 +17,8 @@ import Fa from './fa';
 export default React.createClass({
     mixins: [
         PureRenderMixin,
-        FluxMixin,
-        flux.createStoreWatchMixin('Store')
+        FluxMixin(React),
+        createStoreWatchMixin('Store')
     ],
 
     propTypes: {

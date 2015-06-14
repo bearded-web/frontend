@@ -1,6 +1,6 @@
 import Router, { Route, DefaultRoute, NotFoundRoute, Redirect } from 'react-router';
 import flux from './flux';
-import { captureException } from 'raven-js';
+import { captureException } from './lib/raven';
 
 import UserSettingsPage from './components/user-settings-page';
 import PasswordResetPage from './components/password-reset-page';

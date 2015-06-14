@@ -1,4 +1,5 @@
-'use strict';
+import { FluxMixin } from 'fluxxor';
+
 var React = require('react'),
     Router = require('react-router'),
     _ = require('lodash'),
@@ -15,7 +16,7 @@ var ScanReport = React.createClass({
     mixins: [
         Router.Navigation,
         Router.State,
-        FluxMixin,
+        FluxMixin(React),
         createStoreWatchMixin('ScanStore')
     ],
 

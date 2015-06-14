@@ -1,4 +1,5 @@
-import { captureException } from 'raven-js';
+import { captureException } from './lib/raven';
+
 
 var actions = require('./actions'),
     stores = require('./stores'),

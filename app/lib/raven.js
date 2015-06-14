@@ -1,8 +1,10 @@
 let inited = false;
 
 export function init(address) {
-    const Raven = require('raven-js');
+    if (!window) return;
+
     try {
+        const Raven = require('raven-js');
         Raven.config(address).install();
 
         inited = true;

@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
 import { openAddMemberModal } from '../actions/project.actions';

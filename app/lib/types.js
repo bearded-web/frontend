@@ -51,4 +51,12 @@ export function NaturalNumberWithZero(props, propsName, componentName) {
             but you pass ${value}, chec ${componentName}`);
     }
 }
+
+export const Project = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    members: PropTypes.arrayOf(PropTypes.shape({
+        user: PropTypes.string
+    })).isRequired
+})
 /*eslint-enable*/

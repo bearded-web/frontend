@@ -1,7 +1,7 @@
 import { tokens } from '../lib/api3';
 import { dispatch } from '../lib/disp';
 import { pluck, uniq } from 'lodash';
-import { captureException } from 'raven-js';
+import { captureException } from '../lib/raven';
 import C from '../constants';
 
 /**

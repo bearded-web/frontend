@@ -1,8 +1,9 @@
-'use strict';
+import { FluxMixin } from 'fluxxor';
+
 import { Grid, Row, Button, Col } from 'react-bootstrap';
 
 module.exports = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [FluxMixin(React)],
 
     propTypes: {
         email: React.PropTypes.string.isRequired

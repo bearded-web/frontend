@@ -1,9 +1,10 @@
-'use strict';
-var React = require('react'),
-    feedActions = require('../../actions/feed.actions'),
-    flux = require('../../flux');
+import { FluxMixin } from 'fluxxor';
 
-var FeedItem = require('../feed-item');
+var React = require('react'),
+    feedActions = require('../actions/feed.actions'),
+    flux = require('../flux');
+
+var FeedItem = require('./feed-item');
 
 var Feed = React.createClass({
     propTypes: {
@@ -12,8 +13,8 @@ var Feed = React.createClass({
     },
 
     mixins: [
-        FluxMixin,
-        flux.createStoreWatchMixin('FeedStore')
+        FluxMixin(React),
+        createStoreWatchMixin('FeedStore')
     ],
 
     _oneFetchLength: 10,

@@ -3,6 +3,7 @@ import flux from '../../flux';
 import setTitle from '../../lib/set-title';
 import authStore from '../../stores/auth.store';
 import { fromJS } from 'immutable';
+import { FluxMixin } from 'fluxxor';
 
 import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
@@ -19,7 +20,7 @@ import TargetTechs from '../TargetTechs';
 var Target = createClass({
     mixins: [
         Router.Navigation,
-        FluxMixin,
+        FluxMixin(React),
         createStoreWatchMixin('TargetStore')
     ],
 

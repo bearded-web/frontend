@@ -1,7 +1,7 @@
 //https://github.com/signalfx/swagger-ajax-client
 //TODO refactor
 
-import { captureException } from 'raven-js';
+import { captureException } from './raven';
 //import { lostAuth } from '../actions/auth.actions';
 
 import schema from './swagger.json';

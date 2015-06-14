@@ -1,11 +1,11 @@
-'use strict';
+import { FluxMixin } from 'fluxxor';
 var React = require('react');
 
 var { Button } = require('react-bootstrap');
 
 var AgentTr = React.createClass({
     mixins: [
-        FluxMixin
+        FluxMixin(React)
     ],
 
     propTypes: {

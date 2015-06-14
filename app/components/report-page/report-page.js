@@ -1,4 +1,5 @@
-'use strict';
+import { FluxMixin } from 'fluxxor';
+
 var React = require('react'),
     { State, Navigation } = require('react-router'),
     reportActions = require('../../actions/report.actions');
@@ -9,7 +10,7 @@ var ReportIssues = require('../report-issues'),
 
 var ReportPage = React.createClass({
     mixins: [
-        FluxMixin,
+        FluxMixin(React),
         Navigation,
         State,
         createStoreWatchMixin('ReportStore')

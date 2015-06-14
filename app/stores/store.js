@@ -1,5 +1,3 @@
-'use strict';
-
 import Fluxxor from 'fluxxor';
 import Immutable, { fromJS, is, Map } from 'immutable';
 import consts from '../constants.js';

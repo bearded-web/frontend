@@ -1,12 +1,22 @@
-'use strict';
-
-import './project-member.less';
-
 import React, { PropTypes, addons } from 'react/addons';
 import { Map } from 'immutable';
-import { isString } from 'lodash';
+import { create as createStyle } from 'react-style';
 
-let { PureRenderMixin } = addons;
+const { PureRenderMixin } = addons;
+
+const size = 20;
+const margin = 3;
+const S = createStyle({
+    member: {
+        float: 'left',
+        width: size,
+        height: size,
+        marginRight: margin,
+        marginBottom: margin,
+        borderRadius: size,
+        background: ' #ccc no-repeat center'
+    }
+});
 
 export default React.createClass({
     mixins: [PureRenderMixin],
@@ -16,16 +26,15 @@ export default React.createClass({
     },
 
     render() {
-        let user = this.props.member.toJS().user || {};
+        const user = this.props.member.toJS().user || {};
 
         let style = {
-            backgroundImage: `url(${user.avatar})`,
-            color: 'red'
+            backgroundImage: `url(${user.avatar})`
         };
 
         return <a
             className="c-project-member"
-            style={style}
+            styles={[S.member, style]}
             title={user.email}></a>;
     }
 });

@@ -1,5 +1,4 @@
-'use strict';
-
+import { FluxMixin } from 'fluxxor';
 import { createClass } from 'react/addons';
 import { fromJS } from 'immutable';
 import flux from '../../flux';
@@ -15,7 +14,7 @@ import Plans from '../plans-with-search';
 var Scan = createClass({
     mixins: [
         State,
-        FluxMixin,
+        FluxMixin(React),
         createStoreWatchMixin('PlansStore')
     ],
 
