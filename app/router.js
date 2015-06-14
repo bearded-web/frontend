@@ -27,6 +27,7 @@ import UsersPage from './components/UsersPage';
 import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
 import TargetTechsPage from './components/TargetTechsPage';
+import ProjectPage from './components/ProjectPage';
 
 let router = null;
 
@@ -55,7 +56,7 @@ module.exports.create = function buildRouter() {
             {disable || <Redirect from="/signup/" to="signup"/>}
 
             <Route path="/" handler={Dashboard}>
-                <DefaultRoute name="overview" handler={Overview}/>
+                <DefaultRoute name="overview" handler={ProjectPage}/>
 
                 <Route name="target-create" path="target/new" handler={TargetCreatePage}/>
                 <Redirect from="target/new/" to="target-create"/>

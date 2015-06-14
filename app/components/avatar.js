@@ -2,11 +2,10 @@
  * User avatar
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { merge } from 'lodash';
+import { gray } from '../style';
 
 export default class Avatar extends Component {
     constructor(props, context) {
@@ -17,13 +16,20 @@ export default class Avatar extends Component {
 
     render() {
         const { avatar, size, style } = this.props;
-        const imgStyle = merge({
+        const st = merge({
+            display: 'inline-block',
+            overflow: 'hidden',
             height: size,
             width: size,
             borderRadius: size
         }, style);
+        const imgStyle = { width: size, height: size };
 
-        return <img src={avatar} style={imgStyle}/>;
+        if (!avatar) style.background = gray;
+
+        return <span style={st}>
+            <img src={avatar} style={imgStyle}/>
+        </span>;
     }
 }
 

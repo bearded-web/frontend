@@ -3,7 +3,7 @@ function getItem() {
     return window.localStorage.getItem.apply(window.localStorage, arguments);
 }
 function setItem() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return undefined;
     return window.localStorage.setItem.apply(window.localStorage, arguments);
 }
 

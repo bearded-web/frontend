@@ -28,6 +28,7 @@
     "createStoreMock": true,
     "it": true,
     "expect": true,
+    "createTree": true,
     "stubRouterContext": true,
     "stubContext": true,
     "describe": true

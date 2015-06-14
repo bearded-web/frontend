@@ -10,9 +10,9 @@ import { pick, values } from 'lodash';
 
 import { Table } from 'react-bootstrap';
 
-const mapping = { techs: ['techs'], pageData: ['targetTechsPage'] };
+const cursors = { techs: ['techs'], pageData: ['targetTechsPage'] };
 
-@context(mapping, { fetchTechsPage })
+@context({ cursors }, { fetchTechsPage })
 export default class TargetTechsPage extends Component {
     static propTypes = {
         params: PropTypes.shape({

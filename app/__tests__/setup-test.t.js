@@ -13,6 +13,8 @@ import React from 'react/addons';
 import { spy } from 'sinon';
 import { FluxMixin, StoreWatchMixin } from 'fluxxor';
 import { assign, mapValues, isObject, isString } from 'lodash';
+import dataTree, { facets } from '../lib/dataTree';
+import Baobab from 'baobab';
 import Env from 'react/lib/ExecutionEnvironment';
 Env.canUseDOM = true;
 
@@ -71,6 +73,9 @@ global.showError = function() {
     console.error(...arguments);
 };
 
+global.createTree = function createTree() {
+    return new Baobab(dataTree, { facets });
+};
 
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {

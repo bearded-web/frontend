@@ -7,10 +7,12 @@ import { last, includes } from 'lodash';
 import { lostAuth } from './actions/auth.actions';
 import { fetchVulnsCompact } from './actions/vulnsActions';
 import { handleMeData } from './actions/app.actions';
+import { handleMeData as handleMe } from './mutators/appMutators';
 import Raven from 'raven-js';
 import { set as setConfig } from './lib/config';
 import Baobab from 'baobab';
-import dataTree from './lib/dataTree';
+import dataTree, { facets } from './lib/dataTree';
+import { setCurrentProject } from './mutators/projectsMutators';
 
 const dispatch = require('./lib/dispatcher').dispatch;
 const C = require('./constants');
@@ -26,7 +28,7 @@ require('./styles/transitions.less');
 
 const flux = window.flux = require('./flux');
 
-const tree = new Baobab(dataTree);
+const tree = new Baobab(dataTree, { facets });
 
 const startRouting = (isAnonym) => {
     const router = createRouter();
@@ -94,8 +96,10 @@ config.get()
 
                 dispatch(C.APP_LIFT_SUCCESS);
                 handleMeData(data);
+                handleMe({ tree }, data);
 
                 fetchVulnsCompact();
+                setCurrentProject({ tree, api }, tree.select('currentProjectId').get());
 
                 return plans;
             })

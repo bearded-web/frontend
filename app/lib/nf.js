@@ -2,9 +2,9 @@ import { isObject, mapValues } from 'lodash';
 import Baobab from 'baobab';
 import React, { PropTypes, Component } from 'react/addons';
 
-export function context(cursors, mutators) {
+export function context(specs = {}, mutators = {}) {
     return function(C) {
-        return branch(C, { cursors });
+        return branch(C, specs);
     };
 
     function branch(Cmp, specs = {}) {
@@ -13,7 +13,7 @@ export function context(cursors, mutators) {
                 (should be an object with cursors and/or facets key).`);
         }
 
-        const ComposedComponent = class extends Component {
+        return class extends Component {
             static contextTypes = {
                 tree: PropTypes.instanceOf(Baobab),
                 api: PropTypes.object.isRequired
@@ -35,7 +35,7 @@ export function context(cursors, mutators) {
                 if (!this.facet) return;
 
                 this.facet.on('update', () => {
-                    this.setState(this.facet.get())
+                    this.setState(this.facet.get());
                 });
             }
 
@@ -67,7 +67,5 @@ export function context(cursors, mutators) {
                 this.setState(this.facet.get());
             }
         };
-
-        return ComposedComponent;
     }
 }

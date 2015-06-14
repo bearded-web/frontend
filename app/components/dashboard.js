@@ -21,7 +21,9 @@ var Dashboard = React.createClass({
     ],
 
     contextTypes: {
-        router: React.PropTypes.func
+        router: React.PropTypes.func,
+        tree: PropTypes.object,
+        api: PropTypes.object
     },
 
     propTypes: {

@@ -52,11 +52,20 @@ export function NaturalNumberWithZero(props, propsName, componentName) {
     }
 }
 
+export const Member = PropTypes.shape({
+    user: PropTypes.string.isRequired
+});
+
 export const Project = PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    members: PropTypes.arrayOf(PropTypes.shape({
-        user: PropTypes.string
-    })).isRequired
-})
+    members: PropTypes.arrayOf(Member).isRequired
+});
+
+export const User = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
+});
 /*eslint-enable*/
