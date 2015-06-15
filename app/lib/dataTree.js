@@ -16,6 +16,14 @@ export default {
         count: 0,
         pageSize: 16,
         targetId: null
+    },
+
+    userPicker: {
+        value: '',
+        users: [], // Array of strings suggested users ids
+
+        symbol: Symbol('userPickerFetch'),
+        fetchDelay: 500
     }
 };
 
@@ -26,5 +34,15 @@ export const facets = {
             projects: ['projects']
         },
         get: data => data.projects[data.id]
+    },
+
+    userPickerUsers: {
+        cursors: {
+            users: ['users'],
+            list: ['userPicker', 'users']
+        },
+        get(data) {
+            return data.list.map(id => data.users[id])
+        }
     }
 };

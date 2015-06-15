@@ -21,10 +21,20 @@ export async function setCurrentProject({ tree, api }, projectId) {
 
         data.results.forEach(t => usersCursor.update({ [t.id]: { $set: t } }));
         targetsData.results.forEach(t => targetsCursor.update({ [t.id]: { $set: t } }));
+
     }
     catch (e) {
         captureException(e);
     }
 
     tree.commit();
+}
+
+export function removeMember(projectId, userId) {
+    return projects.membersDelete({
+        'project-id': projectId,
+        'user-id': userId
+    }).then(function() {
+        dispatch(consts.PROJECT_REMOVE_MEMBER, { userId, projectId });
+    });
 }

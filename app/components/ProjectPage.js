@@ -7,10 +7,13 @@ import setTitle from '../lib/set-title';
 import { Project } from '../lib/types';
 import purify from '../lib/purify';
 import { context } from '../lib/nf';
+import { openAddMemberModal } from '../actions/project.actions';
+import { fromJS } from 'immutable';
+import autobind from '../lib/autobind';
 
 import Ibox, { IboxContent, IboxTitle } from './ibox';
 import { Col, Row } from 'react-bootstrap';
-import Members from './Members';
+import Members from './EditableMembers';
 import Feed from './feed';
 import Loading from './Loading';
 
@@ -19,6 +22,7 @@ const facets = {
 };
 
 @context({ facets })
+@purify
 export default class ProjectPage extends Component {
     static propTypes = {
         project: Project
@@ -26,6 +30,11 @@ export default class ProjectPage extends Component {
 
     componentDidMount() {
         setTitle(iget('Dashboard'));
+    }
+
+    @autobind
+    onMembersClick() {
+        openAddMemberModal(fromJS(this.props.project));
     }
 
     render() {
@@ -45,7 +54,10 @@ export default class ProjectPage extends Component {
             <Col md={6}><Ibox>
                 <IboxTitle title={iget('Members')}/>
                 <IboxContent>
-                    <Members ref="members" members={members}/>
+                    <Members
+                        ref="members"
+                        members={members}
+                        project={project}/>
                 </IboxContent>
             </Ibox></Col>
             <Col md={6}>

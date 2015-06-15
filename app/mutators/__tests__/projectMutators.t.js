@@ -1,7 +1,7 @@
 import { spy } from 'sinon';
-import { setCurrentProject } from '../projectsMutators';
+import { setCurrentProject, deleteMember } from '../projectsMutators';
 
-describe('projectMutators', () => {
+describe.only('projectMutators', () => {
     describe('setCurrentProject', () => {
         const projectId = 'project id';
         const userId = 'user id';
@@ -59,5 +59,9 @@ describe('projectMutators', () => {
             await setCurrentProject({ tree, api }, projectId);
             tree.select('targets', target.id).get().should.be.eql(target);
         });
+    });
+
+    describe('deleteMember', () => {
+
     });
 });

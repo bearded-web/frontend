@@ -29,6 +29,10 @@ require('./styles/transitions.less');
 const flux = window.flux = require('./flux');
 
 const tree = new Baobab(dataTree, { facets });
+tree.on('update', function(e) {
+    console.log('[Tree update] Update log', e.data.log);
+    console.log('[Tree update] Previous data', e.data.previousData);
+});
 
 const startRouting = (isAnonym) => {
     const router = createRouter();

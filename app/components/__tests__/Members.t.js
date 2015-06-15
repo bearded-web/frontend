@@ -1,3 +1,4 @@
+import { spy } from 'sinon';
 import testTree from 'react-test-tree';
 import Baobab from 'baobab';
 import dataTree, { facets } from '../../lib/dataTree';
@@ -30,5 +31,36 @@ describe('Members', () => {
             api: {}
         });
         instance = testTree(<Component members={members} users={users}/>);
+    });
+
+    describe('onDelete', () => {
+        let onDelete = null;
+
+        beforeEach(() => {
+            onDelete = spy();
+        });
+
+        it('should render remove button if onDelete prop', () => {
+            Component = stubContext(Members, {
+                tree: new Baobab(dataTree, { facets }),
+                api: {}
+            });
+            instance = testTree(<Component members={members} users={users} onDelete={onDelete}/>);
+            const link = byTag(instance.cmp.cmp.users[0].element, 'a')[0];
+
+            should.exist(link);
+        });
+
+        it('should call onDelete with user when click link', () => {
+            Component = stubContext(Members, {
+                tree: new Baobab(dataTree, { facets }),
+                api: {}
+            });
+            instance = testTree(<Component members={members} users={users} onDelete={onDelete}/>);
+            const link = nodeByTag(instance.cmp.cmp.users[0].element, 'a')[0];
+
+            Simulate.click(link);
+            onDelete.should.have.been.calledWith(user);
+        });
     });
 });

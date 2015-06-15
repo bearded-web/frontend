@@ -1,6 +1,18 @@
 /**
  * Mocha env setup
  */
+(function(markup) {
+    markup = markup || '<html><body></body></html>'
+    if (typeof document !== 'undefined') return;
+    const jsdom = require('jsdom').jsdom;
+    global.document = jsdom(markup || '');
+    global.window = document.defaultView;
+    global.fetch = function() {
+    };
+    global.navigator = {
+        userAgent: 'node.js'
+    };
+})();
 /*eslint react/no-multi-comp:0*/
 import 'babel/polyfill';
 import 'mochawait';
@@ -9,14 +21,12 @@ import jsdom from 'mocha-jsdom';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import mockery from 'mockery';
-import React from 'react/addons';
 import { spy } from 'sinon';
 import { FluxMixin, StoreWatchMixin } from 'fluxxor';
 import { assign, mapValues, isObject, isString } from 'lodash';
 import dataTree, { facets } from '../lib/dataTree';
 import Baobab from 'baobab';
-import Env from 'react/lib/ExecutionEnvironment';
-Env.canUseDOM = true;
+
 
 require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
@@ -29,7 +39,12 @@ require.extensions['.less'] = function(m, filename) {
 global.should = chai.should();
 chai.use(sinonChai);
 
-jsdom();
+jsdom({ skipWindowCheck: true });
+
+
+const React = require('react/addons');
+const Env = require('react/lib/ExecutionEnvironment');
+Env.canUseDOM = true;
 
 before(function() {
     global.window.localStorage = {
