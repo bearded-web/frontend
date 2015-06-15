@@ -29,11 +29,13 @@ export default class UserPicker extends Component {
     };
     static propTypes = {
         value: PropTypes.string,
+        onSelect: PropTypes.func,
         users: PropTypes.arrayOf(User)
     };
     static defaultProps = {
         value: '',
-        users: []
+        users: [],
+        onSelect: () => null
     };
 
     @autobind
@@ -57,12 +59,13 @@ export default class UserPicker extends Component {
         </div>;
     }
 
+    @autobind
     renderUser(user, i) {
         const key = user.id || i;
-        return <div key={key}>
+        const handler = () => this.props.onSelect(user);
+        return <div key={key} onClick={handler}>
             <UserCard user={fromJS(user)}/>
         </div>;
-
     }
 }
 

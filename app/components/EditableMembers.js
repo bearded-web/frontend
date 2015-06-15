@@ -7,6 +7,9 @@ import { Member, Project } from '../lib/types';
 import { create as createStyle } from 'react-style';
 import autobind from '../lib/autobind';
 import purify from '../lib/purify';
+import { deleteMember, addMember } from '../mutators/projectsMutators';
+import { setPickerValue } from '../mutators/userMutators';
+import { context } from '../lib/nf';
 
 import Members from './Members';
 import UserPicker from './UserPicker';
@@ -17,11 +20,15 @@ const S = createStyle({
     }
 });
 
-//@purify
+@context({}, { deleteMember, addMember, setPickerValue })
+@purify
 export default class EditableMembers extends Component {
     static propTypes = {
         project: Project,
-        members: PropTypes.arrayOf(Member).isRequired
+        members: PropTypes.arrayOf(Member).isRequired,
+        deleteMember: PropTypes.func,
+        addMember: PropTypes.func,
+        setPickerValue: PropTypes.func
     };
     state = { edit: false };
 
@@ -33,6 +40,12 @@ export default class EditableMembers extends Component {
     }
 
     @autobind
+    addMember(user) {
+        this.props.addMember(this.props.project.id, user.id);
+        this.props.setPickerValue('');
+    }
+
+    @autobind
     onFinish(e) {
         e.stopPropagation();
 
@@ -41,8 +54,10 @@ export default class EditableMembers extends Component {
 
     @autobind
     onMemberDelete(user) {
-
-        alert('delete' + user.id);
+        this.props.deleteMember(
+            this.props.project.id,
+            user.id
+        );
     }
 
     render() {
@@ -60,7 +75,7 @@ export default class EditableMembers extends Component {
                     members={members}
                     onDelete={onDelete}/>
             </div>
-            {edit && <UserPicker ref="picker"/>}
+            {edit && <UserPicker ref="picker" onSelect={this.addMember}/>}
             {edit && <Button
                 ref="finish"
                 onClick={this.onFinish}

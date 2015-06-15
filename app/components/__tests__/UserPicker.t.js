@@ -38,4 +38,14 @@ describe('UserPicker', () => {
         instance.cmp.cmp.input.simulate.change({ target: { value } });
         setPickerValue.should.have.been.calledWith(value);
     });
+
+    describe('onSelect', () => {
+        it('should call on select when user card clicker', () => {
+            const onSelect = spy();
+            const users = [user];
+            instance = testTree(<Component users={users} onSelect={onSelect}/>);
+            instance.cmp.cmp.users[0].simulate.click();
+            onSelect.should.have.been.calledWith(user);
+        });
+    });
 });
