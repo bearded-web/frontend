@@ -38,6 +38,7 @@ const startRouting = (isAnonym) => {
     const router = createRouter();
 
     router.run(function(Handler, state) {
+        console.log('### route changed', state );
         if (isAnonym) {
             const { name } = last(state.routes);
 

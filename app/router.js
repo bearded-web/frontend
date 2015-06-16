@@ -1,4 +1,4 @@
-import Router, { Route, DefaultRoute, NotFoundRoute, Redirect } from 'react-router';
+import Router, { Route, DefaultRoute, NotFoundRoute, Redirect, HashLocation } from 'react-router';
 import flux from './flux';
 import { captureException } from './lib/raven';
 
@@ -17,7 +17,6 @@ import Dashboard from './components/dashboard';
 import ReportPage from './components/report-page';
 import Scan from './components/scan';
 import ScanReport from './components/scan-report';
-import Overview from './components/overview';
 import NotFound from './components/not-found';
 import IssuesPage from './components/IssuesPage';
 import IssuePage from './components/issue-page';
@@ -103,6 +102,8 @@ module.exports.create = function buildRouter() {
 
     router = Router.create({
         routes: routes,
+
+        location: HashLocation,
 
         onError(error) {
             captureException(error);

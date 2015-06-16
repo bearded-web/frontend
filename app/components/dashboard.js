@@ -119,13 +119,14 @@ var Dashboard = React.createClass({
         const targetId = router.getCurrentParams().targetId ||
             router.getCurrentQuery().target;
 
-        const target = targetsStore.getRawState().get(targetId);
+        const target = this.context.tree.get('targets', targetId);
 
         const routes = this.context.router.getCurrentRoutes();
         const paramsJson = JSON.stringify(this.context.router.getCurrentParams());
         const name = routes[routes.length - 1].name;
         const key = name + paramsJson;
 
+        console.log('### render dashboard');
         return (
             <div className=" top-navigation">
                 {lock && <LockScreenContainer/>}
@@ -140,7 +141,6 @@ var Dashboard = React.createClass({
                     </div>
                 </div>
                 {leftPanelCover}
-                {targetModal}
 
                 <ModalManager modal={appStore.modal}/>
             </div>

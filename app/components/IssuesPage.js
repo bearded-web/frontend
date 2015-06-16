@@ -32,7 +32,7 @@ function getState() {
 export default class IssuesPage extends Component {
     static propTypes = {
         issues: PropTypes.object,
-        filter: PropTypes.filter,
+        filter: PropTypes.object,
         loading: PropTypes.bool,
         routeQuery: PropTypes.object
     };
@@ -47,8 +47,6 @@ export default class IssuesPage extends Component {
 
         const { target } = this.context.router.getCurrentQuery();
         fetchPage({ target });
-
-        targetId = target;
     }
 
     componentWillReceiveProps(newProps) {
@@ -102,10 +100,7 @@ export default class IssuesPage extends Component {
             <Col xs={12} md={8} lg={9}>
                 <Ibox>
                     <IboxContent>
-                        {loading ?
-                            this.renderLoading() :
-                            <IssuesList issues={issues}/>
-                        }
+
                         <div className="pull-right">
                             <IssuesPagination targetId={target}/>
                         </div>

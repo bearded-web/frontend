@@ -8,9 +8,10 @@ import { listOf } from 'react-immutable-proptypes';
 import connectToStores from '../lib/connectToStores';
 import targetsStore from '../stores/targetsStore';
 import autobind from '../lib/autobind';
-import { Model } from '../lib/types';
+import { Model, Target } from '../lib/types';
 import { startsWith } from 'lodash';
 import { ANDROID } from '../lib/target-types';
+import { Map } from 'immutable';
 
 
 import { DropdownButton, MenuItem, Label } from 'react-bootstrap';
@@ -31,7 +32,7 @@ const getState = ({ project }) => {
 export default class NavTargetSelect extends Component {
     static propTypes = {
         project: Model,
-        target: Model,
+        target: Target,
         targets: listOf(Model)
     };
     static contextTypes = {
@@ -44,7 +45,7 @@ export default class NavTargetSelect extends Component {
         const { target } = this.props;
         if (target) {
             this.context.router.transitionTo('target', {
-                targetId: target.get('id')
+                targetId: target.id
             });
         }
     }
@@ -73,7 +74,7 @@ export default class NavTargetSelect extends Component {
 
     @autobind
     renderTargetLink(target, i) {
-        const { id } = target.toObject();
+        const { id } = target.toJS();
         const handler = () => {
             this.context.router.transitionTo('target', { targetId: id });
 
@@ -84,8 +85,9 @@ export default class NavTargetSelect extends Component {
         </MenuItem>;
     }
 
-    renderTargetLabel(t) {
-        const target = t.toJS();
+    renderTargetLabel(target) {
+        //TODO remove hack
+        target = Map.isMap(target) ? target.toJS() : target;
         let isHttps = false;
 
         let title = target.type === ANDROID ?
@@ -109,13 +111,12 @@ export default class NavTargetSelect extends Component {
             <Fa icon={icon}/>
             &nbsp;
             {title}
-            {this.renderIssuesLabel(t)}
+            {this.renderIssuesLabel(target)}
             &nbsp;
         </span>;
     }
 
-    renderIssuesLabel(t) {
-        const target = t.toJS();
+    renderIssuesLabel(target) {
         const { issues } = target.summaryReport || { issues: {} };
 
         let count = 0;

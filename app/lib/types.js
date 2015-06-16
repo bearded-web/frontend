@@ -7,7 +7,7 @@ export function $Model(props, propName, componentName) {
     let prop = props[propName];
 
     if (!Map.isMap(prop) || !prop.get('id')) {
-        return new Error(`You must pass Model for prop ${propName}, check ${componentName}`);
+        return new Error(`You must pass Model for prop ${propName}, but you pass ${prop}, check ${componentName}`);
     }
 }
 export const Model = $Model;
@@ -25,7 +25,7 @@ export const Models = $Models;
 
 export const Severity = PropTypes.oneOf([HIGH, MEDIUM, LOW]);
 
-export function NaturalNumber(props, propsName, componentName) {
+export function NaturalNumber(props, propName, componentName) {
     const value = props[propName];
 
     if(value < 0 || value % 1) {
@@ -34,7 +34,7 @@ export function NaturalNumber(props, propsName, componentName) {
     }
 }
 
-export function NaturalNumber(props, propsName, componentName) {
+export function NaturalNumber(props, propName, componentName) {
     const value = props[propName];
 
     if(value <= 0 || value % 1) {
@@ -43,7 +43,7 @@ export function NaturalNumber(props, propsName, componentName) {
     }
 }
 
-export function NaturalNumberWithZero(props, propsName, componentName) {
+export function NaturalNumberWithZero(props, propName, componentName) {
     const value = props[propName];
 
     if(value < 0 || value % 1) {
@@ -60,6 +60,10 @@ export const Project = PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     members: PropTypes.arrayOf(Member).isRequired
+});
+
+export const Target = PropTypes.shape({
+    id: PropTypes.string.isRequired
 });
 
 export const User = PropTypes.shape({

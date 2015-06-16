@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import { Model } from '../lib/types';
 import authStore from '../stores/auth.store';
 import connectToStores from '../lib/connectToStores';
+import { fromJS } from 'immutable';
 import cName from 'classnames';
 
 import ProfileNav from './profile-nav';
@@ -18,7 +19,7 @@ import NavTargetSelect from './NavTargetSelect';
 export default class TopPanel extends Component {
     static propTypes = {
         isAdmin: PropTypes.bool,
-        target: Model,
+        target: PropTypes.object,
         project: Model
     };
 
