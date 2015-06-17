@@ -72,4 +72,10 @@ export const User = PropTypes.shape({
     avatar: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired
 });
+
+export const Agent = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+});
 /*eslint-enable*/

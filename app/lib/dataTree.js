@@ -10,6 +10,7 @@ export default {
     users: {},
     targets: {},
     report: {},
+    agents: {},
 
     currentProjectId: localStorage.getItem('currentProjectId'),
 
@@ -60,5 +61,12 @@ export const facets = {
         get(data) {
             return values(data.reports).filter(r => r.scan === data.scanId);
         }
+    },
+
+    agents: {
+        cursors: {
+            agents: ['agents']
+        },
+        get: data => values(data.agents)
     }
 };

@@ -10,7 +10,7 @@ import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
 import TargetCreatePage from './components/target-create-page';
 import IssueCreatePage from './components/issue-create-page';
-import Agents from './components/agents';
+import AgentsPage from './components/AgentsPage';
 import PlansPage from './components/plans-page';
 import PlanPage from './components/plan-page';
 import Dashboard from './components/dashboard';
@@ -69,7 +69,7 @@ module.exports.create = function buildRouter() {
 
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
-                <Route name="agents" path="agents" handler={Agents}/>
+                <Route name="agents" path="agents" handler={AgentsPage}/>
 
                 <Route name="issues" path="issues" handler={IssuesPage}/>
                 <Redirect from="issues/" to="issues"/>

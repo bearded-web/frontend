@@ -2,7 +2,6 @@
 var Stores = {
     TargetsStore: require('./targets.store'),
     Store: require('./store'),
-    AgentsStore: require('./agents.store'),
     PlansStore: require('./plans.store'),
     PluginsStore: require('./plugins.store'),
     WorkflowStore: require('./workflow.store'),

@@ -38,5 +38,12 @@ describe('dataTree', () => {
             tree.commit();
             tree.facets.scanReports.get().should.be.eql([report2]);
         });
+
+        it('should return agents', () => {
+            const agent = { id: 'agent id' };
+            tree.select('agents').set({ [agent.id]: agent });
+            tree.commit();
+            tree.facets.agents.get().should.be.eql([agent]);
+        });
     });
 });

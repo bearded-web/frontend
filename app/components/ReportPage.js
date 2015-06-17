@@ -24,6 +24,7 @@ export default class ReportPage extends Component {
     };
 
     componentWillMount() {
+        //TODO setTitle + test
         this.props.fetchScanReports(this.props.query.scan);
     }
 

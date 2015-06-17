@@ -1,0 +1,36 @@
+{
+  // I want to use babel-eslint for parsing!
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  // To give you an idea how to override rule options:
+  "rules": {
+    "no-unused-expressions": 0,
+    "no-shadow": 0
+  },
+  "globals": {
+    "TestUtils": true,
+    "byTag": true,
+    "Simulate": true,
+    "byClass": true,
+    "findDOMNode": true,
+    "should": true,
+    "byType": true,
+    "nodeByClass": true,
+    "nodeByTag": true,
+    "nodeByType": true,
+    "storeMock": true,
+    "MockComponent": true,
+    "createStoreMock": true,
+    "it": true,
+    "expect": true,
+    "createTree": true,
+    "stubRouterContext": true,
+    "stubContext": true,
+    "describe": true
+  }
+}
