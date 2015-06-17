@@ -2,6 +2,11 @@ import dataTree, { facets } from '../dataTree';
 import Baobab from 'baobab';
 
 describe('dataTree', () => {
+    let tree = null;
+    beforeEach(() => {
+        tree = new Baobab(dataTree, { facets });
+    });
+
     describe('facets', () => {
         it('should return project', () => {
             const project = { id: 'f', name: 'project name' };
@@ -19,6 +24,19 @@ describe('dataTree', () => {
             tree.select('users').set(user.id, user);
             tree.commit();
             tree.facets.userPickerUsers.get().should.be.eql([user]);
+        });
+
+        it('should return scanReports', () => {
+            const report1 = { id: 'report1 id', scan: '1' };
+            const report2 = { id: 'report2 id', scan: '2' };
+            const r = tree.select('reports');
+            r.update({
+                [report1.id]: { $set: report1 },
+                [report2.id]: { $set: report2 }
+            });
+            tree.select('scanReportsPage', 'scanId').set('2');
+            tree.commit();
+            tree.facets.scanReports.get().should.be.eql([report2]);
         });
     });
 });

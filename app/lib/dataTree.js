@@ -1,4 +1,5 @@
 import localStorage from '../lib/local-storage';
+import { values } from 'lodash';
 
 export default {
     // models stores
@@ -8,6 +9,7 @@ export default {
     techs: {},
     users: {},
     targets: {},
+    report: {},
 
     currentProjectId: localStorage.getItem('currentProjectId'),
 
@@ -16,6 +18,10 @@ export default {
         count: 0,
         pageSize: 16,
         targetId: null
+    },
+
+    scanReportsPage: {
+        scanId: null
     },
 
     userPicker: {
@@ -43,6 +49,16 @@ export const facets = {
         },
         get(data) {
             return data.list.map(id => data.users[id])
+        }
+    },
+
+    scanReports: {
+        cursors: {
+            reports: ['reports'],
+            scanId: ['scanReportsPage', 'scanId']
+        },
+        get(data) {
+            return values(data.reports).filter(r => r.scan === data.scanId);
         }
     }
 };

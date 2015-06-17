@@ -39,7 +39,9 @@ var ReportPage = React.createClass({
 
         return (
             <div className="c-report-page">
-                <ReportIssues reports={reports} severity={severity}/>
+                <ReportIssues
+                    reports={reports}
+                    severity={severity}/>
                 <ReportTechs reports={reports}/>
                 <RawReports reports={reports}/>
             </div>

@@ -14,7 +14,7 @@ import Agents from './components/agents';
 import PlansPage from './components/plans-page';
 import PlanPage from './components/plan-page';
 import Dashboard from './components/dashboard';
-import ReportPage from './components/report-page';
+import ReportPage from './components/ReportPage';
 import Scan from './components/scan';
 import ScanReport from './components/scan-report';
 import NotFound from './components/not-found';
