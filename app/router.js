@@ -27,6 +27,7 @@ import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
 import TargetTechsPage from './components/TargetTechsPage';
 import ProjectPage from './components/ProjectPage';
+import App from './components/App';
 
 let router = null;
 
@@ -38,7 +39,7 @@ module.exports.create = function buildRouter() {
     const { signup: { disable = false } } = getConfig();
 
     const routes = (
-        <Route flux={flux}>
+        <Route flux={flux} handler={App}>
             <Route name="password-reset" path="/reset" handler={PasswordResetPage}/>
             <Redirect from="/reset/" to="password-reset"/>
 

@@ -126,7 +126,6 @@ var Dashboard = React.createClass({
         const name = routes[routes.length - 1].name;
         const key = name + paramsJson;
 
-        console.log('### render dashboard');
         return (
             <div className=" top-navigation">
                 {lock && <LockScreenContainer/>}

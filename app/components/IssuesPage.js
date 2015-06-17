@@ -29,7 +29,8 @@ function getState() {
 }
 
 @connectToStores([issuesStore, issuesListStore], getState)
-export default class IssuesPage extends Component {
+export default
+class IssuesPage extends Component {
     static propTypes = {
         issues: PropTypes.object,
         filter: PropTypes.object,
@@ -100,7 +101,10 @@ export default class IssuesPage extends Component {
             <Col xs={12} md={8} lg={9}>
                 <Ibox>
                     <IboxContent>
-
+                        {loading ?
+                            this.renderLoading() :
+                            <IssuesList issues={issues}/>
+                        }
                         <div className="pull-right">
                             <IssuesPagination targetId={target}/>
                         </div>

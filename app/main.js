@@ -49,28 +49,12 @@ const startRouting = (isAnonym) => {
 
         ga('send', 'pageview', state.path);
 
-        class Root extends React.Component {
-            static childContextTypes = {
-                tree: React.PropTypes.instanceOf(Baobab),
-                api: React.PropTypes.object.isRequired
-            };
-
-            // Handling child context
-            getChildContext() {
-                return {
-                    tree: tree,
-                    api: api
-                };
-            }
-
-            // Render shim
-            render() {
-                return <Handler flux={flux} routeQuery={state.query}/>;
-            }
-        }
-
         React.render(
-            <Root/>,
+            <Handler
+                api={api}
+                tree={tree}
+                flux={flux}
+                routeQuery={state.query}/>,
             document.getElementById('app')
         );
     });
