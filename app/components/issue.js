@@ -3,7 +3,7 @@
  * vector, references, etc.
  */
 
-import { Component } from 'react/addons';
+import { Component } from 'react';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Model } from '../lib/types';
 
@@ -120,4 +120,3 @@ export default class Issue extends Component {
 Issue.propTypes = {
     issue: Model
 };
-

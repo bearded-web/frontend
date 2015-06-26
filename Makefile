@@ -55,7 +55,7 @@ test:
 coverage:
 	@echo "$(OK_COLOR)Run unit tests with coverage$(NO_COLOR)"
 	@(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 \
-		cover ../node_modules/mocha/bin/_mocha -- --require ../precoverage.js -t 5000 -R spec "./**/*.t.js")
+		cover ../node_modules/mocha/bin/_mocha -- --require ../pretest.js -t 5000 -R spec "./**/*.t.js")
 
 # Task for travis.ci automatic tests
 # Should not been called manual

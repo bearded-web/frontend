@@ -1,12 +1,7 @@
-'use strict';
-
-import { Map, fromJS, OrderedMap } from 'immutable';
-import { spy } from 'sinon';
+import { fromJS } from 'immutable';
 import mockery from 'mockery';
-import { HIGH } from '../../lib/severities';
-import IssueActivities from '../issue-activities';
 
-describe('Issue_', function() {
+describe('Issue', function() {
     const summary = 'Some cool issue';
 
     let issue = null;
@@ -19,20 +14,19 @@ describe('Issue_', function() {
             vector: {},
             activities: [{}]
         });
-
+        mockery.registerMock('./IssueComments', MockComponent);
+        mockery.registerMock('./references', MockComponent);
+        mockery.registerMock('./issue-activities', MockComponent);
+        mockery.registerMock('./vector', MockComponent);
+        mockery.registerMock('./issue-controls', MockComponent);
         mockery.registerAllowable('../issue', true);
         Component = require('../issue');
-
         instance = TestUtils.renderIntoDocument(
             <Component issue={issue}/>
         );
     });
 
     describe('render', function() {
-        it('should contain IssueActivities', function() {
-            byType(instance, IssueActivities).should.have.length(1);
-        });
-
         it('should render summary', function() {
             findDOMNode(instance).innerHTML.should.contain(summary);
         });
