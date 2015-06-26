@@ -1,3 +1,4 @@
+import { FluxMixin } from 'fluxxor';
 import React, { addons } from 'react/addons';
 import { Navigation } from 'react-router';
 import { fetchPlans, selectPlans } from '../actions/plan.actions';
@@ -19,7 +20,7 @@ function prefetch() {
 
 export default React.createClass({
     mixins: [
-        FluxMixin,
+        FluxMixin(React),
         addons.PureRenderMixin,
         Navigation,
         createStoreWatchMixin('PlansStore', 'PluginsStore', 'WorkflowStore')

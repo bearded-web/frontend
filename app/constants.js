@@ -1,6 +1,4 @@
 const constants = {
-    AGENTS_FETCH_SUCCESS: '--',
-
     APP_TOGGLE_LEFT_PANEL: '--',
     APP_LIFT_SUCCESS: '--',
     APP_LOGIN_PAGE_STATE: '--',

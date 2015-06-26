@@ -65,7 +65,7 @@ travis-build:
 	make lint
 	@echo "$(OK_COLOR)Run tests + coverage$(NO_COLOR)"
 	(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 cover\
-	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../precoverage.js -t 10000 -R spec "./**/*.t.js")
+	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../pretest.js -t 15000 -R spec "./**/*.t.js")
 	@echo "$(OK_COLOR)Upload coverage to codecov.io$(NO_COLOR)"
 	cat app/coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
 

@@ -1,9 +1,8 @@
-'use strict';
 var React = require('react');
 
 import { Panel, Table } from 'react-bootstrap';
 import Domify from 'react-domify';
-import { captureException } from 'raven-js';
+import { captureException } from '../../lib/raven';
 
 var RawReports = React.createClass({
     propTypes: {

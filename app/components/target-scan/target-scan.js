@@ -3,8 +3,6 @@
  * Contain progress
  */
 
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import { contains } from 'lodash';
 import flux from '../../flux';
@@ -63,7 +61,7 @@ export default class TargetScan extends Component {
 
         const { scan } = this.props;
 
-        flux.actions.scan.createScan(scan.target, scan.project, scan.plan.id);
+        flux.actions.scan.createScan(scan.target, scan.project, scan.plan.id || scan.plan);
     }
 
     //endregion handlers
@@ -74,6 +72,7 @@ export default class TargetScan extends Component {
         var { scan } = this.props,
             { sessions } = scan,
             isEnded = this._isEnded(scan) || '';
+
 
         return (
             <div className="c-target-scan">
@@ -104,7 +103,7 @@ export default class TargetScan extends Component {
 
         return <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs"
                      to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
-                     query={{ scan: scan.id, target: scan.target }}>
+                     query={{ target: scan.target }}>
             {isEnded ? iget('Show report') : iget('Show progress')}
         </Link>;
     }
@@ -143,4 +142,3 @@ TargetScan.propTypes = {
 TargetScan.contextTypes = {
     router: PropTypes.func
 };
-

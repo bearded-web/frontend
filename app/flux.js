@@ -1,4 +1,5 @@
-import { captureException } from 'raven-js';
+import { captureException } from './lib/raven';
+
 
 var actions = require('./actions'),
     stores = require('./stores'),
@@ -8,7 +9,7 @@ const flux = new Fluxxor.Flux(stores, actions);
 
 flux.on('dispatch', function(type, payload) {
     if (console && console.log) {
-        console.log('[Dispatch]', type, payload);
+        ///console.log('[Dispatch]', type, payload);
 
         if (payload && payload.error) {
             captureException(payload.error);

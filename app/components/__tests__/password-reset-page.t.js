@@ -1,10 +1,8 @@
-'use strict';
-
 import { Map, fromJS, OrderedMap } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 
-describe('PasswordResetPage', function() {
+describe.skip('PasswordResetPage', function() {
     const avatar = 'http://example.com/avatar.png';
     const nickname = 'Superman';
 

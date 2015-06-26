@@ -1,9 +1,20 @@
 /**
  * Mocha env setup
  */
-
+(function(markup) {
+    markup = markup || '<html><body></body></html>';
+    if (typeof document !== 'undefined') return;
+    const jsdom = require('jsdom').jsdom;
+    global.document = jsdom(markup || '');
+    global.window = document.defaultView;
+    global.fetch = function() {
+    };
+    global.navigator = {
+        userAgent: 'node.js'
+    };
+})();
 /*eslint react/no-multi-comp:0*/
-import 'babel/polyfill';
+// import 'babel/polyfill';
 import 'mochawait';
 
 import jsdom from 'mocha-jsdom';
@@ -11,23 +22,43 @@ import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import mockery from 'mockery';
 import { spy } from 'sinon';
-import { assign, mapValues, isObject, isString } from 'lodash';
+import { FluxMixin, StoreWatchMixin } from 'fluxxor';
+import { assign, mapValues, isObject, isFunction } from 'lodash';
+import dataTree, { facets } from '../lib/dataTree';
+import Baobab from 'baobab';
+
+global.assert = require('assert');
 
 require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
 };
 
+require.extensions['.less'] = function(m, filename) {
+    return m._compile('2', filename);
+};
+
 global.should = chai.should();
 chai.use(sinonChai);
 
-jsdom();
+jsdom({ skipWindowCheck: true });
 
+
+const React = require('react/addons');
+const Env = require('react/lib/ExecutionEnvironment');
+Env.canUseDOM = true;
+global.window.localStorage = {
+    getItem() {
+        return null;
+    }
+};
 before(function() {
     global.window.localStorage = {
         getItem() {
             return null;
         }
     };
+
+    global.FluxMixin = FluxMixin(React);
 });
 
 beforeEach(() => {
@@ -45,7 +76,8 @@ afterEach(() => {
 
 
 global.iget = a => a;
-global.React = require('react/addons');
+global.React = React;
+global.createStoreWatchMixin = StoreWatchMixin;
 global.TestUtils = React.addons.TestUtils;
 global.byType = global.TestUtils.scryRenderedComponentsWithType;
 global.byTag = global.TestUtils.scryRenderedDOMComponentsWithTag;
@@ -58,9 +90,13 @@ global.nodeByType = nodeExtractor(global.byType);
 global.nodeByTag = nodeExtractor(global.byTag);
 global.nodeByClass = nodeExtractor(global.byClass);
 global.showError = function() {
+    /* eslint-disable no-console */
     console.error(...arguments);
 };
 
+global.createTree = function createTree() {
+    return new Baobab(dataTree, { facets });
+};
 
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {
@@ -97,22 +133,24 @@ global.stubRouterContext = (Component, props, stubs) => {
     });
 };
 
-global.stubContext = (Component, props, context) => {
+
+global.stubContext = function stubContext(Component, context) {
     const types = mapValues(context, v => {
+        if (isFunction(v)) return React.PropTypes.func;
         if (isObject(v)) return React.PropTypes.object;
     });
 
-    return React.createClass({
-        childContextTypes: types,
+    return class StubContext extends React.Component {
+        static childContextTypes = types;
 
-        getChildContext () {
+        getChildContext() {
             return context;
-        },
-
-        render () {
-            return <Component {...props} />;
         }
-    });
+
+        render() {
+            return <Component ref="cmp" {...this.props} />;
+        }
+    };
 };
 
 global.storeMock = {

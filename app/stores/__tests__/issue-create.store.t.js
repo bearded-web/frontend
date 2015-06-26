@@ -1,11 +1,10 @@
-'use strict';
 
 import { fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('issueCreateStore', function() {
+describe.skip('issueCreateStore', function() {
     const initialStateData = {
         loading: false,
         error: '',

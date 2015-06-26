@@ -6,7 +6,7 @@ import { HIGH, MEDIUM, LOW } from '../../lib/severities';
 import moment from 'moment';
 import { zipObject, pluck } from 'lodash';
 
-describe('issuesListStore', function() {
+describe.skip('issuesListStore', function() {
     const targetId = 'target tId';
 
     let filter = null;

@@ -2,7 +2,7 @@
  * Facebook flux dispatcher instance
  */
 import { Dispatcher } from 'flux';
-import { captureException } from 'raven-js';
+import { captureException } from './raven';
 
 const dispatcher = new Dispatcher();
 

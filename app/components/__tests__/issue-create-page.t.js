@@ -1,10 +1,8 @@
-'use strict';
-
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import { fromJS } from 'immutable';
 
-describe('IssueCreatePage', function() {
+describe.skip('IssueCreatePage', function() {
     const issue = fromJS({
         summary: 'issue summary'
     });

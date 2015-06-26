@@ -1,11 +1,9 @@
-'use strict';
-
 import { Map, fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('issuesStore', function() {
+describe.skip('issuesStore', function() {
     const id = 'some id';
     const summary = 'test semmary';
 

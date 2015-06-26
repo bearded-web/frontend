@@ -1,6 +1,6 @@
-import Router, { Route, DefaultRoute, NotFoundRoute, Redirect } from 'react-router';
+import Router, { Route, DefaultRoute, NotFoundRoute, Redirect, HashLocation } from 'react-router';
 import flux from './flux';
-import { captureException } from 'raven-js';
+import { captureException } from './lib/raven';
 
 import UserSettingsPage from './components/user-settings-page';
 import PasswordResetPage from './components/password-reset-page';
@@ -10,14 +10,13 @@ import LoginPage from './components/login-page';
 import SignupPage from './components/signup-page';
 import TargetCreatePage from './components/target-create-page';
 import IssueCreatePage from './components/issue-create-page';
-import Agents from './components/agents';
-import PlansPage from './components/plans-page';
+import AgentsPage from './components/AgentsPage';
+import PlansPage from './components/PlansPage';
 import PlanPage from './components/plan-page';
 import Dashboard from './components/dashboard';
-import ReportPage from './components/report-page';
-import Scan from './components/scan';
-import ScanReport from './components/scan-report';
-import Overview from './components/overview';
+import ReportPage from './components/ReportPage';
+import Scan from './components/NewScanPage';
+import ScanPage from './components/ScanPage';
 import NotFound from './components/not-found';
 import IssuesPage from './components/IssuesPage';
 import IssuePage from './components/issue-page';
@@ -26,6 +25,9 @@ import Target from './components/target/';
 import UsersPage from './components/UsersPage';
 import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
+import TargetTechsPage from './components/TargetTechsPage';
+import ProjectPage from './components/ProjectPage';
+import App from './components/App';
 
 let router = null;
 
@@ -37,7 +39,7 @@ module.exports.create = function buildRouter() {
     const { signup: { disable = false } } = getConfig();
 
     const routes = (
-        <Route flux={flux}>
+        <Route flux={flux} handler={App}>
             <Route name="password-reset" path="/reset" handler={PasswordResetPage}/>
             <Redirect from="/reset/" to="password-reset"/>
 
@@ -54,17 +56,20 @@ module.exports.create = function buildRouter() {
             {disable || <Redirect from="/signup/" to="signup"/>}
 
             <Route path="/" handler={Dashboard}>
-                <DefaultRoute name="overview" handler={Overview}/>
+                <DefaultRoute name="overview" handler={ProjectPage}/>
 
                 <Route name="target-create" path="target/new" handler={TargetCreatePage}/>
                 <Redirect from="target/new/" to="target-create"/>
                 <Route name="target" path="target/:targetId" handler={Target}/>
                 <Redirect from="target/" to="target"/>
 
+                <Route name="target-techs" path="target/:targetId/techs" handler={TargetTechsPage}/>
+                <Redirect from="target/:targetId/techs/" to="target-techs"/>
+
 
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
-                <Route name="scan-report" path="scan/:scanId" handler={ScanReport}/>
-                <Route name="agents" path="agents" handler={Agents}/>
+                <Route name="scan-report" path="scan/:scanId" handler={ScanPage}/>
+                <Route name="agents" path="agents" handler={AgentsPage}/>
 
                 <Route name="issues" path="issues" handler={IssuesPage}/>
                 <Redirect from="issues/" to="issues"/>
@@ -99,13 +104,12 @@ module.exports.create = function buildRouter() {
     router = Router.create({
         routes: routes,
 
+        location: HashLocation,
+
         onError(error) {
             captureException(error);
-            console.error(error);
-
             throw error;
         }
-        //location: Router.HistoryLocation
     });
 
 

@@ -8,11 +8,12 @@ import { listOf } from 'react-immutable-proptypes';
 import connectToStores from '../lib/connectToStores';
 import targetsStore from '../stores/targetsStore';
 import autobind from '../lib/autobind';
-import { Model } from '../lib/types';
+import { Model, Target } from '../lib/types';
 import { startsWith } from 'lodash';
 import { ANDROID } from '../lib/target-types';
+import { Map } from 'immutable';
 
-
+import TargetLabel from './TargetLabel';
 import { DropdownButton, MenuItem, Label } from 'react-bootstrap';
 import Fa from './fa';
 
@@ -31,7 +32,7 @@ const getState = ({ project }) => {
 export default class NavTargetSelect extends Component {
     static propTypes = {
         project: Model,
-        target: Model,
+        target: Target,
         targets: listOf(Model)
     };
     static contextTypes = {
@@ -44,7 +45,7 @@ export default class NavTargetSelect extends Component {
         const { target } = this.props;
         if (target) {
             this.context.router.transitionTo('target', {
-                targetId: target.get('id')
+                targetId: target.id
             });
         }
     }
@@ -56,13 +57,8 @@ export default class NavTargetSelect extends Component {
 
     render() {
         const { targets, target } = this.props;
-        const title = this.renderNavButton();
 
-        return <DropdownButton navItem eventKey={3} title={title}>
-            {target && <MenuItem onSelect={this.goToOverview}>
-                {iget('Overview')}
-            </MenuItem>}
-            {target && <MenuItem divider/>}
+        return <DropdownButton navItem eventKey={3} title={target ? '' : iget('Select target')}>
             {targets.toArray().map(this.renderTargetLink)}
             {targets.size ? <MenuItem divider/> : ''}
             <MenuItem onSelect={this.goToAdd}>
@@ -73,87 +69,13 @@ export default class NavTargetSelect extends Component {
 
     @autobind
     renderTargetLink(target, i) {
-        const { id } = target.toObject();
+        const { id } = target.toJS();
         const handler = () => {
             this.context.router.transitionTo('target', { targetId: id });
-
         };
 
         return <MenuItem onSelect={handler} eventKey={i} key={id}>
-            {this.renderTargetLabel(target)}
+            <TargetLabel target={target.toJS()}/>
         </MenuItem>;
     }
-
-    renderTargetLabel(t) {
-        const target = t.toJS();
-        let isHttps = false;
-
-        let title = target.type === ANDROID ?
-            target.android.name :
-            target.web.domain;
-
-        if (startsWith(title, 'http://')) {
-            title = title.slice(7);
-        }
-
-        if (startsWith(title, 'https://')) {
-            title = title.slice(8);
-            isHttps = true;
-        }
-
-        const icon = target.type === ANDROID ?
-            'android' :
-            isHttps ? 'lock' : 'globe';
-
-        return <span>
-            <Fa icon={icon}/>
-            &nbsp;
-            {title}
-            {this.renderIssuesLabel(t)}
-            &nbsp;
-        </span>;
-    }
-
-    renderIssuesLabel(t) {
-        const target = t.toJS();
-        const { issues } = target.summaryReport || { issues: {} };
-
-        let count = 0;
-        let labelStyle;
-
-        if (issues.low) {
-            count = issues.low;
-            labelStyle = 'info';
-        }
-
-        if (issues.medium) {
-            count = issues.medium;
-            labelStyle = 'warning';
-        }
-
-        if (issues.high) {
-            count = issues.high;
-            labelStyle = 'danger';
-        }
-
-        if (!count) return '';
-
-        const style = {
-            marginLeft: '0.3rem',
-            marginTop: '0.35rem'
-        };
-
-        return <Label bsStyle={labelStyle} style={style}>{count}</Label>;
-    }
-
-    renderNavButton() {
-        const { target } = this.props;
-
-        if (!target) {
-            return iget('Select target');
-        }
-
-        return this.renderTargetLabel(target);
-    }
 }
-

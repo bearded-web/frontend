@@ -1,5 +1,5 @@
 import { pluck } from 'lodash';
-import { captureException } from 'raven-js';
+import { captureException } from '../lib/raven';
 
 
 var { feed, users } = require('../lib/api3'),

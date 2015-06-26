@@ -1,11 +1,9 @@
-'use strict';
-
 import { Map, fromJS } from 'immutable';
 import { spy } from 'sinon';
 import mockery from 'mockery';
 import C from '../../constants';
 
-describe('UserSettingsForm', function() {
+describe.skip('UserSettingsForm', function() {
     let createStore = null;
     let store = null;
     let api = null;

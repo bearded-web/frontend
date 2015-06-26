@@ -2,7 +2,7 @@ import { spy } from 'sinon';
 import mockery from 'mockery';
 import { fromJS } from 'immutable';
 
-describe('Tokens', function() {
+describe.skip('Tokens', function() {
     const value = 'token value';
     const id = 'token id';
     const tokens = fromJS({
