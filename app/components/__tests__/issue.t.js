@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import mockery from 'mockery';
 
-describe('Issue', function() {
+describe.skip('Issue', function() {
     const summary = 'Some cool issue';
 
     let issue = null;

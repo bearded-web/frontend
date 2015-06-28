@@ -9,7 +9,6 @@ BIN=${MODULES}.bin/
 run:
 	@make lint
 	@make test
-	@make dist
 
 # Build production ready statics to dist/
 .PHONY: dist

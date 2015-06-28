@@ -3,10 +3,8 @@
  */
 
 import { PropTypes, Component } from 'react/addons';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { shape } from 'react-immutable-proptypes';
 import { Issue } from '../lib/types';
-import { bindAll, capitalize } from 'lodash';
+import { capitalize } from 'lodash';
 import { increaseSeverity, decreaseSeverity, toggleIssueStatus } from '../mutators/issueMutators';
 import { icons } from '../lib/issue-controls-icons';
 import { HIGH, INFO } from '../lib/severities';
@@ -27,6 +25,9 @@ const btnStyle = {
 @context({}, { increaseSeverity, decreaseSeverity, toggleIssueStatus })
 export default class IssueControls extends Component {
     static propTypes = {
+        increaseSeverity: PropTypes.func.isRequired,
+        decreaseSeverity: PropTypes.func.isRequired,
+        toggleIssueStatus: PropTypes.func.isRequired,
         issue: Issue
     };
 

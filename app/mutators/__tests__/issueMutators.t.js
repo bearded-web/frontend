@@ -7,7 +7,7 @@ import {
 } from '../issueMutators';
 import { MEDIUM, LOW, HIGH, INFO } from '../../lib/severities';
 
-describe.only('issueMutators', () => {
+describe('issueMutators', () => {
     const issueId = 'issue id';
     let tree = null;
     let api = null;

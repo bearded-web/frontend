@@ -11,7 +11,6 @@ import IssueActivities from './issue-activities';
 import References from './references';
 import { Row, Col } from 'react-bootstrap';
 import Ibox, { IboxContent, IboxTitle } from './ibox';
-import Header from './header';
 import SeverityIcon from './severity-icon';
 import IssueComments from './IssueComments';
 import Markdown from './markdown';
@@ -40,80 +39,70 @@ export default class Issue extends Component {
         const hasReferences = !!(references && references.size);
         const hasActivities = !!(activities && activities.size);
         const vectorUrl = vector && vector.get('url');
-        const headerStyle = {
-            paddingLeft: 60
-        };
         const iconStyle = {
             display: 'block',
             float: 'left',
             marginRight: '7px'
         };
 
-        if (vectorUrl) headerStyle.marginBottom = 0;
+        const title = <span>
+            <SeverityIcon
+                severity={severity}
+                size={15}
+                style={iconStyle}/>
+            {summary}
+        </span>;
 
-        return <div>
-            <Header>
-                <Col xs={12}>
-                    <h2>
-                        <SeverityIcon
-                            severity={severity}
-                            size={37}
-                            style={iconStyle}/>
+        const vectorInfo = vectorUrl ?
+            <span>{iget('Url')}: {vectorUrl}<br/><br/></span> :
+            '';
 
-                        <div style={headerStyle}>
-                            {summary}
-                            <br/>
-                            <small>{vectorUrl}</small>
-                        </div>
-                    </h2>
-                </Col>
-            </Header>
-            <Row>
-                <Col xs={12} md={8}>
-                    {desc && <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Description')}/>
-                        <IboxContent>
-                            <Markdown text={desc}/>
-                        </IboxContent>
-                    </Ibox>}
-                    {hasReferences && <Ibox style={aStyle}>
-                        <IboxTitle>
-                            {iget('References')}
-                        </IboxTitle>
-                        <IboxContent>
-                            <References references={references}/>
-                        </IboxContent>
-                    </Ibox>}
-                    {vector && <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Vector data')}/>
-                        <IboxContent>
-                            <Vector vector={vector}/>
-                        </IboxContent>
-                    </Ibox>}
+        return <Row>
+            <Col xs={12} md={8}>
+                {desc && <Ibox style={aStyle}>
+                    <IboxTitle title={title}/>
+                    <IboxContent>
+                        {vectorInfo}
+                        <Markdown text={desc}/>
+                    </IboxContent>
+                </Ibox>}
+                {hasReferences && <Ibox style={aStyle}>
+                    <IboxTitle>
+                        {iget('References')}
+                    </IboxTitle>
+                    <IboxContent>
+                        <References references={references}/>
+                    </IboxContent>
+                </Ibox>}
+                {vector && <Ibox style={aStyle}>
+                    <IboxTitle title={iget('Vector data')}/>
+                    <IboxContent>
+                        <Vector vector={vector}/>
+                    </IboxContent>
+                </Ibox>}
 
-                    <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Comments')}/>
-                        <IboxContent>
-                            <IssueComments issueId={id}/>
-                        </IboxContent>
-                    </Ibox>
-                </Col>
-                <Col xs={12} md={4}>
-                    <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Controls')}/>
-                        <IboxContent>
-                            <IssueControls issue={issue.toJS()}/>
-                        </IboxContent>
-                    </Ibox>
-                    <Ibox style={aStyle}>
-                        <IboxTitle title={iget('Activities')}/>
-                        {hasActivities && <IboxContent>
-                            <IssueActivities activities={activities}/>
-                        </IboxContent>}
-                    </Ibox>
-                </Col>
-            </Row>
-        </div>;
+                <Ibox style={aStyle}>
+                    <IboxTitle title={iget('Comments')}/>
+                    <IboxContent>
+                        <IssueComments issueId={id}/>
+                    </IboxContent>
+                </Ibox>
+            </Col>
+            <Col xs={12} md={4}>
+                <Ibox style={aStyle}>
+                    <IboxTitle title={iget('Controls')}/>
+                    <IboxContent>
+                        <IssueControls issue={issue.toJS()}/>
+                    </IboxContent>
+                </Ibox>
+                <Ibox style={aStyle}>
+                    <IboxTitle title={iget('Activities')}/>
+                    {hasActivities && <IboxContent>
+                        <IssueActivities activities={activities}/>
+                    </IboxContent>}
+                </Ibox>
+            </Col>
+        </Row>;
     }
 }
 
