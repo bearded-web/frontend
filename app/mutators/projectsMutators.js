@@ -1,7 +1,10 @@
 import { captureException } from '../lib/raven';
-import { findIndex, find, clone } from 'lodash';
+import { findIndex, find, clone, values } from 'lodash';
 
 export async function setCurrentProject({ tree, api }, projectId) {
+    if (!projectId) {
+        projectId = values(tree.select('projects').get())[0].id;
+    }
     tree.select('currentProjectId').set(projectId);
     tree.commit();
 
@@ -22,7 +25,6 @@ export async function setCurrentProject({ tree, api }, projectId) {
 
         data.results.forEach(t => usersCursor.update({ [t.id]: { $set: t } }));
         targetsData.results.forEach(t => targetsCursor.update({ [t.id]: { $set: t } }));
-
     }
     catch (e) {
         //TODO add message to user or similar

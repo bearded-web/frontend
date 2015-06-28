@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react/addons';
 import flux from '../flux';
-import { setCurrentProject } from '../actions/project.actions';
+import { setCurrentProject } from '../mutators/projectsMutators';
 import authStore from '../stores/auth.store';
 import setTitle from '../lib/set-title';
 import { RouteHandler } from 'react-router';
-import AppStore from '../stores/app.store';
-import targetsStore from '../stores/targetsStore';
 import { FluxMixin } from 'fluxxor';
 
 
@@ -14,7 +12,7 @@ import LockScreenContainer from './lock-screen-container';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import TopPanel from './TopPanel';
 
-var Dashboard = React.createClass({
+const Dashboard = React.createClass({
     mixins: [
         FluxMixin(React),
         createStoreWatchMixin('Store')
@@ -28,39 +26,10 @@ var Dashboard = React.createClass({
 
     propTypes: {
         routeQuery: PropTypes.object,
+        params: PropTypes.object,
+        query: PropTypes.object,
         app: PropTypes.object,
         targets: PropTypes.array
-    },
-
-    statics: {
-        willTransitionTo: function(transition, a, c, callback) {
-            let app = flux.store('AppStore'),
-                initInterval;
-
-            //TODO refactor
-            initInterval = setInterval(function() {
-                if (!app.inited) return;
-
-                clearInterval(initInterval);
-
-                if (!app.isLogedIn) {
-                    callback();
-                }
-                else {
-                    let interval = setInterval(function() {
-
-                        let $currentProject = flux.store('Store')
-                            .getState().currentProject;
-
-                        if ($currentProject) {
-                            setCurrentProject($currentProject.get('id'), true);
-                            clearInterval(interval);
-                            callback();
-                        }
-                    });
-                }
-            }, 30);
-        }
     },
 
     getInitialState() {
@@ -77,6 +46,21 @@ var Dashboard = React.createClass({
 
     componentDidMount() {
         authStore.onChange(this.onStoreChange);
+        const targetId = this.props.params.targetId ||
+            this.props.query.target;
+
+        if (targetId) {
+            const target = this.context.tree.get('targets', targetId);
+            if (target) {
+                if (target.project !== this.context.tree.get('currentProjectId')) {
+                    setCurrentProject({
+                        tree: this.context.tree,
+                        api: this.context.api,
+                        router: this.context.router
+                    }, target.project);
+                }
+            }
+        }
     },
 
     componentWillUnmount() {
@@ -131,7 +115,7 @@ var Dashboard = React.createClass({
                 {lock && <LockScreenContainer/>}
 
                 <div id="page-wrapper" className="page-wrapper gray-bg">
-                    <TopPanel project={appStore.currentProject} target={target}/>
+                    <TopPanel targetId={targetId}/>
 
                     <div className="page-wrapper--content container-fluid">
                         <TransitionGroup component="div" transitionName="route-transition">

@@ -4,45 +4,58 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { list } from 'react-immutable-proptypes';
-import connectToStores from '../lib/connectToStores';
-import projectsStore from '../stores/projectsStore';
 import autobind from '../lib/autobind';
-import { Model } from '../lib/types';
-import { setCurrentProject } from '../actions/project.actions';
+import { Project } from '../lib/types';
+import { values } from 'lodash';
+// import { setCurrentProject } from '../actions/project.actions';
 import { openCreateModal } from '../actions/project.actions';
+import { context } from '../lib/nf';
+import { setCurrentProject } from '../mutators/projectsMutators';
 
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { MenuItem, SplitButton } from 'react-bootstrap';
 
-const getState = () => ({ projects: projectsStore.getRawState().toList() });
+const cursors = { projects: ['projects'] };
 
-@connectToStores([projectsStore], getState)
+@context({ cursors }, { setCurrentProject })
 export default class NavProjectSelect extends Component {
     static propTypes = {
-        projects: list,
-        project: Model
+        projects: PropTypes.object,
+        setCurrentProject: PropTypes.func.isRequired,
+        project: Project
     };
     static contextTypes = {
         router: PropTypes.func.isRequired
     };
     shouldComponentUpdate = shouldComponentUpdate;
 
+    @autobind
+    goToOverview() {
+        this.context.router.transitionTo('overview');
+    }
+
     render() {
         const { projects, project } = this.props;
 
-        return <DropdownButton navItem eventKey={3} title="">
-            {projects.toArray().map(this.renderProjectLink)}
-            <MenuItem divider/>
+        return <SplitButton
+            bsStyle="default"
+            title={project.name}
+            className="btn-white navbar-btn"
+            onClick={this.goToOverview}>
+            {values(projects).map(this.renderProjectLink)}
+            <MenuItem divider />
             <MenuItem onSelect={openCreateModal}>
                 {iget('Add project')}
             </MenuItem>
-        </DropdownButton>;
+        </SplitButton>;
     }
 
     @autobind
     renderProjectLink(project, i) {
-        const { id, name } = project.toObject();
-        const handler = () => setCurrentProject(id);
+        const { id, name } = project;
+        const handler = () => {
+            this.props.setCurrentProject(id);
+            this.goToOverview();
+        };
 
         return <MenuItem onSelect={handler} eventKey={i} key={id}>
             {name}

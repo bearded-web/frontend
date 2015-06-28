@@ -114,5 +114,13 @@ describe('feedMutators', () => {
                 [type]: source.id
             });
         });
+        it('should call api without updated_gte if no items', async function() {
+            tree.select('targetsFeeds', source.id).set([]);
+            tree.commit();
+            await fetchNewFeedItems({ tree, api }, { type, source });
+            api.feed.list.should.have.been.calledWith({
+                [type]: source.id
+            });
+        });
     });
 });

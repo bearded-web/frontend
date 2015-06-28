@@ -9,17 +9,24 @@ import { Model } from '../lib/types';
 import authStore from '../stores/auth.store';
 import connectToStores from '../lib/connectToStores';
 import cName from 'classnames';
+import { create as createStyle } from 'react-style';
+import { context } from '../lib/nf';
 
 import ProfileNav from './profile-nav';
 import NavProjectSelect from './NavProjectSelect';
 import NavTargetSelect from './NavTargetSelect';
-import TargetLabel from './TargetLabel';
+
+const S = createStyle({
+    navBtn: { marginLeft: '1rem' }
+});
+const facets = { project: 'currentProject' };
 
 @connectToStores([authStore], () => ({ isAdmin: authStore.isAdmin() }))
+@context({ facets })
 export default class TopPanel extends Component {
     static propTypes = {
         isAdmin: PropTypes.bool,
-        target: PropTypes.object,
+        targetId: PropTypes.string,
         project: Model
     };
 
@@ -31,16 +38,9 @@ export default class TopPanel extends Component {
     }
 
     render() {
-        const { project, target, isAdmin } = this.props;
+        const { project, targetId, isAdmin } = this.props;
         const nBarClasses = cName('navbar-collapse', 'collapse', { in: this.state.expanded });
-        const targetLink = target ?
-            <Link
-                to="target"
-                params={{targetId: target.id}}
-                style={{paddingRight: 0}}>
-                <TargetLabel target={target}/>
-            </Link> :
-            '';
+
         return <div className="row border-bottom white-bg">
             <nav className="navbar navbar-static-top" role="navigation">
                 <div className="navbar-header">
@@ -56,10 +56,12 @@ export default class TopPanel extends Component {
                 </div>
                 <div className={nBarClasses}>
                     <ul className="nav navbar-nav">
-                        <li><Link to="overview" style={{paddingRight: 0}}>{project.get('name')}</Link></li>
-                        <NavProjectSelect project={project}/>
-                        <li>{targetLink}</li>
-                        <NavTargetSelect project={project} target={target}/>
+                        <span style={S.navBtn}>
+                            <NavProjectSelect project={project}/>
+                        </span>
+                        <span style={S.navBtn}>
+                            <NavTargetSelect project={project} targetId={targetId}/>
+                        </span>
                     </ul>
                     <ul className="nav navbar-top-links navbar-right">
                         {isAdmin && this.renderAdminLink()}

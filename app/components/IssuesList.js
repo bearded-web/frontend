@@ -72,7 +72,7 @@ export default class IssuesList extends Component {
 
     @autobind
     renderIssue(issue) {
-        const { id, summary, severity, updated } = issue.toObject();
+        const { id, summary, severity, updated, target } = issue.toObject();
         const updatedString = moment(updated).format('DD.MM.YYYY');
 
         return <tr key={id}>
@@ -81,7 +81,7 @@ export default class IssuesList extends Component {
                 <table style={S.summaryTable}>
                     <tr>
                         <td style={S.summary}>
-                            <Link to="issue" params={{issueId: id}}>
+                            <Link to="issue" params={{issueId: id}} query={{target}}>
                                 {summary}
                             </Link>
                         </td>
@@ -95,4 +95,3 @@ export default class IssuesList extends Component {
         </tr>;
     }
 }
-

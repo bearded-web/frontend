@@ -35,8 +35,8 @@ const tree = new Baobab(dataTree, { facets });
 if ('production' !== process.env.NODE_ENV) {
     window.assert = console.assert.bind(console);
     tree.on('update', function(e) {
-        console.log('[Tree update] Update log', e.data.log);
-        console.log('[Tree update] Previous data', e.data.previousData);
+        // console.log('[Tree update] Update log', e.data.log);
+        // console.log('[Tree update] Previous data', e.data.previousData);
     });
 }
 /* eslint-enable */
@@ -86,25 +86,27 @@ config.get()
 
         const plans = flux.actions.plan.fetchPlans();
         fetchPlans({ tree, api });
-        me.info()
-            .then(data => {
+
+        (async function() {
+            try {
+                const data = await me.info();
                 onStatus(401, lostAuth);
 
                 dispatch(C.APP_LIFT_SUCCESS);
                 handleMeData(data);
-                handleMe({ tree }, data);
+                await handleMe({ tree, api }, data);
 
                 fetchVulnsCompact();
                 setCurrentProject({ tree, api }, tree.select('currentProjectId').get());
-
-                return plans;
-            })
-            .then(() => startRouting())
-            .catch(() => {
+                await plans;
+                startRouting();
+            }
+            catch(e) {
                 dispatch(C.APP_LIFT_SUCCESS);
 
                 startRouting(true);
-            });
+            }
+        })();
     })
     .catch(() => {
         /* eslint-disable */

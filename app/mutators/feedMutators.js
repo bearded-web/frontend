@@ -34,19 +34,27 @@ export async function fetchMoreFeedItems({ tree, api }, { type, source }) {
 
 export async function fetchNewFeedItems({ tree, api }, { type, source }) {
     const relCursor = getRelationCursor(tree, type, source);
+    if (!relCursor.get()) {
+        //TODO add test
+        relCursor.set([]);
+        tree.commit();
+    }
+    const firstItemId = relCursor.get()[0];
+    const query = {
+        [type]: source.id
+    };
 
-    const firstUpdated = tree.select('feedItems', relCursor.get()[0]).get().updated;
+    if (firstItemId) {
+        /* eslint-disable */
+        query.updated_gte = tree.select('feedItems', firstItemId).get().updated;
+        /* eslint-enable */
+    }
     await fetch({
         tree,
         api,
         type,
         source,
-        query: {
-            [type]: source.id,
-            /* eslint-disable */
-            updated_gte: firstUpdated
-            /* eslint-enable */
-        }
+        query
     });
 }
 

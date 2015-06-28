@@ -13,9 +13,17 @@ describe('appMutators', () => {
         const tree = new Baobab(dataTree);
         const project = { id: 'project id', name: 'project name' };
         const projects = [project];
+        const target = { id: 'target id', project: project.id };
 
-        beforeEach(() => {
-            handleMeData({ tree }, { projects, user });
+        let api = null;
+
+        beforeEach(async function() {
+            api = {
+                targets: {
+                    list: spy(() => Promise.resolve({ results: [target] }))
+                }
+            };
+            await handleMeData({ tree, api }, { projects, user });
         });
 
         it('should set projects', () => {
@@ -29,6 +37,16 @@ describe('appMutators', () => {
         });
         it('should set currentUserId', () => {
            tree.select('currentUserId').get().should.be.eql(user.id);
+        });
+        it('should call targets api', () => {
+            api.targets.list.should.have.been.calledWith({
+                project_in: project.id
+            });
+        });
+        it('should populate targets', () => {
+           tree.select('targets').get().should.be.eql({
+               [target.id]: target
+           });
         });
     });
 });

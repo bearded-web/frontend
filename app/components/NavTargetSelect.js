@@ -4,36 +4,22 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { listOf } from 'react-immutable-proptypes';
-import connectToStores from '../lib/connectToStores';
-import targetsStore from '../stores/targetsStore';
 import autobind from '../lib/autobind';
-import { Model, Target } from '../lib/types';
-import { startsWith } from 'lodash';
-import { ANDROID } from '../lib/target-types';
-import { Map } from 'immutable';
+import { Project } from '../lib/types';
+import { context } from '../lib/nf';
+import { values } from 'lodash';
 
 import TargetLabel from './TargetLabel';
-import { DropdownButton, MenuItem, Label } from 'react-bootstrap';
-import Fa from './fa';
+import { DropdownButton, MenuItem, SplitButton } from 'react-bootstrap';
 
-const getState = ({ project }) => {
-    const pid = project.get('id');
+const cursors = { targets: ['targets'] };
 
-    return ({
-        targets: targetsStore
-            .getRawState()
-            .toList()
-            .filter(target => target.get('project') === pid)
-    });
-};
-
-@connectToStores([targetsStore], getState)
+@context({ cursors })
 export default class NavTargetSelect extends Component {
     static propTypes = {
-        project: Model,
-        target: Target,
-        targets: listOf(Model)
+        project: Project,
+        targetId: PropTypes.string,
+        targets: PropTypes.object.isRequired
     };
     static contextTypes = {
         router: PropTypes.func.isRequired
@@ -42,7 +28,7 @@ export default class NavTargetSelect extends Component {
 
     @autobind
     goToOverview() {
-        const { target } = this.props;
+        const target = this.getTarget();
         if (target) {
             this.context.router.transitionTo('target', {
                 targetId: target.id
@@ -56,26 +42,43 @@ export default class NavTargetSelect extends Component {
     }
 
     render() {
-        const { targets, target } = this.props;
+        const { project, targets } = this.props;
+        const target = this.getTarget();
+        let title = iget('Select target');
+        if (target) {
+            title = <TargetLabel target={target}/>;
+        }
 
-        return <DropdownButton navItem eventKey={3} title={target ? '' : iget('Select target')}>
-            {targets.toArray().map(this.renderTargetLink)}
-            {targets.size ? <MenuItem divider/> : ''}
+        const BtnComponent = target ? SplitButton : DropdownButton;
+        const projectId = project.id;
+        const list = values(targets).filter(t => t.project === projectId);
+
+        return <BtnComponent
+            bsStyle="default"
+            title={title}
+            className="btn-white"
+            onClick={this.goToOverview}>
+            {list.map(this.renderTargetLink)}
+            {list.length ? <MenuItem divider/> : ''}
             <MenuItem onSelect={this.goToAdd}>
                 {iget('Add target')}
             </MenuItem>
-        </DropdownButton>;
+        </BtnComponent>;
     }
 
     @autobind
     renderTargetLink(target, i) {
-        const { id } = target.toJS();
+        const { id } = target;
         const handler = () => {
             this.context.router.transitionTo('target', { targetId: id });
         };
 
         return <MenuItem onSelect={handler} eventKey={i} key={id}>
-            <TargetLabel target={target.toJS()}/>
+            <TargetLabel target={target}/>
         </MenuItem>;
+    }
+
+    getTarget() {
+        return this.props.targets[this.props.targetId];
     }
 }
