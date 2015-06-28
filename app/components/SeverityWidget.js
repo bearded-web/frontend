@@ -51,7 +51,7 @@ export default class SeverityWidget extends Component {
 
                 <h1>{count}</h1>
 
-                <h3 className="font-bold no-margins">
+                <h3 className="font-bold no-margins hidden-xs">
                     {severity}
                 </h3>
             </div>

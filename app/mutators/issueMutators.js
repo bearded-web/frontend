@@ -1,5 +1,6 @@
 import { captureException } from '../lib/raven';
 import { MEDIUM, LOW, HIGH, INFO } from '../lib/severities';
+import populate from '../lib/populate';
 
 export async function fetchIssue({ tree, api }, issueId) {
     try {
@@ -8,6 +9,16 @@ export async function fetchIssue({ tree, api }, issueId) {
        tree.commit();
     } catch (e) {
        captureException(e);
+    }
+}
+
+export async function fetchIssues({ tree, api }, filter) {
+    try {
+        const { results } = await api.issues.list(filter);
+        populate(tree.select('issues'), results);
+        tree.commit();
+    } catch (e) {
+        captureException(e);
     }
 }
 

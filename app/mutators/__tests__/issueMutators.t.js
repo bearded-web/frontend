@@ -1,6 +1,7 @@
 import { spy } from 'sinon';
 import {
     fetchIssue,
+    fetchIssues,
     increaseSeverity,
     decreaseSeverity,
     toggleIssueStatus
@@ -44,6 +45,23 @@ describe('issueMutators', () => {
                th();
             }
             th.should.not.have.been.called;
+        });
+    });
+
+    describe('fetchIssues', () => {
+        let filter = { project: 'project id' };
+        beforeEach(() => {
+            api.issues.list = spy(() => Promise.resolve({ results: [issue] }));
+        });
+        it('should call api', async function() {
+            await fetchIssues({ tree, api }, filter);
+            api.issues.list.should.have.been.calledWith(filter);
+        });
+        it('should populate issues', async function() {
+            tree.set('issues', {});
+            tree.commit();
+            await fetchIssues({ tree, api }, filter);
+            tree.select('issues', issue.id).get().should.be.eql(issue);
         });
     });
 

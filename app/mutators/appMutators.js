@@ -9,7 +9,9 @@ export async function handleMeData({ tree, api }, { projects, user }) {
     tree.commit();
     try {
         const { results } = await api.targets.list({
+            /* eslint-disable camelcase */
             project_in: pluck(projects, 'id').join(',')
+            /* eslint-enable camelcase */
         });
         populate(tree.select('targets'), results);
         tree.commit();

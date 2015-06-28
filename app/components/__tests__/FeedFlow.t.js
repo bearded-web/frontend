@@ -54,7 +54,7 @@ describe('FeedFlow', () => {
         instance = root.cmp.cmp;
     });
     afterEach(() => {
-        //root.dispose();
+        root.dispose();
     });
     it('should render items from targetsFeeds', () => {
         instance.items[0].getProp('item').should.be.eql(item);
@@ -69,7 +69,7 @@ describe('FeedFlow', () => {
             type={'project'}/>);
         instance = instance.cmp.cmp;
         instance.items.should.have.length(2);
-        //r.dispose();
+        r.dispose();
     });
 
     it('should should call fetchFeed when mounted', () => {

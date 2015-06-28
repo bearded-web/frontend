@@ -33,6 +33,7 @@ const tree = new Baobab(dataTree, { facets });
 
 /* eslint-disable */
 if ('production' !== process.env.NODE_ENV) {
+    window.tree = tree;
     window.assert = console.assert.bind(console);
     tree.on('update', function(e) {
         // console.log('[Tree update] Update log', e.data.log);

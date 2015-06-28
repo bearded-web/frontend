@@ -38,6 +38,13 @@ var config = {
             {
                 test: /\.js$/,
                 loaders: isProduction ? ['babel-loader?stage=0'] : ['react-hot', 'babel-loader?stage=0'],
+                include: [
+                    path.join(node_modules_dir, 'vis')
+                ]
+            },
+            {
+                test: /\.js$/,
+                loaders: isProduction ? ['babel-loader?stage=0'] : ['react-hot', 'babel-loader?stage=0'],
                 exclude: [
                     node_modules_dir
                 ]

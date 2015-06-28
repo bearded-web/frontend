@@ -1,3 +1,4 @@
+import { spy } from 'sinon';
 import testTree from 'react-test-tree';
 import Baobab from 'baobab';
 import mockery from 'mockery';
@@ -10,26 +11,46 @@ describe('ProjectPage', () => {
             user: 'member user id'
         }]
     };
+    const issue = {
+        id: 'issue id',
+        project: project.id
+    };
+    const issue2 = { id: 'issue 2 id', project: 'another project' };
+    const issues = {
+        [issue.id]: issue,
+        [issue2.id]: issue2
+    };
 
     let instance = null;
     let Component = null;
+    let fetchIssues = null;
 
     beforeEach(() => {
+        fetchIssues = spy();
         mockery.registerMock('./feed', MockComponent);
         mockery.registerAllowable('../ProjectPage', true);
         const ProjectPage = require('../ProjectPage');
         Component = stubContext(ProjectPage, {
             tree: new Baobab(dataTree, { facets }),
+            router: () => null,
             api: {}
         });
-        instance = testTree(<Component project={project}/>, {
+        instance = testTree(<Component
+            fetchIssues={fetchIssues}
+            project={project}
+            issues={issues}/>, {
             stub: {
                 cmp: { cmp: {
                     feed: <span></span>,
-                    members: <span></span>
+                    members: <span></span>,
+                    lifetime: <span></span>
                 }
             } }
         });
+    });
+
+    afterEach(() => {
+        instance.dispose();
     });
 
     it('should set title of page', () => {
@@ -62,5 +83,15 @@ describe('ProjectPage', () => {
             }
         });
         should.exist(instance.cmp.cmp.loading);
+    });
+
+    it('should pass only project issues', () => {
+        instance.cmp.cmp.lifetime.getProp('issues').should.be.eql([issue]);
+    });
+
+    it('should call fetchIssues', () => {
+        fetchIssues.should.have.been.calledWith({
+            project: project.id
+        });
     });
 });

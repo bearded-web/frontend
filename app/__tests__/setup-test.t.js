@@ -33,6 +33,9 @@ require.extensions['.png'] = function(m, filename) {
     return m._compile('1', filename);
 };
 
+require.extensions['.css'] = function(m, filename) {
+    return m._compile('2', filename);
+};
 require.extensions['.less'] = function(m, filename) {
     return m._compile('2', filename);
 };
