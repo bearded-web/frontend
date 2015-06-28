@@ -16,7 +16,7 @@ import SeverityIcon from './severity-icon';
 import IssueComments from './IssueComments';
 import Markdown from './markdown';
 import Vector from './vector';
-import IssueControls from './issue-controls';
+import IssueControls from './IssueControls';
 
 export default class Issue extends Component {
     shouldComponentUpdate = shouldComponentUpdate;
@@ -102,7 +102,7 @@ export default class Issue extends Component {
                     <Ibox style={aStyle}>
                         <IboxTitle title={iget('Controls')}/>
                         <IboxContent>
-                            <IssueControls issue={issue}/>
+                            <IssueControls issue={issue.toJS()}/>
                         </IboxContent>
                     </Ibox>
                     <Ibox style={aStyle}>

@@ -2,6 +2,9 @@ import { PropTypes } from 'react/addons';
 import { Map, OrderedMap } from 'immutable';
 import { HIGH, MEDIUM, LOW } from './severities';
 
+const str = PropTypes.string;
+const rStr = str.isRequied;
+
 /*eslint-disable*/
 export function $Model(props, propName, componentName) {
     let prop = props[propName];
@@ -53,38 +56,42 @@ export function NaturalNumberWithZero(props, propName, componentName) {
 }
 
 export const Member = PropTypes.shape({
-    user: PropTypes.string.isRequired
+    user: rStr
 });
 
 export const Project = PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    id: rStr,
+    name: rStr,
     members: PropTypes.arrayOf(Member).isRequired
 });
 
 export const Target = PropTypes.shape({
-    id: PropTypes.string.isRequired
+    id: rStr
 });
 
 export const User = PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired
+    id: rStr,
+    name: rStr,
+    avatar: rStr,
+    email: rStr
 });
 
 export const Agent = PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+    id: rStr,
+    status: rStr,
+    name: rStr
 });
 
 export const Plan = PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+    id: rStr,
+    name: rStr
 });
 
 export const FeedItem = PropTypes.shape({
-    id: PropTypes.string.isRequired
+    id: rStr
+});
+
+export const Issue = PropTypes.shape({
+    id: rStr
 });
 /*eslint-enable*/

@@ -19,7 +19,7 @@ import Scan from './components/NewScanPage';
 import ScanPage from './components/ScanPage';
 import NotFound from './components/not-found';
 import IssuesPage from './components/IssuesPage';
-import IssuePage from './components/issue-page';
+import IssuePage from './components/IssuePage';
 import ControlPanelPage from './components/ControlPanelPage';
 import Target from './components/target/';
 import UsersPage from './components/UsersPage';

@@ -14,6 +14,7 @@ export default {
     plans: {},
     scans: {},
     feedItems: {},
+    issues: {},
 
     // relation stores
     // hold relations between models

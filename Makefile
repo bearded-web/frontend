@@ -100,3 +100,10 @@ e2e-update-server:
 dev-server:
 	@echo "$(OK_COLOR)Run webpack developer server$(NO_COLOR)"
 	@${BIN}webpack-dev-server --devtool eval --progress --colors --hot --content-base build/ --inline
+
+
+# Start unit testing
+.PHONY: test-w
+test-w:
+	@echo "$(OK_COLOR)Run unit tests$(NO_COLOR)"
+	@${BIN}mocha --require pretest.js -w -R spec "app/**/*.t.js"
