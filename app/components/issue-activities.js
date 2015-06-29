@@ -8,7 +8,7 @@ import { create as createStyle } from 'react-style';
 
 import TimelineItem from './timeline-item';
 import { Link } from 'react-router';
-import Avatar from './Avatar';
+import Avatar from './avatar';
 
 const cursors = { users: ['users'] };
 const S = createStyle({
