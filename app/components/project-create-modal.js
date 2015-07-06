@@ -1,7 +1,5 @@
-'use strict';
 import React, { PropTypes, addons } from 'react/addons';
-import { Map } from 'immutable';
-import { create } from '../actions/project.actions.js';
+import { createProject } from '../mutators/projectsMutators';
 import { closeModal } from '../actions/app.actions.js';
 
 let { PureRenderMixin } = addons;
@@ -16,10 +14,16 @@ export default React.createClass({
         onRequestHide: PropTypes.func
     },
 
+    contextTypes: {
+        tree: PropTypes.object.isRequired,
+        api: PropTypes.object.isRequired
+    },
+
     onSubmit() {
         let name = this.refs.name.getValue();
+        const { tree, api } = this.context;
 
-        create(name).then(closeModal);
+        createProject({ tree, api }, name).then(closeModal);
     },
 
     render() {

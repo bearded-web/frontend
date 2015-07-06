@@ -1,5 +1,10 @@
 import { spy } from 'sinon';
-import { setCurrentProject, deleteMember, addMember } from '../projectsMutators';
+import {
+    createProject,
+    setCurrentProject,
+    deleteMember,
+    addMember
+} from '../projectsMutators';
 
 describe('projectMutators', () => {
     const projectId = 'project id';
@@ -10,6 +15,7 @@ describe('projectMutators', () => {
 
     let tree = null;
     let api = null;
+    let project = null;
 
     beforeEach(() => {
         tree = createTree();
@@ -30,6 +36,27 @@ describe('projectMutators', () => {
             },
             targets: { list: spy(() => Promise.resolve({ results: [target] })) }
         };
+    });
+
+    describe('createProject', () => {
+        const name = 'project name';
+
+        beforeEach(() => {
+            project = { name, id: projectId, members: [{
+                user: userId
+            }] };
+            api.projects.create = spy(() => Promise.resolve(project));
+            tree.select('projects', projectId).unset();
+            tree.commit();
+        });
+        it('should call api', async function() {
+            await createProject({ tree, api }, name);
+            api.projects.create.should.have.been.calledWith({ name });
+        });
+        it('should add project to tree', async function() {
+            await createProject({ tree, api }, name);
+            tree.select('projects', projectId).get().should.be.eql(project);
+        });
     });
 
     describe('setCurrentProject', () => {
@@ -68,10 +95,8 @@ describe('projectMutators', () => {
         });
 
         it('should call api', () => {
-            const list = spy();
-            const api = { users: { list } };
             setCurrentProject({ tree, api }, projectId);
-            list.should.have.been.calledWith({ id_in: userId.toString() });
+            api.users.list.should.have.been.calledWith({ id_in: userId.toString() });
         });
 
         it('should populate users', async function() {

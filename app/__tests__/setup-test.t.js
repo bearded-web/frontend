@@ -55,6 +55,8 @@ before(function() {
     global.window.localStorage = {
         getItem() {
             return null;
+        },
+        setItem() {
         }
     };
 

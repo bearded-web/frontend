@@ -26,6 +26,7 @@ describe('FeedFlow', () => {
     let router = null;
     let fetchFeed = null;
     let fetchMoreFeedItems = null;
+    let root = null;
 
     beforeEach(() => {
         mockery.registerMock('./target-scan', MockComponent);
@@ -37,10 +38,12 @@ describe('FeedFlow', () => {
         router.transitionTo = spy();
         Component = stubContext(FeedFlow, {
             tree: new Baobab(dataTree, { facets }),
-            api: {},
+            api: {
+                feed: { list: () => Promise.resolve({ results: [] }) }
+            },
             router
         });
-        instance = testTree(<Component
+        root = testTree(<Component
             fetchFeed={fetchFeed}
             feedItems={feedItems}
             projectsFeeds={projectsFeeds}
@@ -48,13 +51,16 @@ describe('FeedFlow', () => {
             targetsFeeds={targetsFeeds}
             source={target}
             type={type}/>);
-        instance = instance.cmp.cmp;
+        instance = root.cmp.cmp;
+    });
+    afterEach(() => {
+        root.dispose();
     });
     it('should render items from targetsFeeds', () => {
         instance.items[0].getProp('item').should.be.eql(item);
     });
     it('should render items from projectsFeeds', () => {
-        instance = testTree(<Component
+        let r = instance = testTree(<Component
             feedItems={feedItems}
             projectsFeeds={projectsFeeds}
             fetchFeed={fetchFeed}
@@ -63,6 +69,7 @@ describe('FeedFlow', () => {
             type={'project'}/>);
         instance = instance.cmp.cmp;
         instance.items.should.have.length(2);
+        r.dispose();
     });
 
     it('should should call fetchFeed when mounted', () => {

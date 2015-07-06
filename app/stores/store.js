@@ -191,12 +191,9 @@ export default Fluxxor.createStore({
 
     _emitChange() {
         if (!is(oldState, state)) {
-            localStorage.setItem('currentProjectId', state.get('currentProjectId'));
 
             oldState = state;
             this.emit('change');
         }
     }
 });
-
-

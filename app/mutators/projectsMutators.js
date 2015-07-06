@@ -1,5 +1,17 @@
 import { captureException } from '../lib/raven';
 import { findIndex, find, clone, values } from 'lodash';
+import localStorage from '../lib/local-storage';
+
+export async function createProject({ tree, api }, name) {
+    try {
+        const project = await api.projects.create({ name });
+        tree.select('projects').set(project.id, project);
+        tree.commit();
+        await setCurrentProject({ tree, api }, project.id);
+    } catch (e) {
+        captureException(e);
+    }
+}
 
 export async function setCurrentProject({ tree, api }, projectId) {
     if (!projectId) {
@@ -7,6 +19,7 @@ export async function setCurrentProject({ tree, api }, projectId) {
     }
     tree.select('currentProjectId').set(projectId);
     tree.commit();
+    localStorage.setItem('currentProjectId', projectId);
 
     const usersIds = tree
         .select('projects', projectId)
