@@ -1,5 +1,3 @@
-'use strict';
-
 import { setCurrentProject } from './project.actions';
 import _, { pluck, unique, find } from 'lodash';
 import { users, targets, resultExtractor } from '../lib/api3';
@@ -81,9 +79,9 @@ module.exports = {
     setCurrentTarget: function(targetId) {
         targets.get(targetId)
             .then((target) => {
-                return setCurrentProject(target.project, true).then(() => {
+                //return setCurrentProject(target.project, true).then(() => {
                     this.dispatch(C.TARGETS_SET_CURRENT, target);
-                });
+                //});
             });
     },
 
