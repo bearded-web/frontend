@@ -1,6 +1,5 @@
 import { spy, match } from 'sinon';
 import mockery from 'mockery';
-import rewire from 'rewire';
 
 describe.skip('UsersPage', () => {
     let Component = null;

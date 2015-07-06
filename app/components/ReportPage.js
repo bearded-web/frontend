@@ -21,7 +21,8 @@ export default class ReportPage extends Component {
     };
     static propTypes = {
         query: PropTypes.shape({
-            severity: PropTypes.string
+            severity: PropTypes.string,
+            scan: PropTypes.string
         }).isRequired,
         reports: PropTypes.array.isRequired, //TODO add model
         fetchScanReports: PropTypes.func.isRequired

@@ -1,9 +1,13 @@
-'use strict';
-var React = require('react');
+const React = require('react');
 
-var Fa = require('../fa');
+const Fa = require('../fa');
 
-var PanelHeader = React.createClass({
+const PanelHeader = React.createClass({
+    static: {
+        propTypes: {
+            children: React.PropTypes.node
+        }
+    },
     render: function() {
         var link = this.props.children;
 

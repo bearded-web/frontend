@@ -24,7 +24,7 @@ export default class ScanPage extends Component {
         scans: PropTypes.object.isRequired,
         plans: PropTypes.object.isRequired,
         params: PropTypes.shape({
-            scan: PropTypes.string.isRequired
+            scanId: PropTypes.string.isRequired
         }).isRequired,
         fetchScan: PropTypes.func.isRequired,
         fetchPlans: PropTypes.func.isRequired
