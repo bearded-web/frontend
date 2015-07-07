@@ -36,7 +36,7 @@ export default function invariant(condition, format, a, b, c, d, e, f) {
             );
         } else {
             const args = [a, b, c, d, e, f];
-            const argIndex = 0;
+            let argIndex = 0;
             error = new Error(
                 'Invariant Violation: ' +
                 format.replace(/%s/g, function() {
