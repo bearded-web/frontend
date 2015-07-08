@@ -29,7 +29,7 @@
     "codecov.io": "0.1.5",
     "css-loader": "0.15.1",
     "es6-promise": "2.3.0",
-    "eslint": "0.24.0",
+    "eslint": "0.24.1",
     "eslint-plugin-react": "2.6.4",
     "extract-text-webpack-plugin": "0.8.2",
     "flux": "2.0.3",

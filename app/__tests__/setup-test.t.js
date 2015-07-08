@@ -103,6 +103,20 @@ global.createTree = function createTree() {
     return new Baobab(dataTree, { facets });
 };
 
+global.buildRouterStub = stubs => assign(() => null, {
+    makePath: spy(),
+    makeHref: spy(),
+    transitionTo: spy(),
+    replaceWith: spy(),
+    goBack: spy(),
+    getCurrentPath: spy(),
+    getCurrentRoutes: spy(),
+    getCurrentPathname: spy(),
+    getCurrentParams: spy(),
+    getCurrentQuery: spy(),
+    isActive: spy()
+}, stubs || {});
+
 global.stubRouterContext = (Component, props, stubs) => {
     function RouterStub() {
     }

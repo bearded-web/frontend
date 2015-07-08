@@ -2,9 +2,9 @@
  * TechIcon
  */
 
-import { PropTypes, Component } from 'react/addons';
+import { Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { Model } from '../lib/types';
+import { Tech } from '../lib/types';
 import { create as createStyle } from 'react-style';
 
 const S = createStyle({
@@ -23,13 +23,12 @@ const S = createStyle({
 
 export default class TechIcon extends Component {
     static propTypes = {
-        tech: Model
+        tech: Tech
     };
     shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
-        const { tech } = this.props;
-        const name = tech.get('name');
+        const { name } = this.props.tech;
         let iconSrc = name.replace('!', '');
 
         try {
@@ -43,4 +42,3 @@ export default class TechIcon extends Component {
         }
     }
 }
-

@@ -33,7 +33,7 @@ export default class IssuesLifetimeGraph extends Component {
             id: issue.id,
             content: issue.summary,
             start: issue.created,
-            end: issue.resolvedAt || new Date(),
+            end: issue.resolved ? issue.resolvedAt : new Date(),
             style: `background-color: ${color(issue.severity)}`
         }));
 

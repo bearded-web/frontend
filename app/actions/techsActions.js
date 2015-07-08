@@ -5,7 +5,7 @@ import { captureException } from '../lib/raven';
 
 export async function fetchForTarget(target) {
     try {
-        const data = await techs.list({ target: target.get('id') });
+        const data = await techs.list({ target: target.id });
         dispatch(C.TECHS_FETCH_SUCCESS, data);
     }
     catch (error) {

@@ -77,7 +77,6 @@ var Target = createClass({
 
     render: function() {
         const { target, loading, isAdmin } = this.state;
-        const targetImmutable = fromJS(target);
 
         if (loading || !target) {
             return <div className="c-target">
@@ -111,7 +110,7 @@ var Target = createClass({
                         <Ibox><IboxTitle>
                             <h5>{iget('Technologies')}</h5>
                         </IboxTitle><IboxContent>
-                            <TargetTechs target={targetImmutable}/>
+                            <TargetTechs target={target}/>
                         </IboxContent></Ibox>
 
                         <Ibox><IboxTitle>

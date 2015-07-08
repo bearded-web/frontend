@@ -1,6 +1,6 @@
-import { spy } from 'sinon';
 import testTree from 'react-test-tree';
 import IssuesLifetimeGraph from '../IssuesLifetimeGraph';
+import moment from 'moment';
 
 describe('IssuesLifetimeGraph', function() {
     let Component = null;
@@ -26,11 +26,14 @@ describe('IssuesLifetimeGraph', function() {
             pItem.id.should.be.eql(issue.id);
             pItem.content.should.be.eql(issue.summary);
             pItem.start.should.be.eql(issue.created);
+            pItem.end.should.be.eql(issue.resolvedAt);
+
             issue = issues[1];
             pItem = instance.timeline.getProp('items')[1];
             pItem.id.should.be.eql(issue.id);
             pItem.content.should.be.eql(issue.summary);
             pItem.start.should.be.eql(issue.created);
+            moment(pItem.end).isSame(moment(), 'minute').should.be.true;
         });
     });
 });
@@ -45,6 +48,7 @@ function getIssues() {
       "project": "5511a2e6c168ae211e000005",
       "created": "2015-04-14T22:11:00.245+03:00",
       "updated": "2015-04-14T22:11:00.245+03:00",
+      "resolvedAt": "2015-06-14T22:11:00.245+03:00",
       "activities": [
         {
           "type": "reported",
@@ -71,7 +75,7 @@ function getIssues() {
       "confirmed": false,
       "false": false,
       "muted": false,
-      "resolved": false
+      "resolved": true
     },
     {
         "resolvedAt": "2015-06-14T22:11:00.245+03:00",

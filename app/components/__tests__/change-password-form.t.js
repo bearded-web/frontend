@@ -1,5 +1,3 @@
-'use strict';
-
 import { spy } from 'sinon';
 import mockery from 'mockery';
 

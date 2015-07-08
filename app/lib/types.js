@@ -2,6 +2,7 @@ import { PropTypes } from 'react/addons';
 import { Map, OrderedMap } from 'immutable';
 import { HIGH, MEDIUM, LOW } from './severities';
 
+const { arrayOf } = PropTypes;
 const str = PropTypes.string;
 const rStr = str.isRequied;
 
@@ -65,8 +66,18 @@ export const Project = PropTypes.shape({
     members: PropTypes.arrayOf(Member).isRequired
 });
 
-export const Target = PropTypes.shape({
+export const Tech = PropTypes.shape({
     id: rStr
+});
+
+export const Target = PropTypes.shape({
+    id: rStr,
+    name: rStr,
+    url: rStr,
+    categories: arrayOf(str),
+    target: rStr,
+    project: rStr,
+    version: rStr
 });
 
 export const User = PropTypes.shape({
