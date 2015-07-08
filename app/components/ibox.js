@@ -1,4 +1,3 @@
-'use strict';
 
 import { cloneElement, PropTypes, addons, Component } from 'react/addons';
 import Title from './ibox-title';

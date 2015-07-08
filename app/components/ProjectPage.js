@@ -26,6 +26,7 @@ const facets = {
     project: 'currentProject'
 };
 const S = createStyle({
+    noBorder: { padding: 0 },
     header: { marginBottom: 0 }
 });
 
@@ -97,7 +98,7 @@ export default class ProjectPage extends Component {
                 </IboxContent>
             </Ibox><Ibox>
                 <IboxTitle title={iget('Timeline')}/>
-                <IboxContent>
+                <IboxContent style={S.noBorder}>
                     <IssuesLifetimeGraph ref="lifetime" issues={issues}/>
                 </IboxContent>
             </Ibox></Col>

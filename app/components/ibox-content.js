@@ -1,14 +1,9 @@
-'use strict';
-
 import { PropTypes, Component } from 'react/addons';
 import classSet from 'classnames';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 export default class IboxContent extends Component {
-    constructor() {
-        super();
-        this.shouldComponentUpdate = shouldComponentUpdate;
-    }
+    shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
         const { children, noPadding, style } = this.props;

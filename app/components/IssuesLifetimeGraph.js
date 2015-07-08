@@ -40,6 +40,7 @@ export default class IssuesLifetimeGraph extends Component {
         return <Timeline
             items={items}
             maxHeight={500}
+            minHeight={200}
             onSelect={this.onSelect}
             ref="timeline"/>;
     }

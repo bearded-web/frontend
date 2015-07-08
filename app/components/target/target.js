@@ -4,6 +4,7 @@ import setTitle from '../../lib/set-title';
 import authStore from '../../stores/auth.store';
 import { fromJS } from 'immutable';
 import { FluxMixin } from 'fluxxor';
+import { create as createStyle } from 'react-style';
 
 import { Row, Col, Button } from 'react-bootstrap';
 import Router, { Link } from 'react-router';
@@ -16,6 +17,11 @@ import Fa from '../fa';
 import StartScanButton from '../start-scan-button';
 import TargetScan from '../target-scan';
 import TargetTechs from '../TargetTechs';
+import TargetIssuesLifetimeGraph from '../TargetIssuesLifetimeGraph';
+
+const S = createStyle({
+    noPadding: { padding: 0 }
+});
 
 var Target = createClass({
     mixins: [
@@ -101,26 +107,19 @@ var Target = createClass({
                                 <Col xs={4}><SeverityWidget severity="low" count={issues.low}/></Col>
                             </Link>
                         </Row>
-                        <Row>
-                            <Col xs={12}>
-                                <Ibox><IboxTitle>
-                                    <h5>{iget('Technologies')}</h5>
-                                </IboxTitle><IboxContent>
-                                    <TargetTechs target={targetImmutable}/>
-                                </IboxContent></Ibox>
-                            </Col>
-                        </Row>
-                        {isAdmin && <Row>
-                            <Col xs={12}>
-                                <Ibox><IboxTitle>
-                                    <h5>{iget('Actions')}</h5>
-                                </IboxTitle><IboxContent style={{minHeight: '100px'}}>
-                                    <Link className="btn btn-primary" to="issue-create" query={{target: target.id}}>
-                                        {iget('Add issue')}
-                                    </Link>
-                                </IboxContent></Ibox>
-                            </Col>
-                        </Row>}
+
+                        <Ibox><IboxTitle>
+                            <h5>{iget('Technologies')}</h5>
+                        </IboxTitle><IboxContent>
+                            <TargetTechs target={targetImmutable}/>
+                        </IboxContent></Ibox>
+
+                        <Ibox><IboxTitle>
+                            <h5>{iget('Issues timeline')}</h5>
+                        </IboxTitle><IboxContent style={S.noPadding}>
+                            <TargetIssuesLifetimeGraph targetId={target.id}/>
+                        </IboxContent></Ibox>
+
                         <Ibox>
                             <IboxTitle><h5>{iget('Comments')}</h5></IboxTitle>
                             <IboxContent >
@@ -129,6 +128,13 @@ var Target = createClass({
                         </Ibox>
                     </Col>
                     <Col xs={12} md={6}>
+                        {isAdmin && <Ibox><IboxTitle>
+                            <h5>{iget('Actions')}</h5>
+                        </IboxTitle><IboxContent style={{minHeight: '100px'}}>
+                            <Link className="btn btn-primary" to="issue-create" query={{target: target.id}}>
+                                {iget('Add issue')}
+                            </Link>
+                        </IboxContent></Ibox>}
                         <Ibox>
                             <IboxTitle>
                                 <h5>{iget('Target timeline')}</h5>
