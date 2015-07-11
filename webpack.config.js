@@ -87,5 +87,9 @@ if (isProduction) {
     config.output.chunkFilename = '[name].[chunkhash].bundle.js';
 }
 
+if (!isProduction) {
+    config.plugins.unshift(new require('nyan-progress-webpack-plugin')());
+}
+
 
 module.exports = config;

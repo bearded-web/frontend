@@ -6,6 +6,7 @@ import { PropTypes, Component } from 'react';
 import { Issue } from '../lib/types';
 import autobind from '../lib/autobind';
 import { color } from '../lib/severities';
+import moment from 'moment';
 
 import Timeline from './Timeline';
 
@@ -19,6 +20,21 @@ export default class IssuesLifetimeGraph extends Component {
     static defaultProps = {
         issues: []
     };
+
+    shouldComponentUpdate(nextProps) {
+        const { issues } = nextProps;
+        const oldIssues = this.props.issues;
+
+        return issues.length !== oldIssues.length ||
+            issues.some((issue, i) => {
+                const oldIssue = oldIssues[i];
+                if (issue.id !== oldIssue.id) return true;
+                if (issue.summary !== oldIssue.summary) return true;
+                if (issue.resolved !== oldIssue.resolved) return true;
+                if (!moment(issue.created).isSame(oldIssue.created)) return true;
+                if (!moment(issue.resolvedAt).isSame(oldIssue.resolvedAt)) return true;
+            });
+    }
 
     @autobind
     onSelect({ items }) {

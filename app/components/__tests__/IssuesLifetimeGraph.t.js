@@ -1,19 +1,31 @@
 import testTree from 'react-test-tree';
 import IssuesLifetimeGraph from '../IssuesLifetimeGraph';
 import moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 describe('IssuesLifetimeGraph', function() {
     let Component = null;
     let instance = null;
     let issues = null;
+    let root = null;
 
     beforeEach(function() {
         issues = getIssues();
-        Component = IssuesLifetimeGraph;
-        instance = testTree(
-            <Component issues={issues}/>
+        Component = stubContext(IssuesLifetimeGraph, {
+            router: () => null
+        });
+
+        root = testTree(
+            <Component issues={issues}/>,
+            {
+                stub: { cmp: { timeline: <MockComponent/> } }
+            }
         );
+
+        instance = root.cmp;
     });
+
+    afterEach(() => root.dispose());
 
     describe('render', function() {
         it('should add options', function() {
@@ -34,6 +46,42 @@ describe('IssuesLifetimeGraph', function() {
             pItem.content.should.be.eql(issue.summary);
             pItem.start.should.be.eql(issue.created);
             moment(pItem.end).isSame(moment(), 'minute').should.be.true;
+        });
+    });
+
+    describe('shouldComponentUpdate', () => {
+        let newProps = null;
+        beforeEach(() => {
+            newProps = {
+                issues: cloneDeep(issues)
+            };
+        })
+        it('should return false if same issue', () => {
+            instance.element.shouldComponentUpdate(newProps).should.be.false;
+        });
+        it('should return true if list changed', () => {
+            newProps.issues.pop();
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
+        });
+        it('should return true if issue order changed', () => {
+            newProps.issues.unshift(newProps.issues.pop());
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
+        });
+        it('should return true if issue summary changed', () => {
+            newProps.issues[1].summary = 'new summary value';
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
+        });
+        it('should return true if issue created changed', () => {
+            newProps.issues[1].created = moment().format();
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
+        });
+        it('should return true if issue resolvedAt changed', () => {
+            newProps.issues[1].resolvedAt = moment().format();
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
+        });
+        it('should return true if issue resolved changed', () => {
+            newProps.issues[1].resolved = !newProps.issues[1].resolved;
+            instance.element.shouldComponentUpdate(newProps).should.be.true;
         });
     });
 });
