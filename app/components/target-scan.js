@@ -5,13 +5,13 @@
 
 import { PropTypes, Component } from 'react/addons';
 import { contains } from 'lodash';
-import flux from '../../flux';
+import flux from '../flux';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
 
-import Fa from '../fa';
+import Fa from './fa';
 import { Link } from 'react-router';
-import ScanSession from '../scan-session';
+import ScanSession from './scan-session';
 import { Button } from 'react-bootstrap';
 
 export default class TargetScan extends Component {
@@ -30,7 +30,7 @@ export default class TargetScan extends Component {
     //region life cycle
 
     componentDidMount() {
-        var isEnded = this._isEnded(this.props.scan);
+        const isEnded = this._isEnded(this.props.scan);
 
         if (!isEnded) {
 
@@ -45,7 +45,7 @@ export default class TargetScan extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        var isEnded = this._isEnded(nextProps.scan);
+        const isEnded = this._isEnded(nextProps.scan);
 
         if (isEnded) {
             clearInterval(this.intervalId);
@@ -73,9 +73,8 @@ export default class TargetScan extends Component {
             { sessions } = scan,
             isEnded = this._isEnded(scan) || '';
 
-
         return (
-            <div className="c-target-scan">
+            <div>
                 <h4>
                     {scan.plan && scan.plan.name}
                 </h4>
@@ -95,13 +94,13 @@ export default class TargetScan extends Component {
             isEnded = this._isEnded(scan);
 
         if (this._isFailed(scan)) {
-            return <span className="c-target-scan--fail">
+            return <span>
                 <Fa icon="frown-o" fw size="lg"/>
                 {iget('Scan failed')}
             </span>;
         }
 
-        return <Link className="c-target-scan--btn btn btn-outline btn-primary btn-xs"
+        return <Link className="btn btn-outline btn-primary btn-xs"
                      to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
                      query={{ target: scan.target }}>
             {isEnded ? iget('Show report') : iget('Show progress')}
