@@ -32,7 +32,9 @@ export default class IssuesLifetimeGraph extends Component {
                 if (issue.summary !== oldIssue.summary) return true;
                 if (issue.resolved !== oldIssue.resolved) return true;
                 if (!moment(issue.created).isSame(oldIssue.created)) return true;
-                if (!moment(issue.resolvedAt).isSame(oldIssue.resolvedAt)) return true;
+                if (issue.resolvedAt ? !oldIssue.resolvedAt : oldIssue.resolvedAt) return true;
+                if (issue.resolvedAt && oldIssue.resolvedAt &&
+                    !moment(issue.resolvedAt).isSame(oldIssue.resolvedAt)) return true;
             });
     }
 

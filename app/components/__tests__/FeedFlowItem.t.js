@@ -52,10 +52,6 @@ describe('FeedFlowItem', () => {
 
     afterEach(() => root.dispose());
 
-    // it('should render feed-item with item + owner inside', () => {
-    //     instance.item.getProp('item').owner.should.be.eql(user);
-    // });
-
     it('should render avatar if owner is present', () => {
         instance.avatar.getProp('avatar').should.be.eql(user.avatar);
     });
@@ -112,6 +108,14 @@ describe('FeedFlowItem', () => {
             };
             const r = buildInstance();
             r.cmp.cmp.summary.innerText.should.contain('144121');
+            r.dispose();
+        });
+        it('should not render summary if summary is empty', () => {
+            item.summaryReport = {
+                issues: {}
+            };
+            const r = buildInstance();
+            should.not.exist(r.cmp.cmp.summary);
             r.dispose();
         });
     });

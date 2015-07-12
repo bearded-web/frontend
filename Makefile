@@ -61,7 +61,7 @@ coverage:
 .PHONY: travis-build
 travis-build:
 	@echo "$(OK_COLOR)Run travis build$(NO_COLOR)"
-	make lint
+	@make lint
 	@echo "$(OK_COLOR)Run tests + coverage$(NO_COLOR)"
 	(cd app && ../node_modules/babel-istanbul/lib/cli.js --include-all-sources --babel-stage=0 cover\
 	 ../node_modules/mocha/bin/_mocha --report lcovonly -- --require ../pretest.js -t 15000 -R spec "./**/*.t.js")

@@ -53,7 +53,7 @@ describe('IssuesLifetimeGraph', function() {
         let newProps = null;
         beforeEach(() => {
             newProps = {
-                issues: cloneDeep(issues)
+                issues: getIssues()
             };
         });
         it('should return false if same issue', () => {

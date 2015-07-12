@@ -41,6 +41,8 @@ export default class FeedFlowItem extends Component {
         const owner = users[item.owner];
         const { scan, created, techs, summaryReport } = item;
         const date = moment(created).calendar();
+        const showSummary = summaryReport &&
+            Object.keys(summaryReport.issues || {}).length > 0;
 
         return <div className="feed-element">
             <a href="#" className="pull-left">
@@ -52,7 +54,7 @@ export default class FeedFlowItem extends Component {
 
                 {scan && <TargetScan ref="scan" scan={scan}/>}
                 {techs && this.renderTechs(techs)}
-                {summaryReport && this.renderSummary(summaryReport)}
+                {showSummary && this.renderSummary(summaryReport.issues)}
             </div>
         </div>;
     }
@@ -83,8 +85,7 @@ export default class FeedFlowItem extends Component {
         </div>;
     }
 
-    renderSummary(summary) {
-        const { issues } = summary;
+    renderSummary(issues) {
         return <div style={S.summary}>
             <h5>{iget('Founded issues')}</h5>
             <ul ref="summary" style={S.sList}>
