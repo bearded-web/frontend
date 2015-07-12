@@ -58,16 +58,6 @@ module.exports = {
             });
     },
 
-    removeTarget: function(target) {
-        this.dispatch(C.REMOVE_TARGET_START);
-
-        targets.delete(target.id)
-            .then(() => {
-                router.get().transitionTo('/');
-                nextTick(() => this.dispatch(C.REMOVE_TARGET_SUCCESS, target.id));
-            });
-    },
-
     openAddTargetModal: function() {
         this.dispatch(C.SHOW_TARGET_MODAL);
     },

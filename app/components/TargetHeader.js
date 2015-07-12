@@ -1,10 +1,15 @@
-import { Component, PropTypes } from 'react';
-import { ANDROID } from '../lib/target-types';
-import flux from'../flux';
-import autobind from '../lib/autobind';
-import { create as createStyle } from 'react-style';
+/**
+ * TargetHeader
+ */
 
-import { Col, Well, Row } from 'react-bootstrap';
+import { PropTypes, Component } from 'react';
+import { ANDROID } from '../lib/target-types';
+import { create as createStyle } from 'react-style';
+import { Target } from '../lib/types';
+import { deleteTarget } from '../mutators/targetMutators';
+import { context } from '../lib/nf';
+
+import { Row, Col, Well } from 'react-bootstrap';
 import { Link } from 'react-router';
 import Fa from './fa';
 
@@ -12,14 +17,15 @@ const S = createStyle({
     h: { marginBottom: 0 }
 });
 
+@context({}, { deleteTarget })
 export default class TargetHeader extends Component {
     static propTypes = {
-        target: PropTypes.object.isRequired
+        deleteTarget: PropTypes.func.isRequired,
+        target: Target
     };
 
-    @autobind
-    removeTarget() {
-        flux.actions.target.removeTarget(this.props.target);
+    removeTarget = () => {
+        this.props.deleteTarget(this.props.target.id);
     }
 
     render() {
@@ -48,12 +54,14 @@ export default class TargetHeader extends Component {
                         Create scan
                     </Link>
                     <span>&nbsp;</span>
-                    <a onClick={this.removeTarget} className="btn btn-danger btn-xs">
+                    <a ref="delete"
+                        onClick={this.removeTarget}
+                        className="btn btn-danger btn-xs">
                         <Fa icon="remove" fw/>
                         Delete
                     </a>
                 </small>
-                <h3 style={S.h}>
+                <h3 ref="title" style={S.h}>
                     {title}
                 </h3>
             </Well>

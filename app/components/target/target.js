@@ -11,7 +11,7 @@ import Router, { Link } from 'react-router';
 import Ibox, { IboxContent, IboxTitle } from '../ibox';
 import TargetComments from '../TargetComments';
 import SeverityWidget from '../SeverityWidget';
-import TargetHeader from '../target-header';
+import TargetHeader from '../TargetHeader';
 import Feed from '../FeedFlow';
 import Fa from '../fa';
 import StartScanButton from '../start-scan-button';

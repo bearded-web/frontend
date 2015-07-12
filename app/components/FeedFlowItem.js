@@ -91,7 +91,7 @@ export default class FeedFlowItem extends Component {
             <ul ref="summary" style={S.sList}>
                 {[HIGH, MEDIUM, LOW, INFO]
                     .filter(s => issues[s])
-                    .map(s => <li>{iget(s)} – {issues[s]}</li>)}
+                    .map(s => <li key={s}>{iget(s)} – {issues[s]}</li>)}
             </ul>
         </div>;
     }
