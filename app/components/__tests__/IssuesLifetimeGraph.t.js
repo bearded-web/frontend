@@ -55,7 +55,7 @@ describe('IssuesLifetimeGraph', function() {
             newProps = {
                 issues: cloneDeep(issues)
             };
-        })
+        });
         it('should return false if same issue', () => {
             instance.element.shouldComponentUpdate(newProps).should.be.false;
         });

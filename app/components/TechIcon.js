@@ -2,7 +2,7 @@
  * TechIcon
  */
 
-import { Component } from 'react/addons';
+import { Component, PropTypes } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Tech } from '../lib/types';
 import { create as createStyle } from 'react-style';
@@ -23,22 +23,24 @@ const S = createStyle({
 
 export default class TechIcon extends Component {
     static propTypes = {
+        style: PropTypes.object,
         tech: Tech
     };
     shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
-        const { name } = this.props.tech;
+        const { style, tech } = this.props;
+        const { name } = tech;
         let iconSrc = name.replace('!', '');
 
         try {
             iconSrc = require(`../styles/techIcons/${iconSrc}.png`);
-            return <img src={iconSrc} alt={name}/>;
+            return <img src={iconSrc} alt={name} style={style}/>;
         }
         catch (e) {
             // when not found
             const letter = name.slice(0, 1).toUpperCase();
-            return <span style={S.noIcon}>{letter}</span>;
+            return <span styles={[S.noIcon, style]}>{letter}</span>;
         }
     }
 }

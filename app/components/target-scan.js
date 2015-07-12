@@ -8,11 +8,16 @@ import { contains } from 'lodash';
 import flux from '../flux';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { bindAll } from 'lodash';
+import { create as createStyle } from 'react-style';
 
 import Fa from './fa';
 import { Link } from 'react-router';
 import ScanSession from './scan-session';
 import { Button } from 'react-bootstrap';
+
+const S = createStyle({
+    actions: { marginLeft: '1.9rem' }
+});
 
 export default class TargetScan extends Component {
     constructor() {
@@ -83,8 +88,10 @@ export default class TargetScan extends Component {
                         <ScanSession key={session.id} session={session}/>
                     );
                 })}
-                {this.renderLink()}
-                {isEnded && this.renderRepeatBtn()}
+                <div style={S.actions}>
+                    {this.renderLink()}
+                    {isEnded && this.renderRepeatBtn()}
+                </div>
             </div>
         );
     }

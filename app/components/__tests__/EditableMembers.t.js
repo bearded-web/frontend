@@ -14,6 +14,7 @@ describe('EditableMembers', () => {
 
     beforeEach(() => {
         Component = stubContext(EditableMembers, {
+            router: () => null,
             tree: new Baobab(dataTree, { facets }),
             api: {}
         });
