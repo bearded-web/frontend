@@ -3,35 +3,40 @@
  */
 
 import { PropTypes, Component } from 'react/addons';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { RouteHandler } from 'react-router';
+import purify from '../lib/purify';
+import { startCase } from 'lodash';
 
 import { Link } from 'react-router';
 
+@purify
 export default class ControlPanelPage extends Component {
+    static contextTypes = {
+        router: PropTypes.func.isRequired
+    };
     static propTypes = {};
-    shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
+
         return <div>
             <br/>
-            <ul className="nav nav-pills">
-                <li role="presentation">
-                    <Link to="agents">
-                        {iget('Agents')}
-                    </Link>
-                </li>
-                <li role="presentation">
-                    <Link to="plans">
-                        {iget('Plans')}
-                    </Link>
-                </li>
-                <li role="presentation">
-                    <Link to="users">
-                        {iget('Users')}
-                    </Link>
-                </li>
-            </ul>
+            {this.renderBreadcrumps()}
+            <br/>
+            <RouteHandler {...this.props}/>
         </div>;
     }
-}
 
+    renderBreadcrumps() {
+        const routes = this.context.router
+            .getCurrentRoutes()
+
+            .map(r => r.name)
+            .filter(n => n && n !== 'overview');
+
+        return <ol className="breadcrumb">
+            {routes.map(r => <li>
+                <Link to={r}>{startCase(r)}</Link>
+            </li>)}
+        </ol>;
+    }
+}

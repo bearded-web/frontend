@@ -65,12 +65,6 @@ export default class UsersPage extends Component {
         const pageNum = parseInt(page, 10) || 1;
 
         return <Row>
-            <Col xs={12}>
-                <Breadcrumb>
-                    <Link to="control-panel">{iget('Control panel')}</Link>
-                    <Link to="users">{iget('Users')}</Link>
-                </Breadcrumb>
-            </Col>
             <Col xs={12} sm={4}>
                 <Ibox>
                     <IboxTitle title={iget('Add user')}/>
@@ -88,4 +82,3 @@ export default class UsersPage extends Component {
         </Row>;
     }
 }
-

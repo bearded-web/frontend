@@ -1,6 +1,8 @@
 import localStorage from '../lib/local-storage';
 import { values } from 'lodash';
 
+const PAGE_SIZE = 10;
+
 export default {
     // models stores
     // hold all entities by [id]:entity
@@ -29,10 +31,21 @@ export default {
     currentProjectId: localStorage.getItem('currentProjectId'),
 
     // pages
+    projectsPage: {
+        list: [],
+        count: 0,
+        pageSize: PAGE_SIZE
+    },
+    targetsPage: {
+        list: [],
+        count: 0,
+        pageSize: PAGE_SIZE
+    },
+
     targetTechsPage: {
         list: [],
         count: 0,
-        pageSize: 16,
+        pageSize: PAGE_SIZE,
         targetId: null
     },
 
@@ -66,7 +79,7 @@ export const facets = {
             id: ['currentProjectId'],
             projects: ['projects']
         },
-        get: data => data.projects[data.id]
+        get: data => data.projects[data.id] || values(data.projects)[0]
     },
 
     userPickerUsers: {

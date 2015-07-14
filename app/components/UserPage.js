@@ -51,18 +51,7 @@ export default class UserPage extends Component {
 
         const email = user.get('email');
 
-        return <Row>
-            <Col xs={12}>
-                <Breadcrumb>
-                    <Link to="control-panel">{iget('Control panel')}</Link>
-                    <Link to="users">{iget('Users')}</Link>
-                    <Link to="user" params={{ userId }}>{email}</Link>
-                </Breadcrumb>
-            </Col>
-            <Col xs={12} sm={4}>
-                <UserCard user={user}/>
-            </Col>
-        </Row>;
+        return <UserCard user={user}/>;
     }
 
     getUserId() {

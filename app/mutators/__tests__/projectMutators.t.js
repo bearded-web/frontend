@@ -3,7 +3,8 @@ import {
     createProject,
     setCurrentProject,
     deleteMember,
-    addMember
+    addMember,
+    fetchProjectsPage
 } from '../projectsMutators';
 
 describe('projectMutators', () => {
@@ -18,6 +19,10 @@ describe('projectMutators', () => {
     let project = null;
 
     beforeEach(() => {
+        project = {
+            id: projectId,
+            name: 'project name'
+        };
         tree = createTree();
 
         tree.select('projects').set(projectId, {
@@ -178,6 +183,51 @@ describe('projectMutators', () => {
             api.projects.membersCreate = spy(() => Promise.reject());
             await addMember({ tree, api }, projectId, userId);
             members.get().should.be.empty;
+        });
+    });
+
+    describe('fetchProjectsPage', () => {
+        let pPageCursor = null;
+        beforeEach(() => {
+            pPageCursor = tree.select('projectsPage');
+            const projects = [project];
+            tree.set('projects', {});
+            tree.commit();
+            api.projects.list = spy(() => Promise.resolve({
+                count: projects.length,
+                results: projects
+            }));
+        });
+        it('should call api', async function() {
+            const c = tree.select('projectsPage');
+            await fetchProjectsPage({ tree, api });
+            api.projects.list.should.have.been.calledWith({
+                limit: c.get('pageSize'),
+                skip: 0
+            });
+        });
+        it('should call api with skip', async function() {
+            const page = 3;
+            const c = tree.select('projectsPage');
+            await fetchProjectsPage({ tree, api }, page);
+            api.projects.list.should.have.been.calledWith({
+                limit: c.get('pageSize'),
+                skip: c.get('pageSize') * (page - 1)
+            });
+        });
+        it('should populate projects', async function() {
+            await fetchProjectsPage({ tree, api });
+            tree.select('projects').get().should.be.eql({
+                [projectId]: project
+            });
+        });
+        it('should populate list', async function() {
+            await fetchProjectsPage({ tree, api });
+            pPageCursor.get('list').should.be.eql([projectId]);
+        });
+        it('should populate count', async function() {
+            await fetchProjectsPage({ tree, api });
+            pPageCursor.get('count').should.be.eql(1);
         });
     });
 });

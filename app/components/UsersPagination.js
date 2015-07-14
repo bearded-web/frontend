@@ -1,7 +1,7 @@
 /**
  * IssuesPagination connect to issuesListStore and render pagination
  */
-
+//TODO replace with RoutedPagination
 import { PropTypes, Component } from 'react/addons';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import connectToStores from '../lib/connectToStores';
@@ -46,4 +46,3 @@ export default class IssuesPagination extends Component {
             page={page}/>;
     }
 }
-

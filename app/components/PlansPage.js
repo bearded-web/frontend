@@ -49,7 +49,6 @@ export default class PlansPage extends Component {
         const isAdmin = currentUser && currentUser.admin;
 
         return <Row>
-            <br/>
             <Col xs={12}><Well bsSize="small"><Row>
                 <Col xs={12} md={4}>
                     <input

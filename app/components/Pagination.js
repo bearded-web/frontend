@@ -34,7 +34,7 @@ export default class Pagination extends Component {
     shouldComponentUpdate = shouldComponentUpdate;
 
     render() {
-        const { count, pageSize, page, maxLinks } = this.props;
+        const { count, pageSize, page, maxLinks, ...restProps } = this.props;
         const maxPages = pageSize ? Math.ceil(count / pageSize) : 1;
 
         let first = Math.ceil(page - maxLinks / 2);
@@ -78,7 +78,7 @@ export default class Pagination extends Component {
             </li>);
         }
 
-        return <nav>
+        return <nav {...restProps}>
             <ul refCollection="links"
                 style={S.ul}
                 className="pagination">

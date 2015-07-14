@@ -30,7 +30,6 @@ export default class AgentsPage extends Component {
         const { agents } = this.props;
 
         return <Row>
-            <br/>
             <Col xs={12}>
                 <Table striped bordered condensed hover>
                     <thead>

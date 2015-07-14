@@ -1,6 +1,24 @@
 import { captureException } from '../lib/raven';
-import { findIndex, find, clone, values } from 'lodash';
+import { findIndex, find, clone, values, pluck } from 'lodash';
 import localStorage from '../lib/local-storage';
+import populate from '../lib/populate';
+
+export async function fetchProjectsPage({ tree, api }, page = 1) {
+    const pCursor = tree.select('projectsPage');
+    const pageSize = pCursor.get('pageSize');
+    try {
+        const { results, count } = await api.projects.list({
+            skip: pageSize * (page - 1),
+            limit: pageSize
+        });
+        populate(tree.select('projects'), results);
+        pCursor.set('list', pluck(results, 'id'));
+        pCursor.set('count', count);
+        tree.commit();
+    } catch (e) {
+        captureException(e);
+    }
+}
 
 export async function createProject({ tree, api }, name) {
     try {

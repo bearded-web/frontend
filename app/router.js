@@ -27,6 +27,9 @@ import UserPage from './components/UserPage';
 import { get as getConfig } from './lib/config';
 import TargetTechsPage from './components/TargetTechsPage';
 import ProjectPage from './components/ProjectPage';
+import ProjectsPage from './components/ProjectsPage';
+import SystemOverview from './components/SystemOverview';
+import TargetsPage from './components/TargetsPage';
 import App from './components/App';
 
 let router = null;
@@ -55,8 +58,7 @@ module.exports.create = function buildRouter() {
             {disable || <Route name="signup" path="/signup" handler={SignupPage}/>}
             {disable || <Redirect from="/signup/" to="signup"/>}
 
-            <Route path="/" handler={Dashboard}>
-                <DefaultRoute name="overview" handler={ProjectPage}/>
+            <Route name="overview" path="/" handler={Dashboard}>
 
                 <Route name="target-create" path="target/new" handler={TargetCreatePage}/>
                 <Redirect from="target/new/" to="target-create"/>
@@ -69,7 +71,7 @@ module.exports.create = function buildRouter() {
 
                 <Route name="new-scan" path="target/:targetId/newScan" handler={Scan}/>
                 <Route name="scan-report" path="scan/:scanId" handler={ScanPage}/>
-                <Route name="agents" path="agents" handler={AgentsPage}/>
+
 
                 <Route name="issues" path="issues" handler={IssuesPage}/>
                 <Redirect from="issues/" to="issues"/>
@@ -81,20 +83,32 @@ module.exports.create = function buildRouter() {
                 <Route name="user-settings" path="settings" handler={UserSettingsPage}/>
                 <Redirect from="settings/" to="user-settings"/>
 
-                <Route name="control-panel" path="control-panel" handler={ControlPanelPage}/>
+                <Route name="control-panel" path="c" handler={ControlPanelPage}>
+                    <Route name="users" path="users" handler={UsersPage}/>
+                    <Redirect from="users/" to="users"/>
+                    <Route name="user" path="users/:userId" handler={UserPage}/>
+                    <Redirect from="users/:userId/" to="user"/>
+
+                    <Route name="plans" path="plans" handler={PlansPage}/>
+                    <Redirect from="plans/" to="plans"/>
+                    <Route name="plan" path="plans/:planId" handler={PlanPage}/>
+                    <Redirect from="plans/:planId/" to="plan"/>
+
+                    <Route name="agents" path="agents" handler={AgentsPage}/>
+                    <Redirect from="agents/" to="agents"/>
+
+                    <Route name="projects" path="projects" handler={ProjectsPage}/>
+                    <Redirect from="projects/" to="projects"/>
+
+                    <Route name="targets" path="targets" handler={TargetsPage}/>
+                    <Redirect from="targets/" to="targets"/>
+
+                    <DefaultRoute handler={SystemOverview}/>
+                </Route>
                 <Redirect from="control-panel/" to="control-panel"/>
 
-                <Route name="users" path="users" handler={UsersPage}/>
-                <Redirect from="users/" to="users"/>
-                <Route name="user" path="users/:userId" handler={UserPage}/>
-                <Redirect from="users/:userId/" to="user"/>
-
-                <Route name="plans" path="plans" handler={PlansPage}/>
-                <Redirect from="plans/" to="plans"/>
-                <Route name="plan" path="plans/:planId" handler={PlanPage}/>
-                <Redirect from="plans/:planId/" to="plan"/>
-
                 <Route name="report" path="report" handler={ReportPage}/>
+                <DefaultRoute handler={ProjectPage}/>
             </Route>
 
             <NotFoundRoute handler={NotFound}/>
