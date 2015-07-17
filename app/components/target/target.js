@@ -83,7 +83,7 @@ var Target = createClass({
                 <Row>
                     <Col xs={12}>
                         <h1 className="text-center">
-                            {loading ? ('Loading') : iget('No target Found')}
+                            {loading ? 'Loading' : iget('No target Found')}
                         </h1>
                     </Col>
                 </Row>
