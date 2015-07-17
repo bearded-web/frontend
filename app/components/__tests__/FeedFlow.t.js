@@ -36,13 +36,17 @@ describe('FeedFlow', () => {
         fetchFeed = spy();
         router = () => ({});
         router.transitionTo = spy();
+        const tree = createTree();
+        tree.select('targetsFeedsCounts', target.id).set(111);
+        tree.commit();
         Component = stubContext(FeedFlow, {
-            tree: new Baobab(dataTree, { facets }),
+            tree,
             api: {
                 feed: { list: () => Promise.resolve({ results: [] }) }
             },
             router
         });
+
         root = testTree(<Component
             fetchFeed={fetchFeed}
             feedItems={feedItems}

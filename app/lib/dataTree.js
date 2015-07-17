@@ -26,6 +26,11 @@ export default {
     targetsFeeds: {},
     projectsFeeds: {},
 
+    // total feed items for source
+    // targetFeedsCounts{ taretId: 5 }
+    targetsFeedsCounts: {},
+    projectsFeedsCounts: {},
+
     // global data
     currentUserId: null,
     currentProjectId: localStorage.getItem('currentProjectId'),

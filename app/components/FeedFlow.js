@@ -7,10 +7,13 @@ import autobind from '../lib/autobind';
 import FeedItem from './FeedFlowItem';
 import { Button } from 'react-bootstrap';
 
+//TODO change to func form props
 const cursors = {
     feedItems: ['feedItems'],
     projectsFeeds: ['projectsFeeds'],
-    targetsFeeds: ['targetsFeeds']
+    targetsFeeds: ['targetsFeeds'],
+    targetsFeedsCounts: ['targetsFeedsCounts'],
+    projectsFeedsCounts: ['projectsFeedsCounts']
 };
 
 @context({ cursors }, { fetchFeed, fetchMoreFeedItems, fetchNewFeedItems })
@@ -21,6 +24,8 @@ export default class FeedFlow extends Component {
         feedItems: PropTypes.object.isRequired,
         projectsFeeds: PropTypes.object.isRequired,
         targetsFeeds: PropTypes.object.isRequired,
+        projectsFeedsCounts: PropTypes.object.isRequired,
+        targetsFeedsCounts: PropTypes.object.isRequired,
         fetchFeed: PropTypes.func.isRequired,
         fetchNewFeedItems: PropTypes.func.isRequired,
         fetchMoreFeedItems: PropTypes.func.isRequired
@@ -56,20 +61,24 @@ export default class FeedFlow extends Component {
             feedItems,
             projectsFeeds,
             targetsFeeds,
+            targetsFeedsCounts,
+            projectsFeedsCounts,
             source: { id }
         } = this.props;
         const store = type === 'project' ? projectsFeeds : targetsFeeds;
         const ids = store[id];
         const items = ids ? ids.map(i => feedItems[i]) : [];
+        const count = (type === 'project' ? projectsFeedsCounts : targetsFeedsCounts)[id];
+        const showBtn = count > items.length;
 
         return <div>
             <div refCollection="items">
                 {items.map(this.renderItem)}
             </div>
 
-            <Button ref="more" block bsStyle="success" onClick={this.showMore}>
+            {showBtn && <Button ref="more" block bsStyle="success" onClick={this.showMore}>
                 {iget('Show more items')}
-            </Button>
+            </Button>}
         </div>;
     }
 

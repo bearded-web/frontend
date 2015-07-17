@@ -62,8 +62,10 @@ async function fetch({ tree, api, query, type, source }) {
     const relCursor = getRelationCursor(tree, type, source);
 
     try {
-        const { results } = await api.feed.list(query);
+        const { results, count } = await api.feed.list(query);
         populateItems({ tree }, results, relCursor);
+        getCountsCursor(tree, type, source).set(count);
+        tree.commit();
         await populateOwners({ tree, api }, results);
         tree.commit();
     } catch (e) {
@@ -74,6 +76,10 @@ async function fetch({ tree, api, query, type, source }) {
 function getRelationCursor(tree, type, source) {
     return tree
         .select(type === 'project' ? 'projectsFeeds' : 'targetsFeeds', source.id);
+}
+function getCountsCursor(tree, type, source) {
+    return tree
+        .select(type === 'project' ? 'projectsFeedsCounts' : 'targetsFeedsCounts', source.id);
 }
 function populateItems({ tree }, items, relationCursor) {
     const cursor = tree.select('feedItems');
