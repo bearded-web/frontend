@@ -5,7 +5,6 @@
 import { PropTypes, Component } from 'react/addons';
 import { context } from '../lib/nf';
 import setTitle from '../lib/set-title';
-import autobind from '../lib/autobind';
 import { fetchAgents, approveAgent } from '../mutators/agentMutators';
 import { Agent } from '../lib/types';
 
@@ -49,8 +48,7 @@ export default class AgentsPage extends Component {
         </Row>;
     }
 
-    @autobind
-    renderRow(agent, i) {
+    renderRow = (agent, i) => {
         let buttons;
 
         if (agent.status === 'registered') {
@@ -63,7 +61,7 @@ export default class AgentsPage extends Component {
             </Button>;
         }
 
-        return <tr className="c-agent-tr">
+        return <tr className="c-agent-tr" key={agent.id}>
             <td>{i + 1}</td>
             <td>{agent.name}</td>
             <td>{agent.type}</td>

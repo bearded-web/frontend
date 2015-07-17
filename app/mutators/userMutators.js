@@ -5,6 +5,20 @@
 
 import { captureException } from '../lib/raven';
 import wait from '../lib/wait';
+import populate from '../lib/populate';
+
+export async function fetchRecentUsers({ tree, api }) {
+    try {
+        const { results } = await api.users.list({
+            limit: 5,
+            sort: '-created'
+        });
+        populate(tree.select('users'), results);
+        tree.commit();
+    } catch (e) {
+        captureException();
+    }
+}
 
 export async function setPickerValue({ tree, api }, email) {
     const picker = tree.select('userPicker');

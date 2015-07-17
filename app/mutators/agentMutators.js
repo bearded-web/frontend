@@ -14,7 +14,6 @@ export async function fetchAgents({ tree, api }) {
 }
 
 export async function approveAgent({ tree, api }, agentId) {
-
     try {
         const agent = await api.agents.approve({
             'agent-id': agentId,

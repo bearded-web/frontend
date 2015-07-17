@@ -3,6 +3,19 @@ import { findIndex, find, clone, values, pluck } from 'lodash';
 import localStorage from '../lib/local-storage';
 import populate from '../lib/populate';
 
+export async function fetchRecentProjects({ tree, api }) {
+    try {
+        const { results } = await api.projects.list({
+            limit: 10,
+            sort: '-created'
+        });
+        populate(tree.select('projects'), results);
+        tree.commit();
+    } catch (e) {
+        captureException();
+    }
+}
+
 export async function fetchProjectsPage({ tree, api }, page = 1) {
     const pCursor = tree.select('projectsPage');
     const pageSize = pCursor.get('pageSize');
