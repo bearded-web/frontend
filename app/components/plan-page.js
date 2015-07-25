@@ -1,5 +1,3 @@
-'use strict';
-
 import { PropTypes, addons, Component } from 'react/addons';
 import { startPlanEdit } from '../actions/plan.actions';
 import { bindAll } from 'lodash';

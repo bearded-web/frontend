@@ -113,5 +113,3 @@ export default class Plans extends Component {
         return name.indexOf(search) > -1 || desc.indexOf(search) > -1;
     }
 }
-
-

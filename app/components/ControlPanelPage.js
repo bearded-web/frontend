@@ -14,7 +14,10 @@ export default class ControlPanelPage extends Component {
     static contextTypes = {
         router: PropTypes.func.isRequired
     };
-    static propTypes = {};
+    static propTypes = {
+        params: PropTypes.object,
+        query: PropTypes.object
+    };
 
     render() {
 
@@ -27,6 +30,7 @@ export default class ControlPanelPage extends Component {
     }
 
     renderBreadcrumps() {
+        const { params, query } = this.props;
         const routes = this.context.router
             .getCurrentRoutes()
 
@@ -35,7 +39,7 @@ export default class ControlPanelPage extends Component {
 
         return <ol className="breadcrumb">
             {routes.map(r => <li>
-                <Link to={r}>{startCase(r)}</Link>
+                <Link to={r} params={params} query={query}>{startCase(r)}</Link>
             </li>)}
         </ol>;
     }
