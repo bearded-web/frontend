@@ -109,7 +109,7 @@ export default class TargetScan extends Component {
 
         return <Link className="btn btn-outline btn-primary btn-xs"
                      to={isEnded ? 'report' : 'scan-report'} params={{ scanId: scan.id }}
-                     query={{ target: scan.target }}>
+                     query={{ target: scan.target, scan: scan.id }}>
             {isEnded ? iget('Show report') : iget('Show progress')}
         </Link>;
     }
