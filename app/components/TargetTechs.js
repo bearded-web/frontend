@@ -62,8 +62,9 @@ export default class TargetTechs extends Component {
     }
 
     render() {
+        const { target } = this.props;
         const techs = groupBy(
-            values(this.props.techs),
+            values(this.props.techs).filter(t => t.target === target.id),
             t => t.status);
 
         return <div>
